@@ -1,3 +1,8 @@
 export { Button } from "./button"
 export { buttonVariants } from "./button-variants"
 export type { ButtonProps } from "./button"
+export { Input } from "./input"
+export { Label } from "./label"
+export { CustomInput } from "./custom-input"
+export { Checkbox } from "./checkbox"
+export { CustomCheckbox } from "./custom-checkbox"
