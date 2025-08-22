@@ -7,14 +7,20 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "ng": "node scripts/dev-ngrok.js"
   },
   "dependencies": {
+    "@fontsource/plus-jakarta-sans": "^5.2.6",
+    "@radix-ui/react-slot": "^1.2.3",
     "@tailwindcss/vite": "^4.1.12",
     "@telegram-apps/sdk": "^3.11.4",
     "@telegram-apps/sdk-react": "^3.3.6",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "react-dom": "^19.1.1",
+    "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
