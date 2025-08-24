@@ -1,7 +1,41 @@
 import {
-    viewportSafeAreaInsetTop,
-    viewportSafeAreaInsetBottom,
-} from '@telegram-apps/sdk';
+    viewport,
+} from '@telegram-apps/sdk-react';
+
+/**
+ * Checks if the Telegram SDK is ready and safe area functions are available
+ */
+export function isSDKReady(): boolean {
+    try {
+        return viewport &&
+            typeof viewport.safeAreaInsetTop === 'function' &&
+            typeof viewport.safeAreaInsetBottom === 'function';
+    } catch {
+        return false;
+    }
+}
+
+/**
+ * Waits for the SDK to be ready and returns safe area values
+ */
+export function waitForSafeAreaValues(): Promise<{ top: number, bottom: number }> {
+    return new Promise((resolve) => {
+        const checkSDK = () => {
+            if (isSDKReady()) {
+                try {
+                    const top = viewport.safeAreaInsetTop();
+                    const bottom = viewport.safeAreaInsetBottom();
+                    resolve({ top, bottom });
+                } catch {
+                    resolve({ top: 0, bottom: 0 });
+                }
+            } else {
+                setTimeout(checkSDK, 100); // Check again in 100ms
+            }
+        };
+        checkSDK();
+    });
+}
 
 /**
  * Sets CSS custom properties for safe area insets using dynamic style injection
@@ -9,34 +43,47 @@ import {
 export function setSafeAreaCSSProperties(): void {
     if (typeof document === 'undefined') return;
 
-    const safeAreaInsetTop = viewportSafeAreaInsetTop();
-    const safeAreaInsetBottom = viewportSafeAreaInsetBottom();
+    try {
+        if (!isSDKReady()) return;
 
-    let styleEl = document.getElementById("dynamic-vars");
-    if (!styleEl) {
-        styleEl = document.createElement("style");
-        styleEl.id = "dynamic-vars";
-        document.head.appendChild(styleEl);
-    }
+        const safeAreaInsetTop = viewport.safeAreaInsetTop();
+        const safeAreaInsetBottom = viewport.safeAreaInsetBottom();
 
-    styleEl.innerHTML = `
-        :root, :root * {
-            --safe-area-inset-top: ${safeAreaInsetTop > 0 ? `${safeAreaInsetTop + 48}px` : "0px"
-        } !important;
-            --safe-area-inset-bottom: ${safeAreaInsetBottom > 0 ? `${safeAreaInsetBottom}px` : "0px"
-        } !important;
+        let styleEl = document.getElementById("dynamic-vars");
+        if (!styleEl) {
+            styleEl = document.createElement("style");
+            styleEl.id = "dynamic-vars";
+            document.head.appendChild(styleEl);
         }
-    `;
+
+        styleEl.innerHTML = `
+            :root, :root * {
+                --safe-area-inset-top: ${safeAreaInsetTop > 0 ? `${safeAreaInsetTop + 48}px` : "0px"
+            } !important;
+                --safe-area-inset-bottom: ${safeAreaInsetBottom > 0 ? `${safeAreaInsetBottom}px` : "0px"
+            } !important;
+            }
+        `;
+    } catch (error) {
+        console.warn('Failed to set safe area CSS properties:', error);
+    }
 }
 
 /**
  * Gets current safe area values (only top and bottom)
  */
 export function getSafeAreaValues() {
-    return {
-        top: viewportSafeAreaInsetTop(),
-        bottom: viewportSafeAreaInsetBottom(),
-    };
+    try {
+        if (!isSDKReady()) {
+            return { top: 0, bottom: 0 };
+        }
+        return {
+            top: viewport.safeAreaInsetTop(),
+            bottom: viewport.safeAreaInsetBottom(),
+        };
+    } catch {
+        return { top: 0, bottom: 0 };
+    }
 }
 
 /**
@@ -45,18 +92,18 @@ export function getSafeAreaValues() {
  */
 export function getSafeAreaClass(property: 'pt' | 'pb' | 'py'): string {
     if (property === 'py') {
-        const topValue = viewportSafeAreaInsetTop();
-        const bottomValue = viewportSafeAreaInsetBottom();
+        const topValue = viewport.safeAreaInsetTop();
+        const bottomValue = viewport.safeAreaInsetBottom();
         return `pt-[${topValue}px] pb-[${bottomValue}px]`;
     }
 
     if (property === 'pt') {
-        const topValue = viewportSafeAreaInsetTop();
+        const topValue = viewport.safeAreaInsetTop();
         return `pt-[${topValue}px]`;
     }
 
     if (property === 'pb') {
-        const bottomValue = viewportSafeAreaInsetBottom();
+        const bottomValue = viewport.safeAreaInsetBottom();
         return `pb-[${bottomValue}px]`;
     }
 
