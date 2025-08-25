@@ -1,7 +1,9 @@
 import { Option } from "@/components/ui"
 import { UserRound, Factory } from "lucide-react"
+import { useTranslation } from "react-i18next"
 
-function BoimTanlash() {
+function ChooseDepartment() {
+    const { t } = useTranslation()
 
     return (
         <div className="min-h-screen  min-w-full safe-area-pt container w-full flex flex-col">
@@ -9,7 +11,7 @@ function BoimTanlash() {
                 <div className=" flex px-4 flex-col items-center justify-center space-y-8">
                     {/* Body Selection Header */}
                     <h1 className="text-white font-bold text-[27px] tracking-wide">
-                        Kerakli bo'limni tanlang:
+                        {t('app.department.title')}
                     </h1>
                 </div>
 
@@ -20,12 +22,12 @@ function BoimTanlash() {
 
                 {/* Information Text */}
                 <div className="pb-8 w-full space-y-3">
-                    <Option text="Buyurtmachi" icon={UserRound} />
-                    <Option text="Ishlab chiqaruvchi" icon={Factory} />
+                    <Option text={t('app.department.customer')} icon={UserRound} />
+                    <Option text={t('app.department.manufacturer')} icon={Factory} />
                 </div>
             </main >
         </div >
     )
 }
 
-export default BoimTanlash
+export default ChooseDepartment

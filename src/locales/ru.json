@@ -1,0 +1,16 @@
+{
+  "app": {
+    "continue": "",
+    "welcome": {
+      "greeting": "",
+      "description": "",
+      "guarantee": "",
+      "getStarted": ""
+    },
+    "department": {
+      "title": "",
+      "customer": "",
+      "manufacturer": ""
+    }
+  }
+}

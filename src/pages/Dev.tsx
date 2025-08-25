@@ -1,4 +1,3 @@
-import { Button } from "../components/ui/button"
 import { CustomInput } from "../components/ui/custom-input"
 import { CustomCheckbox } from "../components/ui/custom-checkbox"
 import { getSafeAreaValues, waitForSafeAreaValues, isSDKReady } from "../utils/safeAreaUtils"

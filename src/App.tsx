@@ -1,10 +1,12 @@
 import { Button, Card, RadialEffect } from "@/components/ui"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 
 function App() {
     const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
+    const { t } = useTranslation()
 
     const handleButtonClick = () => {
         setIsLoading(true)
@@ -32,7 +34,7 @@ function App() {
                         onClick={handleButtonClick}
                         disabled={isLoading}
                     >
-                        Davom etish
+                        {t('app.continue')}
                     </Button>
                 </div>
             </main>

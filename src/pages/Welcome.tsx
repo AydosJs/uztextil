@@ -1,12 +1,14 @@
 import { Button } from "@/components/ui"
 import { useNavigate } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 
 function Welcome() {
     const navigate = useNavigate()
+    const { t } = useTranslation()
 
     const handleGetStarted = () => {
         // Navigate to the body selection page
-        navigate("/boim-tanlash")
+        navigate("/choose-department")
     }
 
     return (
@@ -16,10 +18,10 @@ function Welcome() {
                     {/* Welcome Header */}
                     <div className="text-left space-y-2">
                         <h1 className="text-white font-bold text-[27px] tracking-wide">
-                            Assalomu aleykum!
+                            {t('app.welcome.greeting')}
                         </h1>
                         <p className="text-gray-300 max-w-md font-medium text-sm leading-relaxed">
-                            Sizni O'zbekistondagi tasdiqlangan, tekshirilgan tekstil fabrikalari bo'yicha 1-raqamli bot kutib oladi.
+                            {t('app.welcome.description')}
                         </p>
                     </div>
                 </div>
@@ -33,7 +35,7 @@ function Welcome() {
                 <div className="px-4 pb-8 space-y-8">
 
                     <p className="text-gray-300 max-w-md font-medium text-center text-sm leading-relaxed">
-                        Faqat oraliqsiz, ishonchli fabrikalar. Agar shartlar bajarilmasa, pulni qaytarib berish kafolati mavjud.
+                        {t('app.welcome.guarantee')}
                     </p>
 
                     <Button
@@ -42,7 +44,7 @@ function Welcome() {
                         onClick={handleGetStarted}
                         className="w-full"
                     >
-                        Ochish
+                        {t('app.welcome.getStarted')}
                     </Button>
                 </div>
             </main >

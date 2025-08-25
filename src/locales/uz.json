@@ -1,0 +1,16 @@
+{
+  "app": {
+    "continue": "Davom etish",
+    "welcome": {
+      "greeting": "Assalomu aleykum!",
+      "description": "Sizni O'zbekistondagi tasdiqlangan, tekshirilgan tekstil fabrikalari bo'yicha 1-raqamli bot kutib oladi.",
+      "guarantee": "Faqat oraliqsiz, ishonchli fabrikalar. Agar shartlar bajarilmasa, pulni qaytarib berish kafolati mavjud.",
+      "getStarted": "Ochish"
+    },
+    "department": {
+      "title": "Kerakli bo'limni tanlang:",
+      "customer": "Buyurtmachi",
+      "manufacturer": "Ishlab chiqaruvchi"
+    }
+  }
+}

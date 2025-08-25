@@ -10,10 +10,11 @@ import '@fontsource/plus-jakarta-sans/600.css'
 import '@fontsource/plus-jakarta-sans/700.css'
 import '@fontsource/plus-jakarta-sans/800.css'
 import './index.css'
+import './i18n'
 import App from './App.tsx'
 import Dev from './pages/Dev.tsx'
 import Welcome from './pages/Welcome.tsx'
-import BoimTanlash from './pages/Choose aDepartment.tsx'
+import ChooseDepartment from './pages/ChooseDepartment.tsx'
 
 // Initialize the Telegram Mini Apps SDK properly
 initSDK().then((result) => {
@@ -28,7 +29,7 @@ createRoot(document.getElementById('root')!).render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/welcome" element={<Welcome />} />
-        <Route path="/boim-tanlash" element={<BoimTanlash />} />
+        <Route path="/choose-department" element={<ChooseDepartment />} />
         <Route path="/dev" element={<Dev />} />
       </Routes>
     </BrowserRouter>
