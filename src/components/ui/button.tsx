@@ -4,7 +4,6 @@ import { type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "./button-variants"
-import { Spinner } from "./spinner"
 
 export interface ButtonProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -20,14 +19,26 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             <Comp
                 className={cn(
                     buttonVariants({ variant, size, shadow, className }),
-                    loading && "loading-background"
+                    loading && "loading-background select-none cursor-not-allowed"
                 )}
                 ref={ref}
                 data-loading={loading}
                 disabled={loading || props.disabled}
+                style={{
+                    userSelect: loading ? 'none' : undefined,
+                    WebkitUserSelect: loading ? 'none' : undefined,
+                    MozUserSelect: loading ? 'none' : undefined,
+                    msUserSelect: loading ? 'none' : undefined,
+                }}
                 {...props}
             >
-                {children}
+                {loading ? (
+                    <div className="flex items-center gap-2">
+                        <span className="opacity-70">{children}</span>
+                    </div>
+                ) : (
+                    children
+                )}
             </Comp>
         )
     }

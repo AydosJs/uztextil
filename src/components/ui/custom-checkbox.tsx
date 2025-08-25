@@ -37,9 +37,9 @@ const CustomCheckbox = React.forwardRef<
           <Check className="h-3 w-3 font-bold stroke-[3]" />
         </CheckboxPrimitive.Indicator>
       </CheckboxPrimitive.Root>
-      
+
       {label && (
-        <Label 
+        <Label
           htmlFor={checkboxId}
           className={cn(
             "text-base font-bold leading-[22px] tracking-[0%] cursor-pointer",

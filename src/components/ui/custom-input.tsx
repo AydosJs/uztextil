@@ -17,8 +17,8 @@ const CustomInput = React.forwardRef<HTMLInputElement, CustomInputProps>(
     return (
       <div className="w-full">
         {label && (
-          <Label 
-            htmlFor={inputId} 
+          <Label
+            htmlFor={inputId}
             className={cn(
               "block mb-2 text-base font-normal leading-6 tracking-[0.15px] transition-colors duration-200",
               isFocused ? "text-[rgb(252,232,3)]" : "text-[rgb(160,161,161)]"
