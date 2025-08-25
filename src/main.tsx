@@ -1,5 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { initSDK } from './utils/telegramSDK'
 import '@fontsource/plus-jakarta-sans/200.css'
 import '@fontsource/plus-jakarta-sans/300.css'
@@ -10,6 +11,7 @@ import '@fontsource/plus-jakarta-sans/700.css'
 import '@fontsource/plus-jakarta-sans/800.css'
 import './index.css'
 import App from './App.tsx'
+import Dev from './pages/Dev.tsx'
 
 // Initialize the Telegram Mini Apps SDK properly
 initSDK().then((result) => {
@@ -20,6 +22,11 @@ initSDK().then((result) => {
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="/dev" element={<Dev />} />
+      </Routes>
+    </BrowserRouter>
   </StrictMode>,
 )

@@ -1,103 +1,19 @@
-import { Button } from "./components/ui/button"
-import { CustomInput } from "./components/ui/custom-input"
-import { CustomCheckbox } from "./components/ui/custom-checkbox"
-import { getSafeAreaValues, waitForSafeAreaValues, isSDKReady } from "./utils/safeAreaUtils"
-import { initSDK } from "./utils/telegramSDK"
-import { useState, useEffect } from "react"
+import {Button, Card} from "@/components/ui"
 
 function App() {
-  const [safeAreaValues, setSafeAreaValues] = useState({ top: 0, bottom: 0 });
-  const [isSDKReadyState, setIsSDKReadyState] = useState(false);
-
-  useEffect(() => {
-    const initializeApp = async () => {
-      try {
-        // First initialize the Telegram SDK
-        await initSDK();
-
-        // Then wait for safe area values to be available
-        const values = await waitForSafeAreaValues();
-        setSafeAreaValues(values);
-        setIsSDKReadyState(true);
-      } catch (error) {
-        console.warn('Failed to initialize app:', error);
-        // Fallback to immediate check
-        const fallbackValues = getSafeAreaValues();
-        setSafeAreaValues(fallbackValues);
-        setIsSDKReadyState(isSDKReady());
-      }
-    };
-
-    initializeApp();
-  }, []);
-
-  return (
-    <div className="min-h-screen min-w-full w-full dark">
-      <header className="border w-full min-w-full  safe-area-pt h-full block">
-        header
-      </header>
-
-      <main className="w-full min-w-full h-full block container p-8 space-y-8">
-        <h1 className="text-2xl font-bold">shadcn/ui Components Examples</h1>
-
-        <div className="space-y-8">
-          <div className="space-y-4">
-            <h2 className="text-lg font-semibold">Safe Area Values</h2>
-            <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg space-y-2">
-              <div className="flex justify-between">
-                <span className="font-medium">Top Safe Area:</span>
-                <span className="font-mono bg-white dark:bg-gray-700 px-2 py-1 rounded">{safeAreaValues.top}px</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="font-medium">Bottom Safe Area:</span>
-                <span className="font-mono bg-white dark:bg-gray-700 px-2 py-1 rounded">{safeAreaValues.bottom}px</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="font-medium">SDK Status:</span>
-                <span className={`font-mono px-2 py-1 rounded ${isSDKReadyState ? 'bg-green-200 dark:bg-green-700' : 'bg-red-200 dark:bg-red-700'}`}>
-                  {isSDKReadyState ? 'Ready' : 'Loading...'}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            <h2 className="text-lg font-semibold">Custom Input Examples</h2>
-            <div className="space-y-4">
-              <CustomInput
-                label="Email Address"
-                placeholder="Enter your email"
-                type="email"
-              />
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            <h2 className="text-lg font-semibold">Custom Checkbox Examples</h2>
-            <div className="space-y-4">
-              <CustomCheckbox label="I agree to the terms and conditions" />
-              <CustomCheckbox label="Subscribe to newsletter" />
-              <CustomCheckbox label="Remember me" />
-              <CustomCheckbox label="Enable notifications" />
-              <CustomCheckbox label="Enable notifications" />
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            <h2 className="text-lg font-semibold">Button Examples</h2>
-            <div className="space-y-4">
-              <Button variant="default" shadow="lg">Davom etish</Button>
-              <Button variant="secondary">Secondary Button</Button>
-            </div>
-          </div>
+    return (
+        <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col">
+            <main className="w-full container border min-w-full flex-1 flex flex-col justify-between">
+                <div className="space-y-8 border h-full">
+                    <Card/>
+                    <Card/>
+                </div>
+                <div className="px-4 border">
+                    <Button loading={true} variant="default" shadow="lg">Davom etish</Button>
+                </div>
+            </main>
         </div>
-      </main>
-
-      <footer className="border w-full safe-area-pb min-w-full h-full block">
-        footer
-      </footer>
-    </div>
-  )
+    )
 }
 
 export default App

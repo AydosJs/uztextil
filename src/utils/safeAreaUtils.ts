@@ -17,6 +17,7 @@ export function isSDKReady(): boolean {
 
 /**
  * Waits for the SDK to be ready and returns safe area values
+ * If safe area is 0px, uses default 40px for top
  */
 export function waitForSafeAreaValues(): Promise<{ top: number, bottom: number }> {
     return new Promise((resolve) => {
@@ -25,9 +26,12 @@ export function waitForSafeAreaValues(): Promise<{ top: number, bottom: number }
                 try {
                     const top = viewport.safeAreaInsetTop();
                     const bottom = viewport.safeAreaInsetBottom();
-                    resolve({ top, bottom });
+                    resolve({ 
+                        top: top > 0 ? top : 40, 
+                        bottom: bottom 
+                    });
                 } catch {
-                    resolve({ top: 0, bottom: 0 });
+                    resolve({ top: 40, bottom: 0 });
                 }
             } else {
                 setTimeout(checkSDK, 100); // Check again in 100ms
@@ -58,7 +62,7 @@ export function setSafeAreaCSSProperties(): void {
 
         styleEl.innerHTML = `
             :root, :root * {
-                --safe-area-inset-top: ${safeAreaInsetTop > 0 ? `${safeAreaInsetTop + 48}px` : "0px"
+                --safe-area-inset-top: ${safeAreaInsetTop > 0 ? `${safeAreaInsetTop + 48}px` : "40px"
             } !important;
                 --safe-area-inset-bottom: ${safeAreaInsetBottom > 0 ? `${safeAreaInsetBottom}px` : "0px"
             } !important;
@@ -71,18 +75,21 @@ export function setSafeAreaCSSProperties(): void {
 
 /**
  * Gets current safe area values (only top and bottom)
+ * If safe area is 0px, uses default 40px for top
  */
 export function getSafeAreaValues() {
     try {
         if (!isSDKReady()) {
-            return { top: 0, bottom: 0 };
+            return { top: 40, bottom: 0 };
         }
+        const top = viewport.safeAreaInsetTop();
+        const bottom = viewport.safeAreaInsetBottom();
         return {
-            top: viewport.safeAreaInsetTop(),
-            bottom: viewport.safeAreaInsetBottom(),
+            top: top > 0 ? top : 40,
+            bottom: bottom,
         };
     } catch {
-        return { top: 0, bottom: 0 };
+        return { top: 40, bottom: 0 };
     }
 }
 
