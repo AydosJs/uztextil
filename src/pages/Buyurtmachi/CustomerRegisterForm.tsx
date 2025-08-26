@@ -330,6 +330,16 @@ function CustomerRegisterForm() {
                         />
                     </div>
 
+                    {/* File Upload */}
+                    <div className="space-y-2">
+                        <FileUploader
+                            label={t('app.buyurtmachi.registerForm.fileUpload.label')}
+                            onFileChange={(files) => {
+                                handleInputChange('files', files)
+                            }}
+                        />
+                    </div>
+
                     {/* Phone */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium">
@@ -342,15 +352,7 @@ function CustomerRegisterForm() {
                         />
                     </div>
 
-                    {/* File Upload */}
-                    <div className="space-y-2">
-                        <FileUploader
-                            label={t('app.buyurtmachi.registerForm.fileUpload.label')}
-                            onFileChange={(files) => {
-                                handleInputChange('files', files)
-                            }}
-                        />
-                    </div>
+
                 </div>
 
                 {/* Submit Button */}

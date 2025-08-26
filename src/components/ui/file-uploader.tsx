@@ -132,7 +132,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
             ))}
 
             {/* Upload Button */}
-            <div className="w-[325px] h-[41px] rounded-[19px] bg-[rgba(39,43,50,1)] flex items-center justify-center cursor-pointer hover:bg-[rgba(39,43,50,0.8)] transition-colors duration-200">
+            <div className="h-[41px] rounded-[19px] bg-[rgba(39,43,50,1)] flex items-center justify-center cursor-pointer hover:bg-[rgba(39,43,50,0.8)] transition-colors duration-200">
                 <input
                     ref={fileInputRef}
                     type="file"
