@@ -21,7 +21,7 @@ const CustomInput = React.forwardRef<HTMLInputElement, CustomInputProps>(
             htmlFor={inputId}
             className={cn(
               "block mb-2 text-base font-normal leading-6 tracking-[0.15px] transition-colors duration-200",
-              isFocused ? "text-[rgb(252,232,3)]" : "text-[rgb(160,161,161)]"
+              isFocused ? "text-[rgb(252,232,3)]" : "text-[#9FA0A1]"
             )}
           >
             {label}
@@ -32,11 +32,11 @@ const CustomInput = React.forwardRef<HTMLInputElement, CustomInputProps>(
           id={inputId}
           className={cn(
             // Remove default shadcn styles and apply custom styles
-            "w-[323px] h-[52px] px-4 py-4 text-base font-normal leading-6 tracking-[0.15px]",
+            "w-full h-[52px] px-4 py-4 text-base font-normal leading-6 tracking-[0.15px]",
             "rounded-[14px] border-[1.8px] bg-transparent transition-colors duration-200",
             "focus-visible:ring-0 focus-visible:ring-offset-0 shadow-none",
             // Default state
-            "border-[rgb(160,161,161)] text-current",
+            "border-[rgba(255,255,255,0.58)] text-current",
             // Focused state
             "focus-visible:border-[rgb(252,232,3)]",
             className

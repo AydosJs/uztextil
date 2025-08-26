@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
+import CustomerRegisterForm from "./CustomerRegisterForm"
 
 function CustomerWelcome() {
     const [isLoading, setIsLoading] = useState(false)
+    const [showForm, setShowForm] = useState(false)
     const { t } = useTranslation()
 
     const handleGetStarted = () => {
@@ -11,9 +13,12 @@ function CustomerWelcome() {
         // Simulate some async operation
         setTimeout(() => {
             setIsLoading(false)
-            // Navigate to next step in Buyurtmachi flow
-            // navigate("/buyurtmachi/next-step")
+            setShowForm(true)
         }, 1000)
+    }
+
+    if (showForm) {
+        return <CustomerRegisterForm />
     }
 
     return (

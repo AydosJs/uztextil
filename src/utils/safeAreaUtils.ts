@@ -26,9 +26,9 @@ export function waitForSafeAreaValues(): Promise<{ top: number, bottom: number }
                 try {
                     const top = viewport.safeAreaInsetTop();
                     const bottom = viewport.safeAreaInsetBottom();
-                    resolve({ 
-                        top: top > 0 ? top : 40, 
-                        bottom: bottom 
+                    resolve({
+                        top: top > 0 ? top : 40,
+                        bottom: bottom
                     });
                 } catch {
                     resolve({ top: 40, bottom: 0 });

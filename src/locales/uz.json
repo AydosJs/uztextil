@@ -34,6 +34,112 @@
           "title": "Buyurtma bering",
           "description": "Kafolatingiz bilan buyurtmangizni xavfsiz qiling"
         }
+      },
+      "registerForm": {
+        "header": "Ma'lumotlarni to'ldiring:",
+        "companyName": {
+          "label": "Kompaniya nomi",
+          "placeholder": "CapsLock Development"
+        },
+        "experience": {
+          "label": "Bozorga chiqqaniga qancha bo'lgan",
+          "placeholder": "2 yil"
+        },
+        "fullName": {
+          "label": "F.I.SH",
+          "placeholder": "Almamedov Khakim"
+        },
+        "position": {
+          "label": "Lavozimi",
+          "placeholder": "Direktor o'rinbosari"
+        },
+        "minOrder": {
+          "label": "Minimal buyurtma hajmi",
+          "placeholder": "1 tonna"
+        },
+        "productSegment": {
+          "label": "Mahsulot segmenti",
+          "placeholder": "Segment turi"
+        },
+        "commercialOffer": {
+          "label": "Tijorat taklifi *",
+          "placeholder": "Taklifni kiriting"
+        },
+        "productionAddress": {
+          "label": "Ishlab chiqarish manzili",
+          "placeholder": "Toshkent shahar Mirzo ulug'bek...."
+        },
+        "officeAddress": {
+          "label": "Ofis manzili",
+          "placeholder": "Mirzo ulug'bek kochasi 83"
+        },
+        "website": {
+          "label": "Sayt *",
+          "placeholder": "www"
+        },
+        "qualityControl": {
+          "label": "Sifat nazorati mavjudmi",
+          "options": {
+            "yes": "ha",
+            "no": "yo'q"
+          }
+        },
+        "crmSystem": {
+          "label": "CRM tizimi mavjudmi",
+          "options": {
+            "yes": "ha",
+            "no": "yo'q"
+          }
+        },
+        "geminiGerber": {
+          "label": "Gemini/Gerber mavjudmi",
+          "options": {
+            "yes": "ha",
+            "no": "yo'q"
+          }
+        },
+        "employeesCount": {
+          "label": "Hodimlar soni",
+          "placeholder": "Son kiriting"
+        },
+        "buildingOwnership": {
+          "label": "Bino o'zlariniki yoki ijaradami",
+          "options": {
+            "own": "O'zlariniki",
+            "rented": "ijarada"
+          }
+        },
+        "industrialZone": {
+          "label": "Sanoat xududida joylashganmi?",
+          "options": {
+            "yes": "ha",
+            "no": "yo'q"
+          }
+        },
+        "creditBurden": {
+          "label": "Kredit yuki mavjudmi",
+          "options": {
+            "yes": "ha",
+            "no": "yo'q"
+          }
+        },
+        "organizationStructure": {
+          "label": "Tashkilot tuzilmasi *",
+          "options": {
+            "director": "Direktor",
+            "manager": "Menejer",
+            "marketer": "Marketolog"
+          }
+        },
+        "equipmentInfo": {
+          "label": "Uskunalar haqida ma'lumot",
+          "placeholder": "(xorijiy mutaxassislar borligi va h.k)"
+        },
+        "phone": {
+          "label": "Telefon raqamingiz *",
+          "placeholder": "+998"
+        },
+        "submitButton": "Yuborish"
       }
     }
   }

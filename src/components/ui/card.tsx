@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 
 interface CardProps {
@@ -12,7 +12,7 @@ export const Card = ({ className, children, image, imageAlt = "Card image" }: Ca
   const backgroundImage = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXoAAADcCAYAAABf0C4yAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAA5SURBVHgB7cEBAQAAAICQ/q/uCAoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwMWCCAAELm8PFAAAAASUVORK5CYII="
 
   return (
-    <div 
+    <div
       className={cn(
         "relative w-full max-w-[366px] h-[220px] rounded-[32px] border overflow-hidden",
         "bg-[rgba(255,255,255,0.02)] border-[rgba(255,255,255,0.04)]",
@@ -27,8 +27,8 @@ export const Card = ({ className, children, image, imageAlt = "Card image" }: Ca
       }}
     >
       {image && (
-        <img 
-          src={image} 
+        <img
+          src={image}
           alt={imageAlt}
           className="absolute inset-0 w-full h-full object-cover z-10"
         />
