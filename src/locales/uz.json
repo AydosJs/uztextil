@@ -11,6 +11,30 @@
       "title": "Kerakli bo'limni tanlang:",
       "customer": "Buyurtmachi",
       "manufacturer": "Ishlab chiqaruvchi"
+    },
+    "buyurtmachi": {
+      "welcome": {
+        "title": "Buyurtmachiga xush kelibsiz",
+        "description": "Tasdiqlangan ishlab chiqaruvchilar bilan mato buyurtma safarini boshlang",
+        "getStarted": "Boshlash",
+        "registration": {
+          "title": "Ro'yxatdan o'tish",
+          "description": "Ma'lumotlaringiz moderator tomonidan tasdiqlangach katalogga qo'shiladi",
+          "button": "Ro'yxatdan o'tish"
+        },
+        "step1": {
+          "title": "Mahsulotingizni tanlang",
+          "description": "Keng mato mahsulotlari assortimentidan tanlang"
+        },
+        "step2": {
+          "title": "Narxlarni oling",
+          "description": "Tasdiqlangan ishlab chiqaruvchilardan raqobatbardosh narxlarni oling"
+        },
+        "step3": {
+          "title": "Buyurtma bering",
+          "description": "Kafolatingiz bilan buyurtmangizni xavfsiz qiling"
+        }
+      }
     }
   }
 }

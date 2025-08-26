@@ -1,9 +1,20 @@
 import { Option } from "@/components/ui"
 import { UserRound, Factory } from "lucide-react"
 import { useTranslation } from "react-i18next"
+import { useNavigate } from "react-router-dom"
 
 function ChooseDepartment() {
     const { t } = useTranslation()
+    const navigate = useNavigate()
+
+    const handleCustomerSelect = () => {
+        navigate("/customer/welcome")
+    }
+
+    const handleManufacturerSelect = () => {
+        // TODO: Navigate to manufacturer flow
+        console.log("Manufacturer selected")
+    }
 
     return (
         <div className="min-h-screen  min-w-full safe-area-pt container w-full flex flex-col">
@@ -22,8 +33,16 @@ function ChooseDepartment() {
 
                 {/* Information Text */}
                 <div className="pb-8 w-full space-y-3">
-                    <Option text={t('app.department.customer')} icon={UserRound} />
-                    <Option text={t('app.department.manufacturer')} icon={Factory} />
+                    <Option
+                        text={t('app.department.customer')}
+                        icon={UserRound}
+                        onClick={handleCustomerSelect}
+                    />
+                    <Option
+                        text={t('app.department.manufacturer')}
+                        icon={Factory}
+                        onClick={handleManufacturerSelect}
+                    />
                 </div>
             </main >
         </div >

@@ -15,6 +15,7 @@ import App from './App.tsx'
 import Dev from './pages/Dev.tsx'
 import Welcome from './pages/Welcome.tsx'
 import ChooseDepartment from './pages/ChooseDepartment.tsx'
+import CustomerWelcome from './pages/Buyurtmachi/CustomerWelcome.tsx'
 
 // Initialize the Telegram Mini Apps SDK properly
 initSDK().then((result) => {
@@ -30,6 +31,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/" element={<App />} />
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/choose-department" element={<ChooseDepartment />} />
+        <Route path="/customer/welcome" element={<CustomerWelcome />} />
         <Route path="/dev" element={<Dev />} />
       </Routes>
     </BrowserRouter>

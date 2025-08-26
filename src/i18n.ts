@@ -20,7 +20,8 @@ i18n
     .use(initReactI18next)
     .init({
         resources,
-        fallbackLng: 'uz',
+        fallbackLng: 'ru',
+        lng: 'uz', // Set Uzbek as default language
         debug: false,
 
         interpolation: {
