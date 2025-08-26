@@ -139,6 +139,9 @@
           "label": "Telefon raqamingiz *",
           "placeholder": "+998"
         },
+        "fileUpload": {
+          "label": "Xalqaro sertifikat"
+        },
         "submitButton": "Yuborish"
       }
     }

@@ -3,6 +3,7 @@ import { CustomInput } from "@/components/ui"
 import { Label } from "@/components/ui"
 import { RadioGroup, RadioGroupItem } from "@/components/ui"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui"
+import { FileUploader } from "@/components/ui"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -29,10 +30,11 @@ function CustomerRegisterForm() {
         creditBurden: '',
         organizationStructure: '',
         equipmentInfo: '',
-        phone: ''
+        phone: '',
+        files: [] as File[]
     })
 
-    const handleInputChange = (field: string, value: string) => {
+    const handleInputChange = (field: string, value: string | File[]) => {
         setFormData(prev => ({
             ...prev,
             [field]: value
@@ -337,6 +339,16 @@ function CustomerRegisterForm() {
                             placeholder={t('app.buyurtmachi.registerForm.phone.placeholder')}
                             value={formData.phone}
                             onChange={(e) => handleInputChange('phone', e.target.value)}
+                        />
+                    </div>
+
+                    {/* File Upload */}
+                    <div className="space-y-2">
+                        <FileUploader
+                            label={t('app.buyurtmachi.registerForm.fileUpload.label')}
+                            onFileChange={(files) => {
+                                handleInputChange('files', files)
+                            }}
                         />
                     </div>
                 </div>

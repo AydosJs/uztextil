@@ -29,6 +29,115 @@
           "title": "Разместите заказ",
           "description": "Обеспечьте безопасность вашего заказа нашей гарантией"
         }
+      },
+      "registerForm": {
+        "header": "Заполните данные",
+        "companyName": {
+          "label": "Название компании",
+          "placeholder": "CapsLock Development"
+        },
+        "experience": {
+          "label": "Сколько лет на рынке",
+          "placeholder": "2 года"
+        },
+        "fullName": {
+          "label": "Ф.И.О",
+          "placeholder": "Алмамедов Хаким"
+        },
+        "position": {
+          "label": "Должность",
+          "placeholder": "Заместитель директора"
+        },
+        "minOrder": {
+          "label": "Минимальный объем заказа",
+          "placeholder": "1 тонна"
+        },
+        "productSegment": {
+          "label": "Сегмент продукта",
+          "placeholder": "Тип сегмента"
+        },
+        "commercialOffer": {
+          "label": "Коммерческое предложение *",
+          "placeholder": "Введите предложение"
+        },
+        "productionAddress": {
+          "label": "Адрес производства",
+          "placeholder": "Город Ташкент Мирзо Улугбек..."
+        },
+        "officeAddress": {
+          "label": "Адрес офиса",
+          "placeholder": "Улица Мирзо Улугбек 83"
+        },
+        "website": {
+          "label": "Сайт *",
+          "placeholder": "www"
+        },
+        "qualityControl": {
+          "label": "Есть ли контроль качества",
+          "options": {
+            "yes": "да",
+            "no": "нет"
+          }
+        },
+        "crmSystem": {
+          "label": "Есть ли CRM система",
+          "options": {
+            "yes": "да",
+            "no": "нет"
+          }
+        },
+        "geminiGerber": {
+          "label": "Есть ли Gemini/Gerber",
+          "options": {
+            "yes": "да",
+            "no": "нет"
+          }
+        },
+        "employeesCount": {
+          "label": "Количество сотрудников",
+          "placeholder": "Введите число"
+        },
+        "buildingOwnership": {
+          "label": "Здание свое или арендованное",
+          "options": {
+            "own": "Свое",
+            "rented": "арендованное"
+          }
+        },
+        "industrialZone": {
+          "label": "Расположены в промышленной зоне?",
+          "options": {
+            "yes": "да",
+            "no": "нет"
+          }
+        },
+        "creditBurden": {
+          "label": "Есть ли кредитная нагрузка",
+          "options": {
+            "yes": "да",
+            "no": "нет"
+          }
+        },
+        "organizationStructure": {
+          "label": "Организационная структура *",
+          "options": {
+            "director": "Директор",
+            "manager": "Менеджер",
+            "marketer": "Маркетолог"
+          }
+        },
+        "equipmentInfo": {
+          "label": "Информация об оборудовании",
+          "placeholder": "(наличие иностранных специалистов и т.д.)"
+        },
+        "phone": {
+          "label": "Ваш номер телефона *",
+          "placeholder": "+998"
+        },
+        "fileUpload": {
+          "label": "Международный сертификат"
+        },
+        "submitButton": "Отправить"
       }
     }
   }
