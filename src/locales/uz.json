@@ -144,6 +144,28 @@
         },
         "submitButton": "Yuborish"
       }
+    },
+    "xizmatlar": {
+      "title": "Xizmatlar",
+      "description": "Bizning tekstil xizmatlarimizdan tanlang",
+      "services": {
+        "order": {
+          "title": "Buyurtma joylashtirish",
+          "description": "O'z buyurtmalaringizni joylashtiring"
+        },
+        "factory": {
+          "title": "Fabrika tanlash",
+          "description": "Fabrikalar ro'yxatidan fabrika tanlang"
+        },
+        "meeting": {
+          "title": "Online B2B ga uchrashuv",
+          "description": "Google meet orqali Fabrika rahbari bilan uchrashuv"
+        },
+        "tour": {
+          "title": "Fabrikalarga tur buyurtma qilish",
+          "description": "Tur buyurtma qiling"
+        }
+      }
     }
   }
 }

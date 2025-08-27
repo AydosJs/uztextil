@@ -8,12 +8,11 @@ function ChooseDepartment() {
     const navigate = useNavigate()
 
     const handleCustomerSelect = () => {
-        navigate("/customer/welcome")
+        navigate("/customer")
     }
 
     const handleManufacturerSelect = () => {
-        // TODO: Navigate to manufacturer flow
-        console.log("Manufacturer selected")
+        navigate("/manufacturer")
     }
 
     return (

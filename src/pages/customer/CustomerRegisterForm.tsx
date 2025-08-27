@@ -6,9 +6,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { FileUploader } from "@/components/ui"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
+import { useNavigate } from "react-router-dom"
 
 function CustomerRegisterForm() {
     const { t } = useTranslation()
+    const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)
     const [formData, setFormData] = useState({
         companyName: '',
@@ -48,6 +50,8 @@ function CustomerRegisterForm() {
             setIsLoading(false)
             // Handle form submission logic here
             console.log('Form data:', formData)
+            // Navigate to Additional Services page after successful submission
+            navigate('/customer/additional-services')
         }, 1000)
     }
 
@@ -351,8 +355,6 @@ function CustomerRegisterForm() {
                             onChange={(e) => handleInputChange('phone', e.target.value)}
                         />
                     </div>
-
-
                 </div>
 
                 {/* Submit Button */}

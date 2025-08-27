@@ -1,24 +1,13 @@
 import { Button } from "@/components/ui"
-import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
-import CustomerRegisterForm from "./CustomerRegisterForm"
 
-function CustomerWelcome() {
-    const [isLoading, setIsLoading] = useState(false)
-    const [showForm, setShowForm] = useState(false)
+function ManufacturerWelcome() {
+    const navigate = useNavigate()
     const { t } = useTranslation()
 
     const handleGetStarted = () => {
-        setIsLoading(true)
-        // Simulate some async operation
-        setTimeout(() => {
-            setIsLoading(false)
-            setShowForm(true)
-        }, 1000)
-    }
-
-    if (showForm) {
-        return <CustomerRegisterForm />
+        navigate("/manufacturer/register")
     }
 
     return (
@@ -33,18 +22,15 @@ function CustomerWelcome() {
                         {t('app.buyurtmachi.welcome.registration.description')}
                     </p>
                 </div>
-
                 <div>
                 </div>
 
                 {/* Action Button */}
                 <div className="px-4 pb-8">
                     <Button
-                        loading={isLoading}
                         variant="default"
                         shadow="lg"
                         onClick={handleGetStarted}
-                        disabled={isLoading}
                         className="w-full"
                     >
                         {t('app.buyurtmachi.welcome.registration.button')}
@@ -55,4 +41,4 @@ function CustomerWelcome() {
     )
 }
 
-export default CustomerWelcome
+export default ManufacturerWelcome

@@ -15,7 +15,13 @@ import App from './App.tsx'
 import Dev from './pages/Dev.tsx'
 import Welcome from './pages/Welcome.tsx'
 import ChooseDepartment from './pages/ChooseDepartment.tsx'
-import CustomerWelcome from './pages/Buyurtmachi/CustomerWelcome.tsx'
+import CustomerWelcome from './pages/customer/CustomerWelcome.tsx'
+import CustomerRegisterForm from './pages/customer/CustomerRegisterForm.tsx'
+import AdditionalServices from './pages/customer/AdditionalServices.tsx'
+import SubmitApplication from './pages/customer/SubmitApplication.tsx'
+import ManufacturerWelcome from './pages/manufacturer/ManufacturerWelcome.tsx'
+import ManufacturerRegisterForm from './pages/manufacturer/ManufacturerRegisterForm.tsx'
+import Services from './pages/services/Services.tsx'
 
 // Initialize the Telegram Mini Apps SDK properly
 initSDK().then((result) => {
@@ -31,7 +37,25 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/" element={<App />} />
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/choose-department" element={<ChooseDepartment />} />
-        <Route path="/customer/welcome" element={<CustomerWelcome />} />
+
+
+        {/* Customer Routes */}
+        <Route path="/customer">
+          <Route index element={<CustomerWelcome />} />
+          <Route path="welcome" element={<CustomerWelcome />} />
+          <Route path="register" element={<CustomerRegisterForm />} />
+          <Route path="additional-services" element={<AdditionalServices />} />
+          <Route path="submit-application" element={<SubmitApplication />} />
+        </Route>
+
+        {/* Manufacturer Routes */}
+        <Route path="/manufacturer">
+          <Route index element={<ManufacturerWelcome />} />
+          <Route path="welcome" element={<ManufacturerWelcome />} />
+          <Route path="register" element={<ManufacturerRegisterForm />} />
+        </Route>
+
+        <Route path="/services" element={<Services />} />
         <Route path="/dev" element={<Dev />} />
       </Routes>
     </BrowserRouter>
