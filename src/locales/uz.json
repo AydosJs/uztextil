@@ -62,7 +62,7 @@
           "placeholder": "Segment turi"
         },
         "commercialOffer": {
-          "label": "Tijorat taklifi *",
+          "label": "Tijorat taklifi",
           "placeholder": "Taklifni kiriting"
         },
         "productionAddress": {
@@ -74,7 +74,7 @@
           "placeholder": "Mirzo ulug'bek kochasi 83"
         },
         "website": {
-          "label": "Sayt *",
+          "label": "Sayt",
           "placeholder": "www"
         },
         "qualityControl": {
@@ -124,7 +124,7 @@
           }
         },
         "organizationStructure": {
-          "label": "Tashkilot tuzilmasi *",
+          "label": "Tashkilot tuzilmasi",
           "options": {
             "director": "Direktor",
             "manager": "Menejer",
@@ -136,7 +136,7 @@
           "placeholder": "(xorijiy mutaxassislar borligi va h.k)"
         },
         "phone": {
-          "label": "Telefon raqamingiz *",
+          "label": "Telefon raqamingiz",
           "placeholder": "+998"
         },
         "fileUpload": {

@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { initSDK } from './utils/telegramSDK'
 import '@fontsource/plus-jakarta-sans/200.css'
 import '@fontsource/plus-jakarta-sans/300.css'
@@ -30,34 +31,49 @@ initSDK().then((result) => {
   console.error('Failed to initialize Telegram SDK:', error);
 });
 
+// Create a QueryClient instance
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      staleTime: 5 * 60 * 1000, // 5 minutes
+    },
+    mutations: {
+      retry: 1,
+    },
+  },
+});
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/welcome" element={<Welcome />} />
-        <Route path="/choose-department" element={<ChooseDepartment />} />
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route path="/welcome" element={<Welcome />} />
+          <Route path="/choose-department" element={<ChooseDepartment />} />
 
 
-        {/* Customer Routes */}
-        <Route path="/customer">
-          <Route index element={<CustomerWelcome />} />
-          <Route path="welcome" element={<CustomerWelcome />} />
-          <Route path="register" element={<CustomerRegisterForm />} />
-          <Route path="additional-services" element={<AdditionalServices />} />
-          <Route path="submit-application" element={<SubmitApplication />} />
-        </Route>
+          {/* Customer Routes */}
+          <Route path="/customer">
+            <Route index element={<CustomerWelcome />} />
+            <Route path="welcome" element={<CustomerWelcome />} />
+            <Route path="register" element={<CustomerRegisterForm />} />
+            <Route path="additional-services" element={<AdditionalServices />} />
+            <Route path="submit-application" element={<SubmitApplication />} />
+          </Route>
 
-        {/* Manufacturer Routes */}
-        <Route path="/manufacturer">
-          <Route index element={<ManufacturerWelcome />} />
-          <Route path="welcome" element={<ManufacturerWelcome />} />
-          <Route path="register" element={<ManufacturerRegisterForm />} />
-        </Route>
+          {/* Manufacturer Routes */}
+          <Route path="/manufacturer">
+            <Route index element={<ManufacturerWelcome />} />
+            <Route path="welcome" element={<ManufacturerWelcome />} />
+            <Route path="register" element={<ManufacturerRegisterForm />} />
+          </Route>
 
-        <Route path="/services" element={<Services />} />
-        <Route path="/dev" element={<Dev />} />
-      </Routes>
-    </BrowserRouter>
+          <Route path="/services" element={<Services />} />
+          <Route path="/dev" element={<Dev />} />
+        </Routes>
+      </BrowserRouter>
+    </QueryClientProvider>
   </StrictMode>,
 )

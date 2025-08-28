@@ -12,8 +12,8 @@ const SelectValue = SelectPrimitive.Value
 
 const SelectTrigger = React.forwardRef<
     React.ElementRef<typeof SelectPrimitive.Trigger>,
-    React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
->(({ className, children, ...props }, ref) => (
+    React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> & { error?: string }
+>(({ className, children, error, ...props }, ref) => (
     <SelectPrimitive.Trigger
         ref={ref}
         className={cn(
@@ -24,6 +24,8 @@ const SelectTrigger = React.forwardRef<
             "focus:border-[rgb(252,232,3)] focus-visible:border-[rgb(252,232,3)]",
             // Opened state
             "data-[state=open]:border-[rgb(252,232,3)]",
+            // Error state
+            error && "border-red-500",
             className
         )}
         {...props}

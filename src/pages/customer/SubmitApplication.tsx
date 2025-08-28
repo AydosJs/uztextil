@@ -2,6 +2,7 @@ import { ArrowLeft } from "lucide-react"
 import { useState } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import { Button, CustomCheckbox } from "@/components/ui"
+import { showToast } from "@/lib/utils"
 
 function SubmitApplication() {
     const navigate = useNavigate()
@@ -17,7 +18,7 @@ function SubmitApplication() {
 
     const handleSubmit = () => {
         if (!isChecked) {
-            alert("Iltimos, shartlarni o'qib chiqing va tasdiqlang")
+            showToast.warning("Iltimos, shartlarni o'qib chiqing va tasdiqlang")
             return
         }
         // Handle application submission logic here

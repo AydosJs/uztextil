@@ -39,6 +39,8 @@ const CustomInput = React.forwardRef<HTMLInputElement, CustomInputProps>(
             "border-[rgba(255,255,255,0.58)] text-current",
             // Focused state
             "focus-visible:border-[rgb(252,232,3)]",
+            // Error state
+            error && "border-red-500",
             className
           )}
           onFocus={(e) => {
@@ -51,9 +53,7 @@ const CustomInput = React.forwardRef<HTMLInputElement, CustomInputProps>(
           }}
           {...props}
         />
-        {error && (
-          <p className="mt-1 text-sm text-red-500">{error}</p>
-        )}
+
       </div>
     )
   }
