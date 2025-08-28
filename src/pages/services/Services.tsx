@@ -129,7 +129,7 @@ function Services() {
                 </div>
 
                 {/* Services Grid */}
-                <div className="flex-1 px-4 pb-8">
+                <div className="flex-1 pb-8">
                     {!hasServices ? (
                         <div className="flex items-center justify-center h-full">
                             <div className="text-center">
