@@ -23,8 +23,14 @@ function App() {
             <RadialEffect />
             <main className="w-full container  min-w-full flex-1 flex flex-col justify-between">
                 <div className="flex-1 flex flex-col items-center justify-center space-y-8 ">
-                    <Card />
-                    <Card />
+                    <Card
+                        image="https://images.pexels.com/photos/17096028/pexels-photo-17096028.jpeg"
+                        imageAlt="Textile manufacturing"
+                    />
+                    <Card
+                        image="https://images.pexels.com/photos/12179403/pexels-photo-12179403.jpeg"
+                        imageAlt="Fabric production"
+                    />
                 </div>
                 <div className="px-4  pb-8">
                     <Button

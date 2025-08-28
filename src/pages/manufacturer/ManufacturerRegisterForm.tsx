@@ -74,7 +74,7 @@ function ManufacturerRegisterForm() {
             onSuccess: (data) => {
                 console.log('Manufacturer created successfully:', data)
                 showToast.success('Muvaffaqiyatli yaratildi!') // Success message
-                navigate('/services')
+                navigate('/manufacturer/additional-services')
             },
             onError: (error) => {
                 console.error('Manufacturer creation failed:', error)

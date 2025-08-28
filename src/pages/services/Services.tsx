@@ -8,59 +8,6 @@ function Services() {
     // Fetch additional services from API
     const { data: services, isLoading, error } = useApiV1AdditionalServicesListList()
 
-    const renderIcon = (iconType: string) => {
-        switch (iconType) {
-            case 'order':
-                return (
-                    <svg width="113" height="95" viewBox="0 0 113 95" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <foreignObject x="-34" y="-33" width="184.777" height="160.778">
-                            <div style={{ backdropFilter: 'blur(32px)', clipPath: 'url(#bgblur_1_27_18419_clip_path)', height: '100%', width: '100%' }}></div>
-                        </foreignObject>
-                        <g filter="url(#filter0_ddi_27_18419)" data-figma-bg-blur-radius="64">
-                            <g clipPath="url(#clip0_27_18419)">
-                                <rect width="32.7798" height="32.7798" rx="4" transform="matrix(0.866044 -0.499967 0.866044 0.499967 30 47.3889)" fill="#FCE803" />
-                                <g clipPath="url(#clip2_27_18419)">
-                                    <path d="M48.5903 50.9244H55.939M48.5903 47.3891H59.6133M65.7371 46.682V52.3385M65.7371 52.3385L69.4114 50.2173M65.7371 52.3385L62.0628 50.2173M48.5903 43.8538H63.2876" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                </g>
-                            </g>
-                            <rect x="0.866044" width="31.7798" height="31.7798" rx="3.5" transform="matrix(0.866044 -0.499967 0.866044 0.499967 30.116 47.8219)" stroke="#101318" strokeOpacity="0.16" />
-                        </g>
-                        <defs>
-                            <filter id="filter0_ddi_27_18419" x="-34" y="-33" width="184.777" height="160.778" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                                <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                                <feOffset />
-                                <feGaussianBlur stdDeviation="16" />
-                                <feColorMatrix type="matrix" values="0 0 0 0 0.988235 0 0 0 0 0.909804 0 0 0 0 0.0117647 0 0 0 0.5 0" />
-                                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_27_18419" />
-                                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                                <feOffset dy="6" />
-                                <feColorMatrix type="matrix" values="0 0 0 0 0.988235 0 0 0 0 0.909804 0 0 0 0 0.0117647 0 0 0 0.48 0" />
-                                <feBlend mode="normal" in2="effect1_dropShadow_27_18419" result="effect2_dropShadow_27_18419" />
-                                <feBlend mode="normal" in="SourceGraphic" in2="effect2_dropShadow_27_18419" result="shape" />
-                                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                                <feOffset dy="-1" />
-                                <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-                                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.16 0" />
-                                <feBlend mode="normal" in2="shape" result="effect3_innerShadow_27_18419" />
-                            </filter>
-                            <clipPath id="bgblur_1_27_18419_clip_path" transform="translate(34 33)">
-                                <rect width="32.7798" height="32.7798" rx="4" transform="matrix(0.866044 -0.499967 0.866044 0.499967 30 47.3889)" />
-                            </clipPath>
-                            <clipPath id="clip0_27_18419">
-                                <rect width="32.7798" height="32.7798" rx="4" transform="matrix(0.866044 -0.499967 0.866044 0.499967 30 47.3889)" fill="white" />
-                            </clipPath>
-                            <clipPath id="clip2_27_18419">
-                                <rect width="24" height="24" fill="white" transform="matrix(1.22477 0 0 0.707061 43.6914 38.9043)" />
-                            </clipPath>
-                        </defs>
-                    </svg>
-                )
-            default:
-                return null
-        }
-    }
-
     // Show loading state
     if (isLoading) {
         return (
@@ -124,7 +71,7 @@ function Services() {
                 {/* Header */}
                 <div className="text-left space-y-4 mb-8 px-4 pt-4">
                     <h1 className="text-white font-bold text-[32px] tracking-wide">
-                        {t('app.xizmatlar.title') || 'Xizmatlar'}
+                        {t('app.xizmatlar.title')}
                     </h1>
                 </div>
 
@@ -141,31 +88,44 @@ function Services() {
                             {services.map((service) => (
                                 <div
                                     key={service.id}
-                                    className="relative w-full h-[108px] rounded-[22px] border border-[#FFFFFF0A] bg-[#FFFFFF05] shadow-[0px_1px_0px_0px_#FFFFFF14_inset] overflow-hidden"
+                                    className="relative flex items-center justify-between px-6 flex-row w-full h-[108px] rounded-[22px] border border-[#FFFFFF0A] bg-[#FFFFFF05] shadow-[0px_1px_0px_0px_#FFFFFF14_inset] overflow-hidden"
                                     style={{
                                         backdropFilter: 'blur(128px)',
                                         WebkitBackdropFilter: 'blur(128px)'
                                     }}
                                 >
-                                    {/* Service Icon */}
-                                    <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
-                                        {renderIcon('order')}
-                                    </div>
+
 
                                     {/* Service Content */}
-                                    <div className="absolute left-6 top-1/2 transform -translate-y-1/2 space-y-1">
-                                        <h3 className="text-white font-extrabold text-base leading-[140%] tracking-[0px] font-['Plus_Jakarta_Sans']">
+                                    <div className=" space-y-1">
+                                        <h3 className="text-white font-extrabold text-base">
                                             {service.name}
                                         </h3>
-                                        <p className="text-[#ACADAF] font-normal text-[9px] leading-[140%] tracking-[0px] font-['Plus_Jakarta_Sans']">
+                                        <p className="text-[#ACADAF] font-normal text-[9px]">
                                             {service.description || 'Tavsif mavjud emas'}
                                         </p>
-                                        {service.price && (
-                                            <p className="text-[#FCE803] font-semibold text-[11px] leading-[140%] tracking-[0px] font-['Plus_Jakarta_Sans']">
-                                                Narx: {service.price}
-                                            </p>
-                                        )}
                                     </div>
+
+                                    {/* Service Icon */}
+                                    {service.price && (
+                                        <p className="text-[#FCE803] font-bold text-lg text-center">
+                                            ${service.price}
+                                        </p>
+                                    )}
+
+                                    <div className="absolute right-2 top-0">
+                                        <svg width="111" height="108" viewBox="0 0 111 108" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path opacity="0.16" d="M1.73438 -0.265625L109.266 107.266M109.266 -0.265625L1.73438 107.266M38.1549 -2V109M55.4979 -2V109M72.8435 -2V109M111 36.1565L0 36.1565M111 53.4994L0 53.4994M111 70.8449L0 70.8449M90.1875 53.5C90.1875 72.6574 74.6574 88.1875 55.5 88.1875C36.3426 88.1875 20.8125 72.6574 20.8125 53.5C20.8125 34.3426 36.3426 18.8125 55.5 18.8125C74.6574 18.8125 90.1875 34.3426 90.1875 53.5ZM72.8438 53.5C72.8438 63.0787 65.0787 70.8438 55.5 70.8438C45.9213 70.8438 38.1563 63.0787 38.1563 53.5C38.1563 43.9213 45.9213 36.1563 55.5 36.1563C65.0787 36.1563 72.8438 43.9213 72.8438 53.5Z" stroke="url(#paint0_radial_27_18405)" stroke-width="0.5" />
+                                            <defs>
+                                                <radialGradient id="paint0_radial_27_18405" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(55.5 53.5) rotate(90) scale(55.5)">
+                                                    <stop stop-color="white" />
+                                                    <stop offset="0.5" stop-color="white" stop-opacity="0.25" />
+                                                    <stop offset="1" stop-color="white" stop-opacity="0" />
+                                                </radialGradient>
+                                            </defs>
+                                        </svg>
+                                    </div>
+
 
                                     {/* Hover Effect */}
                                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />

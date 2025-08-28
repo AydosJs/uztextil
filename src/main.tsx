@@ -18,7 +18,8 @@ import Welcome from './pages/Welcome.tsx'
 import ChooseDepartment from './pages/ChooseDepartment.tsx'
 import CustomerWelcome from './pages/customer/CustomerWelcome.tsx'
 import CustomerRegisterForm from './pages/customer/CustomerRegisterForm.tsx'
-import AdditionalServices from './pages/customer/AdditionalServices.tsx'
+import CustomerAdditionalServices from './pages/customer/AdditionalServices.tsx'
+import ManufacturerAdditionalServices from './pages/manufacturer/AdditionalServices.tsx'
 import SubmitApplication from './pages/customer/SubmitApplication.tsx'
 import ManufacturerWelcome from './pages/manufacturer/ManufacturerWelcome.tsx'
 import ManufacturerRegisterForm from './pages/manufacturer/ManufacturerRegisterForm.tsx'
@@ -61,7 +62,7 @@ createRoot(document.getElementById('root')!).render(
             <Route index element={<CustomerWelcome />} />
             <Route path="welcome" element={<CustomerWelcome />} />
             <Route path="register" element={<CustomerRegisterForm />} />
-            <Route path="additional-services" element={<AdditionalServices />} />
+            <Route path="additional-services" element={<CustomerAdditionalServices />} />
             <Route path="submit-application" element={<SubmitApplication />} />
           </Route>
 
@@ -70,6 +71,7 @@ createRoot(document.getElementById('root')!).render(
             <Route index element={<ManufacturerWelcome />} />
             <Route path="welcome" element={<ManufacturerWelcome />} />
             <Route path="register" element={<ManufacturerRegisterForm />} />
+            <Route path="additional-services" element={<ManufacturerAdditionalServices />} />
           </Route>
 
           <Route path="/services" element={<Services />} />
