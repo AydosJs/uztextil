@@ -23,6 +23,7 @@ import SubmitApplication from './pages/customer/SubmitApplication.tsx'
 import ManufacturerWelcome from './pages/manufacturer/ManufacturerWelcome.tsx'
 import ManufacturerRegisterForm from './pages/manufacturer/ManufacturerRegisterForm.tsx'
 import Services from './pages/services/Services.tsx'
+import { Toaster } from 'sonner'
 
 // Initialize the Telegram Mini Apps SDK properly
 initSDK().then((result) => {
@@ -48,6 +49,7 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
+        <Toaster />
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/welcome" element={<Welcome />} />

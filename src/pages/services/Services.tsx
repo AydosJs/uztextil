@@ -1,43 +1,12 @@
 import { useTranslation } from "react-i18next"
-import { RadialEffect } from "@/components/ui"
-
-interface ServiceCard {
-    id: number
-    title: string
-    description: string
-    icon: string
-}
+import { RadialEffect, Spinner } from "@/components/ui"
+import { useApiV1AdditionalServicesListList } from "@/lib/api"
 
 function Services() {
     const { t } = useTranslation()
 
-    const services: ServiceCard[] = [
-        {
-            id: 1,
-            title: t('app.xizmatlar.services.order.title') || "Buyurtma joylashtirish",
-            description: t('app.xizmatlar.services.order.description') || "O'z buyurtmalaringizni joylashtiring",
-            icon: "order"
-        },
-        {
-            id: 2,
-            title: t('app.xizmatlar.services.factory.title') || "Fabrika tanlash",
-            description: t('app.xizmatlar.services.factory.description') || "Fabrikalar ro'yxatidan fabrika tanlang",
-            icon: "order"
-        },
-        {
-            id: 3,
-            title: t('app.xizmatlar.services.meeting.title') || "Online B2B ga uchrashuv",
-            description: t('app.xizmatlar.services.meeting.description') || "Google meet orqali Fabrika rahbari bilan uchrashuv",
-            icon: "order"
-        },
-        {
-            id: 4,
-            title: t('app.xizmatlar.services.tour.title') || "Fabrikalarga tur buyurtma qilish",
-            description: t('app.xizmatlar.services.tour.description') || "Tur buyurtma qiling",
-            icon: "order"
-
-        }
-    ]
+    // Fetch additional services from API
+    const { data: services, isLoading, error } = useApiV1AdditionalServicesListList()
 
     const renderIcon = (iconType: string) => {
         switch (iconType) {
@@ -92,6 +61,59 @@ function Services() {
         }
     }
 
+    // Show loading state
+    if (isLoading) {
+        return (
+            <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden">
+                <RadialEffect
+                    className="!w-[512px] !h-[512px] !-top-[202px] !-left-[256px] !opacity-[0.08]"
+                />
+                <main className="w-full container min-w-full flex-1 flex flex-col relative z-10">
+                    <div className="text-left space-y-4 mb-8 px-4 pt-4">
+                        <h1 className="text-white font-bold text-[32px] tracking-wide">
+                            {t('app.xizmatlar.title') || 'Xizmatlar'}
+                        </h1>
+                    </div>
+                    <div className="flex-1 flex items-center justify-center">
+                        <Spinner className="w-8 h-8 text-white" />
+                    </div>
+                </main>
+            </div>
+        )
+    }
+
+    // Show error state
+    if (error) {
+        return (
+            <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden">
+                <RadialEffect
+                    className="!w-[512px] !h-[512px] !-top-[202px] !-left-[256px] !opacity-[0.08]"
+                />
+                <main className="w-full container min-w-full flex-1 flex flex-col relative z-10">
+                    <div className="text-left space-y-4 mb-8 px-4 pt-4">
+                        <h1 className="text-white font-bold text-[32px] tracking-wide">
+                            {t('app.xizmatlar.title') || 'Xizmatlar'}
+                        </h1>
+                    </div>
+                    <div className="flex-1 flex items-center justify-center">
+                        <div className="text-center">
+                            <p className="text-red-400 text-lg mb-4">Xatolik yuz berdi</p>
+                            <button
+                                onClick={() => window.location.reload()}
+                                className="px-4 py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 transition-colors"
+                            >
+                                Qayta urinish
+                            </button>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        )
+    }
+
+    // Show services or empty state
+    const hasServices = services && services.length > 0
+
     return (
         <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden">
             <RadialEffect
@@ -108,36 +130,49 @@ function Services() {
 
                 {/* Services Grid */}
                 <div className="flex-1 px-4 pb-8">
-                    <div className="space-y-9">
-                        {services.map((service) => (
-                            <div
-                                key={service.id}
-                                className="relative w-full h-[108px] rounded-[22px] border border-[#FFFFFF0A] bg-[#FFFFFF05] shadow-[0px_1px_0px_0px_#FFFFFF14_inset] overflow-hidden"
-                                style={{
-                                    backdropFilter: 'blur(128px)',
-                                    WebkitBackdropFilter: 'blur(128px)'
-                                }}
-                            >
-                                {/* Service Icon */}
-                                <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
-                                    {renderIcon(service.icon)}
-                                </div>
-
-                                {/* Service Content */}
-                                <div className="absolute left-6 top-1/2 transform -translate-y-1/2 space-y-1">
-                                    <h3 className="text-white font-extrabold text-base leading-[140%] tracking-[0px] font-['Plus_Jakarta_Sans']">
-                                        {service.title}
-                                    </h3>
-                                    <p className="text-[#ACADAF] font-normal text-[9px] leading-[140%] tracking-[0px] font-['Plus_Jakarta_Sans']">
-                                        {service.description}
-                                    </p>
-                                </div>
-
-                                {/* Hover Effect */}
-                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
+                    {!hasServices ? (
+                        <div className="flex items-center justify-center h-full">
+                            <div className="text-center">
+                                <p className="text-[#ACADAF] text-lg">Hozircha xizmatlar mavjud emas</p>
                             </div>
-                        ))}
-                    </div>
+                        </div>
+                    ) : (
+                        <div className="space-y-9">
+                            {services.map((service) => (
+                                <div
+                                    key={service.id}
+                                    className="relative w-full h-[108px] rounded-[22px] border border-[#FFFFFF0A] bg-[#FFFFFF05] shadow-[0px_1px_0px_0px_#FFFFFF14_inset] overflow-hidden"
+                                    style={{
+                                        backdropFilter: 'blur(128px)',
+                                        WebkitBackdropFilter: 'blur(128px)'
+                                    }}
+                                >
+                                    {/* Service Icon */}
+                                    <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
+                                        {renderIcon('order')}
+                                    </div>
+
+                                    {/* Service Content */}
+                                    <div className="absolute left-6 top-1/2 transform -translate-y-1/2 space-y-1">
+                                        <h3 className="text-white font-extrabold text-base leading-[140%] tracking-[0px] font-['Plus_Jakarta_Sans']">
+                                            {service.name}
+                                        </h3>
+                                        <p className="text-[#ACADAF] font-normal text-[9px] leading-[140%] tracking-[0px] font-['Plus_Jakarta_Sans']">
+                                            {service.description || 'Tavsif mavjud emas'}
+                                        </p>
+                                        {service.price && (
+                                            <p className="text-[#FCE803] font-semibold text-[11px] leading-[140%] tracking-[0px] font-['Plus_Jakarta_Sans']">
+                                                Narx: {service.price}
+                                            </p>
+                                        )}
+                                    </div>
+
+                                    {/* Hover Effect */}
+                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </main>
         </div>

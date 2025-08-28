@@ -1,4 +1,4 @@
-import { Button, Card, RadialEffect, Toaster } from "@/components/ui"
+import { Button, Card, RadialEffect } from "@/components/ui"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
@@ -38,7 +38,6 @@ function App() {
                     </Button>
                 </div>
             </main>
-            <Toaster />
         </div>
     )
 }
