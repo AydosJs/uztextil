@@ -25,6 +25,7 @@ import ManufacturerWelcome from './pages/manufacturer/ManufacturerWelcome.tsx'
 import ManufacturerRegisterForm from './pages/manufacturer/ManufacturerRegisterForm.tsx'
 import Services from './pages/services/Services.tsx'
 import { Toaster } from 'sonner'
+import { setSafeAreaCSSProperties } from './utils/safeAreaUtils.ts'
 
 // Initialize the Telegram Mini Apps SDK properly
 initSDK().then((result) => {
@@ -45,6 +46,9 @@ const queryClient = new QueryClient({
     },
   },
 });
+
+// Start safe area monitoring immediately to prevent layout shift
+setSafeAreaCSSProperties()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
