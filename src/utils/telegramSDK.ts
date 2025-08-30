@@ -22,78 +22,70 @@ export async function initSDK(): Promise<string> {
         return Promise.reject("error");
     }
 
-    postEvent("web_app_set_background_color", {
-        color: "#101017",
-    });
-
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
     // Wait for viewport to be ready and mount it
-    if (isMobile) {
+    try {
+        await viewport.mount();
+        console.log('Viewport mounted successfully');
+
+        // Wait a bit for viewport to be fully ready
+        await new Promise(resolve => setTimeout(resolve, 100));
+
         try {
-            await viewport.mount();
-            console.log('Viewport mounted successfully');
-
-            // Wait a bit for viewport to be fully ready
-            await new Promise(resolve => setTimeout(resolve, 100));
-
-            try {
-                viewport.expand(); // first it would be better to expand
-                console.log('Viewport expanded');
-            } catch {
-                // Viewport expand not available
-            }
-
-            // Wait for viewport to settle after expansion
-            await new Promise(resolve => setTimeout(resolve, 200));
-
-            try {
-                await viewport.requestFullscreen(); // then request full screen mode
-                console.log('Fullscreen requested');
-            } catch (e) {
-                // Fullscreen not available
-            }
-
-            // Wait for fullscreen to be applied
-            await new Promise(resolve => setTimeout(resolve, 300));
-        } catch (_) {
-            // Viewport mount not available
+            viewport.expand(); // first it would be better to expand
+            console.log('Viewport expanded');
+        } catch {
+            // Viewport expand not available
         }
+
+        // Wait for viewport to settle after expansion
+        await new Promise(resolve => setTimeout(resolve, 200));
+
+        try {
+            await viewport.requestFullscreen(); // then request full screen mode
+            console.log('Fullscreen requested');
+        } catch {
+            // Fullscreen not available
+        }
+
+        // Wait for fullscreen to be applied
+        await new Promise(resolve => setTimeout(resolve, 300));
+    } catch {
+        // Viewport mount not available
     }
 
     // Mount all components used in the project.
     try {
         backButton.mount();
         console.log('Back button mounted');
-    } catch (_) {
+    } catch {
         // Back button mount not available
     }
 
     try {
         await miniApp.mount();
         console.log('Mini app mounted');
-    } catch (_) {
+    } catch {
         // Mini app mount not available
     }
 
     try {
         initData.restore();
         console.log('Init data restored');
-    } catch (_) {
+    } catch {
         // Init data restore not available
     }
 
     try {
         swipeBehavior.mount();
         console.log('Swipe behavior mounted');
-    } catch (_) {
+    } catch {
         // Swipe behavior mount not available
     }
 
     try {
         swipeBehavior.disableVertical();
         console.log('Vertical swipe disabled');
-    } catch (_) {
+    } catch {
         // Vertical swipe disable not available
     }
 
