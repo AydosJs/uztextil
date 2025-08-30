@@ -46,8 +46,8 @@ function ManufacturerRegisterForm() {
     const { t } = useTranslation()
     const navigate = useNavigate()
 
-    // Use the Telegram back button hook - will navigate back to previous page by default
-    useTelegramBackButton()
+    // Show back button that goes to manufacturer welcome page
+    useTelegramBackButton({ navigateTo: '/manufacturer' })
 
     const {
         register,

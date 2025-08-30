@@ -1,21 +1,17 @@
 import { Button, Card, RadialEffect } from "@/components/ui"
-import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
+import { useTelegramBackButton } from "@/lib/hooks"
 
 function App() {
-    const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
     const { t } = useTranslation()
 
+    // Show back button that goes back one step
+    useTelegramBackButton()
+
     const handleButtonClick = () => {
-        setIsLoading(true)
-        // Simulate some async operation
-        setTimeout(() => {
-            setIsLoading(false)
-            // Navigate to welcome page after loading
-            navigate("/welcome")
-        }, 3000)
+        navigate("/welcome")
     }
 
     return (
@@ -34,11 +30,9 @@ function App() {
                 </div>
                 <div className="px-4  pb-8">
                     <Button
-                        loading={isLoading}
                         variant="default"
                         shadow="lg"
                         onClick={handleButtonClick}
-                        disabled={isLoading}
                     >
                         {t('app.continue')}
                     </Button>

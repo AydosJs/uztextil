@@ -10,8 +10,8 @@ function SubmitApplication() {
     const location = useLocation()
     const [isChecked, setIsChecked] = useState(false)
 
-    // Use the Telegram back button hook - will navigate back to previous page by default
-    useTelegramBackButton()
+    // Show back button that goes to additional services page
+    useTelegramBackButton({ navigateTo: '/customer/additional-services' })
 
     // Get service title from location state or use default
     const serviceTitle = location.state?.serviceTitle || "Video sharh xizmati"

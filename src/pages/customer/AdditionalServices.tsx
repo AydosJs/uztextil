@@ -11,8 +11,8 @@ interface ServiceCard {
 }
 
 function AdditionalServices() {
-    // Use the Telegram back button hook - will navigate back to previous page by default
-    useTelegramBackButton()
+    // Show back button that goes to customer register page
+    useTelegramBackButton({ navigateTo: '/customer/register' })
 
     const services: ServiceCard[] = [
         {

@@ -7,7 +7,8 @@ function Welcome() {
     const navigate = useNavigate()
     const { t } = useTranslation()
 
-    useTelegramBackButton()
+    // Welcome page should show back button that goes back one step (close behavior)
+    useTelegramBackButton({ navigateTo: "/" })
 
     const handleGetStarted = () => {
         // Navigate to the body selection page

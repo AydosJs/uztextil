@@ -7,8 +7,8 @@ function ManufacturerWelcome() {
     const navigate = useNavigate()
     const { t } = useTranslation()
 
-    // Use the Telegram back button hook - will navigate back to previous page by default
-    useTelegramBackButton()
+    // Show back button that goes to choose department page
+    useTelegramBackButton({ navigateTo: '/choose-department' })
 
     const handleGetStarted = () => {
         navigate("/manufacturer/register")

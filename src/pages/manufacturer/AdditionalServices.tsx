@@ -4,8 +4,8 @@ import { useApiV1AdditionalServicesListList } from "@/lib/api"
 import { useTelegramBackButton } from "@/lib/hooks"
 
 function AdditionalServices() {
-    // Use the Telegram back button hook - will navigate back to previous page by default
-    useTelegramBackButton()
+    // Show back button that goes to manufacturer register page
+    useTelegramBackButton({ navigateTo: '/manufacturer/register' })
 
     // Fetch additional services from API
     const { data: services, isLoading, error } = useApiV1AdditionalServicesListList()

@@ -2,12 +2,14 @@ import { Option } from "@/components/ui"
 import { UserRound, Factory } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
+import { useTelegramBackButton } from "@/lib/hooks"
 
 function ChooseDepartment() {
     const { t } = useTranslation()
     const navigate = useNavigate()
 
-    // Use the Telegram back button hook - will navigate back to previous page by default
+    // Show back button that goes to welcome page
+    useTelegramBackButton({ navigateTo: '/welcome' })
 
     const handleCustomerSelect = () => {
         navigate("/customer")

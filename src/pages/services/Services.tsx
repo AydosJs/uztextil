@@ -6,8 +6,8 @@ import { useTelegramBackButton } from "@/lib/hooks"
 function Services() {
     const { t } = useTranslation()
 
-    // Use the Telegram back button hook - will navigate back to previous page by default
-    useTelegramBackButton()
+    // Show back button - need to determine where this page comes from
+    useTelegramBackButton({ navigateTo: '/choose-department' })
 
     // Fetch additional services from API
     const { data: services, isLoading, error } = useApiV1AdditionalServicesListList()

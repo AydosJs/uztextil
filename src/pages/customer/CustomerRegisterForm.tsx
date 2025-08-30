@@ -37,8 +37,8 @@ function CustomerRegisterForm() {
         files: [] as File[]
     })
 
-    // Use the Telegram back button hook - will navigate back to previous page by default
-    useTelegramBackButton()
+    // Show back button that goes to customer welcome page
+    useTelegramBackButton({ navigateTo: '/customer' })
 
     const handleInputChange = (field: string, value: string | File[]) => {
         setFormData(prev => ({
