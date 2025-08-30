@@ -1,12 +1,16 @@
 import { Button } from "@/components/ui"
 import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
+import { useTelegramBackButton } from "@/lib/hooks"
 
 function Welcome() {
     const navigate = useNavigate()
     const { t } = useTranslation()
+    const { hideBackButton } = useTelegramBackButton()
 
     const handleGetStarted = () => {
+        // Hide back button before navigating
+        hideBackButton()
         // Navigate to the body selection page
         navigate("/choose-department")
     }
