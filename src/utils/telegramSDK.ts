@@ -7,7 +7,7 @@ import {
     postEvent,
     viewport,
 } from "@telegram-apps/sdk-react";
-import { setSafeAreaCSSProperties } from './safeAreaUtils';
+
 
 /**
  * Initializes the application and configures its dependencies.
@@ -29,54 +29,72 @@ export async function initSDK(): Promise<string> {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
     // Wait for viewport to be ready and mount it
-    if (viewport.mount.isAvailable() && isMobile) {
-        await viewport.mount();
-        console.log('Viewport mounted successfully');
+    if (isMobile) {
+        try {
+            await viewport.mount();
+            console.log('Viewport mounted successfully');
 
-        // Wait a bit for viewport to be fully ready
-        await new Promise(resolve => setTimeout(resolve, 100));
+            // Wait a bit for viewport to be fully ready
+            await new Promise(resolve => setTimeout(resolve, 100));
 
-        if (viewport.expand.isAvailable()) {
-            viewport.expand(); // first it would be better to expand
-            console.log('Viewport expanded');
+            try {
+                viewport.expand(); // first it would be better to expand
+                console.log('Viewport expanded');
+            } catch {
+                // Viewport expand not available
+            }
+
+            // Wait for viewport to settle after expansion
+            await new Promise(resolve => setTimeout(resolve, 200));
+
+            try {
+                await viewport.requestFullscreen(); // then request full screen mode
+                console.log('Fullscreen requested');
+            } catch (e) {
+                // Fullscreen not available
+            }
+
+            // Wait for fullscreen to be applied
+            await new Promise(resolve => setTimeout(resolve, 300));
+        } catch (_) {
+            // Viewport mount not available
         }
-
-        // Wait for viewport to settle after expansion
-        await new Promise(resolve => setTimeout(resolve, 200));
-
-        if (viewport.requestFullscreen.isAvailable() && isMobile) {
-            await viewport.requestFullscreen(); // then request full screen mode
-            console.log('Fullscreen requested');
-        }
-
-        // Wait for fullscreen to be applied
-        await new Promise(resolve => setTimeout(resolve, 300));
     }
 
     // Mount all components used in the project.
-    if (backButton.mount.isAvailable()) {
+    try {
         backButton.mount();
         console.log('Back button mounted');
+    } catch (_) {
+        // Back button mount not available
     }
 
-    if (miniApp.mount.isAvailable()) {
+    try {
         await miniApp.mount();
         console.log('Mini app mounted');
+    } catch (_) {
+        // Mini app mount not available
     }
 
-    if (initData.restore.isAvailable()) {
+    try {
         initData.restore();
         console.log('Init data restored');
+    } catch (_) {
+        // Init data restore not available
     }
 
-    if (swipeBehavior.mount.isAvailable()) {
+    try {
         swipeBehavior.mount();
         console.log('Swipe behavior mounted');
+    } catch (_) {
+        // Swipe behavior mount not available
     }
 
-    if (swipeBehavior.disableVertical.isAvailable()) {
+    try {
         swipeBehavior.disableVertical();
         console.log('Vertical swipe disabled');
+    } catch (_) {
+        // Vertical swipe disable not available
     }
 
     // Wait a bit more for everything to settle
