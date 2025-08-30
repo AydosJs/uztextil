@@ -31,8 +31,8 @@ export function waitForSafeAreaValues(): Promise<{ top: number, bottom: number }
                     // Ensure we have valid values
                     if (top >= 0 && bottom >= 0) {
                         resolve({
-                            top: top > 0 ? top : 40,
-                            bottom: bottom
+                            top: top > 0 ? top : 0,
+                            bottom: bottom > 0 ? bottom : 0
                         });
                     } else {
                         // If values are invalid, wait a bit more
@@ -51,14 +51,13 @@ export function waitForSafeAreaValues(): Promise<{ top: number, bottom: number }
 }
 
 /**
- * Sets CSS custom properties for safe area insets using dynamic style injection
+ * Sets CSS custom properties for safe area insets and creates Tailwind-compatible utilities
  */
 export function setSafeAreaCSSProperties(): void {
     if (typeof document === 'undefined') return;
 
     try {
         if (!isSDKReady()) {
-            console.warn('SDK not ready, cannot set safe area properties');
             return;
         }
 
@@ -67,50 +66,75 @@ export function setSafeAreaCSSProperties(): void {
 
         // Validate values
         if (safeAreaInsetTop < 0 || safeAreaInsetBottom < 0) {
-            console.warn('Invalid safe area values:', { safeAreaInsetTop, safeAreaInsetBottom });
             return;
         }
 
-        let styleEl = document.getElementById("dynamic-vars");
+        let styleEl = document.getElementById("safe-area-styles");
         if (!styleEl) {
             styleEl = document.createElement("style");
-            styleEl.id = "dynamic-vars";
+            styleEl.id = "safe-area-styles";
             document.head.appendChild(styleEl);
         }
 
-        const topValue = safeAreaInsetTop > 0 ? `${safeAreaInsetTop + 48}px` : "40px";
-        const bottomValue = safeAreaInsetBottom > 0 ? `${safeAreaInsetBottom}px` : "0px";
+        const topValue = safeAreaInsetTop > 0 ? safeAreaInsetTop : 0;
+        const bottomValue = safeAreaInsetBottom > 0 ? safeAreaInsetBottom : 0;
 
+        // Create CSS custom properties for Tailwind to use
         styleEl.innerHTML = `
-            :root, :root * {
-                --safe-area-inset-top: ${topValue} !important;
-                --safe-area-inset-bottom: ${bottomValue} !important;
+            :root {
+                --safe-area-top: ${topValue + 48}px;
+                --safe-area-bottom: ${bottomValue}px;
+            }
+            
+            /* Safe area utility classes that work with Tailwind */
+            .safe-area-pt {
+                padding-top: var(--safe-area-top) !important;
+            }
+            
+            .safe-area-pb {
+                padding-bottom: var(--safe-area-bottom) !important;
+            }
+            
+            .safe-area-py {
+                padding-top: var(--safe-area-top) !important;
+                padding-bottom: var(--safe-area-bottom) !important;
+            }
+            
+            .safe-area-mt {
+                margin-top: var(--safe-area-top) !important;
+            }
+            
+            .safe-area-mb {
+                margin-bottom: var(--safe-area-bottom) !important;
+            }
+            
+            .safe-area-my {
+                margin-top: var(--safe-area-top) !important;
+                margin-bottom: var(--safe-area-bottom) !important;
             }
         `;
-
-        console.log('Safe area CSS properties set:', { top: topValue, bottom: bottomValue });
-    } catch (error) {
-        console.warn('Failed to set safe area CSS properties:', error);
+    } catch {
+        // Silent fail
     }
 }
 
 /**
  * Gets current safe area values (only top and bottom)
- * If safe area is 0px, uses default 40px for top
+ * If safe area doesn't exist, uses 0px as default
  */
 export function getSafeAreaValues() {
     try {
         if (!isSDKReady()) {
-            return { top: 40, bottom: 0 };
+            return { top: 0, bottom: 0 };
         }
         const top = viewport.safeAreaInsetTop();
         const bottom = viewport.safeAreaInsetBottom();
         return {
-            top: top > 0 ? top : 40,
-            bottom: bottom,
+            top: top > 0 ? top : 0,
+            bottom: bottom > 0 ? bottom : 0,
         };
     } catch {
-        return { top: 40, bottom: 0 };
+        return { top: 0, bottom: 0 };
     }
 }
 
@@ -121,27 +145,27 @@ export function getSafeAreaValues() {
 export function getSafeAreaClass(property: 'pt' | 'pb' | 'py'): string {
     try {
         if (!isSDKReady()) {
-            return property === 'pt' ? 'pt-[40px]' : property === 'pb' ? 'pb-[0px]' : 'pt-[40px] pb-[0px]';
+            return property === 'pt' ? 'pt-[0px]' : property === 'pb' ? 'pb-[0px]' : 'pt-[0px] pb-[0px]';
         }
 
         if (property === 'py') {
             const topValue = viewport.safeAreaInsetTop();
             const bottomValue = viewport.safeAreaInsetBottom();
-            return `pt-[${topValue > 0 ? topValue : 40}px] pb-[${bottomValue}px]`;
+            return `pt-[${topValue > 0 ? topValue : 0}px] pb-[${bottomValue > 0 ? bottomValue : 0}px]`;
         }
 
         if (property === 'pt') {
             const topValue = viewport.safeAreaInsetTop();
-            return `pt-[${topValue > 0 ? topValue : 40}px]`;
+            return `pt-[${topValue > 0 ? topValue : 0}px]`;
         }
 
         if (property === 'pb') {
             const bottomValue = viewport.safeAreaInsetBottom();
-            return `pb-[${bottomValue}px]`;
+            return `pb-[${bottomValue > 0 ? bottomValue : 0}px]`;
         }
 
         return '';
     } catch {
-        return property === 'pt' ? 'pt-[40px]' : property === 'pb' ? 'pb-[0px]' : 'pt-[40px] pb-[0px]';
+        return property === 'pt' ? 'pt-[0px]' : property === 'pb' ? 'pb-[0px]' : 'pt-[0px] pb-[0px]';
     }
 }

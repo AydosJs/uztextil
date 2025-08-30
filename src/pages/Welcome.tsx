@@ -6,11 +6,10 @@ import { useTelegramBackButton } from "@/lib/hooks"
 function Welcome() {
     const navigate = useNavigate()
     const { t } = useTranslation()
-    const { hideBackButton } = useTelegramBackButton()
+
+    useTelegramBackButton()
 
     const handleGetStarted = () => {
-        // Hide back button before navigating
-        hideBackButton()
         // Navigate to the body selection page
         navigate("/choose-department")
     }
