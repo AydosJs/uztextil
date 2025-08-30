@@ -1,9 +1,13 @@
 import { useTranslation } from "react-i18next"
 import { RadialEffect, Spinner } from "@/components/ui"
 import { useApiV1AdditionalServicesListList } from "@/lib/api"
+import { useTelegramBackButton } from "@/lib/hooks"
 
 function Services() {
     const { t } = useTranslation()
+
+    // Use the Telegram back button hook - will navigate back to previous page by default
+    useTelegramBackButton()
 
     // Fetch additional services from API
     const { data: services, isLoading, error } = useApiV1AdditionalServicesListList()

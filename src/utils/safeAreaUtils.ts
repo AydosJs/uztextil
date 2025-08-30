@@ -9,7 +9,8 @@ export function isSDKReady(): boolean {
     try {
         return viewport &&
             typeof viewport.safeAreaInsetTop === 'function' &&
-            typeof viewport.safeAreaInsetBottom === 'function';
+            typeof viewport.safeAreaInsetBottom === 'function' &&
+            viewport.isMounted?.() === true;
     } catch {
         return false;
     }
@@ -26,15 +27,23 @@ export function waitForSafeAreaValues(): Promise<{ top: number, bottom: number }
                 try {
                     const top = viewport.safeAreaInsetTop();
                     const bottom = viewport.safeAreaInsetBottom();
-                    resolve({
-                        top: top > 0 ? top : 40,
-                        bottom: bottom
-                    });
+
+                    // Ensure we have valid values
+                    if (top >= 0 && bottom >= 0) {
+                        resolve({
+                            top: top > 0 ? top : 40,
+                            bottom: bottom
+                        });
+                    } else {
+                        // If values are invalid, wait a bit more
+                        setTimeout(checkSDK, 50);
+                    }
                 } catch {
-                    resolve({ top: 40, bottom: 0 });
+                    // If there's an error, wait a bit more
+                    setTimeout(checkSDK, 50);
                 }
             } else {
-                setTimeout(checkSDK, 100); // Check again in 100ms
+                setTimeout(checkSDK, 50); // Check again in 50ms
             }
         };
         checkSDK();
@@ -48,10 +57,19 @@ export function setSafeAreaCSSProperties(): void {
     if (typeof document === 'undefined') return;
 
     try {
-        if (!isSDKReady()) return;
+        if (!isSDKReady()) {
+            console.warn('SDK not ready, cannot set safe area properties');
+            return;
+        }
 
         const safeAreaInsetTop = viewport.safeAreaInsetTop();
         const safeAreaInsetBottom = viewport.safeAreaInsetBottom();
+
+        // Validate values
+        if (safeAreaInsetTop < 0 || safeAreaInsetBottom < 0) {
+            console.warn('Invalid safe area values:', { safeAreaInsetTop, safeAreaInsetBottom });
+            return;
+        }
 
         let styleEl = document.getElementById("dynamic-vars");
         if (!styleEl) {
@@ -60,14 +78,17 @@ export function setSafeAreaCSSProperties(): void {
             document.head.appendChild(styleEl);
         }
 
+        const topValue = safeAreaInsetTop > 0 ? `${safeAreaInsetTop + 48}px` : "40px";
+        const bottomValue = safeAreaInsetBottom > 0 ? `${safeAreaInsetBottom}px` : "0px";
+
         styleEl.innerHTML = `
             :root, :root * {
-                --safe-area-inset-top: ${safeAreaInsetTop > 0 ? `${safeAreaInsetTop + 48}px` : "40px"
-            } !important;
-                --safe-area-inset-bottom: ${safeAreaInsetBottom > 0 ? `${safeAreaInsetBottom}px` : "0px"
-            } !important;
+                --safe-area-inset-top: ${topValue} !important;
+                --safe-area-inset-bottom: ${bottomValue} !important;
             }
         `;
+
+        console.log('Safe area CSS properties set:', { top: topValue, bottom: bottomValue });
     } catch (error) {
         console.warn('Failed to set safe area CSS properties:', error);
     }
@@ -98,21 +119,29 @@ export function getSafeAreaValues() {
  * Usage: className={getSafeAreaClass('pt')} // becomes pt-[47px] or pt-[0px] based on actual safe area
  */
 export function getSafeAreaClass(property: 'pt' | 'pb' | 'py'): string {
-    if (property === 'py') {
-        const topValue = viewport.safeAreaInsetTop();
-        const bottomValue = viewport.safeAreaInsetBottom();
-        return `pt-[${topValue}px] pb-[${bottomValue}px]`;
-    }
+    try {
+        if (!isSDKReady()) {
+            return property === 'pt' ? 'pt-[40px]' : property === 'pb' ? 'pb-[0px]' : 'pt-[40px] pb-[0px]';
+        }
 
-    if (property === 'pt') {
-        const topValue = viewport.safeAreaInsetTop();
-        return `pt-[${topValue}px]`;
-    }
+        if (property === 'py') {
+            const topValue = viewport.safeAreaInsetTop();
+            const bottomValue = viewport.safeAreaInsetBottom();
+            return `pt-[${topValue > 0 ? topValue : 40}px] pb-[${bottomValue}px]`;
+        }
 
-    if (property === 'pb') {
-        const bottomValue = viewport.safeAreaInsetBottom();
-        return `pb-[${bottomValue}px]`;
-    }
+        if (property === 'pt') {
+            const topValue = viewport.safeAreaInsetTop();
+            return `pt-[${topValue > 0 ? topValue : 40}px]`;
+        }
 
-    return '';
+        if (property === 'pb') {
+            const bottomValue = viewport.safeAreaInsetBottom();
+            return `pb-[${bottomValue}px]`;
+        }
+
+        return '';
+    } catch {
+        return property === 'pt' ? 'pt-[40px]' : property === 'pb' ? 'pb-[0px]' : 'pt-[40px] pb-[0px]';
+    }
 }

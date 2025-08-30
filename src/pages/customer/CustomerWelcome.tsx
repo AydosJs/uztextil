@@ -1,10 +1,14 @@
 import { Button } from "@/components/ui"
 import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
+import { useTelegramBackButton } from "@/lib/hooks"
 
 function CustomerWelcome() {
     const navigate = useNavigate()
     const { t } = useTranslation()
+
+    // Use the Telegram back button hook - will navigate back to previous page by default
+    useTelegramBackButton()
 
     const handleGetStarted = () => {
         navigate("/customer/register")

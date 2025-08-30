@@ -3,11 +3,15 @@ import { useState } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import { Button, CustomCheckbox } from "@/components/ui"
 import { showToast } from "@/lib/utils"
+import { useTelegramBackButton } from "@/lib/hooks"
 
 function SubmitApplication() {
     const navigate = useNavigate()
     const location = useLocation()
     const [isChecked, setIsChecked] = useState(false)
+
+    // Use the Telegram back button hook - will navigate back to previous page by default
+    useTelegramBackButton()
 
     // Get service title from location state or use default
     const serviceTitle = location.state?.serviceTitle || "Video sharh xizmati"

@@ -7,6 +7,7 @@ import { FileUploader } from "@/components/ui"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
+import { useTelegramBackButton } from "@/lib/hooks"
 
 function CustomerRegisterForm() {
     const { t } = useTranslation()
@@ -35,6 +36,9 @@ function CustomerRegisterForm() {
         phone: '',
         files: [] as File[]
     })
+
+    // Use the Telegram back button hook - will navigate back to previous page by default
+    useTelegramBackButton()
 
     const handleInputChange = (field: string, value: string | File[]) => {
         setFormData(prev => ({

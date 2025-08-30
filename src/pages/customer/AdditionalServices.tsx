@@ -1,6 +1,7 @@
 import { RadialEffect } from "@/components/ui"
 import { RefreshCcw } from "lucide-react"
 import { ServiceCard } from "@/pages/customer/components"
+import { useTelegramBackButton } from "@/lib/hooks"
 
 interface ServiceCard {
     id: number
@@ -10,6 +11,9 @@ interface ServiceCard {
 }
 
 function AdditionalServices() {
+    // Use the Telegram back button hook - will navigate back to previous page by default
+    useTelegramBackButton()
+
     const services: ServiceCard[] = [
         {
             id: 1,

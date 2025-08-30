@@ -13,6 +13,7 @@ import { z } from "zod"
 import { useApiV1ApplicationManufacturCreateCreate } from "@/lib/api"
 import type { ManufacturerCreate } from "@/lib/api"
 import { showToast } from "@/lib/utils"
+import { useTelegramBackButton } from "@/lib/hooks"
 
 // Zod schema for form validation
 const manufacturerRegisterSchema = z.object({
@@ -44,6 +45,9 @@ type ManufacturerRegisterFormData = z.infer<typeof manufacturerRegisterSchema>
 function ManufacturerRegisterForm() {
     const { t } = useTranslation()
     const navigate = useNavigate()
+
+    // Use the Telegram back button hook - will navigate back to previous page by default
+    useTelegramBackButton()
 
     const {
         register,
