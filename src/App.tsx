@@ -7,7 +7,6 @@ function App() {
     const navigate = useNavigate()
     const { t } = useTranslation()
 
-    // Show back button that goes back one step
     useTelegramBackButton()
 
     const handleButtonClick = () => {
@@ -17,6 +16,10 @@ function App() {
     return (
         <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col">
             <RadialEffect />
+
+
+
+
             <main className="w-full container  min-w-full flex-1 flex flex-col justify-between">
                 <div className="flex-1 flex flex-col items-center justify-center space-y-8 ">
                     <Card
