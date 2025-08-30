@@ -26,9 +26,13 @@ function Welcome() {
                     </div>
                 </div>
 
-                {/* WE CAN MAKE IT ABSOLUTE POSITION AND PUT IMAGE IN IT */}
-                <div className="text-center w-full h-full">
-                    Image
+                {/* Logo in the center */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <img
+                        src="/images/LOGO.png"
+                        alt="Logo"
+                        className=" w-full h-auto object-contain"
+                    />
                 </div>
 
                 {/* Action Buttons */}
