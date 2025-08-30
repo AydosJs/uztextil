@@ -4,7 +4,6 @@ import {
     initData,
     miniApp,
     swipeBehavior,
-    postEvent,
     viewport,
 } from "@telegram-apps/sdk-react";
 
