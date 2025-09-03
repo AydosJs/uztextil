@@ -2,6 +2,7 @@ import { Button } from "@/components/ui"
 import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { useTelegramBackButton } from "@/lib/hooks"
+import customerWelcomeSvg from "@/assets/customerWelcome.svg"
 
 function CustomerWelcome() {
     const navigate = useNavigate()
@@ -29,9 +30,13 @@ function CustomerWelcome() {
                     </div>
                 </div>
 
-                {/* Steps */}
-                <div className="flex-1 flex flex-col justify-center space-y-6 px-4">
-                    image
+                {/* Customer Welcome Image */}
+                <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
+                    <img
+                        src={customerWelcomeSvg}
+                        alt="Customer Welcome"
+                        className="max-w-full max-h-full object-contain"
+                    />
                 </div>
 
                 {/* Action Buttons */}

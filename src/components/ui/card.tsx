@@ -9,7 +9,6 @@ interface CardProps {
 }
 
 export const Card = ({ className, children, image, imageAlt = "Card image" }: CardProps) => {
-  const backgroundImage = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXoAAADcCAYAAABf0C4yAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAA5SURBVHgB7cEBAQAAAICQ/q/uCAoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwMWCCAAELm8PFAAAAASUVORK5CYII="
 
   return (
     <div
@@ -20,7 +19,6 @@ export const Card = ({ className, children, image, imageAlt = "Card image" }: Ca
         className
       )}
       style={{
-        backgroundImage: `url(${backgroundImage})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat'

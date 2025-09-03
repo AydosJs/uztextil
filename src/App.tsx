@@ -1,35 +1,36 @@
-import { Button, Card, RadialEffect } from "@/components/ui"
+import { Button, RadialEffect } from "@/components/ui"
 import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { useTelegramBackButton } from "@/lib/hooks"
+// import { TelegramUserDebug } from "@/components/TelegramUserDebug"
+import { useTelegramUser } from "@/hooks/useTelegramUser"
+import { SliderCards } from "@/components/SliderCards"
 
 function App() {
     const navigate = useNavigate()
     const { t } = useTranslation()
+    const { isRegistered } = useTelegramUser()
 
     useTelegramBackButton()
 
     const handleButtonClick = () => {
-        navigate("/welcome")
+        if (isRegistered) {
+            // If user is registered, navigate to services
+            navigate("/services")
+        } else {
+            // If user is not registered, navigate to welcome
+            navigate("/welcome")
+        }
     }
 
     return (
         <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col">
+
             <RadialEffect />
 
-
-
-
             <main className="w-full container  min-w-full flex-1 flex flex-col justify-between">
-                <div className="flex-1 flex flex-col items-center justify-center space-y-8 ">
-                    <Card
-                        image="https://images.pexels.com/photos/17096028/pexels-photo-17096028.jpeg"
-                        imageAlt="Textile manufacturing"
-                    />
-                    <Card
-                        image="https://images.pexels.com/photos/12179403/pexels-photo-12179403.jpeg"
-                        imageAlt="Fabric production"
-                    />
+                <div className="flex-1 flex flex-col items-center justify-center space-y-8 px-4">
+                    <SliderCards />
                 </div>
                 <div className="px-4  pb-8">
                     <Button
@@ -41,6 +42,7 @@ function App() {
                     </Button>
                 </div>
             </main>
+            {/* <TelegramUserDebug /> */}
         </div>
     )
 }

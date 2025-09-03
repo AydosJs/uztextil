@@ -2,6 +2,7 @@ import { CustomInput } from "../components/ui/custom-input"
 import { CustomCheckbox } from "../components/ui/custom-checkbox"
 import { getSafeAreaValues, waitForSafeAreaValues, isSDKReady } from "../utils/safeAreaUtils"
 import { initSDK } from "../utils/telegramSDK"
+import { toggleEruda, destroyEruda } from "../utils/eruda"
 import { useState, useEffect } from "react"
 
 function Dev() {
@@ -41,21 +42,46 @@ function Dev() {
 
         <div className="space-y-8">
           <div className="space-y-4">
-            <h2 className="text-lg font-semibold">Safe Area Values</h2>
-            <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg space-y-2">
-              <div className="flex justify-between">
-                <span className="font-medium">Top Safe Area:</span>
-                <span className="font-mono bg-white dark:bg-gray-700 px-2 py-1 rounded">{safeAreaValues.top}px</span>
+            <h2 className="text-lg font-semibold">Development Tools</h2>
+            <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg space-y-4">
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="font-medium">Top Safe Area:</span>
+                  <span className="font-mono bg-white dark:bg-gray-700 px-2 py-1 rounded">{safeAreaValues.top}px</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="font-medium">Bottom Safe Area:</span>
+                  <span className="font-mono bg-white dark:bg-gray-700 px-2 py-1 rounded">{safeAreaValues.bottom}px</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="font-medium">SDK Status:</span>
+                  <span className={`font-mono px-2 py-1 rounded ${isSDKReadyState ? 'bg-green-200 dark:bg-green-700' : 'bg-red-200 dark:bg-red-700'}`}>
+                    {isSDKReadyState ? 'Ready' : 'Loading...'}
+                  </span>
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span className="font-medium">Bottom Safe Area:</span>
-                <span className="font-mono bg-white dark:bg-gray-700 px-2 py-1 rounded">{safeAreaValues.bottom}px</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="font-medium">SDK Status:</span>
-                <span className={`font-mono px-2 py-1 rounded ${isSDKReadyState ? 'bg-green-200 dark:bg-green-700' : 'bg-red-200 dark:bg-red-700'}`}>
-                  {isSDKReadyState ? 'Ready' : 'Loading...'}
-                </span>
+
+              <div className="border-t pt-4">
+                <h3 className="text-md font-medium mb-3">Mobile Debugging (Eruda)</h3>
+                <div className="flex gap-2">
+                  <button
+                    onClick={toggleEruda}
+                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+                  >
+                    Toggle Console
+                  </button>
+                  <button
+                    onClick={destroyEruda}
+                    className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
+                  >
+                    Destroy Eruda
+                  </button>
+                </div>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                  Use these buttons to control the mobile debugging console. Only available in development mode.
+                  <br />
+                  <span className="font-mono text-xs">Keyboard shortcut: Ctrl/Cmd + Shift + E</span>
+                </p>
               </div>
             </div>
           </div>

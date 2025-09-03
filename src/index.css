@@ -1,7 +1,7 @@
-@import "tailwindcss";
-
 /* Import Montserrat font */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+
+@import "tailwindcss";
 
 @theme {
   /* Colors */
@@ -353,6 +353,11 @@ body {
   --toast-background: hsl(224 71.4% 4.1%);
   --toast-foreground: hsl(210 20% 98%);
   --toast-border: hsl(215 27.9% 16.9%);
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 9999 !important;
 }
 
 .toast {

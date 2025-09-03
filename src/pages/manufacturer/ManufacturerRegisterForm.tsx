@@ -14,6 +14,7 @@ import { useApiV1ApplicationManufacturCreateCreate } from "@/lib/api"
 import type { ManufacturerCreate } from "@/lib/api"
 import { showToast } from "@/lib/utils"
 import { useTelegramBackButton } from "@/lib/hooks"
+import { useTelegramUser } from "@/hooks/useTelegramUser"
 
 // Zod schema for form validation
 const manufacturerRegisterSchema = z.object({
@@ -45,6 +46,7 @@ type ManufacturerRegisterFormData = z.infer<typeof manufacturerRegisterSchema>
 function ManufacturerRegisterForm() {
     const { t } = useTranslation()
     const navigate = useNavigate()
+    const { userInfo } = useTelegramUser()
 
     // Show back button that goes to manufacturer welcome page
     useTelegramBackButton({ navigateTo: '/manufacturer' })
@@ -89,8 +91,6 @@ function ManufacturerRegisterForm() {
 
     const onSubmit = useCallback(async (data: ManufacturerRegisterFormData) => {
         try {
-            console.log('Form data received:', data)
-
             // Transform form data to API format
             const apiData: ManufacturerCreate = {
                 company_name: data.companyName,
@@ -114,16 +114,15 @@ function ManufacturerRegisterForm() {
                 organization_structure: data.organizationStructure || '',
                 equipment_info: data.equipmentInfo || '',
                 phone: data.phone || null,
-                user: 1 // TODO: This should come from user context/auth - replace with actual user ID
+                user: userInfo?.user_id || 0 // Use user_id from bot-user/register API response
             }
 
             // Call the API
-            console.log('API data being sent:', apiData)
             await manufacturerCreateMutation.mutateAsync({ data: apiData })
         } catch (error) {
             console.error('Form submission error:', error)
         }
-    }, [manufacturerCreateMutation])
+    }, [manufacturerCreateMutation, userInfo?.user_id])
 
     const handleSelectChange = useCallback((field: keyof ManufacturerRegisterFormData, value: string) => {
         setValue(field, value as ManufacturerRegisterFormData[keyof ManufacturerRegisterFormData], { shouldValidate: false })

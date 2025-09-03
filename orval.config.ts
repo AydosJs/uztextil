@@ -3,7 +3,7 @@ import { defineConfig } from 'orval';
 export default defineConfig({
     uztextil: {
         input: {
-            target: 'http://165.22.66.5/swagger/?format=openapi',
+            target: 'https://texttile.dclinics.uz/swagger/?format=openapi',
         },
         output: {
             mode: 'tags-split',
@@ -25,7 +25,7 @@ export default defineConfig({
     },
     uztextilRedocs: {
         input: {
-            target: 'http://165.22.66.5/swagger.json',
+            target: 'https://texttile.dclinics.uz/swagger.json',
         },
         output: {
             mode: 'tags-split',

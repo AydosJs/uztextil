@@ -57,6 +57,11 @@ export interface CustomerCreate {
    * @nullable
    */
   phone?: string | null;
+  /**
+   * @minimum -2147483648
+   * @maximum 2147483647
+   */
+  total_orders?: number;
   readonly created_at?: string;
   user: number;
 }

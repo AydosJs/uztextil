@@ -1,7 +1,9 @@
-import { RadialEffect } from "@/components/ui"
+import { RadialEffect, Spinner } from "@/components/ui"
 import { RefreshCcw } from "lucide-react"
 import { ServiceCard } from "@/pages/customer/components"
 import { useTelegramBackButton } from "@/lib/hooks"
+import { useTelegramUser } from "@/hooks/useTelegramUser"
+import { useApiV1AdditionalServicesListList } from "@/lib/api"
 
 interface ServiceCard {
     id: number
@@ -11,29 +13,20 @@ interface ServiceCard {
 }
 
 function AdditionalServices() {
+    const { user } = useTelegramUser()
+
     // Show back button that goes to customer register page
     useTelegramBackButton({ navigateTo: '/customer/register' })
 
-    const services: ServiceCard[] = [
+    // Fetch additional services from API using telegram_id
+    const { data: services, isLoading, error } = useApiV1AdditionalServicesListList(
+        user?.telegram_id?.toString() || '',
         {
-            id: 1,
-            title: "Video sharh",
-            price: "$300",
-            icon: "video"
-        },
-        {
-            id: 2,
-            title: "Sotuv menejerini taklif qilish",
-            price: "$500",
-            icon: "manager"
-        },
-        {
-            id: 3,
-            title: "ROPlarni o'qitish",
-            price: "$500/Oyiga",
-            icon: "training"
+            query: {
+                enabled: !!user?.telegram_id
+            }
         }
-    ]
+    )
 
 
     return (
@@ -77,15 +70,37 @@ function AdditionalServices() {
                     Qo'shimcha xizmatlar
                 </h1>
                 <div className="flex-1 pb-8">
-                    <div className="space-y-4">
-                        {services.map((service) => (
-                            <ServiceCard
-                                key={service.id}
-                                title={service.title}
-                                price={service.price}
-                            />
-                        ))}
-                    </div>
+                    {isLoading ? (
+                        <div className="flex items-center justify-center h-full">
+                            <Spinner className="w-8 h-8 text-white" />
+                        </div>
+                    ) : error ? (
+                        <div className="flex items-center justify-center h-full">
+                            <div className="text-center">
+                                <p className="text-red-400 text-lg mb-4">Xatolik yuz berdi</p>
+                                <button
+                                    onClick={() => window.location.reload()}
+                                    className="px-4 py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 transition-colors"
+                                >
+                                    Qayta urinish
+                                </button>
+                            </div>
+                        </div>
+                    ) : services && services.length > 0 ? (
+                        <div className="space-y-4">
+                            {services.map((service) => (
+                                <ServiceCard
+                                    key={service.id}
+                                    title={service.name}
+                                    price={service.price ? `$${service.price}` : 'Narx belgilanmagan'}
+                                />
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="flex items-center justify-center h-full">
+                            <p className="text-[#ACADAF] text-lg">Hozircha xizmatlar mavjud emas</p>
+                        </div>
+                    )}
                 </div>
             </main>
         </div>

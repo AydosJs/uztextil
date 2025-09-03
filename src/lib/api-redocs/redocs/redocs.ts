@@ -10,8 +10,15 @@ import {
   useQuery
 } from '@tanstack/react-query';
 import type {
+  DataTag,
+  DefinedInitialDataOptions,
+  DefinedUseInfiniteQueryResult,
+  DefinedUseQueryResult,
+  InfiniteData,
+  QueryClient,
   QueryFunction,
   QueryKey,
+  UndefinedInitialDataOptions,
   UseInfiniteQueryOptions,
   UseInfiniteQueryResult,
   UseQueryOptions,
@@ -43,7 +50,7 @@ export const getRedocsListQueryKey = () => {
     }
 
     
-export const getRedocsListInfiniteQueryOptions = <TData = Awaited<ReturnType<typeof redocsList>>, TError = unknown>( options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof redocsList>>, TError, TData>, request?: SecondParameter<typeof customInstance>}
+export const getRedocsListInfiniteQueryOptions = <TData = InfiniteData<Awaited<ReturnType<typeof redocsList>>>, TError = unknown>( options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof redocsList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -58,22 +65,46 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof redocsList>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof redocsList>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
 export type RedocsListInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof redocsList>>>
 export type RedocsListInfiniteQueryError = unknown
 
 
+export function useRedocsListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof redocsList>>>, TError = unknown>(
+  options: { query:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof redocsList>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof redocsList>>,
+          TError,
+          Awaited<ReturnType<typeof redocsList>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useRedocsListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof redocsList>>>, TError = unknown>(
+  options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof redocsList>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof redocsList>>,
+          TError,
+          Awaited<ReturnType<typeof redocsList>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useRedocsListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof redocsList>>>, TError = unknown>(
+  options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof redocsList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useRedocsListInfinite<TData = Awaited<ReturnType<typeof redocsList>>, TError = unknown>(
-  options?: { query?:UseInfiniteQueryOptions<Awaited<ReturnType<typeof redocsList>>, TError, TData>, request?: SecondParameter<typeof customInstance>}
-  
- ):  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } {
+export function useRedocsListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof redocsList>>>, TError = unknown>(
+  options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof redocsList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
   const queryOptions = getRedocsListInfiniteQueryOptions(options)
 
-  const query = useInfiniteQuery(queryOptions ) as  UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useInfiniteQuery(queryOptions , queryClient) as  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
   query.queryKey = queryOptions.queryKey ;
 
@@ -82,7 +113,7 @@ export function useRedocsListInfinite<TData = Awaited<ReturnType<typeof redocsLi
 
 
 
-export const getRedocsListQueryOptions = <TData = Awaited<ReturnType<typeof redocsList>>, TError = unknown>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof redocsList>>, TError, TData>, request?: SecondParameter<typeof customInstance>}
+export const getRedocsListQueryOptions = <TData = Awaited<ReturnType<typeof redocsList>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof redocsList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -97,22 +128,46 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof redocsList>>, TError, TData> & { queryKey: QueryKey }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof redocsList>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
 export type RedocsListQueryResult = NonNullable<Awaited<ReturnType<typeof redocsList>>>
 export type RedocsListQueryError = unknown
 
 
+export function useRedocsList<TData = Awaited<ReturnType<typeof redocsList>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof redocsList>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof redocsList>>,
+          TError,
+          Awaited<ReturnType<typeof redocsList>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useRedocsList<TData = Awaited<ReturnType<typeof redocsList>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof redocsList>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof redocsList>>,
+          TError,
+          Awaited<ReturnType<typeof redocsList>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useRedocsList<TData = Awaited<ReturnType<typeof redocsList>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof redocsList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
 export function useRedocsList<TData = Awaited<ReturnType<typeof redocsList>>, TError = unknown>(
-  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof redocsList>>, TError, TData>, request?: SecondParameter<typeof customInstance>}
-  
- ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof redocsList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
   const queryOptions = getRedocsListQueryOptions(options)
 
-  const query = useQuery(queryOptions ) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
   query.queryKey = queryOptions.queryKey ;
 

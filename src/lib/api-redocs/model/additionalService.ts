@@ -16,4 +16,5 @@ export interface AdditionalService {
   /** @nullable */
   description?: string | null;
   price: string;
+  readonly is_apply?: boolean;
 }
