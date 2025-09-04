@@ -1,11 +1,11 @@
 import { useState } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
-import { Button, CustomCheckbox } from "@/components/ui"
+import { Button, CustomCheckbox, UnderwaterHeader } from "@/components/ui"
 import { showToast } from "@/lib/utils"
 import { useTelegramBackButton } from "@/lib/hooks"
 import { useApiV1AdditionalServicesApplyCreate } from "@/lib/api"
 import { useTelegramUser } from "@/hooks/useTelegramUser"
-import type { AdditionalService } from "@/lib/api/model"
+import type { AdditionalService, ManufacturerList } from "@/lib/api/model"
 
 function TermsAndConditions() {
     const navigate = useNavigate()
@@ -13,11 +13,14 @@ function TermsAndConditions() {
     const [isChecked, setIsChecked] = useState(false)
     const { userInfo } = useTelegramUser()
 
-    // Show back button that goes to services page
-    useTelegramBackButton({ navigateTo: '/services' })
-
-    // Get service data from navigation state
+    // Get service and factory data from navigation state
     const service = location.state?.service as AdditionalService
+    const factory = location.state?.factory as ManufacturerList
+
+    // Show back button - go to factory selection if we have factory data, otherwise services
+    useTelegramBackButton({
+        navigateTo: factory ? '/services/factory-selection' : '/services'
+    })
 
     // Initialize the mutation for creating application
     const createApplicationMutation = useApiV1AdditionalServicesApplyCreate()
@@ -49,7 +52,8 @@ function TermsAndConditions() {
         // Create application data
         const applicationData = {
             service: service.id,
-            user: userInfo.user_id
+            user: userInfo.user_id,
+            ...(factory && { factory: factory.id }) // Include factory ID if available
         }
 
         // Make API call
@@ -78,11 +82,21 @@ function TermsAndConditions() {
         <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col">
             <main className="w-full container min-w-full flex-1 flex flex-col">
                 {/* Header */}
+                <UnderwaterHeader />
+
                 <div className="flex items-center space-x-4 mb-6 pt-4">
                     <h1 className="text-white font-bold text-2xl tracking-wide">
                         {service.name}
                     </h1>
                 </div>
+
+                {factory && (
+                    <div className="mb-4 px-4">
+                        <p className="text-white/80 text-sm">
+                            Tanlangan ishlab chiqaruvchi: <span className="font-semibold">{factory.company_name}</span>
+                        </p>
+                    </div>
+                )}
 
                 {/* Terms and Conditions Section */}
                 <div className="flex-1 space-y-6 pb-8">

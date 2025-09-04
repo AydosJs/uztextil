@@ -31,6 +31,7 @@ import type {
 
 import type {
   AdditionalService,
+  ApiV1AdditionalServicesListListParams,
   ApplicationAdditionalService,
   CustomerCreate,
   ManufacturerCreate,
@@ -289,75 +290,83 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     }
     export const apiV1AdditionalServicesListList = (
     telegramId: string,
+    params?: ApiV1AdditionalServicesListListParams,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
       
       
       return customInstance<AdditionalService[]>(
-      {url: `/api/v1/additional-services/${telegramId}/list/`, method: 'GET', signal
+      {url: `/api/v1/additional-services/${telegramId}/list/`, method: 'GET',
+        params, signal
     },
       options);
     }
   
 
-export const getApiV1AdditionalServicesListListQueryKey = (telegramId?: string,) => {
-    return [`/api/v1/additional-services/${telegramId}/list/`] as const;
+export const getApiV1AdditionalServicesListListQueryKey = (telegramId?: string,
+    params?: ApiV1AdditionalServicesListListParams,) => {
+    return [`/api/v1/additional-services/${telegramId}/list/`, ...(params ? [params]: [])] as const;
     }
 
     
-export const getApiV1AdditionalServicesListListInfiniteQueryOptions = <TData = InfiniteData<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>>, TError = unknown>(telegramId: string, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getApiV1AdditionalServicesListListInfiniteQueryOptions = <TData = InfiniteData<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, ApiV1AdditionalServicesListListParams['pageParam']>, TError = unknown>(telegramId: string,
+    params?: ApiV1AdditionalServicesListListParams, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, TError, TData, QueryKey, ApiV1AdditionalServicesListListParams['pageParam']>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getApiV1AdditionalServicesListListQueryKey(telegramId);
+  const queryKey =  queryOptions?.queryKey ?? getApiV1AdditionalServicesListListQueryKey(telegramId,params);
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>> = ({ signal }) => apiV1AdditionalServicesListList(telegramId, requestOptions, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, QueryKey, ApiV1AdditionalServicesListListParams['pageParam']> = ({ signal, pageParam }) => apiV1AdditionalServicesListList(telegramId,{...params, 'pageParam': pageParam || params?.['pageParam']}, requestOptions, signal);
 
       
 
       
 
-   return  { queryKey, queryFn, enabled: !!(telegramId), ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, enabled: !!(telegramId), ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, TError, TData, QueryKey, ApiV1AdditionalServicesListListParams['pageParam']> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
 export type ApiV1AdditionalServicesListListInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>>
 export type ApiV1AdditionalServicesListListInfiniteQueryError = unknown
 
 
-export function useApiV1AdditionalServicesListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>>, TError = unknown>(
- telegramId: string, options: { query:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, TError, TData>> & Pick<
+export function useApiV1AdditionalServicesListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, ApiV1AdditionalServicesListListParams['pageParam']>, TError = unknown>(
+ telegramId: string,
+    params: undefined |  ApiV1AdditionalServicesListListParams, options: { query:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, TError, TData, QueryKey, ApiV1AdditionalServicesListListParams['pageParam']>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>,
           TError,
-          Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>
+          Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, QueryKey
         > , 'initialData'
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useApiV1AdditionalServicesListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>>, TError = unknown>(
- telegramId: string, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, TError, TData>> & Pick<
+export function useApiV1AdditionalServicesListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, ApiV1AdditionalServicesListListParams['pageParam']>, TError = unknown>(
+ telegramId: string,
+    params?: ApiV1AdditionalServicesListListParams, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, TError, TData, QueryKey, ApiV1AdditionalServicesListListParams['pageParam']>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>,
           TError,
-          Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>
+          Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, QueryKey
         > , 'initialData'
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useApiV1AdditionalServicesListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>>, TError = unknown>(
- telegramId: string, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export function useApiV1AdditionalServicesListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, ApiV1AdditionalServicesListListParams['pageParam']>, TError = unknown>(
+ telegramId: string,
+    params?: ApiV1AdditionalServicesListListParams, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, TError, TData, QueryKey, ApiV1AdditionalServicesListListParams['pageParam']>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
-export function useApiV1AdditionalServicesListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>>, TError = unknown>(
- telegramId: string, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export function useApiV1AdditionalServicesListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, ApiV1AdditionalServicesListListParams['pageParam']>, TError = unknown>(
+ telegramId: string,
+    params?: ApiV1AdditionalServicesListListParams, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, TError, TData, QueryKey, ApiV1AdditionalServicesListListParams['pageParam']>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient 
  ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getApiV1AdditionalServicesListListInfiniteQueryOptions(telegramId,options)
+  const queryOptions = getApiV1AdditionalServicesListListInfiniteQueryOptions(telegramId,params,options)
 
   const query = useInfiniteQuery(queryOptions , queryClient) as  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -368,16 +377,17 @@ export function useApiV1AdditionalServicesListListInfinite<TData = InfiniteData<
 
 
 
-export const getApiV1AdditionalServicesListListQueryOptions = <TData = Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, TError = unknown>(telegramId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getApiV1AdditionalServicesListListQueryOptions = <TData = Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, TError = unknown>(telegramId: string,
+    params?: ApiV1AdditionalServicesListListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getApiV1AdditionalServicesListListQueryKey(telegramId);
+  const queryKey =  queryOptions?.queryKey ?? getApiV1AdditionalServicesListListQueryKey(telegramId,params);
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>> = ({ signal }) => apiV1AdditionalServicesListList(telegramId, requestOptions, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>> = ({ signal }) => apiV1AdditionalServicesListList(telegramId,params, requestOptions, signal);
 
       
 
@@ -391,7 +401,8 @@ export type ApiV1AdditionalServicesListListQueryError = unknown
 
 
 export function useApiV1AdditionalServicesListList<TData = Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, TError = unknown>(
- telegramId: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, TError, TData>> & Pick<
+ telegramId: string,
+    params: undefined |  ApiV1AdditionalServicesListListParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>,
           TError,
@@ -401,7 +412,8 @@ export function useApiV1AdditionalServicesListList<TData = Awaited<ReturnType<ty
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useApiV1AdditionalServicesListList<TData = Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, TError = unknown>(
- telegramId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, TError, TData>> & Pick<
+ telegramId: string,
+    params?: ApiV1AdditionalServicesListListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>,
           TError,
@@ -411,16 +423,18 @@ export function useApiV1AdditionalServicesListList<TData = Awaited<ReturnType<ty
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useApiV1AdditionalServicesListList<TData = Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, TError = unknown>(
- telegramId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ telegramId: string,
+    params?: ApiV1AdditionalServicesListListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
 export function useApiV1AdditionalServicesListList<TData = Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, TError = unknown>(
- telegramId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ telegramId: string,
+    params?: ApiV1AdditionalServicesListListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1AdditionalServicesListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient 
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getApiV1AdditionalServicesListListQueryOptions(telegramId,options)
+  const queryOptions = getApiV1AdditionalServicesListListQueryOptions(telegramId,params,options)
 
   const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 

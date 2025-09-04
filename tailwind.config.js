@@ -8,15 +8,15 @@ export default {
     extend: {
       spacing: {
         'safe-top': 'var(--safe-area-top)',
-        'safe-bottom': 'var(--safe-area-bottom)',
+        'safe-bottom': 'max(var(--safe-area-bottom), 8px)',
       },
       padding: {
         'safe-top': 'var(--safe-area-top)',
-        'safe-bottom': 'var(--safe-area-bottom)',
+        'safe-bottom': 'max(var(--safe-area-bottom), 8px)',
       },
       margin: {
         'safe-top': 'var(--safe-area-top)',
-        'safe-bottom': 'var(--safe-area-bottom)',
+        'safe-bottom': 'max(var(--safe-area-bottom), 8px)',
       },
     },
   },

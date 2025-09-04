@@ -1,4 +1,4 @@
-import { Button, RadialEffect } from "@/components/ui"
+import { Button, RadialEffect, UnderwaterHeader } from "@/components/ui"
 import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { useTelegramBackButton } from "@/lib/hooks"
@@ -24,26 +24,28 @@ function App() {
     }
 
     return (
-        <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col">
+        <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative">
 
+            <UnderwaterHeader />
             <RadialEffect />
 
-            <main className="w-full container  min-w-full flex-1 flex flex-col justify-between">
-                <div className="flex-1 flex flex-col items-center justify-center space-y-8 px-4">
+            <main className="w-full container min-w-full flex-1 flex flex-col relative">
+                <div className="flex-1 mt-4 flex flex-col items-center justify-center space-y-8 pb-20">
                     <SliderCards />
                 </div>
-                <div className="px-4  pb-8">
-                    <Button
-                        variant="default"
-                        shadow="lg"
-                        onClick={handleButtonClick}
-                    >
-                        {t('app.continue')}
-                    </Button>
-                </div>
             </main>
+
+            <div className="fixed bottom-0 left-0 right-0 px-4 pt-2 pb-8 safe-area-pb bg-gradient-to-t from-black to-dark z-50">
+                <Button
+                    variant="default"
+                    shadow="lg"
+                    onClick={handleButtonClick}
+                >
+                    {t('app.continue')}
+                </Button>
+            </div>
             {/* <TelegramUserDebug /> */}
-        </div>
+        </div >
     )
 }
 

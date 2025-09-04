@@ -10,6 +10,7 @@ export interface TelegramUserContextType {
     registerUser: () => Promise<void>;
     fetchUserInfo: () => Promise<void>;
     clearUser: () => void;
+    updateUserInfo: (newUserInfo: TelegramUserInfo) => void;
 }
 
 export interface TelegramUserProviderProps {

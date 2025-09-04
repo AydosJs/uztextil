@@ -92,7 +92,7 @@ export function setSafeAreaCSSProperties(): void {
             }
             
             .safe-area-pb {
-                padding-bottom: var(--safe-area-bottom) !important;
+                padding-bottom: max(var(--safe-area-bottom), 8px) !important;
             }
             
             .safe-area-py {

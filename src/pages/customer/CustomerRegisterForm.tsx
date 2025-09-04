@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui"
+import { Button, UnderwaterHeader } from "@/components/ui"
 import { CustomInput } from "@/components/ui"
 import { Label } from "@/components/ui"
 import { useState } from "react"
@@ -13,11 +13,21 @@ import { showToast } from "@/lib/utils"
 function CustomerRegisterForm() {
     const { t } = useTranslation()
     const navigate = useNavigate()
-    const { userInfo } = useTelegramUser()
+    const { userInfo, updateUserInfo } = useTelegramUser()
     const customerCreateMutation = useApiV1ApplicationCustomerCreateCreate({
         mutation: {
             onSuccess: (data) => {
                 console.log('Customer created successfully:', data)
+
+                // Update user info with the new customer data
+                if (userInfo && data) {
+                    const updatedUserInfo = {
+                        ...userInfo,
+                        customer: data.id // Extract just the ID
+                    };
+                    updateUserInfo(updatedUserInfo);
+                }
+
                 showToast.success('Muvaffaqiyatli yaratildi!') // Success message
                 navigate('/services')
             },
@@ -76,6 +86,7 @@ function CustomerRegisterForm() {
     return (
         <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col">
             <main className="w-full container min-w-full flex-1 flex flex-col">
+                <UnderwaterHeader />
                 {/* Header */}
                 <div className="text-left space-y-4 mb-8">
                     <h1 className="text-white font-bold text-[32px] tracking-wide">

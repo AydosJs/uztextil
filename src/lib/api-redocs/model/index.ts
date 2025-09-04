@@ -7,6 +7,9 @@
  */
 
 export * from './additionalService';
+export * from './additionalServiceOption';
+export * from './additionalServiceType';
+export * from './apiV1AdditionalServicesListListParams';
 export * from './applicationAdditionalService';
 export * from './applicationAdditionalServiceStatus';
 export * from './customerCreate';

@@ -1,34 +1,41 @@
-import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
-import { RadialEffect, UnderwaterHeader } from "@/components/ui"
-import { useApiV1AdditionalServicesListList } from "@/lib/api"
-import type { AdditionalService } from "@/lib/api/model"
+import { useState, useEffect } from "react"
+import { useNavigate, useLocation } from "react-router-dom"
+import { RadialEffect, Spinner, UnderwaterHeader } from "@/components/ui"
+import { useApiV1ApplicationManufacturerListList } from "@/lib/api"
 import { useTelegramBackButton } from "@/lib/hooks"
-import { useTelegramUser } from "@/hooks/useTelegramUser"
-import { ServiceCardShimmer } from "./components"
+import { ChevronRight, Filter } from "lucide-react"
+import { ManufacturerDetailDrawer, FilterDrawer } from "./components"
+import type { AdditionalService, ManufacturerList } from "@/lib/api/model"
 
-function Services() {
-    const { t } = useTranslation()
+function FactorySelection() {
     const navigate = useNavigate()
-    const { user, userType, isRegistered } = useTelegramUser()
+    const location = useLocation()
+    const [drawerOpen, setDrawerOpen] = useState(false)
+    const [filterDrawerOpen, setFilterDrawerOpen] = useState(false)
+    const [selectedManufacturer, setSelectedManufacturer] = useState<ManufacturerList | null>(null)
+    const [filteredManufacturers, setFilteredManufacturers] = useState<ManufacturerList[]>([])
 
-    // Show back button - navigate to main page if registered, otherwise choose department
-    useTelegramBackButton({
-        navigateTo: isRegistered ? '/' : '/choose-department'
-    })
+    // Show back button that goes to services page
+    useTelegramBackButton({ navigateTo: '/services' })
 
-    // Fetch additional services from API using telegram_id and user type
-    const { data: services, isLoading, error } = useApiV1AdditionalServicesListList(
-        user?.telegram_id?.toString() || '',
-        {
-            type: userType || undefined
-        },
-        {
-            query: {
-                enabled: !!user?.telegram_id && !!userType
-            }
+    // Get service data from navigation state
+    const service = location.state?.service as AdditionalService
+
+    // Fetch manufacturer list
+    const { data: manufacturers, isLoading, error } = useApiV1ApplicationManufacturerListList()
+
+    // Initialize filtered manufacturers when data loads
+    useEffect(() => {
+        if (manufacturers) {
+            setFilteredManufacturers(manufacturers)
         }
-    )
+    }, [manufacturers])
+
+    // If no service data, redirect back to services
+    if (!service) {
+        navigate('/services')
+        return null
+    }
 
     // Show loading state
     if (isLoading) {
@@ -41,11 +48,11 @@ function Services() {
                 <main className="w-full container min-w-full flex-1 flex flex-col relative z-10">
                     <div className="text-left space-y-4 mb-8 px-4 pt-4">
                         <h1 className="text-white font-bold text-[32px] tracking-wide">
-                            {t('app.xizmatlar.title') || 'Xizmatlar'}
+                            {service.name}
                         </h1>
                     </div>
-                    <div className="flex-1 pb-8">
-                        <ServiceCardShimmer count={3} />
+                    <div className="flex-1 flex items-center justify-center">
+                        <Spinner className="w-8 h-8 text-white" />
                     </div>
                 </main>
             </div>
@@ -56,13 +63,14 @@ function Services() {
     if (error) {
         return (
             <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden">
+                <UnderwaterHeader />
                 <RadialEffect
                     className="!w-[512px] !h-[512px] !-top-[202px] !-left-[256px] !opacity-[0.08]"
                 />
                 <main className="w-full container min-w-full flex-1 flex flex-col relative z-10">
                     <div className="text-left space-y-4 mb-8 px-4 pt-4">
                         <h1 className="text-white font-bold text-[32px] tracking-wide">
-                            {t('app.xizmatlar.title') || 'Xizmatlar'}
+                            {service.name}
                         </h1>
                     </div>
                     <div className="flex-1 flex items-center justify-center">
@@ -81,89 +89,75 @@ function Services() {
         )
     }
 
-    // Show services or empty state
-    const hasServices = services && services.length > 0
-
-    const handleServiceClick = (service: AdditionalService) => {
-        // Route to different pages based on service option
-        switch (service.option) {
-            case 'video_review':
-            case 'invite_manager':
-            case 'training_reps':
-            case 'place_order':
-            case 'online_b2b':
-            case 'custom_order':
-                // These options go to terms and conditions
-                navigate('/services/terms', { state: { service } })
-                break
-            case 'select_factory':
-                // This option goes to factory selection
-                navigate('/services/factory-selection', { state: { service } })
-                break
-            default:
-                // Default fallback to terms and conditions
-                navigate('/services/terms', { state: { service } })
-                break
-        }
+    const handleFactorySelect = (factory: ManufacturerList) => {
+        setSelectedManufacturer(factory)
+        setDrawerOpen(true)
     }
+
+    const handleFilterChange = (filtered: ManufacturerList[]) => {
+        setFilteredManufacturers(filtered)
+    }
+
+    // Show manufacturers or empty state
+    const hasManufacturers = filteredManufacturers && filteredManufacturers.length > 0
 
     return (
         <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden">
             <UnderwaterHeader />
-
             <RadialEffect
                 className="!w-[512px] !h-[512px] !-top-[202px] !-left-[256px] !opacity-[0.08]"
             />
 
             <main className="w-full container min-w-full flex-1 flex flex-col relative z-10">
                 {/* Header */}
-                <div className="text-left space-y-4 mb-8 px-4 pt-4">
-                    <h1 className="text-white font-bold text-[32px] tracking-wide">
-                        {t('app.xizmatlar.title')}
+                <div className="flex items-center justify-between mb-8 pt-4 px-4">
+                    <h1 className="text-white font-bold text-2xl tracking-wide">
+                        Fabrika tanlash
                     </h1>
+                    <button
+                        onClick={() => setFilterDrawerOpen(true)}
+                        className="p-2 rounded-lg bg-[#FFFFFF05] border border-[#FFFFFF0A] hover:bg-[#FFFFFF10] transition-colors"
+                    >
+                        <Filter className="w-5 h-5 text-white" />
+                    </button>
                 </div>
 
-                {/* Services Grid */}
-                <div className="flex-1 pb-8">
-                    {!hasServices ? (
+                {/* Manufacturers List */}
+                <div className="flex-1">
+                    {!hasManufacturers ? (
                         <div className="flex items-center justify-center h-full">
                             <div className="text-center">
-                                <p className="text-[#ACADAF] text-lg">Hozircha xizmatlar mavjud emas</p>
+                                <p className="text-[#ACADAF] text-lg">Hozircha ishlab chiqaruvchilar mavjud emas</p>
                             </div>
                         </div>
                     ) : (
-                        <div className="space-y-9">
-                            {services.map((service) => (
+                        <div className="space-y-4">
+                            {filteredManufacturers.map((factory) => (
                                 <div
-                                    key={service.id}
-                                    onClick={() => handleServiceClick(service)}
-                                    className="relative flex items-center justify-between px-6 flex-row w-full h-[108px] rounded-[22px] border border-[#FFFFFF0A] bg-[#FFFFFF05] shadow-[0px_1px_0px_0px_#FFFFFF14_inset] overflow-hidden cursor-pointer"
+                                    key={factory.id}
+                                    onClick={() => handleFactorySelect(factory)}
+                                    className="relative flex items-center justify-between min-h-[82px] py-2.5 px-3.5 flex-row w-full rounded-[16px] border border-[#FFFFFF0A] bg-[#FFFFFF05] shadow-[0px_1px_0px_0px_#FFFFFF14_inset] overflow-hidden cursor-pointer"
                                     style={{
                                         backdropFilter: 'blur(128px)',
                                         WebkitBackdropFilter: 'blur(128px)'
                                     }}
                                 >
-
-                                    {/* Service Content */}
-                                    <div className=" space-y-1">
-                                        <h3 className="text-white font-extrabold text-base">
-                                            {service.name}
+                                    {/* Factory Content */}
+                                    <div className="space-y-1 flex-1">
+                                        <h3 className="text-white font-extrabold">
+                                            {factory.full_name}
                                         </h3>
-                                        {service.option === 'select_factory' && service.description && (
-                                            <p className="text-[#ACADAF] font-normal text-xs">
-                                                {service.description}
-                                            </p>
-                                        )}
+                                        <p className="text-[#ACADAF] font-normal text-sm">
+                                            {factory.company_name} - {factory.position}
+                                        </p>
                                     </div>
 
-                                    {/* Service Icon */}
-                                    {service.price && (
-                                        <p className="text-[#FCE803] font-bold text-lg text-center">
-                                            ${service.price}
-                                        </p>
-                                    )}
+                                    {/* Right Arrow Button */}
+                                    <div className="absolute right-8 top-1/2 -translate-y-1/2 w-[27px] h-[27px] rounded-[4px] bg-[#FCE803] flex items-center justify-center shadow-[0px_2px_20px_-4px_#FCE803]">
+                                        <ChevronRight className="w-4 h-4 text-black" />
+                                    </div>
 
-                                    <div className="absolute right-2 top-0">
+                                    <div className="absolute -right-2 -top-3">
                                         <svg width="111" height="108" viewBox="0 0 111 108" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path opacity="0.16" d="M1.73438 -0.265625L109.266 107.266M109.266 -0.265625L1.73438 107.266M38.1549 -2V109M55.4979 -2V109M72.8435 -2V109M111 36.1565L0 36.1565M111 53.4994L0 53.4994M111 70.8449L0 70.8449M90.1875 53.5C90.1875 72.6574 74.6574 88.1875 55.5 88.1875C36.3426 88.1875 20.8125 72.6574 20.8125 53.5C20.8125 34.3426 36.3426 18.8125 55.5 18.8125C74.6574 18.8125 90.1875 34.3426 90.1875 53.5ZM72.8438 53.5C72.8438 63.0787 65.0787 70.8438 55.5 70.8438C45.9213 70.8438 38.1563 63.0787 38.1563 53.5C38.1563 43.9213 45.9213 36.1563 55.5 36.1563C65.0787 36.1563 72.8438 43.9213 72.8438 53.5Z" stroke="url(#paint0_radial_27_18405)" strokeWidth="0.5" />
                                             <defs>
@@ -176,7 +170,6 @@ function Services() {
                                         </svg>
                                     </div>
 
-
                                     {/* Hover Effect */}
                                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
                                 </div>
@@ -185,8 +178,24 @@ function Services() {
                     )}
                 </div>
             </main>
+
+            {/* Manufacturer Detail Drawer */}
+            <ManufacturerDetailDrawer
+                open={drawerOpen}
+                onOpenChange={setDrawerOpen}
+                service={service}
+                manufacturer={selectedManufacturer}
+            />
+
+            {/* Filter Drawer */}
+            <FilterDrawer
+                open={filterDrawerOpen}
+                onOpenChange={setFilterDrawerOpen}
+                manufacturers={manufacturers || []}
+                onFilterChange={handleFilterChange}
+            />
         </div>
     )
 }
 
-export default Services
+export default FactorySelection

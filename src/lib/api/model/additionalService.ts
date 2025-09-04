@@ -5,6 +5,8 @@
  * API for your Django project
  * OpenAPI spec version: v1
  */
+import type { AdditionalServiceType } from './additionalServiceType';
+import type { AdditionalServiceOption } from './additionalServiceOption';
 
 export interface AdditionalService {
   readonly id?: number;
@@ -16,5 +18,7 @@ export interface AdditionalService {
   /** @nullable */
   description?: string | null;
   price: string;
+  type?: AdditionalServiceType;
+  option?: AdditionalServiceOption;
   readonly is_apply?: boolean;
 }

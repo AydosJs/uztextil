@@ -53,10 +53,10 @@ export const SliderCards = ({ className }: SliderCardsProps) => {
                     className="w-full mx-auto"
                 >
                     <div className="flex flex-col justify-end h-full">
-                        <h3 className="text-white font-semibold mb-2 text-base">
+                        <h3 className="text-white line-clamp-1 font-semibold mb-2 text-base">
                             {slider.title}
                         </h3>
-                        <p className="text-gray-300 leading-relaxed text-xs">
+                        <p className="text-gray-300 line-clamp-2 leading-relaxed text-xs">
                             {slider.description}
                         </p>
                     </div>

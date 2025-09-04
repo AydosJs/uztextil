@@ -22,11 +22,12 @@ import CustomerRegisterForm from './pages/customer/CustomerRegisterForm.tsx'
 import ManufacturerWelcome from './pages/manufacturer/ManufacturerWelcome.tsx'
 import ManufacturerRegisterForm from './pages/manufacturer/ManufacturerRegisterForm.tsx'
 import Services from './pages/services/Services.tsx'
-import TermsAndConditions from './pages/services/TermsAndConditions.tsx'
+import { TermsAndConditions } from './pages/services/terms'
+import { FactorySelection } from './pages/services/select_factory'
 import { Toaster } from 'sonner'
 import { setSafeAreaCSSProperties, waitForSafeAreaValues } from './utils/safeAreaUtils.ts'
 import { initEruda } from './utils/eruda.ts'
-import { UserTypeRouteGuard, ChooseDepartmentGuard, ServicesRouteGuard } from './components/RouteGuards'
+import { ChooseDepartmentGuard, ServicesRouteGuard, RegistrationRouteGuard } from './components/RouteGuards'
 
 // Create a QueryClient instance
 const queryClient = new QueryClient({
@@ -72,41 +73,41 @@ async function initializeApp() {
                 </ChooseDepartmentGuard>
               } />
 
-              {/* Customer Routes - Only accessible if registered as customer */}
+              {/* Customer Routes */}
               <Route path="/customer">
                 <Route index element={
-                  <UserTypeRouteGuard allowedUserType="customer">
+                  <RegistrationRouteGuard allowedUserType="customer">
                     <CustomerWelcome />
-                  </UserTypeRouteGuard>
+                  </RegistrationRouteGuard>
                 } />
                 <Route path="welcome" element={
-                  <UserTypeRouteGuard allowedUserType="customer">
+                  <RegistrationRouteGuard allowedUserType="customer">
                     <CustomerWelcome />
-                  </UserTypeRouteGuard>
+                  </RegistrationRouteGuard>
                 } />
                 <Route path="register" element={
-                  <UserTypeRouteGuard allowedUserType="customer">
+                  <RegistrationRouteGuard allowedUserType="customer">
                     <CustomerRegisterForm />
-                  </UserTypeRouteGuard>
+                  </RegistrationRouteGuard>
                 } />
               </Route>
 
-              {/* Manufacturer Routes - Only accessible if registered as manufacturer */}
+              {/* Manufacturer Routes */}
               <Route path="/manufacturer">
                 <Route index element={
-                  <UserTypeRouteGuard allowedUserType="manufacturer">
+                  <RegistrationRouteGuard allowedUserType="manufacturer">
                     <ManufacturerWelcome />
-                  </UserTypeRouteGuard>
+                  </RegistrationRouteGuard>
                 } />
                 <Route path="welcome" element={
-                  <UserTypeRouteGuard allowedUserType="manufacturer">
+                  <RegistrationRouteGuard allowedUserType="manufacturer">
                     <ManufacturerWelcome />
-                  </UserTypeRouteGuard>
+                  </RegistrationRouteGuard>
                 } />
                 <Route path="register" element={
-                  <UserTypeRouteGuard allowedUserType="manufacturer">
+                  <RegistrationRouteGuard allowedUserType="manufacturer">
                     <ManufacturerRegisterForm />
-                  </UserTypeRouteGuard>
+                  </RegistrationRouteGuard>
                 } />
               </Route>
 
@@ -119,6 +120,11 @@ async function initializeApp() {
               <Route path="/services/terms" element={
                 <ServicesRouteGuard>
                   <TermsAndConditions />
+                </ServicesRouteGuard>
+              } />
+              <Route path="/services/factory-selection" element={
+                <ServicesRouteGuard>
+                  <FactorySelection />
                 </ServicesRouteGuard>
               } />
               <Route path="/dev" element={<Dev />} />

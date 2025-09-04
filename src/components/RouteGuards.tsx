@@ -71,6 +71,44 @@ export function ChooseDepartmentGuard({ children }: RouteGuardProps) {
     return <>{children}</>;
 }
 
+// Guard for registration routes - allow access if user is not registered yet
+export function RegistrationRouteGuard({ children, allowedUserType }: RouteGuardProps) {
+    const { user, isLoading, isRegistered, userType } = useTelegramUser();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (isLoading || !user) return;
+
+        // If user is already registered with a different type, redirect to choose department
+        if (isRegistered && userType && userType !== allowedUserType) {
+            navigate('/choose-department');
+        }
+        // If user is already registered with the correct type, redirect to services
+        else if (isRegistered && userType === allowedUserType) {
+            navigate('/services');
+        }
+    }, [user, isLoading, isRegistered, userType, allowedUserType, navigate]);
+
+    if (isLoading) {
+        return (
+            <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col items-center justify-center">
+                <Spinner size="lg" />
+                <p className="mt-4 text-white">Loading...</p>
+            </div>
+        );
+    }
+
+    // If user is already registered with a different type or correct type, will redirect
+    if (isRegistered && userType && userType !== allowedUserType) {
+        return null; // Will redirect
+    }
+    if (isRegistered && userType === allowedUserType) {
+        return null; // Will redirect
+    }
+
+    return <>{children}</>;
+}
+
 // Guard for services routes - only allow if user is registered
 export function ServicesRouteGuard({ children }: RouteGuardProps) {
     const { user, isLoading, isRegistered } = useTelegramUser();

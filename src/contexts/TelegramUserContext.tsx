@@ -77,6 +77,10 @@ export function TelegramUserProvider({ children }: TelegramUserProviderProps) {
         setUserInfo(null);
     }, []);
 
+    const updateUserInfo = useCallback((newUserInfo: TelegramUserInfo) => {
+        setUserInfo(newUserInfo);
+    }, []);
+
     // Extract user data from Telegram initData
     useEffect(() => {
         if (isDataLoading || hasRegistered.current) return;
@@ -132,6 +136,7 @@ export function TelegramUserProvider({ children }: TelegramUserProviderProps) {
         registerUser,
         fetchUserInfo,
         clearUser,
+        updateUserInfo,
     };
 
     return (
