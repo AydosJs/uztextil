@@ -49,7 +49,7 @@ export const initEruda = async (): Promise<void> => {
 export const toggleEruda = (): void => {
     if (window.eruda) {
         // Check if Eruda is currently visible
-        const erudaEl = document.querySelector('.eruda-dev-tools');
+        const erudaEl = document.querySelector('.eruda-dev-tools') as HTMLElement;
         if (erudaEl && erudaEl.style.display !== 'none') {
             window.eruda.hide();
         } else {

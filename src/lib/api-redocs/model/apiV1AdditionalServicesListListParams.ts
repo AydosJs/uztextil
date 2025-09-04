@@ -7,8 +7,12 @@
  */
 
 export type ApiV1AdditionalServicesListListParams = {
-/**
- * A search term.
- */
-search?: string;
+    /**
+     * A search term.
+     */
+    search?: string;
+    /**
+     * Page parameter for infinite queries
+     */
+    pageParam?: string;
 };

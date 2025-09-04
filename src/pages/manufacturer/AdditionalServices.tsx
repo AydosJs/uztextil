@@ -13,6 +13,7 @@ function AdditionalServices() {
     // Fetch additional services from API using telegram_id
     const { data: services, isLoading, error } = useApiV1AdditionalServicesListList(
         user?.telegram_id?.toString() || '',
+        undefined, // params
         {
             query: {
                 enabled: !!user?.telegram_id

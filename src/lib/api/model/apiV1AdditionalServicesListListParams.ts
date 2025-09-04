@@ -15,4 +15,8 @@ export type ApiV1AdditionalServicesListListParams = {
      * User type - customer or manufacturer
      */
     type?: 'customer' | 'manufacturer';
+    /**
+     * Page parameter for infinite queries
+     */
+    pageParam?: string;
 };

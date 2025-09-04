@@ -26,7 +26,7 @@ import { TermsAndConditions } from './pages/services/terms'
 import { FactorySelection } from './pages/services/select_factory'
 import { Toaster } from 'sonner'
 import { setSafeAreaCSSProperties, waitForSafeAreaValues } from './utils/safeAreaUtils.ts'
-import { initEruda } from './utils/eruda.ts'
+// import { initEruda } from './utils/eruda.ts'
 import { ChooseDepartmentGuard, ServicesRouteGuard, RegistrationRouteGuard } from './components/RouteGuards'
 
 // Create a QueryClient instance
@@ -45,7 +45,7 @@ const queryClient = new QueryClient({
 // Initialize app
 async function initializeApp() {
   // Initialize Eruda for mobile debugging (development only)
-  await initEruda();
+  // await initEruda();
 
   // Initialize the Telegram Mini Apps SDK
   await initSDK();
