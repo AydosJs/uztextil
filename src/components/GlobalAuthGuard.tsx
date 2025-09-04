@@ -30,14 +30,18 @@ export function GlobalAuthGuard({ children }: GlobalAuthGuardProps) {
             return;
         }
 
-        if (isRegistered && userType) {
-            // User is registered, allow them to stay on current page or redirect to app page if on wrong page
-            // Allow navigation to services page and terms page, but redirect other pages to app page
-            if (currentPath !== '/' && currentPath !== '/services' && currentPath !== '/services/terms') {
-                navigate('/');
-            }
-            return;
-        }
+        // if (isRegistered && userType) {
+        //     // User is registered, check if they're on manufacturer or customer registration pages
+        //     const isOnManufacturerRegister = currentPath.startsWith('/manufacturer/register');
+        //     const isOnCustomerRegister = currentPath.startsWith('/customer/register');
+
+        //     // If user is on manufacturer or customer registration pages, allow them to stay
+        //     // If user is on other pages, redirect to app page
+        //     if (!isOnManufacturerRegister && !isOnCustomerRegister && currentPath !== '/' && currentPath !== '/services') {
+        //         navigate('/');
+        //     }
+        //     return;
+        // }
     }, [user, isLoading, isRegistered, userType, navigate, location.pathname]);
 
     // Show loading state while checking authentication

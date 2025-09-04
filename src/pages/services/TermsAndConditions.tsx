@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom"
 import { Button, CustomCheckbox } from "@/components/ui"
 import { showToast } from "@/lib/utils"
 import { useTelegramBackButton } from "@/lib/hooks"
-import { useApiV1ApplicationAdditionalServicesCreateCreate } from "@/lib/api"
+import { useApiV1AdditionalServicesApplyCreate } from "@/lib/api"
 import { useTelegramUser } from "@/hooks/useTelegramUser"
 import type { AdditionalService } from "@/lib/api/model"
 
@@ -20,7 +20,7 @@ function TermsAndConditions() {
     const service = location.state?.service as AdditionalService
 
     // Initialize the mutation for creating application
-    const createApplicationMutation = useApiV1ApplicationAdditionalServicesCreateCreate()
+    const createApplicationMutation = useApiV1AdditionalServicesApplyCreate()
 
     // If no service data, redirect back to services
     if (!service) {
@@ -34,9 +34,9 @@ function TermsAndConditions() {
             return
         }
 
-        // Check if we have manufacturer ID
-        if (!userInfo?.manufacturer) {
-            showToast.error("Manufacturer ID not found")
+        // Check if we have user ID
+        if (!userInfo?.user_id) {
+            showToast.error("User ID not found")
             return
         }
 
@@ -48,8 +48,8 @@ function TermsAndConditions() {
 
         // Create application data
         const applicationData = {
-            manufacturer: userInfo.manufacturer,
-            service: service.id
+            service: service.id,
+            user: userInfo.user_id
         }
 
         // Make API call
@@ -98,40 +98,55 @@ function TermsAndConditions() {
                         </div>
 
                         {/* Checkbox */}
-                        <div className="pt-4">
-                            <CustomCheckbox
-                                label="Tanishib chiqdim"
-                                checked={isChecked}
-                                onCheckedChange={(checked) => setIsChecked(checked === true)}
-                            />
-                        </div>
+                        {!service.is_apply && (
+                            <div className="pt-4">
+                                <CustomCheckbox
+                                    label="Tanishib chiqdim"
+                                    checked={isChecked}
+                                    onCheckedChange={(checked) => setIsChecked(checked === true)}
+                                />
+                            </div>
+                        )}
                     </div>
                 </div>
 
-                <p className="text-center text-white text-sm font-bold mb-5 px-10">
-                    Ariza qoldiring va menejerlarimiz siz bilan  tez orada bog'lanishadi
-                </p>
+                {service.is_apply ? (
+                    <div className="text-center mb-5 px-10">
+                        <p className="text-white text-sm font-bold mb-2">
+                            Ariza allaqachon yuborilgan
+                        </p>
+                        <p className="text-white/64 text-xs">
+                            Menejerlarimiz siz bilan bog'lanishadi
+                        </p>
+                    </div>
+                ) : (
+                    <p className="text-center text-white text-sm font-bold mb-5 px-10">
+                        Ariza qoldiring va menejerlarimiz siz bilan  tez orada bog'lanishadi
+                    </p>
+                )}
+
                 {/* Bottom Buttons */}
-                <div className="px-6 pb-8 space-y-3">
+                {!service.is_apply && (
+                    <div className="px-6 pb-8 space-y-3">
+                        <Button
+                            variant="secondary"
+                            shadow="lg"
+                            onClick={handleCancel}
+                            className="w-full"
+                        >
+                            Bekor qilish
+                        </Button>
 
-                    <Button
-                        variant="secondary"
-                        shadow="lg"
-                        onClick={handleCancel}
-                        className="w-full"
-                    >
-                        Bekor qilish
-                    </Button>
-
-                    <Button
-                        variant="default"
-                        onClick={handleSubmit}
-                        disabled={!isChecked || createApplicationMutation.isPending}
-                        className="w-full"
-                    >
-                        {createApplicationMutation.isPending ? "Yuborilmoqda..." : "Ariza qoldirish"}
-                    </Button>
-                </div>
+                        <Button
+                            variant="default"
+                            onClick={handleSubmit}
+                            disabled={!isChecked || createApplicationMutation.isPending}
+                            className="w-full"
+                        >
+                            {createApplicationMutation.isPending ? "Yuborilmoqda..." : "Ariza qoldirish"}
+                        </Button>
+                    </div>
+                )}
             </main>
         </div>
     )
