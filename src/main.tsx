@@ -19,9 +19,6 @@ import Welcome from './pages/Welcome.tsx'
 import ChooseDepartment from './pages/ChooseDepartment.tsx'
 import CustomerWelcome from './pages/customer/CustomerWelcome.tsx'
 import CustomerRegisterForm from './pages/customer/CustomerRegisterForm.tsx'
-import CustomerAdditionalServices from './pages/customer/AdditionalServices.tsx'
-import ManufacturerAdditionalServices from './pages/manufacturer/AdditionalServices.tsx'
-import SubmitApplication from './pages/customer/SubmitApplication.tsx'
 import ManufacturerWelcome from './pages/manufacturer/ManufacturerWelcome.tsx'
 import ManufacturerRegisterForm from './pages/manufacturer/ManufacturerRegisterForm.tsx'
 import Services from './pages/services/Services.tsx'
@@ -29,7 +26,7 @@ import TermsAndConditions from './pages/services/TermsAndConditions.tsx'
 import { Toaster } from 'sonner'
 import { setSafeAreaCSSProperties, waitForSafeAreaValues } from './utils/safeAreaUtils.ts'
 import { initEruda } from './utils/eruda.ts'
-import { GlobalAuthGuard } from '@/components/GlobalAuthGuard'
+import { UserTypeRouteGuard, ChooseDepartmentGuard, ServicesRouteGuard } from './components/RouteGuards'
 
 // Create a QueryClient instance
 const queryClient = new QueryClient({
@@ -65,35 +62,67 @@ async function initializeApp() {
       <QueryClientProvider client={queryClient}>
         <TelegramUserProvider>
           <BrowserRouter>
-            <GlobalAuthGuard>
-              <Toaster />
-              <Routes>
-                <Route path="/" element={<App />} />
-                <Route path="/welcome" element={<Welcome />} />
-                <Route path="/choose-department" element={<ChooseDepartment />} />
+            <Toaster />
+            <Routes>
+              <Route path="/" element={<App />} />
+              <Route path="/welcome" element={<Welcome />} />
+              <Route path="/choose-department" element={
+                <ChooseDepartmentGuard>
+                  <ChooseDepartment />
+                </ChooseDepartmentGuard>
+              } />
 
-                {/* Customer Routes */}
-                <Route path="/customer">
-                  <Route index element={<CustomerWelcome />} />
-                  <Route path="welcome" element={<CustomerWelcome />} />
-                  <Route path="register" element={<CustomerRegisterForm />} />
-                  <Route path="additional-services" element={<CustomerAdditionalServices />} />
-                  <Route path="submit-application" element={<SubmitApplication />} />
-                </Route>
+              {/* Customer Routes - Only accessible if registered as customer */}
+              <Route path="/customer">
+                <Route index element={
+                  <UserTypeRouteGuard allowedUserType="customer">
+                    <CustomerWelcome />
+                  </UserTypeRouteGuard>
+                } />
+                <Route path="welcome" element={
+                  <UserTypeRouteGuard allowedUserType="customer">
+                    <CustomerWelcome />
+                  </UserTypeRouteGuard>
+                } />
+                <Route path="register" element={
+                  <UserTypeRouteGuard allowedUserType="customer">
+                    <CustomerRegisterForm />
+                  </UserTypeRouteGuard>
+                } />
+              </Route>
 
-                {/* Manufacturer Routes */}
-                <Route path="/manufacturer">
-                  <Route index element={<ManufacturerWelcome />} />
-                  <Route path="welcome" element={<ManufacturerWelcome />} />
-                  <Route path="register" element={<ManufacturerRegisterForm />} />
-                  <Route path="additional-services" element={<ManufacturerAdditionalServices />} />
-                </Route>
+              {/* Manufacturer Routes - Only accessible if registered as manufacturer */}
+              <Route path="/manufacturer">
+                <Route index element={
+                  <UserTypeRouteGuard allowedUserType="manufacturer">
+                    <ManufacturerWelcome />
+                  </UserTypeRouteGuard>
+                } />
+                <Route path="welcome" element={
+                  <UserTypeRouteGuard allowedUserType="manufacturer">
+                    <ManufacturerWelcome />
+                  </UserTypeRouteGuard>
+                } />
+                <Route path="register" element={
+                  <UserTypeRouteGuard allowedUserType="manufacturer">
+                    <ManufacturerRegisterForm />
+                  </UserTypeRouteGuard>
+                } />
+              </Route>
 
-                <Route path="/services" element={<Services />} />
-                <Route path="/services/terms" element={<TermsAndConditions />} />
-                <Route path="/dev" element={<Dev />} />
-              </Routes>
-            </GlobalAuthGuard>
+              {/* Services Routes - Only accessible if registered */}
+              <Route path="/services" element={
+                <ServicesRouteGuard>
+                  <Services />
+                </ServicesRouteGuard>
+              } />
+              <Route path="/services/terms" element={
+                <ServicesRouteGuard>
+                  <TermsAndConditions />
+                </ServicesRouteGuard>
+              } />
+              <Route path="/dev" element={<Dev />} />
+            </Routes>
           </BrowserRouter>
         </TelegramUserProvider>
       </QueryClientProvider>

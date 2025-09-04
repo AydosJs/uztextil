@@ -1,62 +1,76 @@
 import { Button } from "@/components/ui"
 import { CustomInput } from "@/components/ui"
 import { Label } from "@/components/ui"
-import { RadioGroup, RadioGroupItem } from "@/components/ui"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui"
-import { FileUploader } from "@/components/ui"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { useTelegramBackButton } from "@/lib/hooks"
+import { useApiV1ApplicationCustomerCreateCreate } from "@/lib/api/api/api"
+import { useTelegramUser } from "@/hooks/useTelegramUser"
+import type { CustomerCreate } from "@/lib/api/model"
+import { showToast } from "@/lib/utils"
 
 function CustomerRegisterForm() {
     const { t } = useTranslation()
     const navigate = useNavigate()
-    const [isLoading, setIsLoading] = useState(false)
+    const { userInfo } = useTelegramUser()
+    const customerCreateMutation = useApiV1ApplicationCustomerCreateCreate({
+        mutation: {
+            onSuccess: (data) => {
+                console.log('Customer created successfully:', data)
+                showToast.success('Muvaffaqiyatli yaratildi!') // Success message
+                navigate('/services')
+            },
+            onError: (error) => {
+                console.error('Customer creation failed:', error)
+                showToast.error('Xatolik yuz berdi. Iltimos, qaytadan urinib ko\'ring.') // Error message
+            }
+        }
+    })
+
     const [formData, setFormData] = useState({
-        companyName: '',
-        experience: '',
-        fullName: '',
+        full_name: '',
         position: '',
-        minOrder: '',
-        productSegment: '',
-        commercialOffer: '',
-        productionAddress: '',
-        officeAddress: '',
+        company_name: '',
         website: '',
-        qualityControl: '',
-        crmSystem: '',
-        geminiGerber: '',
-        employeesCount: '',
-        buildingOwnership: '',
-        industrialZone: '',
-        creditBurden: '',
-        organizationStructure: '',
-        equipmentInfo: '',
+        legal_address: '',
+        marketplace_brand: '',
+        annual_order_volume: '',
+        segment: '',
+        cooperation_terms: '',
+        payment_terms: '',
         phone: '',
-        files: [] as File[]
+        total_orders: 0
     })
 
     // Show back button that goes to customer welcome page
     useTelegramBackButton({ navigateTo: '/customer' })
 
-    const handleInputChange = (field: string, value: string | File[]) => {
+    const handleInputChange = (field: string, value: string | number) => {
         setFormData(prev => ({
             ...prev,
             [field]: value
         }))
     }
 
-    const handleSubmit = () => {
-        setIsLoading(true)
-        // Simulate form submission
-        setTimeout(() => {
-            setIsLoading(false)
-            // Handle form submission logic here
-            console.log('Form data:', formData)
-            // Navigate to Additional Services page after successful submission
-            navigate('/customer/additional-services')
-        }, 1000)
+    const handleSubmit = async () => {
+        if (!userInfo?.user_id) {
+            console.error('User ID not available')
+            showToast.error('Foydalanuvchi ma\'lumotlari topilmadi')
+            return
+        }
+
+        try {
+            const customerData: CustomerCreate = {
+                ...formData,
+                user: userInfo.user_id,
+                total_orders: formData.total_orders || 0
+            }
+
+            await customerCreateMutation.mutateAsync({ data: customerData })
+        } catch (error) {
+            console.error('Form submission error:', error)
+        }
     }
 
     return (
@@ -71,45 +85,21 @@ function CustomerRegisterForm() {
 
                 {/* Form */}
                 <div className="flex-1 space-y-6 pb-8">
-                    {/* Company Name */}
-                    <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium">
-                            {t('app.buyurtmachi.registerForm.companyName.label')}
-                        </Label>
-                        <CustomInput
-                            placeholder={t('app.buyurtmachi.registerForm.companyName.placeholder')}
-                            value={formData.companyName}
-                            onChange={(e) => handleInputChange('companyName', e.target.value)}
-                        />
-                    </div>
-
-                    {/* Experience */}
-                    <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium">
-                            {t('app.buyurtmachi.registerForm.experience.label')}
-                        </Label>
-                        <CustomInput
-                            placeholder={t('app.buyurtmachi.registerForm.experience.placeholder')}
-                            value={formData.experience}
-                            onChange={(e) => handleInputChange('experience', e.target.value)}
-                        />
-                    </div>
-
                     {/* Full Name */}
                     <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium">
+                        <Label className="text-white text-sm font-medium" required>
                             {t('app.buyurtmachi.registerForm.fullName.label')}
                         </Label>
                         <CustomInput
                             placeholder={t('app.buyurtmachi.registerForm.fullName.placeholder')}
-                            value={formData.fullName}
-                            onChange={(e) => handleInputChange('fullName', e.target.value)}
+                            value={formData.full_name}
+                            onChange={(e) => handleInputChange('full_name', e.target.value)}
                         />
                     </div>
 
                     {/* Position */}
                     <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium">
+                        <Label className="text-white text-sm font-medium" required>
                             {t('app.buyurtmachi.registerForm.position.label')}
                         </Label>
                         <CustomInput
@@ -119,63 +109,15 @@ function CustomerRegisterForm() {
                         />
                     </div>
 
-                    {/* Min Order */}
+                    {/* Company Name */}
                     <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium">
-                            {t('app.buyurtmachi.registerForm.minOrder.label')}
+                        <Label className="text-white text-sm font-medium" required>
+                            {t('app.buyurtmachi.registerForm.companyName.label')}
                         </Label>
                         <CustomInput
-                            placeholder={t('app.buyurtmachi.registerForm.minOrder.placeholder')}
-                            value={formData.minOrder}
-                            onChange={(e) => handleInputChange('minOrder', e.target.value)}
-                        />
-                    </div>
-
-                    {/* Product Segment */}
-                    <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium">
-                            {t('app.buyurtmachi.registerForm.productSegment.label')}
-                        </Label>
-                        <CustomInput
-                            placeholder={t('app.buyurtmachi.registerForm.productSegment.placeholder')}
-                            value={formData.productSegment}
-                            onChange={(e) => handleInputChange('productSegment', e.target.value)}
-                        />
-                    </div>
-
-                    {/* Commercial Offer */}
-                    <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium">
-                            {t('app.buyurtmachi.registerForm.commercialOffer.label')}
-                        </Label>
-                        <CustomInput
-                            placeholder={t('app.buyurtmachi.registerForm.commercialOffer.placeholder')}
-                            value={formData.commercialOffer}
-                            onChange={(e) => handleInputChange('commercialOffer', e.target.value)}
-                        />
-                    </div>
-
-                    {/* Production Address */}
-                    <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium">
-                            {t('app.buyurtmachi.registerForm.productionAddress.label')}
-                        </Label>
-                        <CustomInput
-                            placeholder={t('app.buyurtmachi.registerForm.productionAddress.placeholder')}
-                            value={formData.productionAddress}
-                            onChange={(e) => handleInputChange('productionAddress', e.target.value)}
-                        />
-                    </div>
-
-                    {/* Office Address */}
-                    <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium">
-                            {t('app.buyurtmachi.registerForm.officeAddress.label')}
-                        </Label>
-                        <CustomInput
-                            placeholder={t('app.buyurtmachi.registerForm.officeAddress.placeholder')}
-                            value={formData.officeAddress}
-                            onChange={(e) => handleInputChange('officeAddress', e.target.value)}
+                            placeholder={t('app.buyurtmachi.registerForm.companyName.placeholder')}
+                            value={formData.company_name}
+                            onChange={(e) => handleInputChange('company_name', e.target.value)}
                         />
                     </div>
 
@@ -191,160 +133,75 @@ function CustomerRegisterForm() {
                         />
                     </div>
 
-                    {/* Quality Control */}
+                    {/* Legal Address */}
                     <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium">
-                            {t('app.buyurtmachi.registerForm.qualityControl.label')}
-                        </Label>
-                        <Select value={formData.qualityControl} onValueChange={(value) => handleInputChange('qualityControl', value)}>
-                            <SelectTrigger>
-                                <SelectValue placeholder="Tanlang" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="yes">{t('app.buyurtmachi.registerForm.qualityControl.options.yes')}</SelectItem>
-                                <SelectItem value="no">{t('app.buyurtmachi.registerForm.qualityControl.options.no')}</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
-
-                    {/* CRM System */}
-                    <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium">
-                            {t('app.buyurtmachi.registerForm.crmSystem.label')}
-                        </Label>
-                        <Select value={formData.crmSystem} onValueChange={(value) => handleInputChange('crmSystem', value)}>
-                            <SelectTrigger>
-                                <SelectValue placeholder="Tanlang" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="yes">{t('app.buyurtmachi.registerForm.crmSystem.options.yes')}</SelectItem>
-                                <SelectItem value="no">{t('app.buyurtmachi.registerForm.crmSystem.options.no')}</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
-
-                    {/* Gemini/Gerber */}
-                    <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium">
-                            {t('app.buyurtmachi.registerForm.geminiGerber.label')}
-                        </Label>
-                        <Select value={formData.geminiGerber} onValueChange={(value) => handleInputChange('geminiGerber', value)}>
-                            <SelectTrigger>
-                                <SelectValue placeholder="Tanlang" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="yes">{t('app.buyurtmachi.registerForm.geminiGerber.options.yes')}</SelectItem>
-                                <SelectItem value="no">{t('app.buyurtmachi.registerForm.geminiGerber.options.no')}</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
-
-                    {/* Employees Count */}
-                    <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium">
-                            {t('app.buyurtmachi.registerForm.employeesCount.label')}
+                        <Label className="text-white text-sm font-medium" required>
+                            Legal Address
                         </Label>
                         <CustomInput
-                            placeholder={t('app.buyurtmachi.registerForm.employeesCount.placeholder')}
-                            value={formData.employeesCount}
-                            onChange={(e) => handleInputChange('employeesCount', e.target.value)}
+                            placeholder="Enter legal address"
+                            value={formData.legal_address}
+                            onChange={(e) => handleInputChange('legal_address', e.target.value)}
                         />
                     </div>
 
-                    {/* Building Ownership */}
+                    {/* Marketplace Brand */}
                     <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium">
-                            {t('app.buyurtmachi.registerForm.buildingOwnership.label')}
-                        </Label>
-                        <Select value={formData.buildingOwnership} onValueChange={(value) => handleInputChange('buildingOwnership', value)}>
-                            <SelectTrigger>
-                                <SelectValue placeholder="Tanlang" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="own">{t('app.buyurtmachi.registerForm.buildingOwnership.options.own')}</SelectItem>
-                                <SelectItem value="rented">{t('app.buyurtmachi.registerForm.buildingOwnership.options.rented')}</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
-
-                    {/* Industrial Zone */}
-                    <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium">
-                            {t('app.buyurtmachi.registerForm.industrialZone.label')}
-                        </Label>
-                        <Select value={formData.industrialZone} onValueChange={(value) => handleInputChange('industrialZone', value)}>
-                            <SelectTrigger>
-                                <SelectValue placeholder="Tanlang" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="yes">{t('app.buyurtmachi.registerForm.industrialZone.options.yes')}</SelectItem>
-                                <SelectItem value="no">{t('app.buyurtmachi.registerForm.industrialZone.options.no')}</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
-
-                    {/* Credit Burden */}
-                    <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium">
-                            {t('app.buyurtmachi.registerForm.creditBurden.label')}
-                        </Label>
-                        <Select value={formData.creditBurden} onValueChange={(value) => handleInputChange('creditBurden', value)}>
-                            <SelectTrigger>
-                                <SelectValue placeholder="Tanlang" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="yes">{t('app.buyurtmachi.registerForm.creditBurden.options.yes')}</SelectItem>
-                                <SelectItem value="no">{t('app.buyurtmachi.registerForm.creditBurden.options.no')}</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
-
-                    {/* Organization Structure */}
-                    <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium">
-                            {t('app.buyurtmachi.registerForm.organizationStructure.label')}
-                        </Label>
-                        <RadioGroup value={formData.organizationStructure} onValueChange={(value) => handleInputChange('organizationStructure', value)}>
-                            <div className="flex items-center space-x-3">
-                                <RadioGroupItem value="director" id="director" />
-                                <Label htmlFor="director" className="text-white text-sm font-medium">
-                                    {t('app.buyurtmachi.registerForm.organizationStructure.options.director')}
-                                </Label>
-                            </div>
-                            <div className="flex items-center space-x-3">
-                                <RadioGroupItem value="manager" id="manager" />
-                                <Label htmlFor="manager" className="text-white text-sm font-medium">
-                                    {t('app.buyurtmachi.registerForm.organizationStructure.options.manager')}
-                                </Label>
-                            </div>
-                            <div className="flex items-center space-x-3">
-                                <RadioGroupItem value="marketer" id="marketer" />
-                                <Label htmlFor="marketer" className="text-white text-sm font-medium">
-                                    {t('app.buyurtmachi.registerForm.organizationStructure.options.marketer')}
-                                </Label>
-                            </div>
-                        </RadioGroup>
-                    </div>
-
-                    {/* Equipment Info */}
-                    <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium">
-                            {t('app.buyurtmachi.registerForm.equipmentInfo.label')}
+                        <Label className="text-white text-sm font-medium" required>
+                            Marketplace Brand
                         </Label>
                         <CustomInput
-                            placeholder={t('app.buyurtmachi.registerForm.equipmentInfo.placeholder')}
-                            value={formData.equipmentInfo}
-                            onChange={(e) => handleInputChange('equipmentInfo', e.target.value)}
+                            placeholder="Enter marketplace brand"
+                            value={formData.marketplace_brand}
+                            onChange={(e) => handleInputChange('marketplace_brand', e.target.value)}
                         />
                     </div>
 
-                    {/* File Upload */}
+                    {/* Annual Order Volume */}
                     <div className="space-y-2">
-                        <FileUploader
-                            label={t('app.buyurtmachi.registerForm.fileUpload.label')}
-                            onFileChange={(files) => {
-                                handleInputChange('files', files)
-                            }}
+                        <Label className="text-white text-sm font-medium" required>
+                            Annual Order Volume
+                        </Label>
+                        <CustomInput
+                            placeholder="Enter annual order volume"
+                            value={formData.annual_order_volume}
+                            onChange={(e) => handleInputChange('annual_order_volume', e.target.value)}
+                        />
+                    </div>
+
+                    {/* Segment */}
+                    <div className="space-y-2">
+                        <Label className="text-white text-sm font-medium" required>
+                            Product Segment
+                        </Label>
+                        <CustomInput
+                            placeholder="Enter product segment"
+                            value={formData.segment}
+                            onChange={(e) => handleInputChange('segment', e.target.value)}
+                        />
+                    </div>
+
+                    {/* Cooperation Terms */}
+                    <div className="space-y-2">
+                        <Label className="text-white text-sm font-medium" required>
+                            Cooperation Terms
+                        </Label>
+                        <CustomInput
+                            placeholder="Enter cooperation terms"
+                            value={formData.cooperation_terms}
+                            onChange={(e) => handleInputChange('cooperation_terms', e.target.value)}
+                        />
+                    </div>
+
+                    {/* Payment Terms */}
+                    <div className="space-y-2">
+                        <Label className="text-white text-sm font-medium" required>
+                            Payment Terms
+                        </Label>
+                        <CustomInput
+                            placeholder="Enter payment terms"
+                            value={formData.payment_terms}
+                            onChange={(e) => handleInputChange('payment_terms', e.target.value)}
                         />
                     </div>
 
@@ -359,16 +216,29 @@ function CustomerRegisterForm() {
                             onChange={(e) => handleInputChange('phone', e.target.value)}
                         />
                     </div>
+
+                    {/* Total Orders */}
+                    <div className="space-y-2">
+                        <Label className="text-white text-sm font-medium">
+                            Total Orders (Optional)
+                        </Label>
+                        <CustomInput
+                            placeholder="Enter total orders count"
+                            type="number"
+                            value={formData.total_orders.toString()}
+                            onChange={(e) => handleInputChange('total_orders', parseInt(e.target.value) || 0)}
+                        />
+                    </div>
                 </div>
 
                 {/* Submit Button */}
                 <div className="px-4 pb-8 mt-4">
                     <Button
-                        loading={isLoading}
+                        loading={customerCreateMutation.isPending}
                         variant="default"
                         shadow="lg"
                         onClick={handleSubmit}
-                        disabled={isLoading}
+                        disabled={customerCreateMutation.isPending}
                         className="w-full"
                     >
                         {t('app.buyurtmachi.registerForm.submitButton')}
