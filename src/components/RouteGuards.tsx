@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTelegramUser } from '@/hooks/useTelegramUser';
-import { Spinner } from '@/components/ui';
+import { GlobalLoading } from '@/components/ui';
 
 interface RouteGuardProps {
     children: React.ReactNode;
@@ -25,12 +25,7 @@ export function UserTypeRouteGuard({ children, allowedUserType }: RouteGuardProp
     }, [user, isLoading, isRegistered, userType, allowedUserType, navigate]);
 
     if (isLoading) {
-        return (
-            <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col items-center justify-center">
-                <Spinner size="lg" />
-                <p className="mt-4 text-white">Loading...</p>
-            </div>
-        );
+        return <GlobalLoading />;
     }
 
     if (!isRegistered || userType !== allowedUserType) {
@@ -56,12 +51,7 @@ export function ChooseDepartmentGuard({ children }: RouteGuardProps) {
     }, [user, isLoading, isRegistered, userType, navigate]);
 
     if (isLoading) {
-        return (
-            <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col items-center justify-center">
-                <Spinner size="lg" />
-                <p className="mt-4 text-white">Loading...</p>
-            </div>
-        );
+        return <GlobalLoading />;
     }
 
     if (isRegistered && userType) {
@@ -90,12 +80,7 @@ export function RegistrationRouteGuard({ children, allowedUserType }: RouteGuard
     }, [user, isLoading, isRegistered, userType, allowedUserType, navigate]);
 
     if (isLoading) {
-        return (
-            <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col items-center justify-center">
-                <Spinner size="lg" />
-                <p className="mt-4 text-white">Loading...</p>
-            </div>
-        );
+        return <GlobalLoading />;
     }
 
     // If user is already registered with a different type or correct type, will redirect
@@ -124,12 +109,7 @@ export function ServicesRouteGuard({ children }: RouteGuardProps) {
     }, [user, isLoading, isRegistered, navigate]);
 
     if (isLoading) {
-        return (
-            <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col items-center justify-center">
-                <Spinner size="lg" />
-                <p className="mt-4 text-white">Loading...</p>
-            </div>
-        );
+        return <GlobalLoading />;
     }
 
     if (!isRegistered) {

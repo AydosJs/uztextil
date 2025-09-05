@@ -14,6 +14,7 @@ export { LanguageSwitcher } from "../LanguageSwitcher"
 export { RadioGroup, RadioGroupItem } from "./radio-group"
 export { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./select"
 export { FileUploader } from "./file-uploader"
+export { GlobalLoading } from "./global-loading"
 export { Spinner } from "./spinner"
 export { UnderwaterHeader } from "./underwater-header"
 
