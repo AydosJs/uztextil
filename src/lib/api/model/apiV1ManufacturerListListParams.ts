@@ -23,4 +23,8 @@ export type ApiV1ManufacturerListListParams = {
      * Minimum order quantity filter.
      */
     min_order_quantity?: string;
+    /**
+     * Page parameter for infinite queries.
+     */
+    pageParam?: string;
 };

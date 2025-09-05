@@ -7,8 +7,12 @@
  */
 
 export type ApiV1PackageListListParams = {
-/**
- * Which field to use when ordering the results.
- */
-ordering?: string;
+    /**
+     * Which field to use when ordering the results.
+     */
+    ordering?: string;
+    /**
+     * Page parameter for infinite queries.
+     */
+    pageParam?: string;
 };

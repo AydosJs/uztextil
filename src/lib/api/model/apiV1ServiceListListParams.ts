@@ -15,4 +15,8 @@ export type ApiV1ServiceListListParams = {
      * Service type filter.
      */
     type?: 'manufacturer' | 'customer';
+    /**
+     * Page parameter for infinite queries.
+     */
+    pageParam?: string;
 };
