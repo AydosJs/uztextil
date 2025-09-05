@@ -1,3 +1,4 @@
+import { isMobileDevice } from './deviceUtils';
 import {
     viewport,
 } from '@telegram-apps/sdk-react';
@@ -61,6 +62,8 @@ export function setSafeAreaCSSProperties(): void {
             return;
         }
 
+        const isMobile = isMobileDevice()
+
         const safeAreaInsetTop = viewport.safeAreaInsetTop();
         const safeAreaInsetBottom = viewport.safeAreaInsetBottom();
 
@@ -82,7 +85,7 @@ export function setSafeAreaCSSProperties(): void {
         // Create CSS custom properties for Tailwind to use
         styleEl.innerHTML = `
             :root {
-                --safe-area-top: ${topValue + 48}px;
+                --safe-area-top: ${topValue + (isMobile ? 48 : 16)}px;
                 --safe-area-bottom: ${bottomValue}px;
             }
             

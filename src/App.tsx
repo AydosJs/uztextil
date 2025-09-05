@@ -5,6 +5,7 @@ import { useTelegramBackButton } from "@/lib/hooks"
 // import { TelegramUserDebug } from "@/components/TelegramUserDebug"
 import { useTelegramUser } from "@/hooks/useTelegramUser"
 import { SliderCards } from "@/components/SliderCards"
+// import { DeviceTest } from "@/components/DeviceTest"
 
 function App() {
     const navigate = useNavigate()
@@ -30,7 +31,7 @@ function App() {
             <RadialEffect />
 
             <main className="w-full container min-w-full flex-1 flex flex-col relative">
-                <div className="flex-1 mt-4 flex flex-col items-center justify-center space-y-8 pb-20">
+                <div className="flex-1 flex flex-col mt-4 justify-center space-y-8 pb-20">
                     <SliderCards />
                 </div>
             </main>
@@ -45,6 +46,7 @@ function App() {
                     {t('app.continue')}
                 </Button>
             </div>
+            {/* <DeviceTest /> */}
             {/* <TelegramUserDebug /> */}
         </div >
     )

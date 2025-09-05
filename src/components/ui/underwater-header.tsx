@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils"
+import { useIsMobile } from "@/hooks/useIsMobile"
 
 interface UnderwaterHeaderProps {
     className?: string
@@ -6,6 +7,13 @@ interface UnderwaterHeaderProps {
 }
 
 export function UnderwaterHeader({ className, children }: UnderwaterHeaderProps) {
+    const isMobile = useIsMobile()
+
+    // Don't render on desktop
+    if (!isMobile) {
+        return null
+    }
+
     return (
         <header className={cn(
             "safe-area-pt fixed top-0 left-0 right-0 z-50 bg-background/80 border-b border-border backdrop-blur-sm",
