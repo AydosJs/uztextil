@@ -6,17 +6,16 @@
  * OpenAPI spec version: v1
  */
 
-export interface Slider {
+export interface PackageItemList {
   readonly id?: number;
   /**
    * @minLength 1
    * @maxLength 255
    */
-  title: string;
-  /** @minLength 1 */
-  description: string;
-  readonly image?: string;
-  is_active?: boolean;
-  created_at?: string;
-  readonly updated_at?: string;
+  name: string;
+  /**
+   * @minimum -2147483648
+   * @maximum 2147483647
+   */
+  order?: number;
 }

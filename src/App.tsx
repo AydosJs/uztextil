@@ -35,8 +35,9 @@ function App() {
                 </div>
             </main>
 
-            <div className="fixed bottom-0 left-0 right-0 px-4 pt-2 pb-8 safe-area-pb bg-gradient-to-t from-black to-dark z-50">
+            <div className="fixed bottom-0 left-0 right-0 px-4 pt-2 pb-8 safe-area-pb bg-gradient-to-t from-black to-dark z-50 flex justify-center">
                 <Button
+                    className="max-w-[400px]"
                     variant="default"
                     shadow="lg"
                     onClick={handleButtonClick}

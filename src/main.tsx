@@ -28,6 +28,7 @@ import { Toaster } from 'sonner'
 import { setSafeAreaCSSProperties, waitForSafeAreaValues } from './utils/safeAreaUtils.ts'
 // import { initEruda } from './utils/eruda.ts'
 import { ChooseDepartmentGuard, ServicesRouteGuard, RegistrationRouteGuard } from './components/RouteGuards'
+import { initEruda } from './utils/eruda.ts'
 
 // Create a QueryClient instance
 const queryClient = new QueryClient({
@@ -45,7 +46,7 @@ const queryClient = new QueryClient({
 // Initialize app
 async function initializeApp() {
   // Initialize Eruda for mobile debugging (development only)
-  // await initEruda();
+  await initEruda();
 
   // Initialize the Telegram Mini Apps SDK
   await initSDK();

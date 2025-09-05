@@ -1,6 +1,6 @@
 import { RadialEffect, Spinner } from "@/components/ui"
 import { ServiceCard } from "@/pages/customer/components"
-import { useApiV1AdditionalServicesListList } from "@/lib/api"
+import { useApiV1ServiceListList } from "@/lib/api"
 import { useTelegramBackButton } from "@/lib/hooks"
 import { useTelegramUser } from "@/hooks/useTelegramUser"
 
@@ -10,10 +10,11 @@ function AdditionalServices() {
     // Show back button that goes to manufacturer register page
     useTelegramBackButton({ navigateTo: '/manufacturer/register' })
 
-    // Fetch additional services from API using telegram_id
-    const { data: services, isLoading, error } = useApiV1AdditionalServicesListList(
-        user?.telegram_id?.toString() || '',
-        undefined, // params
+    // Fetch additional services from API
+    const { data: services, isLoading, error } = useApiV1ServiceListList(
+        {
+            type: 'manufacturer'
+        },
         {
             query: {
                 enabled: !!user?.telegram_id

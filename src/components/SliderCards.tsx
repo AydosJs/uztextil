@@ -1,4 +1,4 @@
-import { useApiV1SlidersList } from "@/lib/api/api/api"
+import { useApiV1SliderListList } from "@/lib/api"
 import { Card } from "@/components/ui"
 import { Spinner } from "@/components/ui"
 import { cn } from "@/lib/utils"
@@ -8,7 +8,7 @@ interface SliderCardsProps {
 }
 
 export const SliderCards = ({ className }: SliderCardsProps) => {
-    const { data: sliders, isLoading, error } = useApiV1SlidersList()
+    const { data: sliders, isLoading, error } = useApiV1SliderListList()
 
     // URL validation function
     const isValidUrl = (url: string | undefined): boolean => {

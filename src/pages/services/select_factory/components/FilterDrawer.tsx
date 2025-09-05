@@ -1,169 +1,109 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import {
     Drawer,
     DrawerContent,
     DrawerHeader,
-    DrawerTitle,
-    DrawerDescription,
-    DrawerFooter,
-    DrawerClose
+    DrawerTitle
 } from "@/components/ui/drawer"
 import { Button } from "@/components/ui/button"
-import { X, Filter } from "lucide-react"
-import type { ManufacturerList } from "@/lib/api/model"
+import { CustomInput } from "@/components/ui/custom-input"
+import { Search } from "lucide-react"
 
 interface FilterDrawerProps {
     open: boolean
     onOpenChange: (open: boolean) => void
-    manufacturers: ManufacturerList[]
-    onFilterChange: (filteredManufacturers: ManufacturerList[]) => void
+    onFilterChange: (filters: FilterOptions) => void
+    currentFilters: FilterOptions
 }
 
 interface FilterOptions {
-    searchTerm: string
-    sortBy: 'name' | 'company' | 'position'
-    sortOrder: 'asc' | 'desc'
+    search: string
+    product_segment: string
+    min_order_quantity: string
 }
 
 export function FilterDrawer({
     open,
     onOpenChange,
-    manufacturers,
-    onFilterChange
+    onFilterChange,
+    currentFilters
 }: FilterDrawerProps) {
-    const [filters, setFilters] = useState<FilterOptions>({
-        searchTerm: '',
-        sortBy: 'name',
-        sortOrder: 'asc'
-    })
+    const [filters, setFilters] = useState<FilterOptions>(currentFilters)
+
+    // Update local state when currentFilters change
+    useEffect(() => {
+        setFilters(currentFilters)
+    }, [currentFilters])
 
     const applyFilters = () => {
-        let filtered = [...manufacturers]
-
-        // Apply search filter
-        if (filters.searchTerm.trim()) {
-            const searchLower = filters.searchTerm.toLowerCase()
-            filtered = filtered.filter(manufacturer =>
-                manufacturer.full_name.toLowerCase().includes(searchLower) ||
-                manufacturer.company_name.toLowerCase().includes(searchLower) ||
-                manufacturer.position.toLowerCase().includes(searchLower)
-            )
-        }
-
-        // Apply sorting
-        filtered.sort((a, b) => {
-            let aValue = ''
-            let bValue = ''
-
-            switch (filters.sortBy) {
-                case 'name':
-                    aValue = a.full_name
-                    bValue = b.full_name
-                    break
-                case 'company':
-                    aValue = a.company_name
-                    bValue = b.company_name
-                    break
-                case 'position':
-                    aValue = a.position
-                    bValue = b.position
-                    break
-            }
-
-            if (filters.sortOrder === 'asc') {
-                return aValue.localeCompare(bValue)
-            } else {
-                return bValue.localeCompare(aValue)
-            }
-        })
-
-        onFilterChange(filtered)
+        // Pass the filter values to the parent component
+        // The actual filtering will be handled by the API call with these parameters
+        onFilterChange(filters)
         onOpenChange(false)
     }
 
     const resetFilters = () => {
-        setFilters({
-            searchTerm: '',
-            sortBy: 'name',
-            sortOrder: 'asc'
-        })
-        onFilterChange(manufacturers)
+        const resetFilters = {
+            search: '',
+            product_segment: '',
+            min_order_quantity: ''
+        }
+        setFilters(resetFilters)
+        onFilterChange(resetFilters)
         onOpenChange(false)
     }
 
     const handleFilterChange = (key: keyof FilterOptions, value: string) => {
-        setFilters(prev => ({ ...prev, [key]: value }))
+        // For min_order_quantity, only allow numbers
+        if (key === 'min_order_quantity') {
+            // Remove any non-numeric characters except empty string
+            const numericValue = value === '' ? '' : value.replace(/[^0-9]/g, '')
+            setFilters(prev => ({ ...prev, [key]: numericValue }))
+        } else {
+            setFilters(prev => ({ ...prev, [key]: value }))
+        }
     }
 
     return (
         <Drawer open={open} onOpenChange={onOpenChange} direction="bottom">
-            <DrawerContent className="max-h-[80vh]">
+            <DrawerContent className="min-h-[90vh] max-h-[96vh] flex flex-col">
                 <DrawerHeader>
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                            <Filter className="w-5 h-5 text-white" />
-                            <DrawerTitle>Filter va tartiblash</DrawerTitle>
+                            <DrawerTitle className="text-white text-2xl">Fabrika tanlash</DrawerTitle>
                         </div>
-                        <DrawerClose asChild>
-                            <Button variant="ghost" size="sm" className="p-2">
-                                <X className="w-4 h-4" />
-                            </Button>
-                        </DrawerClose>
                     </div>
-                    <DrawerDescription>
-                        Fabrikalarni qidirish va tartiblash imkoniyatlari
-                    </DrawerDescription>
                 </DrawerHeader>
 
-                <div className="px-4 space-y-6">
+                <div className="px-4 space-y-6 overflow-y-auto flex-1">
                     {/* Search Input */}
-                    <div className="space-y-2">
-                        <label className="text-white font-medium text-sm">
-                            Qidirish
-                        </label>
-                        <input
-                            type="text"
-                            value={filters.searchTerm}
-                            onChange={(e) => handleFilterChange('searchTerm', e.target.value)}
-                            placeholder="Fabrika nomi, kompaniya yoki lavozim bo'yicha qidiring..."
-                            className="w-full px-3 py-2 bg-[#FFFFFF05] border border-[#FFFFFF0A] rounded-lg text-white placeholder-[#ACADAF] focus:outline-none focus:ring-2 focus:ring-[#FCE803] focus:border-transparent"
-                        />
-                    </div>
+                    <CustomInput
+                        label="Qidirish"
+                        type="text"
+                        value={filters.search}
+                        onChange={(e) => handleFilterChange('search', e.target.value)}
+                        placeholder="Fabrika nomi, kompaniya yoki lavozim bo'yicha qidiring..."
+                    />
 
-                    {/* Sort By */}
-                    <div className="space-y-2">
-                        <label className="text-white font-medium text-sm">
-                            Tartiblash
-                        </label>
-                        <select
-                            value={filters.sortBy}
-                            onChange={(e) => handleFilterChange('sortBy', e.target.value as FilterOptions['sortBy'])}
-                            className="w-full px-3 py-2 bg-[#FFFFFF05] border border-[#FFFFFF0A] rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#FCE803] focus:border-transparent"
-                        >
-                            <option value="name">Ism bo'yicha</option>
-                            <option value="company">Kompaniya bo'yicha</option>
-                            <option value="position">Lavozim bo'yicha</option>
-                        </select>
-                    </div>
+                    {/* Product Segment */}
+                    <CustomInput
+                        label="Mahsulot segmenti"
+                        type="text"
+                        value={filters.product_segment}
+                        onChange={(e) => handleFilterChange('product_segment', e.target.value)}
+                        placeholder="Mahsulot segmentini kiriting..."
+                    />
 
-                    {/* Sort Order */}
-                    <div className="space-y-2">
-                        <label className="text-white font-medium text-sm">
-                            Tartib
-                        </label>
-                        <select
-                            value={filters.sortOrder}
-                            onChange={(e) => handleFilterChange('sortOrder', e.target.value as FilterOptions['sortOrder'])}
-                            className="w-full px-3 py-2 bg-[#FFFFFF05] border border-[#FFFFFF0A] rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#FCE803] focus:border-transparent"
-                        >
-                            <option value="asc">O'sish bo'yicha (A-Z)</option>
-                            <option value="desc">Kamayish bo'yicha (Z-A)</option>
-                        </select>
-                    </div>
-                </div>
+                    <CustomInput
+                        label="Minimal buyurtma miqdori"
+                        type="number"
+                        inputMode="numeric"
+                        value={filters.min_order_quantity}
+                        onChange={(e) => handleFilterChange('min_order_quantity', e.target.value)}
+                        placeholder="Minimal buyurtma miqdorini kiriting..."
+                    />
 
-                <DrawerFooter>
-                    <div className="flex gap-3">
+                    <div className="flex flex-col gap-2 safe-area-pb">
                         <Button
                             onClick={resetFilters}
                             variant="outline"
@@ -173,12 +113,14 @@ export function FilterDrawer({
                         </Button>
                         <Button
                             onClick={applyFilters}
-                            className="flex-1 bg-[#FCE803] text-black hover:bg-[#FCE803]/90 font-semibold"
+                            className="flex-1 bg-[#FCE803] text-black hover:bg-[#FCE803]/90 font-semibold flex items-center justify-center gap-2"
                         >
-                            Qo'llash
+                            <Search className="size-5" />
+                            Qidirish
                         </Button>
                     </div>
-                </DrawerFooter>
+                </div>
+
             </DrawerContent>
         </Drawer>
     )

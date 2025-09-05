@@ -1,15 +1,17 @@
 import { useState } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
+import { useQueryClient } from "@tanstack/react-query"
 import { Button, CustomCheckbox, UnderwaterHeader } from "@/components/ui"
 import { showToast } from "@/lib/utils"
 import { useTelegramBackButton } from "@/lib/hooks"
-import { useApiV1AdditionalServicesApplyCreate } from "@/lib/api"
+import { useApiV1ServiceApplyCreate } from "@/lib/api"
 import { useTelegramUser } from "@/hooks/useTelegramUser"
 import type { AdditionalService, ManufacturerList } from "@/lib/api/model"
 
 function TermsAndConditions() {
     const navigate = useNavigate()
     const location = useLocation()
+    const queryClient = useQueryClient()
     const [isChecked, setIsChecked] = useState(false)
     const { userInfo } = useTelegramUser()
 
@@ -23,7 +25,7 @@ function TermsAndConditions() {
     })
 
     // Initialize the mutation for creating application
-    const createApplicationMutation = useApiV1AdditionalServicesApplyCreate()
+    const createApplicationMutation = useApiV1ServiceApplyCreate()
 
     // If no service data, redirect back to services
     if (!service) {
@@ -63,6 +65,12 @@ function TermsAndConditions() {
                 onSuccess: (response) => {
                     showToast.success("Ariza muvaffaqiyatli yuborildi!")
                     console.log("Application created successfully:", response)
+
+                    // Invalidate services query to refetch updated data
+                    queryClient.invalidateQueries({
+                        queryKey: ['/api/v1/service/list/']
+                    })
+
                     // Navigate back to services page
                     navigate('/services')
                 },

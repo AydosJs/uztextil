@@ -17,6 +17,6 @@ export interface Slider {
   description: string;
   readonly image?: string;
   is_active?: boolean;
-  readonly created_at?: string;
+  created_at?: string;
   readonly updated_at?: string;
 }

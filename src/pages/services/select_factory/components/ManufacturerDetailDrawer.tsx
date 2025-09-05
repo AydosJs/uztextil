@@ -1,5 +1,5 @@
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerClose, Button, Spinner } from "@/components/ui"
-import { useApiV1ApplicationManufacturerDetailRead } from "@/lib/api"
+import { useApiV1ManufacturerDetailRead } from "@/lib/api"
 import type { AdditionalService, ManufacturerList } from "@/lib/api/model"
 
 interface ManufacturerDetailDrawerProps {
@@ -16,7 +16,7 @@ export function ManufacturerDetailDrawer({
 }: ManufacturerDetailDrawerProps) {
 
     // Fetch manufacturer details
-    const { data: manufacturerDetail, isLoading, error } = useApiV1ApplicationManufacturerDetailRead(
+    const { data: manufacturerDetail, isLoading, error } = useApiV1ManufacturerDetailRead(
         manufacturer?.id || 0,
         {
             query: {
@@ -37,7 +37,7 @@ export function ManufacturerDetailDrawer({
                         {manufacturer?.company_name}
                     </DrawerTitle>
                     <DrawerDescription className="text-white/64 text-left">
-                        {manufacturer?.full_name} - {manufacturer?.position}
+                        {manufacturer?.full_name} - {manufacturer?.product_segment}
                     </DrawerDescription>
                     <DrawerClose onClick={handleClose} className="text-white/64 hover:text-white" />
                 </DrawerHeader>
@@ -92,15 +92,6 @@ export function ManufacturerDetailDrawer({
                                         <p className="text-white font-medium">{manufacturerDetail.full_name}</p>
                                     </div>
 
-                                    <div>
-                                        <p className="text-white/64 text-sm">Lavozim</p>
-                                        <p className="text-white font-medium">{manufacturerDetail.position}</p>
-                                    </div>
-
-                                    <div>
-                                        <p className="text-white/64 text-sm">Mahsulot segmenti</p>
-                                        <p className="text-white font-medium">{manufacturerDetail.product_segment}</p>
-                                    </div>
 
                                     <div>
                                         <p className="text-white/64 text-sm">Minimal buyurtma miqdori</p>
@@ -115,21 +106,9 @@ export function ManufacturerDetailDrawer({
 
                                 <div className="space-y-3">
                                     <div>
-                                        <p className="text-white/64 text-sm">Ishlab chiqarish manzili</p>
-                                        <p className="text-white font-medium">{manufacturerDetail.production_address}</p>
-                                    </div>
-
-                                    <div>
                                         <p className="text-white/64 text-sm">Ofis manzili</p>
                                         <p className="text-white font-medium">{manufacturerDetail.office_address}</p>
                                     </div>
-
-                                    {manufacturerDetail.phone && (
-                                        <div>
-                                            <p className="text-white/64 text-sm">Telefon</p>
-                                            <p className="text-white font-medium">{manufacturerDetail.phone}</p>
-                                        </div>
-                                    )}
 
                                     {manufacturerDetail.website && (
                                         <div>
@@ -146,33 +125,17 @@ export function ManufacturerDetailDrawer({
 
                                 <div className="space-y-3">
                                     <div>
-                                        <p className="text-white/64 text-sm">Bozor tajribasi</p>
-                                        <p className="text-white font-medium">{manufacturerDetail.market_experience}</p>
-                                    </div>
-
-                                    <div>
                                         <p className="text-white/64 text-sm">Xodimlar soni</p>
                                         <p className="text-white font-medium">{manufacturerDetail.employee_count}</p>
                                     </div>
 
                                     <div>
-                                        <p className="text-white/64 text-sm">Tashkilot tuzilmasi</p>
-                                        <p className="text-white font-medium">{manufacturerDetail.organization_structure}</p>
+                                        <p className="text-white/64 text-sm">CRM tizimi</p>
+                                        <p className="text-white font-medium">{manufacturerDetail.has_crm ? 'Mavjud' : 'Mavjud emas'}</p>
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Commercial Offer */}
-                            {manufacturerDetail.commercial_offer_text && (
-                                <div className="space-y-4">
-                                    <h3 className="text-white font-bold text-lg">Savdo taklifi</h3>
-                                    <div className="bg-white/5 rounded-lg p-4">
-                                        <p className="text-white/80 text-sm leading-relaxed">
-                                            {manufacturerDetail.commercial_offer_text}
-                                        </p>
-                                    </div>
-                                </div>
-                            )}
 
                         </div>
                     ) : null}

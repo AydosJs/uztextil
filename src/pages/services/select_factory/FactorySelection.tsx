@@ -1,11 +1,17 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import { RadialEffect, Spinner, UnderwaterHeader } from "@/components/ui"
-import { useApiV1ApplicationManufacturerListList } from "@/lib/api"
+import { useApiV1ManufacturerListList } from "@/lib/api"
 import { useTelegramBackButton } from "@/lib/hooks"
 import { ChevronRight, Filter } from "lucide-react"
 import { ManufacturerDetailDrawer, FilterDrawer } from "./components"
 import type { AdditionalService, ManufacturerList } from "@/lib/api/model"
+
+interface FilterOptions {
+    search: string
+    product_segment: string
+    min_order_quantity: string
+}
 
 function FactorySelection() {
     const navigate = useNavigate()
@@ -13,7 +19,11 @@ function FactorySelection() {
     const [drawerOpen, setDrawerOpen] = useState(false)
     const [filterDrawerOpen, setFilterDrawerOpen] = useState(false)
     const [selectedManufacturer, setSelectedManufacturer] = useState<ManufacturerList | null>(null)
-    const [filteredManufacturers, setFilteredManufacturers] = useState<ManufacturerList[]>([])
+    const [filters, setFilters] = useState<FilterOptions>({
+        search: '',
+        product_segment: '',
+        min_order_quantity: ''
+    })
 
     // Show back button that goes to services page
     useTelegramBackButton({ navigateTo: '/services' })
@@ -21,15 +31,16 @@ function FactorySelection() {
     // Get service data from navigation state
     const service = location.state?.service as AdditionalService
 
-    // Fetch manufacturer list
-    const { data: manufacturers, isLoading, error } = useApiV1ApplicationManufacturerListList()
+    // Prepare API parameters - this will be reactive to filters changes
+    const apiParams = {
+        search: filters.search.trim() || undefined,
+        product_segment: filters.product_segment.trim() || undefined,
+        min_order_quantity: filters.min_order_quantity.trim() || undefined
+    }
 
-    // Initialize filtered manufacturers when data loads
-    useEffect(() => {
-        if (manufacturers) {
-            setFilteredManufacturers(manufacturers)
-        }
-    }, [manufacturers])
+
+    // Fetch manufacturer list with filters - this will refetch when apiParams change
+    const { data: manufacturers, isLoading, error } = useApiV1ManufacturerListList(apiParams)
 
     // If no service data, redirect back to services
     if (!service) {
@@ -94,12 +105,12 @@ function FactorySelection() {
         setDrawerOpen(true)
     }
 
-    const handleFilterChange = (filtered: ManufacturerList[]) => {
-        setFilteredManufacturers(filtered)
+    const handleFilterChange = (newFilters: FilterOptions) => {
+        setFilters(newFilters)
     }
 
     // Show manufacturers or empty state
-    const hasManufacturers = filteredManufacturers && filteredManufacturers.length > 0
+    const hasManufacturers = manufacturers && manufacturers.length > 0
 
     return (
         <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden">
@@ -110,7 +121,7 @@ function FactorySelection() {
 
             <main className="w-full container min-w-full flex-1 flex flex-col relative z-10">
                 {/* Header */}
-                <div className="flex items-center justify-between mb-8 pt-4 px-4">
+                <div className="flex items-center justify-between mb-8 pt-4">
                     <h1 className="text-white font-bold text-2xl tracking-wide">
                         Fabrika tanlash
                     </h1>
@@ -132,7 +143,7 @@ function FactorySelection() {
                         </div>
                     ) : (
                         <div className="space-y-4">
-                            {filteredManufacturers.map((factory) => (
+                            {manufacturers.map((factory) => (
                                 <div
                                     key={factory.id}
                                     onClick={() => handleFactorySelect(factory)}
@@ -148,7 +159,7 @@ function FactorySelection() {
                                             {factory.full_name}
                                         </h3>
                                         <p className="text-[#ACADAF] font-normal text-sm">
-                                            {factory.company_name} - {factory.position}
+                                            {factory.company_name} - {factory.product_segment}
                                         </p>
                                     </div>
 
@@ -191,8 +202,8 @@ function FactorySelection() {
             <FilterDrawer
                 open={filterDrawerOpen}
                 onOpenChange={setFilterDrawerOpen}
-                manufacturers={manufacturers || []}
                 onFilterChange={handleFilterChange}
+                currentFilters={filters}
             />
         </div>
     )

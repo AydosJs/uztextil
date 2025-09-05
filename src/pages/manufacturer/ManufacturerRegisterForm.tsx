@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
-import { useApiV1ApplicationManufacturCreateCreate } from "@/lib/api"
+import { useApiV1ManufacturerCreateCreate } from "@/lib/api"
 import type { ManufacturerCreate } from "@/lib/api"
 import { showToast } from "@/lib/utils"
 import { useTelegramBackButton } from "@/lib/hooks"
@@ -76,7 +76,7 @@ function ManufacturerRegisterForm() {
     const organizationStructure = watch('organizationStructure')
 
     // API mutation hook
-    const manufacturerCreateMutation = useApiV1ApplicationManufacturCreateCreate({
+    const manufacturerCreateMutation = useApiV1ManufacturerCreateCreate({
         mutation: {
             onSuccess: (data) => {
                 console.log('Manufacturer created successfully:', data)

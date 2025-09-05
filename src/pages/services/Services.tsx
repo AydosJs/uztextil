@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { RadialEffect, UnderwaterHeader } from "@/components/ui"
-import { useApiV1AdditionalServicesListList } from "@/lib/api"
+import { useApiV1ServiceListList } from "@/lib/api"
 import type { AdditionalService } from "@/lib/api/model"
 import { useTelegramBackButton } from "@/lib/hooks"
 import { useTelegramUser } from "@/hooks/useTelegramUser"
@@ -17,11 +17,10 @@ function Services() {
         navigateTo: isRegistered ? '/' : '/choose-department'
     })
 
-    // Fetch additional services from API using telegram_id and user type
-    const { data: services, isLoading, error } = useApiV1AdditionalServicesListList(
-        user?.telegram_id?.toString() || '',
+    // Fetch additional services from API
+    const { data: services, isLoading, error } = useApiV1ServiceListList(
         {
-            type: userType || undefined
+            type: userType === 'manufacturer' ? 'manufacturer' : 'customer'
         },
         {
             query: {

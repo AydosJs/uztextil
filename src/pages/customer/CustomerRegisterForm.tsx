@@ -5,7 +5,7 @@ import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { useTelegramBackButton } from "@/lib/hooks"
-import { useApiV1ApplicationCustomerCreateCreate } from "@/lib/api/api/api"
+import { useApiV1CustomerCreateCreate } from "@/lib/api"
 import { useTelegramUser } from "@/hooks/useTelegramUser"
 import type { CustomerCreate } from "@/lib/api/model"
 import { showToast } from "@/lib/utils"
@@ -14,7 +14,7 @@ function CustomerRegisterForm() {
     const { t } = useTranslation()
     const navigate = useNavigate()
     const { userInfo, updateUserInfo } = useTelegramUser()
-    const customerCreateMutation = useApiV1ApplicationCustomerCreateCreate({
+    const customerCreateMutation = useApiV1CustomerCreateCreate({
         mutation: {
             onSuccess: (data) => {
                 console.log('Customer created successfully:', data)

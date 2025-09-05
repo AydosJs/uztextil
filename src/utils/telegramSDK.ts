@@ -39,12 +39,19 @@ export async function initSDK(): Promise<string> {
         // Wait for viewport to settle after expansion
         await new Promise(resolve => setTimeout(resolve, 200));
 
+        // Only request fullscreen on mobile devices, not on desktop
+        // const isDesktop = window.innerWidth > 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) === false;
+
+        // if (!isDesktop) {
         try {
             await viewport.requestFullscreen(); // then request full screen mode
             console.log('Fullscreen requested');
         } catch {
             // Fullscreen not available
         }
+        // } else {
+        //     console.log('Desktop detected, skipping fullscreen request');
+        // }
 
         // Wait for fullscreen to be applied
         await new Promise(resolve => setTimeout(resolve, 300));

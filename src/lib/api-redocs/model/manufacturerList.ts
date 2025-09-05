@@ -5,7 +5,6 @@
  * API for your Django project
  * OpenAPI spec version: v1
  */
-import type { ManufacturerListStatus } from './manufacturerListStatus';
 
 export interface ManufacturerList {
   readonly id?: number;
@@ -16,11 +15,6 @@ export interface ManufacturerList {
   company_name: string;
   /**
    * @minLength 1
-   * @maxLength 100
-   */
-  market_experience: string;
-  /**
-   * @minLength 1
    * @maxLength 255
    */
   full_name: string;
@@ -28,54 +22,5 @@ export interface ManufacturerList {
    * @minLength 1
    * @maxLength 100
    */
-  position: string;
-  /**
-   * @minLength 1
-   * @maxLength 100
-   */
-  min_order_quantity: string;
-  /**
-   * @minLength 1
-   * @maxLength 100
-   */
   product_segment: string;
-  /** @minLength 1 */
-  commercial_offer_text: string;
-  /** @nullable */
-  readonly commercial_offer?: string | null;
-  /** @minLength 1 */
-  production_address: string;
-  /** @minLength 1 */
-  office_address: string;
-  /**
-   * @maxLength 100
-   * @nullable
-   */
-  website?: string | null;
-  has_quality_control?: boolean;
-  has_crm?: boolean;
-  has_erp?: boolean;
-  has_gemini_gerber?: boolean;
-  /**
-   * @minimum -2147483648
-   * @maximum 2147483647
-   */
-  employee_count: number;
-  owns_building: boolean;
-  has_power_issues: boolean;
-  has_credit_load: boolean;
-  /** @minLength 1 */
-  organization_structure: string;
-  /** @minLength 1 */
-  equipment_info: string;
-  /** @nullable */
-  readonly certificate?: string | null;
-  /**
-   * @maxLength 30
-   * @nullable
-   */
-  phone?: string | null;
-  status?: ManufacturerListStatus;
-  readonly created_at?: string;
-  user: number;
 }

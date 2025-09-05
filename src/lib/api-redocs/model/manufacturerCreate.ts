@@ -9,6 +9,8 @@ import type { ManufacturerCreateStatus } from './manufacturerCreateStatus';
 
 export interface ManufacturerCreate {
   readonly id?: number;
+  created_at?: string;
+  readonly updated_at?: string;
   /**
    * @minLength 1
    * @maxLength 255
@@ -76,6 +78,10 @@ export interface ManufacturerCreate {
    */
   phone?: string | null;
   status?: ManufacturerCreateStatus;
-  readonly created_at?: string;
+  /**
+   * @minimum -2147483648
+   * @maximum 2147483647
+   */
+  order?: number;
   user: number;
 }

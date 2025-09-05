@@ -8,6 +8,8 @@
 
 export interface CustomerCreate {
   readonly id?: number;
+  created_at?: string;
+  readonly updated_at?: string;
   /**
    * @minLength 1
    * @maxLength 255
@@ -62,6 +64,5 @@ export interface CustomerCreate {
    * @maximum 2147483647
    */
   total_orders?: number;
-  readonly created_at?: string;
   user: number;
 }
