@@ -94,8 +94,11 @@ function Services() {
                 navigate('/services/place-order', { state: { service } })
                 break
             case 'online_b2b':
+                // This option goes to online B2B form
+                navigate('/services/online-b2b', { state: { service } })
+                break
             case 'custom_order':
-                // These options go to terms and conditions
+                // This option goes to terms and conditions
                 navigate('/services/terms', { state: { service } })
                 break
             case 'select_factory':
@@ -151,7 +154,7 @@ function Services() {
                                         <h3 className="text-white font-extrabold text-base">
                                             {service.name}
                                         </h3>
-                                        {service.option === 'select_factory' && service.description && (
+                                        {(service.option === 'select_factory' || service.option === 'online_b2b') && service.description && (
                                             <p className="text-[#ACADAF] font-normal text-xs">
                                                 {service.description}
                                             </p>

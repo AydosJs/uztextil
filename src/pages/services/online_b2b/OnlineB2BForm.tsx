@@ -10,7 +10,7 @@ import { useTelegramUser } from "@/hooks/useTelegramUser"
 import type { ApplicationCreate } from "@/lib/api/model"
 import { showToast } from "@/lib/utils"
 
-function PlaceOrderForm() {
+function OnlineB2BForm() {
     const { t } = useTranslation()
     const navigate = useNavigate()
     const location = useLocation()
@@ -24,7 +24,7 @@ function PlaceOrderForm() {
             onSuccess: (data) => {
                 showToast.success('Arizangiz qabul qilindi!')
                 // Navigate to success page with application data
-                navigate('/services/place-order/success', {
+                navigate('/services/online-b2b/success', {
                     state: {
                         applicationData: data,
                         service: service
@@ -39,12 +39,13 @@ function PlaceOrderForm() {
     })
 
     const [formData, setFormData] = useState({
-        product_description: '',
-        order_volume: '',
-        production_delivery_time: '',
-        special_requirements: '',
-        budget_estimated_price: '',
-        segment_category: '',
+        segment: '',
+        work_purpose: '',
+        interested_factories: '',
+        quantity_to_see: '',
+        planned_stay_days: '',
+        planned_arrival_dates: '',
+        needs_tourist_program: '',
     })
 
     // Show back button that goes to services page
@@ -64,7 +65,7 @@ function PlaceOrderForm() {
         }
 
         // Validate required fields
-        const requiredFields = ['product_description', 'order_volume', 'production_delivery_time', 'budget_estimated_price', 'segment_category']
+        const requiredFields = ['segment', 'work_purpose', 'interested_factories', 'quantity_to_see', 'planned_stay_days', 'planned_arrival_dates']
         const missingFields = requiredFields.filter(field => !formData[field as keyof typeof formData])
 
         if (missingFields.length > 0) {
@@ -93,92 +94,104 @@ function PlaceOrderForm() {
                 <UnderwaterHeader />
 
                 {/* Header */}
-                <div className="text-left space-y-1 mb-8 pt-4">
+                <div className="text-left space-y-2 mb-8 pt-4">
                     <h1 className="text-white font-bold text-[32px] tracking-wide">
-                        {t('app.placeOrder.title')}
+                        {t('app.onlineB2B.title')}
                     </h1>
-                    {service && (
-                        <p className="text-[#ACADAF] text-sm">
-                            {service.name}
-                        </p>
-                    )}
+                    <p className="text-[#ACADAF] text-sm">
+                        {t('app.onlineB2B.subtitle')}
+                    </p>
                 </div>
 
                 {/* Form */}
                 <div className="flex-1 space-y-4 pb-8">
-                    {/* Product Description */}
+                    {/* Segment */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium" required>
-                            {t('app.placeOrder.form.productDescription.label')}
+                            {t('app.onlineB2B.form.segment.label')}
                         </Label>
                         <CustomInput
-                            placeholder={t('app.placeOrder.form.productDescription.placeholder')}
-                            value={formData.product_description}
-                            onChange={(e) => handleInputChange('product_description', e.target.value)}
+                            placeholder={t('app.onlineB2B.form.segment.placeholder')}
+                            value={formData.segment}
+                            onChange={(e) => handleInputChange('segment', e.target.value)}
+                        />
+                    </div>
+
+                    {/* Work Purpose */}
+                    <div className="space-y-2">
+                        <Label className="text-white text-sm font-medium" required>
+                            {t('app.onlineB2B.form.workPurpose.label')}
+                        </Label>
+                        <CustomInput
+                            placeholder={t('app.onlineB2B.form.workPurpose.placeholder')}
+                            value={formData.work_purpose}
+                            onChange={(e) => handleInputChange('work_purpose', e.target.value)}
                             multiline
                             rows={4}
                         />
                     </div>
 
-                    {/* Order Volume */}
+                    {/* Interested Factories */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium" required>
-                            {t('app.placeOrder.form.orderVolume.label')}
+                            {t('app.onlineB2B.form.interestedFactories.label')}
                         </Label>
                         <CustomInput
-                            placeholder={t('app.placeOrder.form.orderVolume.placeholder')}
-                            value={formData.order_volume}
-                            onChange={(e) => handleInputChange('order_volume', e.target.value)}
-                        />
-                    </div>
-
-                    {/* Production/Delivery Time */}
-                    <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium" required>
-                            {t('app.placeOrder.form.productionDeliveryTime.label')}
-                        </Label>
-                        <CustomInput
-                            placeholder={t('app.placeOrder.form.productionDeliveryTime.placeholder')}
-                            value={formData.production_delivery_time}
-                            onChange={(e) => handleInputChange('production_delivery_time', e.target.value)}
-                        />
-                    </div>
-
-                    {/* Special Requirements */}
-                    <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium">
-                            {t('app.placeOrder.form.specialRequirements.label')}
-                        </Label>
-                        <CustomInput
-                            placeholder={t('app.placeOrder.form.specialRequirements.placeholder')}
-                            value={formData.special_requirements}
-                            onChange={(e) => handleInputChange('special_requirements', e.target.value)}
+                            placeholder={t('app.onlineB2B.form.interestedFactories.placeholder')}
+                            value={formData.interested_factories}
+                            onChange={(e) => handleInputChange('interested_factories', e.target.value)}
                             multiline
                             rows={3}
                         />
                     </div>
 
-                    {/* Budget/Estimated Price */}
+                    {/* Quantity to See */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium" required>
-                            {t('app.placeOrder.form.budgetEstimatedPrice.label')}
+                            {t('app.onlineB2B.form.quantityToSee.label')}
                         </Label>
                         <CustomInput
-                            placeholder={t('app.placeOrder.form.budgetEstimatedPrice.placeholder')}
-                            value={formData.budget_estimated_price}
-                            onChange={(e) => handleInputChange('budget_estimated_price', e.target.value)}
+                            placeholder={t('app.onlineB2B.form.quantityToSee.placeholder')}
+                            value={formData.quantity_to_see}
+                            onChange={(e) => handleInputChange('quantity_to_see', e.target.value)}
                         />
                     </div>
 
-                    {/* Segment Category */}
+                    {/* Planned Stay Days */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium" required>
-                            {t('app.placeOrder.form.segmentCategory.label')}
+                            {t('app.onlineB2B.form.plannedStayDays.label')}
                         </Label>
                         <CustomInput
-                            placeholder={t('app.placeOrder.form.segmentCategory.placeholder')}
-                            value={formData.segment_category}
-                            onChange={(e) => handleInputChange('segment_category', e.target.value)}
+                            placeholder={t('app.onlineB2B.form.plannedStayDays.placeholder')}
+                            value={formData.planned_stay_days}
+                            onChange={(e) => handleInputChange('planned_stay_days', e.target.value)}
+                        />
+                    </div>
+
+                    {/* Planned Arrival Dates */}
+                    <div className="space-y-2">
+                        <Label className="text-white text-sm font-medium" required>
+                            {t('app.onlineB2B.form.plannedArrivalDates.label')}
+                        </Label>
+                        <CustomInput
+                            placeholder={t('app.onlineB2B.form.plannedArrivalDates.placeholder')}
+                            value={formData.planned_arrival_dates}
+                            onChange={(e) => handleInputChange('planned_arrival_dates', e.target.value)}
+                        />
+                    </div>
+
+                    {/* Needs Tourist Program */}
+                    <div className="space-y-2">
+                        <Label className="text-white text-sm font-medium">
+                            {t('app.onlineB2B.form.needsTouristProgram.label')}
+                        </Label>
+                        <CustomInput
+                            placeholder={t('app.onlineB2B.form.needsTouristProgram.placeholder')}
+                            value={formData.needs_tourist_program}
+                            onChange={(e) => handleInputChange('needs_tourist_program', e.target.value)}
+                            multiline
+                            rows={3}
                         />
                     </div>
                 </div>
@@ -193,7 +206,7 @@ function PlaceOrderForm() {
                         disabled={applicationCreateMutation.isPending}
                         className="w-full"
                     >
-                        {t('app.placeOrder.form.submitButton')}
+                        {t('app.onlineB2B.form.submitButton')}
                     </Button>
                 </div>
             </main>
@@ -201,4 +214,4 @@ function PlaceOrderForm() {
     )
 }
 
-export default PlaceOrderForm
+export default OnlineB2BForm

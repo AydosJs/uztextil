@@ -214,6 +214,48 @@
         "searchInfo": "Sizning buyurtmangiz {{lotNumber}} lot raqami bilan qidiruvda chiqadi",
         "channelButton": "Kanalga o'tish"
       }
+    },
+    "onlineB2B": {
+      "title": "Ariza",
+      "subtitle": "Ma'lumotlarni to'ldirib ariza qoldiring, va moderator sizga mos keladigan taklif beradi",
+      "form": {
+        "segment": {
+          "label": "Segment",
+          "placeholder": "Segment turini kiriting"
+        },
+        "workPurpose": {
+          "label": "Ish maqsadi",
+          "placeholder": "Ish maqsadingizni batafsil yozing"
+        },
+        "interestedFactories": {
+          "label": "Qiziqadigan fabrikalar",
+          "placeholder": "Qiziqadigan fabrikalarni ro'yxatini kiriting"
+        },
+        "quantityToSee": {
+          "label": "Ko'rish kerak bo'lgan miqdor",
+          "placeholder": "Miqdorni kiriting"
+        },
+        "plannedStayDays": {
+          "label": "Rejalashtirilgan qolish kunlari",
+          "placeholder": "Kunlar sonini kiriting"
+        },
+        "plannedArrivalDates": {
+          "label": "Rejalashtirilgan kelish sanalari",
+          "placeholder": "Sanalarni kiriting"
+        },
+        "needsTouristProgram": {
+          "label": "Turist dasturi kerakmi",
+          "placeholder": "Turist dasturi haqida ma'lumot bering"
+        },
+        "submitButton": "Ariza yuborish"
+      },
+      "success": {
+        "header": "Online B2B",
+        "subtitle": "Sizga mos keladigan taklifni tanlang va moderator uchrashuv tashkil etadi",
+        "offersTitle": "Takliflar",
+        "lotNumber": "Sizning lot raqamingiz:",
+        "channelButton": "Kanalga o'tish"
+      }
     }
   }
 }

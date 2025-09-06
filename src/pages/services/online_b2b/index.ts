@@ -1,2 +1,2 @@
-// Placeholder for online B2B service
-// TODO: Implement online B2B page
+export { default as OnlineB2BForm } from './OnlineB2BForm'
+export { default as OnlineB2BSuccess } from './OnlineB2BSuccess'
