@@ -166,6 +166,54 @@
           "description": "Tur buyurtma qiling"
         }
       }
+    },
+    "placeOrder": {
+      "title": "Buyurtma berish",
+      "form": {
+        "productDescription": {
+          "label": "Mahsulot tavsifi",
+          "placeholder": "Mahsulot haqida batafsil ma'lumot bering"
+        },
+        "orderVolume": {
+          "label": "Buyurtma hajmi",
+          "placeholder": "Buyurtma hajmini kiriting"
+        },
+        "productionDeliveryTime": {
+          "label": "Ishlab chiqarish/Yetkazib berish muddati",
+          "placeholder": "Muddatni kiriting"
+        },
+        "specialRequirements": {
+          "label": "Maxsus talablar",
+          "placeholder": "Maxsus talablaringizni kiriting"
+        },
+        "budgetEstimatedPrice": {
+          "label": "Byudjet/Taxminiy narx",
+          "placeholder": "Byudjet yoki taxminiy narxni kiriting"
+        },
+        "segmentCategory": {
+          "label": "Segment kategoriyasi",
+          "placeholder": "Mahsulot segmentini kiriting"
+        },
+        "contactPhone": {
+          "label": "Aloqa telefoni",
+          "placeholder": "+998901234567"
+        },
+        "contactEmail": {
+          "label": "Aloqa email",
+          "placeholder": "example@email.com"
+        },
+        "additionalNotes": {
+          "label": "Qo'shimcha izohlar",
+          "placeholder": "Qo'shimcha ma'lumotlar"
+        },
+        "submitButton": "Buyurtma yuborish"
+      },
+      "success": {
+        "title": "Arizangiz qabul qilindi!",
+        "lotNumber": "Sizning lot raqamingiz:",
+        "searchInfo": "Sizning buyurtmangiz {{lotNumber}} lot raqami bilan qidiruvda chiqadi",
+        "channelButton": "Kanalga o'tish"
+      }
     }
   }
 }

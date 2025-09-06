@@ -161,6 +161,54 @@
           "description": "Закажите тур"
         }
       }
+    },
+    "placeOrder": {
+      "title": "Разместить заказ",
+      "form": {
+        "productDescription": {
+          "label": "Описание продукта",
+          "placeholder": "Подробная информация о продукте"
+        },
+        "orderVolume": {
+          "label": "Объем заказа",
+          "placeholder": "Введите объем заказа"
+        },
+        "productionDeliveryTime": {
+          "label": "Срок производства/доставки",
+          "placeholder": "Введите срок"
+        },
+        "specialRequirements": {
+          "label": "Особые требования",
+          "placeholder": "Введите ваши особые требования"
+        },
+        "budgetEstimatedPrice": {
+          "label": "Бюджет/Примерная цена",
+          "placeholder": "Введите бюджет или примерную цену"
+        },
+        "segmentCategory": {
+          "label": "Категория сегмента",
+          "placeholder": "Введите сегмент продукта"
+        },
+        "contactPhone": {
+          "label": "Контактный телефон",
+          "placeholder": "+998901234567"
+        },
+        "contactEmail": {
+          "label": "Контактный email",
+          "placeholder": "example@email.com"
+        },
+        "additionalNotes": {
+          "label": "Дополнительные примечания",
+          "placeholder": "Дополнительная информация"
+        },
+        "submitButton": "Отправить заказ"
+      },
+      "success": {
+        "title": "Ваша заявка принята!",
+        "lotNumber": "Ваш номер лота:",
+        "searchInfo": "Ваш заказ будет отображаться в поиске под номером лота {{lotNumber}}",
+        "channelButton": "Перейти в канал"
+      }
     }
   }
 }

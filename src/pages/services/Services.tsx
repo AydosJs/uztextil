@@ -90,6 +90,9 @@ function Services() {
             case 'invite_manager':
             case 'training_reps':
             case 'place_order':
+                // This option goes to place order form
+                navigate('/services/place-order', { state: { service } })
+                break
             case 'online_b2b':
             case 'custom_order':
                 // These options go to terms and conditions

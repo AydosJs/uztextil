@@ -24,6 +24,7 @@ import ManufacturerRegisterForm from './pages/manufacturer/ManufacturerRegisterF
 import Services from './pages/services/Services.tsx'
 import { TermsAndConditions } from './pages/services/terms'
 import { FactorySelection } from './pages/services/select_factory'
+import { PlaceOrderForm, PlaceOrderSuccess } from './pages/services/place_order'
 import { Toaster } from 'sonner'
 import { setSafeAreaCSSProperties, waitForSafeAreaValues } from './utils/safeAreaUtils.ts'
 // import { initEruda } from './utils/eruda.ts'
@@ -126,6 +127,16 @@ async function initializeApp() {
               <Route path="/services/factory-selection" element={
                 <ServicesRouteGuard>
                   <FactorySelection />
+                </ServicesRouteGuard>
+              } />
+              <Route path="/services/place-order" element={
+                <ServicesRouteGuard>
+                  <PlaceOrderForm />
+                </ServicesRouteGuard>
+              } />
+              <Route path="/services/place-order/success" element={
+                <ServicesRouteGuard>
+                  <PlaceOrderSuccess />
                 </ServicesRouteGuard>
               } />
               <Route path="/dev" element={<Dev />} />
