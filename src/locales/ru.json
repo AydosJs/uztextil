@@ -272,6 +272,14 @@
     "customOrderApplication": {
       "title": "Заявка",
       "subtitle": "Заполните данные и оставьте заявку, модератор предложит вам подходящее предложение",
+      "packageTypes": {
+        "start": "Старт",
+        "growth": "Рост",
+        "export": "Экспорт",
+        "startDescription": "Базовый пакет",
+        "growthDescription": "Пакет развития",
+        "exportDescription": "Экспортный пакет"
+      },
       "form": {
         "workPurpose": {
           "label": "Цель работы",

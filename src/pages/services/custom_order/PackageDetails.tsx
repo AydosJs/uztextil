@@ -163,9 +163,7 @@ function PackageDetails() {
                         {/* Card Header */}
                         <div className="mb-6">
                             <h2 className="text-white font-bold text-xl mb-2">
-                                {(packageDetail?.type || packageData.type) === 'start' && 'Старт'}
-                                {(packageDetail?.type || packageData.type) === 'growth' && 'Рост'}
-                                {(packageDetail?.type || packageData.type) === 'export' && 'Экспорт'}
+                                {packageDetail?.name || packageData.name}
                             </h2>
                             <p className="text-[#ACADAF] text-sm">
                                 {(packageDetail?.type || packageData.type) === 'start' && 'Базовый пакет'}

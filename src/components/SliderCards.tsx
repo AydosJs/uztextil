@@ -56,7 +56,7 @@ export const SliderCards = ({ className }: SliderCardsProps) => {
                         <h3 className="text-white line-clamp-1 font-semibold mb-2 text-base">
                             {slider.title}
                         </h3>
-                        <p className="text-gray-300 line-clamp-2 leading-relaxed text-xs">
+                        <p className="text-gray-300 line-clamp-2 leading-relaxed text-sm">
                             {slider.description}
                         </p>
                     </div>

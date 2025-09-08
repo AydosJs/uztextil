@@ -10,7 +10,6 @@ function ApplicationSuccess() {
     const { t } = useTranslation()
 
     // Get data from navigation state
-    const service = location.state?.service
     const packageData = location.state?.package
 
     // Show back button - navigate to services

@@ -319,6 +319,14 @@
     "customOrderApplication": {
       "title": "Ariza",
       "subtitle": "Ma'lumotlarni to'ldirib ariza qoldiring, va moderator sizga mos keladigan taklif beradi",
+      "packageTypes": {
+        "start": "Boshlang'ich",
+        "growth": "Rivojlanish", 
+        "export": "Eksport",
+        "startDescription": "Asosiy paket",
+        "growthDescription": "Rivojlanish paketi",
+        "exportDescription": "Eksport paketi"
+      },
       "form": {
         "workPurpose": {
           "label": "Ish maqsadi",
