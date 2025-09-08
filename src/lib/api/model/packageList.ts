@@ -5,7 +5,6 @@
  * API for your Django project
  * OpenAPI spec version: v1
  */
-import type { PackageListType } from './packageListType';
 
 export interface PackageList {
   readonly id?: number;
@@ -16,7 +15,8 @@ export interface PackageList {
   name: string;
   /** @nullable */
   readonly banner?: string | null;
-  type?: PackageListType;
+  /** @nullable */
+  description?: string | null;
   /**
    * @minimum -2147483648
    * @maximum 2147483647

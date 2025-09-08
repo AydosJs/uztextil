@@ -25,7 +25,7 @@ import Services from './pages/services/Services.tsx'
 import { TermsAndConditions } from './pages/services/terms'
 import { FactorySelection } from './pages/services/select_factory'
 import { PlaceOrderForm, PlaceOrderSuccess } from './pages/services/place_order'
-import { OnlineB2BForm, OnlineB2BSuccess } from './pages/services/online_b2b'
+import { OnlineB2BForm, OnlineB2BSuccess, OfferList } from './pages/services/online_b2b'
 import { PackageSelection, PackageDetails, ApplicationForm, ApplicationSuccess } from './pages/services/custom_order'
 import { Toaster } from 'sonner'
 import { setSafeAreaCSSProperties, waitForSafeAreaValues } from './utils/safeAreaUtils.ts'
@@ -149,6 +149,11 @@ async function initializeApp() {
               <Route path="/services/online-b2b/success" element={
                 <ServicesRouteGuard>
                   <OnlineB2BSuccess />
+                </ServicesRouteGuard>
+              } />
+              <Route path="/services/online-b2b/offers" element={
+                <ServicesRouteGuard>
+                  <OfferList />
                 </ServicesRouteGuard>
               } />
               <Route path="/services/custom-order" element={

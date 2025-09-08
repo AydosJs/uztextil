@@ -5,10 +5,6 @@
  * API for your Django project
  * OpenAPI spec version: v1
  */
+import type { OfferUpdate } from './offerUpdate';
 
-export type ApiV1PackageListListParams = {
-/**
- * Which field to use when ordering the results.
- */
-ordering?: string;
-};
+export type OfferUpdateBody = OfferUpdate;

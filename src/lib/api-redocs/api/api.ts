@@ -41,6 +41,9 @@ import type {
   ManufacturerCreate,
   ManufacturerDetail,
   ManufacturerList,
+  OfferList,
+  OfferUpdate,
+  OfferUpdateBody,
   PackageDetail,
   PackageList,
   Slider,
@@ -899,7 +902,267 @@ export function useApiV1ManufacturerListList<TData = Awaited<ReturnType<typeof a
 
 
 
-export const apiV1PackageDetailRead = (
+export const apiV1OfferListList = (
+    
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<OfferList[]>(
+      {url: `/api/v1/offer/list/`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+export const getApiV1OfferListListQueryKey = () => {
+    return [`/api/v1/offer/list/`] as const;
+    }
+
+    
+export const getApiV1OfferListListInfiniteQueryOptions = <TData = InfiniteData<Awaited<ReturnType<typeof apiV1OfferListList>>>, TError = unknown>( options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1OfferListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getApiV1OfferListListQueryKey();
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiV1OfferListList>>> = ({ signal }) => apiV1OfferListList(requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1OfferListList>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type ApiV1OfferListListInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof apiV1OfferListList>>>
+export type ApiV1OfferListListInfiniteQueryError = unknown
+
+
+export function useApiV1OfferListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1OfferListList>>>, TError = unknown>(
+  options: { query:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1OfferListList>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiV1OfferListList>>,
+          TError,
+          Awaited<ReturnType<typeof apiV1OfferListList>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useApiV1OfferListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1OfferListList>>>, TError = unknown>(
+  options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1OfferListList>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiV1OfferListList>>,
+          TError,
+          Awaited<ReturnType<typeof apiV1OfferListList>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useApiV1OfferListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1OfferListList>>>, TError = unknown>(
+  options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1OfferListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useApiV1OfferListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1OfferListList>>>, TError = unknown>(
+  options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1OfferListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getApiV1OfferListListInfiniteQueryOptions(options)
+
+  const query = useInfiniteQuery(queryOptions , queryClient) as  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+export const getApiV1OfferListListQueryOptions = <TData = Awaited<ReturnType<typeof apiV1OfferListList>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1OfferListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getApiV1OfferListListQueryKey();
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiV1OfferListList>>> = ({ signal }) => apiV1OfferListList(requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof apiV1OfferListList>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type ApiV1OfferListListQueryResult = NonNullable<Awaited<ReturnType<typeof apiV1OfferListList>>>
+export type ApiV1OfferListListQueryError = unknown
+
+
+export function useApiV1OfferListList<TData = Awaited<ReturnType<typeof apiV1OfferListList>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1OfferListList>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiV1OfferListList>>,
+          TError,
+          Awaited<ReturnType<typeof apiV1OfferListList>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useApiV1OfferListList<TData = Awaited<ReturnType<typeof apiV1OfferListList>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1OfferListList>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiV1OfferListList>>,
+          TError,
+          Awaited<ReturnType<typeof apiV1OfferListList>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useApiV1OfferListList<TData = Awaited<ReturnType<typeof apiV1OfferListList>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1OfferListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useApiV1OfferListList<TData = Awaited<ReturnType<typeof apiV1OfferListList>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1OfferListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getApiV1OfferListListQueryOptions(options)
+
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+export const apiV1OfferUpdateUpdate = (
+    id: number,
+    offerUpdateBody: OfferUpdateBody,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<OfferUpdate>(
+      {url: `/api/v1/offer/update/${id}/`, method: 'PUT',
+      headers: {'Content-Type': 'application/json', },
+      data: offerUpdateBody
+    },
+      options);
+    }
+  
+
+
+export const getApiV1OfferUpdateUpdateMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiV1OfferUpdateUpdate>>, TError,{id: number;data: OfferUpdateBody}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof apiV1OfferUpdateUpdate>>, TError,{id: number;data: OfferUpdateBody}, TContext> => {
+
+const mutationKey = ['apiV1OfferUpdateUpdate'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiV1OfferUpdateUpdate>>, {id: number;data: OfferUpdateBody}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  apiV1OfferUpdateUpdate(id,data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ApiV1OfferUpdateUpdateMutationResult = NonNullable<Awaited<ReturnType<typeof apiV1OfferUpdateUpdate>>>
+    export type ApiV1OfferUpdateUpdateMutationBody = OfferUpdateBody
+    export type ApiV1OfferUpdateUpdateMutationError = unknown
+
+    export const useApiV1OfferUpdateUpdate = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiV1OfferUpdateUpdate>>, TError,{id: number;data: OfferUpdateBody}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof apiV1OfferUpdateUpdate>>,
+        TError,
+        {id: number;data: OfferUpdateBody},
+        TContext
+      > => {
+
+      const mutationOptions = getApiV1OfferUpdateUpdateMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    export const apiV1OfferUpdatePartialUpdate = (
+    id: number,
+    offerUpdateBody: OfferUpdateBody,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<OfferUpdate>(
+      {url: `/api/v1/offer/update/${id}/`, method: 'PATCH',
+      headers: {'Content-Type': 'application/json', },
+      data: offerUpdateBody
+    },
+      options);
+    }
+  
+
+
+export const getApiV1OfferUpdatePartialUpdateMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiV1OfferUpdatePartialUpdate>>, TError,{id: number;data: OfferUpdateBody}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof apiV1OfferUpdatePartialUpdate>>, TError,{id: number;data: OfferUpdateBody}, TContext> => {
+
+const mutationKey = ['apiV1OfferUpdatePartialUpdate'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiV1OfferUpdatePartialUpdate>>, {id: number;data: OfferUpdateBody}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  apiV1OfferUpdatePartialUpdate(id,data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ApiV1OfferUpdatePartialUpdateMutationResult = NonNullable<Awaited<ReturnType<typeof apiV1OfferUpdatePartialUpdate>>>
+    export type ApiV1OfferUpdatePartialUpdateMutationBody = OfferUpdateBody
+    export type ApiV1OfferUpdatePartialUpdateMutationError = unknown
+
+    export const useApiV1OfferUpdatePartialUpdate = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiV1OfferUpdatePartialUpdate>>, TError,{id: number;data: OfferUpdateBody}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof apiV1OfferUpdatePartialUpdate>>,
+        TError,
+        {id: number;data: OfferUpdateBody},
+        TContext
+      > => {
+
+      const mutationOptions = getApiV1OfferUpdatePartialUpdateMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    export const apiV1PackageDetailRead = (
     id: number,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {

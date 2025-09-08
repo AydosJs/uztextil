@@ -7,24 +7,12 @@
  */
 
 export type ApiV1ManufacturerListListParams = {
-    /**
-     * A search term.
-     */
-    search?: string;
-    /**
-     * Which field to use when ordering the results.
-     */
-    ordering?: string;
-    /**
-     * Product segment filter.
-     */
-    product_segment?: string;
-    /**
-     * Minimum order quantity filter.
-     */
-    min_order_quantity?: string;
-    /**
-     * Page parameter for infinite queries.
-     */
-    pageParam?: string;
+/**
+ * A search term.
+ */
+search?: string;
+/**
+ * Which field to use when ordering the results.
+ */
+ordering?: string;
 };

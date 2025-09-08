@@ -1,37 +1,23 @@
 import { UnderwaterHeader } from "@/components/ui"
 import { useTelegramBackButton } from "@/lib/hooks"
 import { useTranslation } from "react-i18next"
+import { useNavigate, useLocation } from "react-router-dom"
+import { Button } from "@/components/ui"
 
 function OnlineB2BSuccess() {
     const { t } = useTranslation()
+    const navigate = useNavigate()
+    const location = useLocation()
 
     useTelegramBackButton({ navigateTo: '/services' })
 
-    // Static offers data
-    const offers = [
-        {
-            id: 1,
-            title: "Toshkent Tekstil Fabrikasi",
-            description: "Premium mato ishlab chiqarish",
-            price: "$500",
-            status: "active",
-            meetingDate: "2024-01-15",
-            meetingTime: "14:00"
-        },
-        {
-            id: 2,
-            title: "Samarqand Textile Group",
-            description: "Keng assortiment mato mahsulotlari",
-            price: "$350",
-            status: "pending",
-            meetingDate: "2024-01-18",
-            meetingTime: "10:00"
-        }
-    ]
+    // Get application data from navigation state
+    const applicationData = location.state?.applicationData
 
-    const handleOfferClick = (offer: typeof offers[0]) => {
-        // Handle offer selection
-        alert(`Taklif tanlandi: ${offer.title}`)
+    const handleViewOffers = () => {
+        navigate('/services/online-b2b/offers', {
+            state: { applicationData }
+        })
     }
 
     return (
@@ -49,59 +35,30 @@ function OnlineB2BSuccess() {
                     </p>
                 </div>
 
-                {/* Offers List */}
-                <div className="flex-1 pb-8">
-                    <div className="space-y-4">
-                        <h2 className="text-white font-bold text-lg mb-4">
-                            {t('app.onlineB2B.success.offersTitle')}
+                {/* Success Content */}
+                <div className="flex-1 flex flex-col items-center justify-center text-center space-y-6 pb-8">
+                    <div className="w-20 h-20 rounded-full bg-green-500/20 flex items-center justify-center mb-4">
+                        <span className="text-4xl">✅</span>
+                    </div>
+
+                    <div className="space-y-2">
+                        <h2 className="text-white font-bold text-xl">
+                            {t('app.onlineB2B.success.applicationSubmitted')}
                         </h2>
+                        <p className="text-[#ACADAF] text-sm max-w-md">
+                            {t('app.onlineB2B.success.applicationDescription')}
+                        </p>
+                    </div>
 
-                        {offers.map((offer) => (
-                            <div
-                                key={offer.id}
-                                onClick={() => handleOfferClick(offer)}
-                                className="relative flex flex-col px-6 py-4 w-full rounded-[22px] border border-[#FFFFFF0A] bg-[#FFFFFF05] shadow-[0px_1px_0px_0px_#FFFFFF14_inset] overflow-hidden cursor-pointer hover:bg-[#FFFFFF08] transition-colors"
-                                style={{
-                                    backdropFilter: 'blur(128px)',
-                                    WebkitBackdropFilter: 'blur(128px)'
-                                }}
-                            >
-                                {/* Offer Header */}
-                                <div className="flex items-center justify-between mb-2">
-                                    <h3 className="text-white font-extrabold text-base">
-                                        {offer.title}
-                                    </h3>
-                                    <div className="flex items-center space-x-2">
-                                        <span className="text-[#FCE803] font-bold text-sm">
-                                            {offer.price}
-                                        </span>
-                                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${offer.status === 'active'
-                                            ? 'bg-green-500/20 text-green-400'
-                                            : 'bg-yellow-500/20 text-yellow-400'
-                                            }`}>
-                                            {offer.status === 'active' ? 'Faol' : 'Kutilmoqda'}
-                                        </span>
-                                    </div>
-                                </div>
-
-                                {/* Offer Description */}
-                                <p className="text-[#ACADAF] text-sm mb-3">
-                                    {offer.description}
-                                </p>
-
-                                {/* Meeting Info */}
-                                <div className="flex items-center justify-between text-xs text-[#ACADAF]">
-                                    <div className="flex items-center space-x-4">
-                                        <span>📅 {offer.meetingDate}</span>
-                                        <span>🕐 {offer.meetingTime}</span>
-                                    </div>
-                                    <span className="text-[#FCE803]">Tanlash</span>
-                                </div>
-
-                                {/* Hover Effect */}
-                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
-                            </div>
-                        ))}
+                    <div className="w-full max-w-md">
+                        <Button
+                            onClick={handleViewOffers}
+                            variant="default"
+                            shadow="lg"
+                            className="w-full"
+                        >
+                            {t('app.onlineB2B.success.viewOffers')}
+                        </Button>
                     </div>
                 </div>
             </main>

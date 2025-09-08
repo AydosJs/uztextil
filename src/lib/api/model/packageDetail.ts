@@ -5,7 +5,6 @@
  * API for your Django project
  * OpenAPI spec version: v1
  */
-import type { PackageDetailType } from './packageDetailType';
 import type { PackageItemList } from './packageItemList';
 
 export interface PackageDetail {
@@ -17,7 +16,8 @@ export interface PackageDetail {
   name: string;
   /** @nullable */
   readonly banner?: string | null;
-  type?: PackageDetailType;
+  /** @nullable */
+  description?: string | null;
   /**
    * @minimum -2147483648
    * @maximum 2147483647

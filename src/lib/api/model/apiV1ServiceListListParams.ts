@@ -7,16 +7,8 @@
  */
 
 export type ApiV1ServiceListListParams = {
-    /**
-     * A search term.
-     */
-    search?: string;
-    /**
-     * Service type filter.
-     */
-    type?: 'manufacturer' | 'customer';
-    /**
-     * Page parameter for infinite queries.
-     */
-    pageParam?: string;
+/**
+ * A search term.
+ */
+search?: string;
 };

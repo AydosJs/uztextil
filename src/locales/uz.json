@@ -254,8 +254,51 @@
         "subtitle": "Sizga mos keladigan taklifni tanlang va moderator uchrashuv tashkil etadi",
         "offersTitle": "Takliflar",
         "lotNumber": "Sizning lot raqamingiz:",
-        "channelButton": "Kanalga o'tish"
-      }
+        "channelButton": "Kanalga o'tish",
+        "applicationSubmitted": "Arizangiz qabul qilindi!",
+        "applicationDescription": "Moderator sizga mos keladigan takliflarni tayyorlab, tez orada yuboradi.",
+        "viewOffers": "Takliflarni ko'rish"
+      },
+        "offers": {
+          "title": "Takliflar",
+          "subtitle": "Sizga mos keladigan takliflarni ko'ring va tanlang",
+          "error": "Xatolik yuz berdi",
+          "errorDescription": "Takliflarni yuklashda xatolik yuz berdi. Iltimos, qaytadan urinib ko'ring.",
+          "noOffers": "Hozircha takliflar yo'q",
+          "noOffersDescription": "Moderator sizga mos keladigan takliflarni tayyorlab, tez orada yuboradi.",
+          "noApplicationData": "Ariza ma'lumotlari topilmadi",
+          "noApplicationDataDescription": "Takliflarni ko'rish uchun avval ariza to'ldirishingiz kerak.",
+          "status": {
+            "chosen": "Belgilandi",
+            "notChosen": "Belgilandi",
+            "unknown": "Noma'lum",
+            "selected": "Belgilandi",
+            "select": "Belgilash",
+            "updating": "Yangilanmoqda...",
+            "updated": "Muvaffaqiyatli yangilandi",
+            "updateError": "Yangilashda xatolik yuz berdi"
+          },
+          "details": {
+            "title": "Taklif tafsilotlari",
+            "companyName": "Kompaniya nomi",
+            "lotNumber": "Lot raqami",
+            "minOrderQuantity": "Minimal buyurtma hajmi",
+            "phoneNumber": "Telefon raqami",
+            "website": "Sayt",
+            "officeAddress": "Ofis manzili",
+            "hasCrm": "CRM tizimi mavjudmi",
+            "employeeCount": "Hodimlar soni",
+            "notAvailable": "Mavjud emas",
+            "yes": "Ha",
+            "no": "Yo'q",
+            "loadError": "Ma'lumotlarni yuklashda xatolik"
+          },
+          "manufacturer": "Ishlab chiqaruvchi",
+          "segment": "Segment",
+          "serviceId": "Xizmat ID",
+          "select": "Belgilash",
+          "unknownCompany": "Noma'lum kompaniya"
+        }
     },
     "packageSelection": {
       "title": "Paket turini tanlang",
