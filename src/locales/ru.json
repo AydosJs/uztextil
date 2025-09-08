@@ -244,6 +244,67 @@
         "reset": "Очистить",
         "search": "Поиск"
       }
+    },
+    "manufacturerDetail": {
+      "error": {
+        "message": "Произошла ошибка",
+        "retryButton": "Попробовать снова"
+      },
+      "companyInfo": {
+        "title": "Информация о компании",
+        "companyName": "Название компании",
+        "fullName": "Полное имя",
+        "minOrderQuantity": "Минимальный объем заказа"
+      },
+      "contactInfo": {
+        "title": "Контактная информация",
+        "officeAddress": "Адрес офиса",
+        "website": "Веб-сайт"
+      },
+      "businessInfo": {
+        "title": "Бизнес-информация",
+        "employeeCount": "Количество сотрудников",
+        "crmSystem": "CRM система",
+        "available": "Доступно",
+        "notAvailable": "Недоступно"
+      }
+    },
+    "customOrderApplication": {
+      "title": "Заявка",
+      "subtitle": "Заполните данные и оставьте заявку, модератор предложит вам подходящее предложение",
+      "form": {
+        "workPurpose": {
+          "label": "Цель работы",
+          "placeholder": "Подробно опишите цель вашей работы"
+        },
+        "interestedFactories": {
+          "label": "Интересующие фабрики",
+          "placeholder": "Введите список интересующих фабрик"
+        },
+        "quantityToSee": {
+          "label": "Количество для просмотра",
+          "placeholder": "Введите количество"
+        },
+        "plannedStayDays": {
+          "label": "Запланированные дни пребывания",
+          "placeholder": "Введите количество дней"
+        },
+        "plannedArrivalDates": {
+          "label": "Запланированные даты прибытия",
+          "placeholder": "Введите даты"
+        },
+        "needsTouristProgram": {
+          "label": "Нужна ли туристическая программа",
+          "placeholder": "Предоставьте информацию о туристической программе"
+        },
+        "submitButton": "Отправить заявку"
+      },
+      "success": {
+        "title": "Заявка подана",
+        "subtitle": "Модератор рассмотрит вашу заявку и свяжется с вами в ближайшее время",
+        "selectedPackage": "Выбранный пакет:",
+        "backButton": "Назад"
+      }
     }
   }
 }

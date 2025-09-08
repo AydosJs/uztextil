@@ -1,8 +1,8 @@
 import { useNavigate, useLocation } from "react-router-dom"
-import { RadialEffect, UnderwaterHeader } from "@/components/ui"
+import { RadialEffect, UnderwaterHeader, Button } from "@/components/ui"
 import { useTelegramBackButton } from "@/lib/hooks"
 import { useApiV1PackageDetailRead } from "@/lib/api"
-import { Check } from "lucide-react"
+import { CircleCheckBig } from "lucide-react"
 import type { PackageList } from "@/lib/api/model"
 
 function PackageDetails() {
@@ -34,8 +34,8 @@ function PackageDetails() {
     }
 
     const handleApply = () => {
-        // Navigate to terms with package data
-        navigate('/services/terms', {
+        // Navigate to application form with package data
+        navigate('/services/custom-order/application', {
             state: {
                 service: location.state?.service,
                 package: packageData
@@ -99,12 +99,13 @@ function PackageDetails() {
                     <div className="flex-1 flex items-center justify-center">
                         <div className="text-center">
                             <p className="text-red-400 text-lg mb-4">Xatolik yuz berdi</p>
-                            <button
+                            <Button
                                 onClick={() => window.location.reload()}
-                                className="px-4 py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 transition-colors"
+                                variant="secondary"
+                                size="secondary"
                             >
                                 Qayta urinish
-                            </button>
+                            </Button>
                         </div>
                     </div>
                 </main>
@@ -158,7 +159,7 @@ function PackageDetails() {
 
                 {/* Details Card */}
                 <div className="flex-1 pb-8">
-                    <div className="w-full h-[312px] rounded-[22px] border border-[#FFFFFF0A] bg-[#181B20] shadow-[0px_1px_0px_0px_#FFFFFF14_inset] p-6">
+                    <div className="w-full rounded-[22px] border border-[#FFFFFF0A] bg-[#181B20] shadow-[0px_1px_0px_0px_#FFFFFF14_inset] p-6">
                         {/* Card Header */}
                         <div className="mb-6">
                             <h2 className="text-white font-bold text-xl mb-2">
@@ -178,22 +179,9 @@ function PackageDetails() {
                             {features.length > 0 ? (
                                 features.map((feature, index) => (
                                     <div key={feature.id || index} className="flex items-center gap-3">
-                                        <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center flex-shrink-0">
-                                            <Check className="w-3 h-3 text-white" />
-                                        </div>
+                                        <CircleCheckBig className="size-4 min-size-6 min-w-4 text-primary" />
                                         <p
-                                            className="text-white font-medium text-xs leading-[140%] tracking-[0px]"
-                                            style={{
-                                                fontFamily: 'Plus Jakarta Sans',
-                                                fontWeight: 500,
-                                                fontSize: '12px',
-                                                lineHeight: '140%',
-                                                letterSpacing: '0px',
-                                                background: 'var(--light-dark-900100, #FFFFFF)',
-                                                WebkitBackgroundClip: 'text',
-                                                WebkitTextFillColor: 'transparent',
-                                                backgroundClip: 'text'
-                                            }}
+                                            className="text-sm font-medium"
                                         >
                                             {feature.name}
                                         </p>
@@ -207,12 +195,15 @@ function PackageDetails() {
                         </div>
 
                         {/* Apply Button */}
-                        <button
+                        <Button
+                            shadow={'sm'}
                             onClick={handleApply}
-                            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200"
+                            variant="default"
+                            size="default"
+                            className="mt-4"
                         >
                             Ariza qoldirish
-                        </button>
+                        </Button>
                     </div>
                 </div>
             </main>

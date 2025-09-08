@@ -291,6 +291,67 @@
         "reset": "Tozalash",
         "search": "Qidirish"
       }
+    },
+    "manufacturerDetail": {
+      "error": {
+        "message": "Xatolik yuz berdi",
+        "retryButton": "Qayta urinish"
+      },
+      "companyInfo": {
+        "title": "Kompaniya ma'lumotlari",
+        "companyName": "Kompaniya nomi",
+        "fullName": "To'liq ism",
+        "minOrderQuantity": "Minimal buyurtma miqdori"
+      },
+      "contactInfo": {
+        "title": "Aloqa ma'lumotlari",
+        "officeAddress": "Ofis manzili",
+        "website": "Veb-sayt"
+      },
+      "businessInfo": {
+        "title": "Biznes ma'lumotlari",
+        "employeeCount": "Xodimlar soni",
+        "crmSystem": "CRM tizimi",
+        "available": "Mavjud",
+        "notAvailable": "Mavjud emas"
+      }
+    },
+    "customOrderApplication": {
+      "title": "Ariza",
+      "subtitle": "Ma'lumotlarni to'ldirib ariza qoldiring, va moderator sizga mos keladigan taklif beradi",
+      "form": {
+        "workPurpose": {
+          "label": "Ish maqsadi",
+          "placeholder": "Ish maqsadingizni batafsil yozing"
+        },
+        "interestedFactories": {
+          "label": "Qiziqadigan fabrikalar",
+          "placeholder": "Qiziqadigan fabrikalarni ro'yxatini kiriting"
+        },
+        "quantityToSee": {
+          "label": "Ko'rish kerak bo'lgan miqdor",
+          "placeholder": "Miqdorni kiriting"
+        },
+        "plannedStayDays": {
+          "label": "Rejalashtirilgan qolish kunlari",
+          "placeholder": "Kunlar sonini kiriting"
+        },
+        "plannedArrivalDates": {
+          "label": "Rejalashtirilgan kelish sanalari",
+          "placeholder": "Sanalarni kiriting"
+        },
+        "needsTouristProgram": {
+          "label": "Turist dasturi kerakmi",
+          "placeholder": "Turist dasturi haqida ma'lumot bering"
+        },
+        "submitButton": "Ariza yuborish"
+      },
+      "success": {
+        "title": "Ariza qoldirildi",
+        "subtitle": "Moderator arizangizni ko'rib chiqib tez orada siz bilan bog'lanadi",
+        "selectedPackage": "Tanlangan paket:",
+        "backButton": "Orqaga"
+      }
     }
   }
 }

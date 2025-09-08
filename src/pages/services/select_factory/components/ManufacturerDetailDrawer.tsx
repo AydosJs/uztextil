@@ -1,6 +1,7 @@
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerClose, Button, Spinner } from "@/components/ui"
 import { useApiV1ManufacturerDetailRead } from "@/lib/api"
 import type { AdditionalService, ManufacturerList } from "@/lib/api/model"
+import { useTranslation } from "react-i18next"
 
 interface ManufacturerDetailDrawerProps {
     open: boolean
@@ -14,6 +15,7 @@ export function ManufacturerDetailDrawer({
     onOpenChange,
     manufacturer
 }: ManufacturerDetailDrawerProps) {
+    const { t } = useTranslation()
 
     // Fetch manufacturer details
     const { data: manufacturerDetail, isLoading, error } = useApiV1ManufacturerDetailRead(
@@ -49,20 +51,20 @@ export function ManufacturerDetailDrawer({
                         </div>
                     ) : error ? (
                         <div className="text-center py-8">
-                            <p className="text-red-400 text-lg mb-4">Xatolik yuz berdi</p>
+                            <p className="text-red-400 text-lg mb-4">{t('app.manufacturerDetail.error.message')}</p>
                             <Button
                                 onClick={() => window.location.reload()}
                                 variant="secondary"
                                 className="px-4 py-2"
                             >
-                                Qayta urinish
+                                {t('app.manufacturerDetail.error.retryButton')}
                             </Button>
                         </div>
                     ) : manufacturerDetail ? (
                         <div className="space-y-6">
                             {/* Company Information */}
                             <div className="space-y-4">
-                                <h3 className="text-white font-bold text-lg">Kompaniya ma'lumotlari</h3>
+                                <h3 className="text-white font-bold text-lg">{t('app.manufacturerDetail.companyInfo.title')}</h3>
 
                                 <div className="space-y-3 overflow-y-auto">
 
@@ -83,18 +85,18 @@ export function ManufacturerDetailDrawer({
                                     />
 
                                     <div>
-                                        <p className="text-white/64 text-sm">Kompaniya nomi</p>
+                                        <p className="text-white/64 text-sm">{t('app.manufacturerDetail.companyInfo.companyName')}</p>
                                         <p className="text-white font-medium">{manufacturerDetail.company_name}</p>
                                     </div>
 
                                     <div>
-                                        <p className="text-white/64 text-sm">To'liq ism</p>
+                                        <p className="text-white/64 text-sm">{t('app.manufacturerDetail.companyInfo.fullName')}</p>
                                         <p className="text-white font-medium">{manufacturerDetail.full_name}</p>
                                     </div>
 
 
                                     <div>
-                                        <p className="text-white/64 text-sm">Minimal buyurtma miqdori</p>
+                                        <p className="text-white/64 text-sm">{t('app.manufacturerDetail.companyInfo.minOrderQuantity')}</p>
                                         <p className="text-white font-medium">{manufacturerDetail.min_order_quantity}</p>
                                     </div>
                                 </div>
@@ -102,17 +104,17 @@ export function ManufacturerDetailDrawer({
 
                             {/* Contact Information */}
                             <div className="space-y-4">
-                                <h3 className="text-white font-bold text-lg">Aloqa ma'lumotlari</h3>
+                                <h3 className="text-white font-bold text-lg">{t('app.manufacturerDetail.contactInfo.title')}</h3>
 
                                 <div className="space-y-3">
                                     <div>
-                                        <p className="text-white/64 text-sm">Ofis manzili</p>
+                                        <p className="text-white/64 text-sm">{t('app.manufacturerDetail.contactInfo.officeAddress')}</p>
                                         <p className="text-white font-medium">{manufacturerDetail.office_address}</p>
                                     </div>
 
                                     {manufacturerDetail.website && (
                                         <div>
-                                            <p className="text-white/64 text-sm">Veb-sayt</p>
+                                            <p className="text-white/64 text-sm">{t('app.manufacturerDetail.contactInfo.website')}</p>
                                             <p className="text-white font-medium">{manufacturerDetail.website}</p>
                                         </div>
                                     )}
@@ -121,17 +123,17 @@ export function ManufacturerDetailDrawer({
 
                             {/* Business Information */}
                             <div className="space-y-4">
-                                <h3 className="text-white font-bold text-lg">Biznes ma'lumotlari</h3>
+                                <h3 className="text-white font-bold text-lg">{t('app.manufacturerDetail.businessInfo.title')}</h3>
 
                                 <div className="space-y-3">
                                     <div>
-                                        <p className="text-white/64 text-sm">Xodimlar soni</p>
+                                        <p className="text-white/64 text-sm">{t('app.manufacturerDetail.businessInfo.employeeCount')}</p>
                                         <p className="text-white font-medium">{manufacturerDetail.employee_count}</p>
                                     </div>
 
                                     <div>
-                                        <p className="text-white/64 text-sm">CRM tizimi</p>
-                                        <p className="text-white font-medium">{manufacturerDetail.has_crm ? 'Mavjud' : 'Mavjud emas'}</p>
+                                        <p className="text-white/64 text-sm">{t('app.manufacturerDetail.businessInfo.crmSystem')}</p>
+                                        <p className="text-white font-medium">{manufacturerDetail.has_crm ? t('app.manufacturerDetail.businessInfo.available') : t('app.manufacturerDetail.businessInfo.notAvailable')}</p>
                                     </div>
                                 </div>
                             </div>

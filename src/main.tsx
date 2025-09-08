@@ -26,7 +26,7 @@ import { TermsAndConditions } from './pages/services/terms'
 import { FactorySelection } from './pages/services/select_factory'
 import { PlaceOrderForm, PlaceOrderSuccess } from './pages/services/place_order'
 import { OnlineB2BForm, OnlineB2BSuccess } from './pages/services/online_b2b'
-import { PackageSelection, PackageDetails } from './pages/services/custom_order'
+import { PackageSelection, PackageDetails, ApplicationForm, ApplicationSuccess } from './pages/services/custom_order'
 import { Toaster } from 'sonner'
 import { setSafeAreaCSSProperties, waitForSafeAreaValues } from './utils/safeAreaUtils.ts'
 // import { initEruda } from './utils/eruda.ts'
@@ -159,6 +159,16 @@ async function initializeApp() {
               <Route path="/services/custom-order/details" element={
                 <ServicesRouteGuard>
                   <PackageDetails />
+                </ServicesRouteGuard>
+              } />
+              <Route path="/services/custom-order/application" element={
+                <ServicesRouteGuard>
+                  <ApplicationForm />
+                </ServicesRouteGuard>
+              } />
+              <Route path="/services/custom-order/success" element={
+                <ServicesRouteGuard>
+                  <ApplicationSuccess />
                 </ServicesRouteGuard>
               } />
               <Route path="/dev" element={<Dev />} />
