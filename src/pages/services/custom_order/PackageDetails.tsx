@@ -166,9 +166,7 @@ function PackageDetails() {
                                 {packageDetail?.name || packageData.name}
                             </h2>
                             <p className="text-[#ACADAF] text-sm">
-                                {(packageDetail?.type || packageData.type) === 'start' && 'Базовый пакет'}
-                                {(packageDetail?.type || packageData.type) === 'growth' && 'Пакет развития'}
-                                {(packageDetail?.type || packageData.type) === 'export' && 'Экспортный пакет'}
+                                {packageDetail?.name || packageData.name}
                             </p>
                         </div>
 

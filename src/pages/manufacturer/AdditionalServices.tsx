@@ -13,7 +13,7 @@ function AdditionalServices() {
     // Fetch additional services from API
     const { data: services, isLoading, error } = useApiV1ServiceListList(
         {
-            type: 'manufacturer'
+            search: 'manufacturer'
         },
         {
             query: {

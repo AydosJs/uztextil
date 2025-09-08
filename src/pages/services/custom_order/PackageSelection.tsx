@@ -154,13 +154,9 @@ function PackageSelection() {
                                         <h3 className=" font-semibold text-xl text-white bg-gradient-to-r from-white to-white bg-clip-text">
                                             {packageItem.name}
                                         </h3>
-                                        {packageItem.type && (
-                                            <p className="text-[#ACADAF] font-normal text-xs">
-                                                {packageItem.type === 'start' && t('app.packageSelection.packageTypes.start')}
-                                                {packageItem.type === 'growth' && t('app.packageSelection.packageTypes.growth')}
-                                                {packageItem.type === 'export' && t('app.packageSelection.packageTypes.export')}
-                                            </p>
-                                        )}
+                                        <p className="text-[#ACADAF] font-normal text-xs">
+                                            {packageItem.name}
+                                        </p>
                                     </div>
 
                                     {/* To'liq ma'lumot text */}

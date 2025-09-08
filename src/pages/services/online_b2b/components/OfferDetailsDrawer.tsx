@@ -2,11 +2,11 @@ import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerClose } from "@
 import { useTranslation } from "react-i18next"
 import { Spinner } from "@/components/ui"
 import { useApiV1ManufacturerDetailRead } from "@/lib/api"
-import type { OfferList } from "@/lib/api/model/offerList"
+import type { OfferList as OfferListType } from "@/lib/api/model/offerList"
 
 interface OfferDetailsDrawerProps {
     onClose: () => void
-    selectedOffer: OfferList | null
+    selectedOffer: OfferListType | null
 }
 
 function OfferDetailsDrawer({ onClose, selectedOffer }: OfferDetailsDrawerProps) {

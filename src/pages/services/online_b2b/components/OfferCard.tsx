@@ -1,4 +1,4 @@
-import type { OfferList } from "@/lib/api/model/offerList"
+import type { OfferList as OfferListType } from "@/lib/api/model/offerList"
 import { useTranslation } from "react-i18next"
 import { useApiV1OfferUpdateUpdate } from "@/lib/api"
 import { useState } from "react"
@@ -6,8 +6,8 @@ import { showToast } from "@/lib/utils"
 import { useQueryClient } from "@tanstack/react-query"
 
 interface OfferCardProps {
-    offer: OfferList
-    onOfferSelect?: (offer: OfferList) => void
+    offer: OfferListType
+    onOfferSelect?: (offer: OfferListType) => void
     userId?: number
 }
 

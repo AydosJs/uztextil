@@ -20,7 +20,8 @@ function Services() {
     // Fetch additional services from API
     const { data: services, isLoading, error } = useApiV1ServiceListList(
         {
-            type: userType === 'manufacturer' ? 'manufacturer' : 'customer'
+
+            search: userType === 'manufacturer' ? 'manufacturer' : 'customer'
         },
         {
             query: {

@@ -6,19 +6,19 @@ import { OfferCard, OfferDetailsDrawer } from "./components"
 import { useLocation } from "react-router-dom"
 import { useApiV1OfferListList } from "@/lib/api"
 import { useMemo, useState } from "react"
-import type { OfferList } from "@/lib/api/model/offerList"
+import type { OfferList as OfferListType } from "@/lib/api/model/offerList"
 
-function OfferList() {
+function OfferListPage() {
     const { t } = useTranslation()
     const location = useLocation()
-    const [selectedOffer, setSelectedOffer] = useState<OfferList | null>(null)
+    const [selectedOffer, setSelectedOffer] = useState<OfferListType | null>(null)
 
     useTelegramBackButton({ navigateTo: '/services' })
 
     // Get application data from navigation state
     const applicationData = location.state?.applicationData
 
-    const handleOfferSelect = (offer: OfferList) => {
+    const handleOfferSelect = (offer: OfferListType) => {
         setSelectedOffer(offer)
         // Don't open drawer immediately - let OfferDetailsDrawer handle it after API loads
     }
@@ -164,4 +164,4 @@ function OfferList() {
     )
 }
 
-export default OfferList
+export default OfferListPage
