@@ -6,23 +6,18 @@
  * OpenAPI spec version: v1
  */
 import {
-  useInfiniteQuery,
   useMutation,
   useQuery
 } from '@tanstack/react-query';
 import type {
   DataTag,
   DefinedInitialDataOptions,
-  DefinedUseInfiniteQueryResult,
   DefinedUseQueryResult,
-  InfiniteData,
   MutationFunction,
   QueryClient,
   QueryFunction,
   QueryKey,
   UndefinedInitialDataOptions,
-  UseInfiniteQueryOptions,
-  UseInfiniteQueryResult,
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
@@ -107,72 +102,6 @@ export const getApiSchemaListQueryKey = () => {
     }
 
     
-export const getApiSchemaListInfiniteQueryOptions = <TData = InfiniteData<Awaited<ReturnType<typeof apiSchemaList>>>, TError = unknown>( options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiSchemaList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getApiSchemaListQueryKey();
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiSchemaList>>> = ({ signal }) => apiSchemaList(requestOptions, signal);
-
-      
-
-      
-
-   return  { queryKey, queryFn, ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiSchemaList>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type ApiSchemaListInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof apiSchemaList>>>
-export type ApiSchemaListInfiniteQueryError = unknown
-
-
-export function useApiSchemaListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiSchemaList>>>, TError = unknown>(
-  options: { query:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiSchemaList>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof apiSchemaList>>,
-          TError,
-          Awaited<ReturnType<typeof apiSchemaList>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useApiSchemaListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiSchemaList>>>, TError = unknown>(
-  options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiSchemaList>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof apiSchemaList>>,
-          TError,
-          Awaited<ReturnType<typeof apiSchemaList>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useApiSchemaListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiSchemaList>>>, TError = unknown>(
-  options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiSchemaList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-/**
- * @summary OpenApi3 schema for this API. Format can be selected via content negotiation.
- */
-
-export function useApiSchemaListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiSchemaList>>>, TError = unknown>(
-  options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiSchemaList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient 
- ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getApiSchemaListInfiniteQueryOptions(options)
-
-  const query = useInfiniteQuery(queryOptions , queryClient) as  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
-}
-
-
-
 export const getApiSchemaListQueryOptions = <TData = Awaited<ReturnType<typeof apiSchemaList>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiSchemaList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
@@ -315,69 +244,6 @@ export const getApiV1ApplicationListListQueryKey = () => {
     }
 
     
-export const getApiV1ApplicationListListInfiniteQueryOptions = <TData = InfiniteData<Awaited<ReturnType<typeof apiV1ApplicationListList>>>, TError = unknown>( options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1ApplicationListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getApiV1ApplicationListListQueryKey();
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiV1ApplicationListList>>> = ({ signal }) => apiV1ApplicationListList(requestOptions, signal);
-
-      
-
-      
-
-   return  { queryKey, queryFn, ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1ApplicationListList>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type ApiV1ApplicationListListInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof apiV1ApplicationListList>>>
-export type ApiV1ApplicationListListInfiniteQueryError = unknown
-
-
-export function useApiV1ApplicationListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1ApplicationListList>>>, TError = unknown>(
-  options: { query:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1ApplicationListList>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof apiV1ApplicationListList>>,
-          TError,
-          Awaited<ReturnType<typeof apiV1ApplicationListList>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useApiV1ApplicationListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1ApplicationListList>>>, TError = unknown>(
-  options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1ApplicationListList>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof apiV1ApplicationListList>>,
-          TError,
-          Awaited<ReturnType<typeof apiV1ApplicationListList>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useApiV1ApplicationListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1ApplicationListList>>>, TError = unknown>(
-  options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1ApplicationListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-
-export function useApiV1ApplicationListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1ApplicationListList>>>, TError = unknown>(
-  options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1ApplicationListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient 
- ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getApiV1ApplicationListListInfiniteQueryOptions(options)
-
-  const query = useInfiniteQuery(queryOptions , queryClient) as  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
-}
-
-
-
 export const getApiV1ApplicationListListQueryOptions = <TData = Awaited<ReturnType<typeof apiV1ApplicationListList>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1ApplicationListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
@@ -631,69 +497,6 @@ export const getApiV1ManufacturerDetailReadQueryKey = (id?: number,) => {
     }
 
     
-export const getApiV1ManufacturerDetailReadInfiniteQueryOptions = <TData = InfiniteData<Awaited<ReturnType<typeof apiV1ManufacturerDetailRead>>>, TError = unknown>(id: number, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1ManufacturerDetailRead>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getApiV1ManufacturerDetailReadQueryKey(id);
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiV1ManufacturerDetailRead>>> = ({ signal }) => apiV1ManufacturerDetailRead(id, requestOptions, signal);
-
-      
-
-      
-
-   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1ManufacturerDetailRead>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type ApiV1ManufacturerDetailReadInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof apiV1ManufacturerDetailRead>>>
-export type ApiV1ManufacturerDetailReadInfiniteQueryError = unknown
-
-
-export function useApiV1ManufacturerDetailReadInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1ManufacturerDetailRead>>>, TError = unknown>(
- id: number, options: { query:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1ManufacturerDetailRead>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof apiV1ManufacturerDetailRead>>,
-          TError,
-          Awaited<ReturnType<typeof apiV1ManufacturerDetailRead>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useApiV1ManufacturerDetailReadInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1ManufacturerDetailRead>>>, TError = unknown>(
- id: number, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1ManufacturerDetailRead>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof apiV1ManufacturerDetailRead>>,
-          TError,
-          Awaited<ReturnType<typeof apiV1ManufacturerDetailRead>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useApiV1ManufacturerDetailReadInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1ManufacturerDetailRead>>>, TError = unknown>(
- id: number, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1ManufacturerDetailRead>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-
-export function useApiV1ManufacturerDetailReadInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1ManufacturerDetailRead>>>, TError = unknown>(
- id: number, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1ManufacturerDetailRead>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient 
- ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getApiV1ManufacturerDetailReadInfiniteQueryOptions(id,options)
-
-  const query = useInfiniteQuery(queryOptions , queryClient) as  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
-}
-
-
-
 export const getApiV1ManufacturerDetailReadQueryOptions = <TData = Awaited<ReturnType<typeof apiV1ManufacturerDetailRead>>, TError = unknown>(id: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1ManufacturerDetailRead>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
@@ -776,69 +579,6 @@ export const getApiV1ManufacturerListListQueryKey = (params?: ApiV1ManufacturerL
     }
 
     
-export const getApiV1ManufacturerListListInfiniteQueryOptions = <TData = InfiniteData<Awaited<ReturnType<typeof apiV1ManufacturerListList>>, ApiV1ManufacturerListListParams['pageParam']>, TError = unknown>(params?: ApiV1ManufacturerListListParams, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1ManufacturerListList>>, TError, TData, QueryKey, ApiV1ManufacturerListListParams['pageParam']>>, request?: SecondParameter<typeof customInstance>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getApiV1ManufacturerListListQueryKey(params);
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiV1ManufacturerListList>>, QueryKey, ApiV1ManufacturerListListParams['pageParam']> = ({ signal, pageParam }) => apiV1ManufacturerListList({...params, 'pageParam': pageParam || params?.['pageParam']}, requestOptions, signal);
-
-      
-
-      
-
-   return  { queryKey, queryFn, ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1ManufacturerListList>>, TError, TData, QueryKey, ApiV1ManufacturerListListParams['pageParam']> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type ApiV1ManufacturerListListInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof apiV1ManufacturerListList>>>
-export type ApiV1ManufacturerListListInfiniteQueryError = unknown
-
-
-export function useApiV1ManufacturerListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1ManufacturerListList>>, ApiV1ManufacturerListListParams['pageParam']>, TError = unknown>(
- params: undefined |  ApiV1ManufacturerListListParams, options: { query:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1ManufacturerListList>>, TError, TData, QueryKey, ApiV1ManufacturerListListParams['pageParam']>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof apiV1ManufacturerListList>>,
-          TError,
-          Awaited<ReturnType<typeof apiV1ManufacturerListList>>, QueryKey
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useApiV1ManufacturerListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1ManufacturerListList>>, ApiV1ManufacturerListListParams['pageParam']>, TError = unknown>(
- params?: ApiV1ManufacturerListListParams, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1ManufacturerListList>>, TError, TData, QueryKey, ApiV1ManufacturerListListParams['pageParam']>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof apiV1ManufacturerListList>>,
-          TError,
-          Awaited<ReturnType<typeof apiV1ManufacturerListList>>, QueryKey
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useApiV1ManufacturerListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1ManufacturerListList>>, ApiV1ManufacturerListListParams['pageParam']>, TError = unknown>(
- params?: ApiV1ManufacturerListListParams, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1ManufacturerListList>>, TError, TData, QueryKey, ApiV1ManufacturerListListParams['pageParam']>>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-
-export function useApiV1ManufacturerListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1ManufacturerListList>>, ApiV1ManufacturerListListParams['pageParam']>, TError = unknown>(
- params?: ApiV1ManufacturerListListParams, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1ManufacturerListList>>, TError, TData, QueryKey, ApiV1ManufacturerListListParams['pageParam']>>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient 
- ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getApiV1ManufacturerListListInfiniteQueryOptions(params,options)
-
-  const query = useInfiniteQuery(queryOptions , queryClient) as  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
-}
-
-
-
 export const getApiV1ManufacturerListListQueryOptions = <TData = Awaited<ReturnType<typeof apiV1ManufacturerListList>>, TError = unknown>(params?: ApiV1ManufacturerListListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1ManufacturerListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
@@ -920,69 +660,6 @@ export const getApiV1OfferListListQueryKey = () => {
     }
 
     
-export const getApiV1OfferListListInfiniteQueryOptions = <TData = InfiniteData<Awaited<ReturnType<typeof apiV1OfferListList>>>, TError = unknown>( options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1OfferListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getApiV1OfferListListQueryKey();
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiV1OfferListList>>> = ({ signal }) => apiV1OfferListList(requestOptions, signal);
-
-      
-
-      
-
-   return  { queryKey, queryFn, ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1OfferListList>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type ApiV1OfferListListInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof apiV1OfferListList>>>
-export type ApiV1OfferListListInfiniteQueryError = unknown
-
-
-export function useApiV1OfferListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1OfferListList>>>, TError = unknown>(
-  options: { query:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1OfferListList>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof apiV1OfferListList>>,
-          TError,
-          Awaited<ReturnType<typeof apiV1OfferListList>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useApiV1OfferListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1OfferListList>>>, TError = unknown>(
-  options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1OfferListList>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof apiV1OfferListList>>,
-          TError,
-          Awaited<ReturnType<typeof apiV1OfferListList>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useApiV1OfferListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1OfferListList>>>, TError = unknown>(
-  options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1OfferListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-
-export function useApiV1OfferListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1OfferListList>>>, TError = unknown>(
-  options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1OfferListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient 
- ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getApiV1OfferListListInfiniteQueryOptions(options)
-
-  const query = useInfiniteQuery(queryOptions , queryClient) as  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
-}
-
-
-
 export const getApiV1OfferListListQueryOptions = <TData = Awaited<ReturnType<typeof apiV1OfferListList>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1OfferListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
@@ -1180,69 +857,6 @@ export const getApiV1PackageDetailReadQueryKey = (id?: number,) => {
     }
 
     
-export const getApiV1PackageDetailReadInfiniteQueryOptions = <TData = InfiniteData<Awaited<ReturnType<typeof apiV1PackageDetailRead>>>, TError = unknown>(id: number, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1PackageDetailRead>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getApiV1PackageDetailReadQueryKey(id);
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiV1PackageDetailRead>>> = ({ signal }) => apiV1PackageDetailRead(id, requestOptions, signal);
-
-      
-
-      
-
-   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1PackageDetailRead>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type ApiV1PackageDetailReadInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof apiV1PackageDetailRead>>>
-export type ApiV1PackageDetailReadInfiniteQueryError = unknown
-
-
-export function useApiV1PackageDetailReadInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1PackageDetailRead>>>, TError = unknown>(
- id: number, options: { query:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1PackageDetailRead>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof apiV1PackageDetailRead>>,
-          TError,
-          Awaited<ReturnType<typeof apiV1PackageDetailRead>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useApiV1PackageDetailReadInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1PackageDetailRead>>>, TError = unknown>(
- id: number, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1PackageDetailRead>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof apiV1PackageDetailRead>>,
-          TError,
-          Awaited<ReturnType<typeof apiV1PackageDetailRead>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useApiV1PackageDetailReadInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1PackageDetailRead>>>, TError = unknown>(
- id: number, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1PackageDetailRead>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-
-export function useApiV1PackageDetailReadInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1PackageDetailRead>>>, TError = unknown>(
- id: number, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1PackageDetailRead>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient 
- ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getApiV1PackageDetailReadInfiniteQueryOptions(id,options)
-
-  const query = useInfiniteQuery(queryOptions , queryClient) as  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
-}
-
-
-
 export const getApiV1PackageDetailReadQueryOptions = <TData = Awaited<ReturnType<typeof apiV1PackageDetailRead>>, TError = unknown>(id: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1PackageDetailRead>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
@@ -1325,69 +939,6 @@ export const getApiV1PackageListListQueryKey = (params?: ApiV1PackageListListPar
     }
 
     
-export const getApiV1PackageListListInfiniteQueryOptions = <TData = InfiniteData<Awaited<ReturnType<typeof apiV1PackageListList>>, ApiV1PackageListListParams['pageParam']>, TError = unknown>(params?: ApiV1PackageListListParams, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1PackageListList>>, TError, TData, QueryKey, ApiV1PackageListListParams['pageParam']>>, request?: SecondParameter<typeof customInstance>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getApiV1PackageListListQueryKey(params);
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiV1PackageListList>>, QueryKey, ApiV1PackageListListParams['pageParam']> = ({ signal, pageParam }) => apiV1PackageListList({...params, 'pageParam': pageParam || params?.['pageParam']}, requestOptions, signal);
-
-      
-
-      
-
-   return  { queryKey, queryFn, ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1PackageListList>>, TError, TData, QueryKey, ApiV1PackageListListParams['pageParam']> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type ApiV1PackageListListInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof apiV1PackageListList>>>
-export type ApiV1PackageListListInfiniteQueryError = unknown
-
-
-export function useApiV1PackageListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1PackageListList>>, ApiV1PackageListListParams['pageParam']>, TError = unknown>(
- params: undefined |  ApiV1PackageListListParams, options: { query:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1PackageListList>>, TError, TData, QueryKey, ApiV1PackageListListParams['pageParam']>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof apiV1PackageListList>>,
-          TError,
-          Awaited<ReturnType<typeof apiV1PackageListList>>, QueryKey
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useApiV1PackageListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1PackageListList>>, ApiV1PackageListListParams['pageParam']>, TError = unknown>(
- params?: ApiV1PackageListListParams, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1PackageListList>>, TError, TData, QueryKey, ApiV1PackageListListParams['pageParam']>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof apiV1PackageListList>>,
-          TError,
-          Awaited<ReturnType<typeof apiV1PackageListList>>, QueryKey
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useApiV1PackageListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1PackageListList>>, ApiV1PackageListListParams['pageParam']>, TError = unknown>(
- params?: ApiV1PackageListListParams, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1PackageListList>>, TError, TData, QueryKey, ApiV1PackageListListParams['pageParam']>>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-
-export function useApiV1PackageListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1PackageListList>>, ApiV1PackageListListParams['pageParam']>, TError = unknown>(
- params?: ApiV1PackageListListParams, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1PackageListList>>, TError, TData, QueryKey, ApiV1PackageListListParams['pageParam']>>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient 
- ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getApiV1PackageListListInfiniteQueryOptions(params,options)
-
-  const query = useInfiniteQuery(queryOptions , queryClient) as  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
-}
-
-
-
 export const getApiV1PackageListListQueryOptions = <TData = Awaited<ReturnType<typeof apiV1PackageListList>>, TError = unknown>(params?: ApiV1PackageListListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1PackageListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
@@ -1528,69 +1079,6 @@ export const getApiV1ServiceListListQueryKey = (params?: ApiV1ServiceListListPar
     }
 
     
-export const getApiV1ServiceListListInfiniteQueryOptions = <TData = InfiniteData<Awaited<ReturnType<typeof apiV1ServiceListList>>, ApiV1ServiceListListParams['pageParam']>, TError = unknown>(params?: ApiV1ServiceListListParams, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1ServiceListList>>, TError, TData, QueryKey, ApiV1ServiceListListParams['pageParam']>>, request?: SecondParameter<typeof customInstance>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getApiV1ServiceListListQueryKey(params);
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiV1ServiceListList>>, QueryKey, ApiV1ServiceListListParams['pageParam']> = ({ signal, pageParam }) => apiV1ServiceListList({...params, 'pageParam': pageParam || params?.['pageParam']}, requestOptions, signal);
-
-      
-
-      
-
-   return  { queryKey, queryFn, ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1ServiceListList>>, TError, TData, QueryKey, ApiV1ServiceListListParams['pageParam']> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type ApiV1ServiceListListInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof apiV1ServiceListList>>>
-export type ApiV1ServiceListListInfiniteQueryError = unknown
-
-
-export function useApiV1ServiceListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1ServiceListList>>, ApiV1ServiceListListParams['pageParam']>, TError = unknown>(
- params: undefined |  ApiV1ServiceListListParams, options: { query:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1ServiceListList>>, TError, TData, QueryKey, ApiV1ServiceListListParams['pageParam']>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof apiV1ServiceListList>>,
-          TError,
-          Awaited<ReturnType<typeof apiV1ServiceListList>>, QueryKey
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useApiV1ServiceListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1ServiceListList>>, ApiV1ServiceListListParams['pageParam']>, TError = unknown>(
- params?: ApiV1ServiceListListParams, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1ServiceListList>>, TError, TData, QueryKey, ApiV1ServiceListListParams['pageParam']>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof apiV1ServiceListList>>,
-          TError,
-          Awaited<ReturnType<typeof apiV1ServiceListList>>, QueryKey
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useApiV1ServiceListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1ServiceListList>>, ApiV1ServiceListListParams['pageParam']>, TError = unknown>(
- params?: ApiV1ServiceListListParams, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1ServiceListList>>, TError, TData, QueryKey, ApiV1ServiceListListParams['pageParam']>>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-
-export function useApiV1ServiceListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1ServiceListList>>, ApiV1ServiceListListParams['pageParam']>, TError = unknown>(
- params?: ApiV1ServiceListListParams, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1ServiceListList>>, TError, TData, QueryKey, ApiV1ServiceListListParams['pageParam']>>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient 
- ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getApiV1ServiceListListInfiniteQueryOptions(params,options)
-
-  const query = useInfiniteQuery(queryOptions , queryClient) as  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
-}
-
-
-
 export const getApiV1ServiceListListQueryOptions = <TData = Awaited<ReturnType<typeof apiV1ServiceListList>>, TError = unknown>(params?: ApiV1ServiceListListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1ServiceListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
@@ -1673,69 +1161,6 @@ export const getApiV1SliderListListQueryKey = (params?: ApiV1SliderListListParam
     }
 
     
-export const getApiV1SliderListListInfiniteQueryOptions = <TData = InfiniteData<Awaited<ReturnType<typeof apiV1SliderListList>>, ApiV1SliderListListParams['pageParam']>, TError = unknown>(params?: ApiV1SliderListListParams, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1SliderListList>>, TError, TData, QueryKey, ApiV1SliderListListParams['pageParam']>>, request?: SecondParameter<typeof customInstance>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getApiV1SliderListListQueryKey(params);
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiV1SliderListList>>, QueryKey, ApiV1SliderListListParams['pageParam']> = ({ signal, pageParam }) => apiV1SliderListList({...params, 'pageParam': pageParam || params?.['pageParam']}, requestOptions, signal);
-
-      
-
-      
-
-   return  { queryKey, queryFn, ...queryOptions} as UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1SliderListList>>, TError, TData, QueryKey, ApiV1SliderListListParams['pageParam']> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type ApiV1SliderListListInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof apiV1SliderListList>>>
-export type ApiV1SliderListListInfiniteQueryError = unknown
-
-
-export function useApiV1SliderListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1SliderListList>>, ApiV1SliderListListParams['pageParam']>, TError = unknown>(
- params: undefined |  ApiV1SliderListListParams, options: { query:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1SliderListList>>, TError, TData, QueryKey, ApiV1SliderListListParams['pageParam']>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof apiV1SliderListList>>,
-          TError,
-          Awaited<ReturnType<typeof apiV1SliderListList>>, QueryKey
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  DefinedUseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useApiV1SliderListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1SliderListList>>, ApiV1SliderListListParams['pageParam']>, TError = unknown>(
- params?: ApiV1SliderListListParams, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1SliderListList>>, TError, TData, QueryKey, ApiV1SliderListListParams['pageParam']>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof apiV1SliderListList>>,
-          TError,
-          Awaited<ReturnType<typeof apiV1SliderListList>>, QueryKey
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useApiV1SliderListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1SliderListList>>, ApiV1SliderListListParams['pageParam']>, TError = unknown>(
- params?: ApiV1SliderListListParams, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1SliderListList>>, TError, TData, QueryKey, ApiV1SliderListListParams['pageParam']>>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-
-export function useApiV1SliderListListInfinite<TData = InfiniteData<Awaited<ReturnType<typeof apiV1SliderListList>>, ApiV1SliderListListParams['pageParam']>, TError = unknown>(
- params?: ApiV1SliderListListParams, options?: { query?:Partial<UseInfiniteQueryOptions<Awaited<ReturnType<typeof apiV1SliderListList>>, TError, TData, QueryKey, ApiV1SliderListListParams['pageParam']>>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient 
- ):  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getApiV1SliderListListInfiniteQueryOptions(params,options)
-
-  const query = useInfiniteQuery(queryOptions , queryClient) as  UseInfiniteQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
-}
-
-
-
 export const getApiV1SliderListListQueryOptions = <TData = Awaited<ReturnType<typeof apiV1SliderListList>>, TError = unknown>(params?: ApiV1SliderListListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1SliderListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
