@@ -7,7 +7,8 @@ import {
 } from "@/components/ui/drawer"
 import { Button } from "@/components/ui/button"
 import { CustomInput } from "@/components/ui/custom-input"
-import { Search } from "lucide-react"
+import { Search, X } from "lucide-react"
+import { useTranslation } from "react-i18next"
 
 interface FilterDrawerProps {
     open: boolean
@@ -28,6 +29,7 @@ export function FilterDrawer({
     onFilterChange,
     currentFilters
 }: FilterDrawerProps) {
+    const { t } = useTranslation()
     const [filters, setFilters] = useState<FilterOptions>(currentFilters)
 
     // Update local state when currentFilters change
@@ -53,6 +55,9 @@ export function FilterDrawer({
         onOpenChange(false)
     }
 
+    // Check if there are any active filters
+    const hasActiveFilters = filters.search || filters.product_segment || filters.min_order_quantity
+
     const handleFilterChange = (key: keyof FilterOptions, value: string) => {
         // For min_order_quantity, only allow numbers
         if (key === 'min_order_quantity') {
@@ -66,57 +71,67 @@ export function FilterDrawer({
 
     return (
         <Drawer open={open} onOpenChange={onOpenChange} direction="bottom">
-            <DrawerContent className="min-h-[90vh] max-h-[96vh] flex flex-col">
-                <DrawerHeader>
+            <DrawerContent className="h-auto max-h-[96vh] flex flex-col">
+                <DrawerHeader className="border-none">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                            <DrawerTitle className="text-white text-2xl">Fabrika tanlash</DrawerTitle>
+                            <DrawerTitle className="text-white text-2xl">{t('app.filterDrawer.title')}</DrawerTitle>
                         </div>
+                        <Button
+                            onClick={() => onOpenChange(false)}
+                            variant="ghost"
+                            size="icon"
+                            className="text-white hover:bg-white/10"
+                        >
+                            <X className="size-6" />
+                        </Button>
                     </div>
                 </DrawerHeader>
 
                 <div className="px-4 space-y-6 overflow-y-auto flex-1">
                     {/* Search Input */}
                     <CustomInput
-                        label="Qidirish"
+                        label={t('app.filterDrawer.search.label')}
                         type="text"
                         value={filters.search}
                         onChange={(e) => handleFilterChange('search', e.target.value)}
-                        placeholder="Fabrika nomi, kompaniya yoki lavozim bo'yicha qidiring..."
+                        placeholder={t('app.filterDrawer.search.placeholder')}
                     />
 
                     {/* Product Segment */}
                     <CustomInput
-                        label="Mahsulot segmenti"
+                        label={t('app.filterDrawer.productSegment.label')}
                         type="text"
                         value={filters.product_segment}
                         onChange={(e) => handleFilterChange('product_segment', e.target.value)}
-                        placeholder="Mahsulot segmentini kiriting..."
+                        placeholder={t('app.filterDrawer.productSegment.placeholder')}
                     />
 
                     <CustomInput
-                        label="Minimal buyurtma miqdori"
+                        label={t('app.filterDrawer.minOrderQuantity.label')}
                         type="number"
                         inputMode="numeric"
                         value={filters.min_order_quantity}
                         onChange={(e) => handleFilterChange('min_order_quantity', e.target.value)}
-                        placeholder="Minimal buyurtma miqdorini kiriting..."
+                        placeholder={t('app.filterDrawer.minOrderQuantity.placeholder')}
                     />
 
                     <div className="flex flex-col gap-2 safe-area-pb">
-                        <Button
-                            onClick={resetFilters}
-                            variant="outline"
-                            className="flex-1 bg-transparent border-[#FFFFFF0A] text-white hover:bg-white/10"
-                        >
-                            Tozalash
-                        </Button>
+                        {hasActiveFilters && (
+                            <Button
+                                onClick={resetFilters}
+                                variant="outline"
+                                className="flex-1 bg-transparent border-[#FFFFFF0A] text-white hover:bg-white/10"
+                            >
+                                {t('app.filterDrawer.buttons.reset')}
+                            </Button>
+                        )}
                         <Button
                             onClick={applyFilters}
                             className="flex-1 bg-[#FCE803] text-black hover:bg-[#FCE803]/90 font-semibold flex items-center justify-center gap-2"
                         >
                             <Search className="size-5" />
-                            Qidirish
+                            {t('app.filterDrawer.buttons.search')}
                         </Button>
                     </div>
                 </div>

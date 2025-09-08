@@ -256,6 +256,41 @@
         "lotNumber": "Sizning lot raqamingiz:",
         "channelButton": "Kanalga o'tish"
       }
+    },
+    "packageSelection": {
+      "title": "Paket turini tanlang",
+      "error": {
+        "message": "Xatolik yuz berdi",
+        "retryButton": "Qayta urinish"
+      },
+      "empty": {
+        "message": "Hozircha paketlar mavjud emas"
+      },
+      "packageTypes": {
+        "start": "Boshlang'ich paket",
+        "growth": "Rivojlanish paketi",
+        "export": "Eksport paketi"
+      },
+      "fullInfo": "To'liq ma'lumot"
+    },
+    "filterDrawer": {
+      "title": "Fabrika tanlash",
+      "search": {
+        "label": "Qidirish",
+        "placeholder": "Fabrika nomi, kompaniya yoki lavozim bo'yicha qidiring..."
+      },
+      "productSegment": {
+        "label": "Mahsulot segmenti",
+        "placeholder": "Mahsulot segmentini kiriting..."
+      },
+      "minOrderQuantity": {
+        "label": "Minimal buyurtma miqdori",
+        "placeholder": "Minimal buyurtma miqdorini kiriting..."
+      },
+      "buttons": {
+        "reset": "Tozalash",
+        "search": "Qidirish"
+      }
     }
   }
 }

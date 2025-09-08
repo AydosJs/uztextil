@@ -1,4 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 import { RadialEffect, UnderwaterHeader } from "@/components/ui"
 import { useApiV1PackageListList } from "@/lib/api"
 import type { PackageList } from "@/lib/api/model"
@@ -6,6 +7,7 @@ import { useTelegramBackButton } from "@/lib/hooks"
 import { useTelegramUser } from "@/hooks/useTelegramUser"
 
 function PackageSelection() {
+    const { t } = useTranslation()
     const navigate = useNavigate()
     const location = useLocation()
     const { user, userType } = useTelegramUser()
@@ -41,7 +43,7 @@ function PackageSelection() {
                 <main className="w-full container min-w-full flex-1 flex flex-col relative z-10">
                     <div className="text-left space-y-4 mb-8 pt-4">
                         <h1 className="text-white font-bold text-[32px] tracking-wide">
-                            Paket turini tanlang
+                            {t('app.packageSelection.title')}
                         </h1>
                     </div>
                     <div className="flex-1 pb-8">
@@ -79,17 +81,17 @@ function PackageSelection() {
                 <main className="w-full container min-w-full flex-1 flex flex-col relative z-10">
                     <div className="text-left space-y-4 mb-8 pt-4">
                         <h1 className="text-white font-bold text-[32px] tracking-wide">
-                            Paket turini tanlang
+                            {t('app.packageSelection.title')}
                         </h1>
                     </div>
                     <div className="flex-1 flex items-center justify-center">
                         <div className="text-center">
-                            <p className="text-red-400 text-lg mb-4">Xatolik yuz berdi</p>
+                            <p className="text-red-400 text-lg mb-4">{t('app.packageSelection.error.message')}</p>
                             <button
                                 onClick={() => window.location.reload()}
                                 className="py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 transition-colors"
                             >
-                                Qayta urinish
+                                {t('app.packageSelection.error.retryButton')}
                             </button>
                         </div>
                     </div>
@@ -123,7 +125,7 @@ function PackageSelection() {
                 {/* Header */}
                 <div className="text-left space-y-4 mb-8 pt-4">
                     <h1 className="text-white font-bold text-[32px] tracking-wide">
-                        Paket turini tanlang
+                        {t('app.packageSelection.title')}
                     </h1>
                 </div>
 
@@ -132,7 +134,7 @@ function PackageSelection() {
                     {!hasPackages ? (
                         <div className="flex items-center justify-center h-full">
                             <div className="text-center">
-                                <p className="text-[#ACADAF] text-lg">Hozircha paketlar mavjud emas</p>
+                                <p className="text-[#ACADAF] text-lg">{t('app.packageSelection.empty.message')}</p>
                             </div>
                         </div>
                     ) : (
@@ -154,9 +156,9 @@ function PackageSelection() {
                                         </h3>
                                         {packageItem.type && (
                                             <p className="text-[#ACADAF] font-normal text-xs">
-                                                {packageItem.type === 'start' && 'Boshlang\'ich paket'}
-                                                {packageItem.type === 'growth' && 'Rivojlanish paketi'}
-                                                {packageItem.type === 'export' && 'Eksport paketi'}
+                                                {packageItem.type === 'start' && t('app.packageSelection.packageTypes.start')}
+                                                {packageItem.type === 'growth' && t('app.packageSelection.packageTypes.growth')}
+                                                {packageItem.type === 'export' && t('app.packageSelection.packageTypes.export')}
                                             </p>
                                         )}
                                     </div>
@@ -164,7 +166,7 @@ function PackageSelection() {
                                     {/* To'liq ma'lumot text */}
                                     <div className="flex items-center justify-center  rounded-full gap-2 px-3 py-1 bg-[#37393EB2] opacity-100">
                                         <p className=" text-xs font-semibold  text-white opacity-100 whitespace-nowrap">
-                                            To'liq ma'lumot
+                                            {t('app.packageSelection.fullInfo')}
                                         </p>
                                     </div>
 
