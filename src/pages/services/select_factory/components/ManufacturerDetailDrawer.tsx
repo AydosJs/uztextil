@@ -1,6 +1,5 @@
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerClose, Button, Spinner } from "@/components/ui"
-import { useApiV1ManufacturerDetailRead } from "@/lib/api"
-import type { AdditionalService, ManufacturerList } from "@/lib/api/model"
+import type { AdditionalService, ManufacturerList, ManufacturerDetail } from "@/lib/api/model"
 import { useTranslation } from "react-i18next"
 
 interface ManufacturerDetailDrawerProps {
@@ -8,24 +7,21 @@ interface ManufacturerDetailDrawerProps {
     onOpenChange: (open: boolean) => void
     service: AdditionalService
     manufacturer: ManufacturerList | null
+    manufacturerDetail?: ManufacturerDetail | null
+    isLoading?: boolean
+    error?: any
 }
 
 export function ManufacturerDetailDrawer({
     open,
     onOpenChange,
-    manufacturer
+    service,
+    manufacturer,
+    manufacturerDetail,
+    isLoading = false,
+    error
 }: ManufacturerDetailDrawerProps) {
     const { t } = useTranslation()
-
-    // Fetch manufacturer details
-    const { data: manufacturerDetail, isLoading, error } = useApiV1ManufacturerDetailRead(
-        manufacturer?.id || 0,
-        {
-            query: {
-                enabled: !!manufacturer?.id && open
-            }
-        }
-    )
 
     const handleClose = () => {
         onOpenChange(false)

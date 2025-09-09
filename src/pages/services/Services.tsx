@@ -21,7 +21,7 @@ function Services() {
     const { data: services, isLoading, error } = useApiV1ServiceListList(
         {
 
-            search: userType === 'manufacturer' ? 'manufacturer' : 'customer'
+            type: userType === 'manufacturer' ? 'manufacturer' : 'customer'
         },
         {
             query: {

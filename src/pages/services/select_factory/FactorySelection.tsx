@@ -1,7 +1,7 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import { RadialEffect, Spinner, UnderwaterHeader } from "@/components/ui"
-import { useApiV1ManufacturerListList } from "@/lib/api"
+import { useApiV1ManufacturerListList, useApiV1ManufacturerDetailRead } from "@/lib/api"
 import { useTelegramBackButton } from "@/lib/hooks"
 import { ChevronRight, Filter } from "lucide-react"
 import { ManufacturerDetailDrawer, FilterDrawer } from "./components"
@@ -19,6 +19,7 @@ function FactorySelection() {
     const [drawerOpen, setDrawerOpen] = useState(false)
     const [filterDrawerOpen, setFilterDrawerOpen] = useState(false)
     const [selectedManufacturer, setSelectedManufacturer] = useState<ManufacturerList | null>(null)
+    const [isLoadingDetails, setIsLoadingDetails] = useState(false)
     const [filters, setFilters] = useState<FilterOptions>({
         search: '',
         product_segment: '',
@@ -41,6 +42,32 @@ function FactorySelection() {
 
     // Fetch manufacturer list with filters - this will refetch when apiParams change
     const { data: manufacturers, isLoading, error } = useApiV1ManufacturerListList(apiParams)
+
+    // Fetch manufacturer details when a manufacturer is selected
+    const { data: manufacturerDetail, isLoading: isDetailLoading, error: detailError } = useApiV1ManufacturerDetailRead(
+        selectedManufacturer?.id || 0,
+        {
+            query: {
+                enabled: !!selectedManufacturer?.id && isLoadingDetails
+            }
+        }
+    )
+
+    // Mark loading as complete when details are loaded
+    useEffect(() => {
+        if (isLoadingDetails && !isDetailLoading && manufacturerDetail && !detailError) {
+            setIsLoadingDetails(false)
+        }
+    }, [isLoadingDetails, isDetailLoading, manufacturerDetail, detailError])
+
+    // Handle error when loading details fails
+    useEffect(() => {
+        if (isLoadingDetails && detailError) {
+            setIsLoadingDetails(false)
+            // You can add error handling here, like showing a toast or error message
+            console.error('Failed to load manufacturer details:', detailError)
+        }
+    }, [isLoadingDetails, detailError])
 
     // If no service data, redirect back to services
     if (!service) {
@@ -103,6 +130,7 @@ function FactorySelection() {
     const handleFactorySelect = (factory: ManufacturerList) => {
         setSelectedManufacturer(factory)
         setDrawerOpen(true)
+        setIsLoadingDetails(true)
     }
 
     const handleFilterChange = (newFilters: FilterOptions) => {
@@ -158,7 +186,7 @@ function FactorySelection() {
                                         <h3 className="text-white font-extrabold">
                                             {factory.full_name}
                                         </h3>
-                                        <p className="text-[#ACADAF] font-normal text-sm">
+                                        <p className="text-[#ACADAF] font-normal text-sm pr-10">
                                             {factory.company_name} - {factory.product_segment}
                                         </p>
                                     </div>
@@ -196,6 +224,9 @@ function FactorySelection() {
                 onOpenChange={setDrawerOpen}
                 service={service}
                 manufacturer={selectedManufacturer}
+                manufacturerDetail={manufacturerDetail}
+                isLoading={isDetailLoading}
+                error={detailError}
             />
 
             {/* Filter Drawer */}

@@ -31,6 +31,7 @@ import { Toaster } from 'sonner'
 import { setSafeAreaCSSProperties, waitForSafeAreaValues } from './utils/safeAreaUtils.ts'
 // import { initEruda } from './utils/eruda.ts'
 import { ChooseDepartmentGuard, ServicesRouteGuard, RegistrationRouteGuard } from './components/RouteGuards'
+import { ScrollToTop } from './components/ScrollToTop'
 import { initEruda } from './utils/eruda.ts'
 
 // Create a QueryClient instance
@@ -67,6 +68,7 @@ async function initializeApp() {
       <QueryClientProvider client={queryClient}>
         <TelegramUserProvider>
           <BrowserRouter>
+            <ScrollToTop />
             <Toaster />
             <Routes>
               <Route path="/" element={<App />} />
