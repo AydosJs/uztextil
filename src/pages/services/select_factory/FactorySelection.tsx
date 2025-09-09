@@ -222,7 +222,6 @@ function FactorySelection() {
             <ManufacturerDetailDrawer
                 open={drawerOpen}
                 onOpenChange={setDrawerOpen}
-                service={service}
                 manufacturer={selectedManufacturer}
                 manufacturerDetail={manufacturerDetail}
                 isLoading={isDetailLoading}

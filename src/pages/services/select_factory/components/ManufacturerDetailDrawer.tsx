@@ -1,11 +1,10 @@
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerClose, Button, Spinner } from "@/components/ui"
-import type { AdditionalService, ManufacturerList, ManufacturerDetail } from "@/lib/api/model"
+import type { ManufacturerList, ManufacturerDetail } from "@/lib/api/model"
 import { useTranslation } from "react-i18next"
 
 interface ManufacturerDetailDrawerProps {
     open: boolean
     onOpenChange: (open: boolean) => void
-    service: AdditionalService
     manufacturer: ManufacturerList | null
     manufacturerDetail?: ManufacturerDetail | null
     isLoading?: boolean
@@ -15,7 +14,6 @@ interface ManufacturerDetailDrawerProps {
 export function ManufacturerDetailDrawer({
     open,
     onOpenChange,
-    service,
     manufacturer,
     manufacturerDetail,
     isLoading = false,

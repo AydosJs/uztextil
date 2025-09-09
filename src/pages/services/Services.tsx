@@ -18,17 +18,20 @@ function Services() {
     })
 
     // Fetch additional services from API
-    const { data: services, isLoading, error } = useApiV1ServiceListList(
-        {
-
-            type: userType === 'manufacturer' ? 'manufacturer' : 'customer'
-        },
+    const { data: allServices, isLoading, error } = useApiV1ServiceListList(
+        undefined,
         {
             query: {
                 enabled: !!user?.telegram_id && !!userType
             }
         }
     )
+
+    // Filter services by user type on the client side
+    const services = allServices?.filter(service => {
+        if (!service.type) return true // Show services without type
+        return service.type === userType
+    })
 
     // Show loading state
     if (isLoading) {
