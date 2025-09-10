@@ -3,6 +3,7 @@ import { useTelegramBackButton } from "@/lib/hooks"
 import { useTranslation } from "react-i18next"
 import { useNavigate, useLocation } from "react-router-dom"
 import { Button } from "@/components/ui"
+import { CheckCircle } from "lucide-react"
 
 function OnlineB2BSuccess() {
     const { t } = useTranslation()
@@ -38,7 +39,7 @@ function OnlineB2BSuccess() {
                 {/* Success Content */}
                 <div className="flex-1 flex flex-col items-center justify-center text-center space-y-6 pb-8">
                     <div className="w-20 h-20 rounded-full bg-green-500/20 flex items-center justify-center mb-4">
-                        <span className="text-4xl">✅</span>
+                        <CheckCircle className="w-10 h-10 text-green-500" />
                     </div>
 
                     <div className="space-y-2">

@@ -19,26 +19,26 @@ import { useTelegramUser } from "@/hooks/useTelegramUser"
 
 // Zod schema for form validation
 const manufacturerRegisterSchema = z.object({
-    companyName: z.string().min(1, "Company name is required"),
-    experience: z.string().min(1, "Experience is required"),
-    fullName: z.string().min(1, "Full name is required"),
-    position: z.string().min(1, "Position is required"),
-    minOrder: z.string().min(1, "Min order quantity is required"),
-    productSegment: z.string().min(1, "Product segment is required"),
-    commercialOffer: z.string().min(1, "Commercial offer is required"),
-    productionAddress: z.string().min(1, "Production address is required"),
-    officeAddress: z.string().min(1, "Office address is required"),
-    website: z.string().url("Please enter a valid website URL").optional().or(z.literal("")),
+    companyName: z.string().min(1, ""),
+    experience: z.string().min(1, ""),
+    fullName: z.string().min(1, ""),
+    position: z.string().min(1, ""),
+    minOrder: z.string().min(1, ""),
+    productSegment: z.string().min(1, ""),
+    commercialOffer: z.string().min(1, ""),
+    productionAddress: z.string().min(1, ""),
+    officeAddress: z.string().min(1, ""),
+    website: z.string().url("").optional().or(z.literal("")),
     qualityControl: z.enum(["yes", "no"]).optional(),
     crmSystem: z.enum(["yes", "no"]).optional(),
     geminiGerber: z.enum(["yes", "no"]).optional(),
-    employeesCount: z.string().min(1, "Employees count is required"),
+    employeesCount: z.string().min(1, ""),
     buildingOwnership: z.enum(["own", "rented"]).optional(),
     industrialZone: z.enum(["yes", "no"]).optional(),
     creditBurden: z.enum(["yes", "no"]).optional(),
     organizationStructure: z.enum(["director", "manager", "marketer"]).optional(),
-    equipmentInfo: z.string().min(1, "Equipment info is required"),
-    phone: z.string().regex(/^\+?[0-9\s\-()]+$/, "Please enter a valid phone number").optional().or(z.literal("")),
+    equipmentInfo: z.string().min(1, ""),
+    phone: z.string().regex(/^\+?[0-9\s\-()]+$/, "").optional().or(z.literal("")),
     files: z.array(z.instanceof(File)).optional()
 })
 
@@ -79,8 +79,6 @@ function ManufacturerRegisterForm() {
     const manufacturerCreateMutation = useApiV1ManufacturerCreateCreate({
         mutation: {
             onSuccess: (data) => {
-                console.log('Manufacturer created successfully:', data)
-
                 // Update user info with the new manufacturer data
                 if (userInfo && data) {
                     const updatedUserInfo = {
@@ -94,8 +92,7 @@ function ManufacturerRegisterForm() {
                 navigate('/services')
             },
             onError: (error) => {
-                console.error('Manufacturer creation failed:', error)
-                showToast.error(t('app.common.error.manufacturerFailed'))
+                showToast.error(t('app.common.error.manufacturerFailed') + error)
             }
         }
     })

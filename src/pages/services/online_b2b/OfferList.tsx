@@ -56,8 +56,6 @@ function OfferListPage() {
         }
     })
 
-    console.log(offers, "offers")
-
     // Show error if no application data
     if (!applicationData?.id) {
         return (

@@ -32,8 +32,7 @@ function OnlineB2BForm() {
                 })
             },
             onError: (error) => {
-                console.error('Application creation failed:', error)
-                showToast.error(t('app.common.error.applicationFailed'))
+                showToast.error(t('app.common.error.applicationFailed') + error)
             }
         }
     })
@@ -89,7 +88,7 @@ function OnlineB2BForm() {
 
             await applicationCreateMutation.mutateAsync({ data: applicationData })
         } catch (error) {
-            console.error('Form submission error:', error)
+            showToast.error(t('app.common.error.applicationFailed') + error)
         }
     }
 

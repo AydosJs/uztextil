@@ -5,6 +5,7 @@ import { useTelegramBackButton } from "@/lib/hooks"
 import { useApiV1ApplicationCreateCreate } from "@/lib/api"
 import { useTranslation } from "react-i18next"
 import type { PackageList, AdditionalService } from "@/lib/api/model"
+import { showToast } from "@/lib/utils"
 
 function ApplicationForm() {
     const navigate = useNavigate()
@@ -43,7 +44,7 @@ function ApplicationForm() {
                 })
             },
             onError: (error) => {
-                console.error('Application creation failed:', error)
+                showToast.error(t('app.common.error.applicationFailed') + error)
             }
         }
     })
