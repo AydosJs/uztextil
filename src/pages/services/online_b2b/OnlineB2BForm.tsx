@@ -48,6 +48,15 @@ function OnlineB2BForm() {
         needs_tourist_program: '',
     })
 
+    // Check if all required fields are filled
+    const isFormValid = () => {
+        const requiredFields = ['segment', 'work_purpose', 'interested_factories', 'quantity_to_see', 'planned_stay_days', 'planned_arrival_dates']
+        return requiredFields.every(field => {
+            const value = formData[field as keyof typeof formData]
+            return value && value.trim() !== ''
+        })
+    }
+
     // Show back button that goes to services page
     useTelegramBackButton({ navigateTo: '/services' })
 
@@ -64,15 +73,8 @@ function OnlineB2BForm() {
             return
         }
 
-        // Validate required fields
-        const requiredFields = ['segment', 'work_purpose', 'interested_factories', 'quantity_to_see', 'planned_stay_days', 'planned_arrival_dates']
-        const missingFields = requiredFields.filter(field => {
-            const value = formData[field as keyof typeof formData]
-            return !value || value.trim() === ''
-        })
-
-        if (missingFields.length > 0) {
-            showToast.error(t('app.common.validation.fillRequiredFields'))
+        // Form validation is handled by button disabled state
+        if (!isFormValid()) {
             return
         }
 
@@ -206,7 +208,7 @@ function OnlineB2BForm() {
                         variant="default"
                         shadow="lg"
                         onClick={handleSubmit}
-                        disabled={applicationCreateMutation.isPending}
+                        disabled={applicationCreateMutation.isPending || !isFormValid()}
                         className="w-full"
                     >
                         {t('app.onlineB2B.form.submitButton')}

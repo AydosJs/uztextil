@@ -47,6 +47,15 @@ function PlaceOrderForm() {
         segment_category: '',
     })
 
+    // Check if all required fields are filled
+    const isFormValid = () => {
+        const requiredFields = ['product_description', 'order_volume', 'production_delivery_time', 'budget_estimated_price', 'segment_category']
+        return requiredFields.every(field => {
+            const value = formData[field as keyof typeof formData]
+            return value && value.trim() !== ''
+        })
+    }
+
     // Show back button that goes to services page
     useTelegramBackButton({ navigateTo: '/services' })
 
@@ -63,15 +72,8 @@ function PlaceOrderForm() {
             return
         }
 
-        // Validate required fields
-        const requiredFields = ['product_description', 'order_volume', 'production_delivery_time', 'budget_estimated_price', 'segment_category']
-        const missingFields = requiredFields.filter(field => {
-            const value = formData[field as keyof typeof formData]
-            return !value || value.trim() === ''
-        })
-
-        if (missingFields.length > 0) {
-            showToast.error(t('app.common.validation.fillRequiredFields'))
+        // Form validation is handled by button disabled state
+        if (!isFormValid()) {
             return
         }
 
@@ -193,7 +195,7 @@ function PlaceOrderForm() {
                         variant="default"
                         shadow="lg"
                         onClick={handleSubmit}
-                        disabled={applicationCreateMutation.isPending}
+                        disabled={applicationCreateMutation.isPending || !isFormValid()}
                         className="w-full"
                     >
                         {t('app.placeOrder.form.submitButton')}
