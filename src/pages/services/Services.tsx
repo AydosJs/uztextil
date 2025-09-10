@@ -142,7 +142,7 @@ function Services() {
                     {!hasServices ? (
                         <div className="flex items-center justify-center h-full">
                             <div className="text-center">
-                                <p className="text-[#ACADAF] text-lg">Hozircha xizmatlar mavjud emas</p>
+                                <p className="text-[#ACADAF] text-lg">{t('common.noServicesAvailable')}</p>
                             </div>
                         </div>
                     ) : (
