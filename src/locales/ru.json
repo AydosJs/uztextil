@@ -78,21 +78,21 @@
           "placeholder": "www"
         },
         "qualityControl": {
-          "label": "Есть ли контроль качества",
+          "label": "Наличие контроля качества",
           "options": {
             "yes": "да",
             "no": "нет"
           }
         },
         "crmSystem": {
-          "label": "Есть ли CRM система",
+          "label": "Наличие CRM-системы",
           "options": {
             "yes": "да",
             "no": "нет"
           }
         },
         "geminiGerber": {
-          "label": "Есть ли Gemini/Gerber",
+          "label": "Наличие Gemini/Gerber",
           "options": {
             "yes": "да",
             "no": "нет"
@@ -103,7 +103,7 @@
           "placeholder": "Введите число"
         },
         "buildingOwnership": {
-          "label": "Здание свое или арендованное",
+          "label": "Здание собственное или арендуемое",
           "options": {
             "own": "Свое",
             "rented": "арендованное"
@@ -117,14 +117,14 @@
           }
         },
         "creditBurden": {
-          "label": "Есть ли кредитная нагрузка",
+          "label": "Наличие кредитной нагрузки",
           "options": {
             "yes": "да",
             "no": "нет"
           }
         },
         "organizationStructure": {
-          "label": "Организационная структура *",
+          "label": "Организационная структура",
           "options": {
             "director": "Директор",
             "manager": "Менеджер",
@@ -132,11 +132,11 @@
           }
         },
         "equipmentInfo": {
-          "label": "Информация об оборудовании",
+          "label": "Сведения об оборудовании (наличие иностранных специалистов и т.п.)",
           "placeholder": "(наличие иностранных специалистов и т.д.)"
         },
         "phone": {
-          "label": "Ваш номер телефона *",
+          "label": "Ваш номер телефона",
           "placeholder": "+998"
         },
         "fileUpload": {
@@ -147,7 +147,7 @@
           "placeholder": "Введите юридический адрес"
         },
         "marketplaceBrand": {
-          "label": "Бренд маркетплейса",
+          "label": "Бренд на маркетплейсе",
           "placeholder": "Введите бренд маркетплейса"
         },
         "annualOrderVolume": {

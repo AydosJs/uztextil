@@ -25,7 +25,7 @@ export default defineConfig({
     host: 'localhost',
     port: 5173,
     hmr: true,
-    allowedHosts: ['89c8a04d7238.ngrok-free.app']
+    allowedHosts: ['e479bfe664c6.ngrok-free.app']
   },
   build: {
     rollupOptions: {
