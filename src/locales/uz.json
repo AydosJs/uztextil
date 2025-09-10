@@ -199,6 +199,91 @@
         }
       }
     },
+    "onlineB2B": {
+      "title": "Ariza",
+      "subtitle": "Ma'lumotlarni to'ldirib ariza qoldiring, va moderator sizga mos keladigan taklif beradi",
+      "form": {
+        "segment": {
+          "label": "Segment",
+          "placeholder": "Segment turini kiriting"
+        },
+        "workPurpose": {
+          "label": "Ish maqsadi",
+          "placeholder": "Ish maqsadingizni batafsil yozing"
+        },
+        "interestedFactories": {
+          "label": "Qiziqadigan fabrikalar",
+          "placeholder": "Qiziqadigan fabrikalarni ro'yxatini kiriting"
+        },
+        "quantityToSee": {
+          "label": "Ko'rish kerak bo'lgan miqdor",
+          "placeholder": "Miqdorni kiriting"
+        },
+        "plannedStayDays": {
+          "label": "Rejalashtirilgan qolish kunlari",
+          "placeholder": "Kunlar sonini kiriting"
+        },
+        "plannedArrivalDates": {
+          "label": "Rejalashtirilgan kelish sanalari",
+          "placeholder": "Sanalarni kiriting"
+        },
+        "needsTouristProgram": {
+          "label": "Turist dasturi kerakmi",
+          "placeholder": "Turist dasturi haqida ma'lumot bering"
+        },
+        "submitButton": "Ariza yuborish"
+      },
+      "success": {
+        "header": "Online B2B",
+        "subtitle": "Sizga mos keladigan taklifni tanlang va moderator uchrashuv tashkil etadi",
+        "offersTitle": "Takliflar",
+        "lotNumber": "Sizning lot raqamingiz:",
+        "channelButton": "Kanalga o'tish",
+        "applicationSubmitted": "Arizangiz qabul qilindi!",
+        "applicationDescription": "Moderator sizga mos keladigan takliflarni tayyorlab, tez orada yuboradi.",
+        "viewOffers": "Takliflarni ko'rish"
+      },
+      "offers": {
+        "title": "Takliflar",
+        "subtitle": "Sizga mos keladigan takliflarni ko'ring va tanlang",
+        "error": "Xatolik yuz berdi",
+        "errorDescription": "Takliflarni yuklashda xatolik yuz berdi. Iltimos, qaytadan urinib ko'ring.",
+        "noOffers": "Hozircha takliflar yo'q",
+        "noOffersDescription": "Moderator sizga mos keladigan takliflarni tayyorlab, tez orada yuboradi.",
+        "noApplicationData": "Ariza ma'lumotlari topilmadi",
+        "noApplicationDataDescription": "Takliflarni ko'rish uchun avval ariza to'ldirishingiz kerak.",
+        "status": {
+          "chosen": "Belgilandi",
+          "notChosen": "Belgilandi",
+          "unknown": "Noma'lum",
+          "selected": "Belgilandi",
+          "select": "Belgilash",
+          "updating": "Yangilanmoqda...",
+          "updated": "Muvaffaqiyatli yangilandi",
+          "updateError": "Yangilashda xatolik yuz berdi"
+        },
+        "details": {
+          "title": "Taklif tafsilotlari",
+          "companyName": "Kompaniya nomi",
+          "lotNumber": "Lot raqami",
+          "minOrderQuantity": "Minimal buyurtma hajmi",
+          "phoneNumber": "Telefon raqami",
+          "website": "Sayt",
+          "officeAddress": "Ofis manzili",
+          "hasCrm": "CRM tizimi mavjudmi",
+          "employeeCount": "Hodimlar soni",
+          "notAvailable": "Mavjud emas",
+          "yes": "Ha",
+          "no": "Yo'q",
+          "loadError": "Ma'lumotlarni yuklashda xatolik"
+        },
+        "manufacturer": "Ishlab chiqaruvchi",
+        "segment": "Segment",
+        "serviceId": "Xizmat ID",
+        "select": "Belgilash",
+        "unknownCompany": "Noma'lum kompaniya"
+      }
+    },
     "placeOrder": {
       "title": "Buyurtma berish",
       "form": {
