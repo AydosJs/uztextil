@@ -5,6 +5,7 @@ import { useTelegramBackButton } from "@/lib/hooks"
 // import { TelegramUserDebug } from "@/components/TelegramUserDebug"
 import { useTelegramUser } from "@/hooks/useTelegramUser"
 import { SliderCards } from "@/components/SliderCards"
+import { showToast } from "@/lib/utils"
 // import { DeviceTest } from "@/components/DeviceTest"
 
 function App() {
@@ -24,6 +25,10 @@ function App() {
         }
     }
 
+    const handleTestToast = () => {
+        showToast.success("Test toast notification!")
+    }
+
     return (
         <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative">
 
@@ -36,9 +41,17 @@ function App() {
                 </div>
             </main>
 
-            <div className="fixed bottom-0 left-0 right-0 px-4 pt-2 pb-8 safe-area-pb bg-gradient-to-t from-black to-dark z-50 flex justify-center">
+            <div className="fixed bottom-0 left-0 right-0 px-4 pt-2 pb-8 safe-area-pb bg-gradient-to-t from-black to-dark z-50 flex flex-col gap-2">
                 <Button
-                    className="max-w-[400px]"
+                    className="max-w-[400px] mx-auto"
+                    variant="outline"
+                    shadow="lg"
+                    onClick={handleTestToast}
+                >
+                    Test Toaster
+                </Button>
+                <Button
+                    className="max-w-[400px] mx-auto"
                     variant="default"
                     shadow="lg"
                     onClick={handleButtonClick}

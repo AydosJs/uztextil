@@ -11,9 +11,10 @@ export function cn(...inputs: ClassValue[]) {
 
 const getToastStyle = (baseStyle: React.CSSProperties) => {
     const { top } = getSafeAreaValues()
+    const marginTop = top > 0 ? top + 36 : 8 // Add 36px if safe area exists, 8px if not
     return {
         ...baseStyle,
-        marginTop: `${top + 20}px`, // Add safe area top + 20px margin
+        marginTop: `${marginTop}px`,
     }
 }
 
