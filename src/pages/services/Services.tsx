@@ -10,7 +10,7 @@ import { ServiceCardShimmer } from "./components"
 function Services() {
     const { t } = useTranslation()
     const navigate = useNavigate()
-    const { user, userType, isRegistered } = useTelegramUser()
+    const { userInfo, userType, isRegistered } = useTelegramUser()
 
     // Show back button - navigate to main page if registered, otherwise choose department
     useTelegramBackButton({
@@ -19,10 +19,12 @@ function Services() {
 
     // Fetch additional services from API
     const { data: allServices, isLoading, error } = useApiV1ServiceListList(
-        undefined,
+        {
+            user_id: userInfo?.user_id
+        },
         {
             query: {
-                enabled: !!user?.telegram_id && !!userType
+                enabled: !!userInfo?.user_id && !!userType
             }
         }
     )
@@ -70,12 +72,12 @@ function Services() {
                     </div>
                     <div className="flex-1 flex items-center justify-center">
                         <div className="text-center">
-                            <p className="text-red-400 text-lg mb-4">Xatolik yuz berdi</p>
+                            <p className="text-red-400 text-lg mb-4">{t('app.packageSelection.error.message')}</p>
                             <button
                                 onClick={() => window.location.reload()}
                                 className="px-4 py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 transition-colors"
                             >
-                                Qayta urinish
+                                {t('app.packageSelection.error.retryButton')}
                             </button>
                         </div>
                     </div>
@@ -93,6 +95,9 @@ function Services() {
             case 'video_review':
             case 'invite_manager':
             case 'training_reps':
+                // These options go to terms and conditions page
+                navigate('/services/terms', { state: { service } })
+                break
             case 'place_order':
                 // This option goes to place order form
                 navigate('/services/place-order', { state: { service } })

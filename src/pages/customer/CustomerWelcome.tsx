@@ -17,10 +17,10 @@ function CustomerWelcome() {
 
     return (
         <div className="min-h-screen min-w-full safe-area-pt w-full flex flex-col">
-            <main className="w-full container min-w-full flex-1 flex flex-col justify-between">
+            <main className="w-full max-w-4xl mx-auto container min-w-full flex-1 flex flex-col justify-between">
                 <div className="flex px-3 flex-col items-center justify-center space-y-8">
                     {/* Welcome Header */}
-                    <div className="text-left space-y-2">
+                    <div className="text-left space-y-2 max-w-2xl">
                         <h1 className="text-white font-bold text-[27px] tracking-wide">
                             {t('app.buyurtmachi.welcome.title')}
                         </h1>
@@ -35,12 +35,12 @@ function CustomerWelcome() {
                     <img
                         src={customerWelcomeSvg}
                         alt="Customer Welcome"
-                        className="max-w-full max-h-full object-contain"
+                        className="max-w-2xl max-h-full object-contain"
                     />
                 </div>
 
                 {/* Action Buttons */}
-                <div className="px-4 pb-8 space-y-4">
+                <div className="px-4 pb-8 space-y-4 max-w-2xl mx-auto w-full">
                     <Button
                         variant="default"
                         shadow="lg"

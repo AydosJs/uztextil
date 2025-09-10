@@ -28,12 +28,12 @@ function CustomerRegisterForm() {
                     updateUserInfo(updatedUserInfo);
                 }
 
-                showToast.success('Muvaffaqiyatli yaratildi!') // Success message
+                showToast.success(t('app.common.success.created'))
                 navigate('/services')
             },
             onError: (error) => {
                 console.error('Customer creation failed:', error)
-                showToast.error('Xatolik yuz berdi. Iltimos, qaytadan urinib ko\'ring.') // Error message
+                showToast.error(t('app.common.error.customerFailed'))
             }
         }
     })
@@ -66,7 +66,7 @@ function CustomerRegisterForm() {
     const handleSubmit = async () => {
         if (!userInfo?.user_id) {
             console.error('User ID not available')
-            showToast.error('Foydalanuvchi ma\'lumotlari topilmadi')
+            showToast.error(t('app.common.validation.userDataNotFound'))
             return
         }
 
@@ -85,17 +85,17 @@ function CustomerRegisterForm() {
 
     return (
         <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col">
-            <main className="w-full container min-w-full flex-1 flex flex-col">
+            <main className="w-full max-w-4xl mx-auto container min-w-full flex-1 flex flex-col">
                 <UnderwaterHeader />
                 {/* Header */}
-                <div className="text-left space-y-4 mb-8">
+                <div className="text-left space-y-4 mb-8 max-w-2xl mx-auto w-full">
                     <h1 className="text-white font-bold text-[32px] tracking-wide">
                         {t('app.buyurtmachi.registerForm.header')}
                     </h1>
                 </div>
 
                 {/* Form */}
-                <div className="flex-1 space-y-6 pb-8">
+                <div className="flex-1 space-y-6 pb-8 max-w-2xl mx-auto w-full">
                     {/* Full Name */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium" required>
@@ -147,10 +147,10 @@ function CustomerRegisterForm() {
                     {/* Legal Address */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium" required>
-                            Legal Address
+                            {t('app.buyurtmachi.registerForm.legalAddress.label')}
                         </Label>
                         <CustomInput
-                            placeholder="Enter legal address"
+                            placeholder={t('app.buyurtmachi.registerForm.legalAddress.placeholder')}
                             value={formData.legal_address}
                             onChange={(e) => handleInputChange('legal_address', e.target.value)}
                         />
@@ -159,10 +159,10 @@ function CustomerRegisterForm() {
                     {/* Marketplace Brand */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium" required>
-                            Marketplace Brand
+                            {t('app.buyurtmachi.registerForm.marketplaceBrand.label')}
                         </Label>
                         <CustomInput
-                            placeholder="Enter marketplace brand"
+                            placeholder={t('app.buyurtmachi.registerForm.marketplaceBrand.placeholder')}
                             value={formData.marketplace_brand}
                             onChange={(e) => handleInputChange('marketplace_brand', e.target.value)}
                         />
@@ -171,10 +171,10 @@ function CustomerRegisterForm() {
                     {/* Annual Order Volume */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium" required>
-                            Annual Order Volume
+                            {t('app.buyurtmachi.registerForm.annualOrderVolume.label')}
                         </Label>
                         <CustomInput
-                            placeholder="Enter annual order volume"
+                            placeholder={t('app.buyurtmachi.registerForm.annualOrderVolume.placeholder')}
                             value={formData.annual_order_volume}
                             onChange={(e) => handleInputChange('annual_order_volume', e.target.value)}
                         />
@@ -183,10 +183,10 @@ function CustomerRegisterForm() {
                     {/* Segment */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium" required>
-                            Product Segment
+                            {t('app.buyurtmachi.registerForm.productSegment.label')}
                         </Label>
                         <CustomInput
-                            placeholder="Enter product segment"
+                            placeholder={t('app.buyurtmachi.registerForm.productSegment.placeholder')}
                             value={formData.segment}
                             onChange={(e) => handleInputChange('segment', e.target.value)}
                         />
@@ -195,10 +195,10 @@ function CustomerRegisterForm() {
                     {/* Cooperation Terms */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium" required>
-                            Cooperation Terms
+                            {t('app.buyurtmachi.registerForm.cooperationTerms.label')}
                         </Label>
                         <CustomInput
-                            placeholder="Enter cooperation terms"
+                            placeholder={t('app.buyurtmachi.registerForm.cooperationTerms.placeholder')}
                             value={formData.cooperation_terms}
                             onChange={(e) => handleInputChange('cooperation_terms', e.target.value)}
                         />
@@ -207,10 +207,10 @@ function CustomerRegisterForm() {
                     {/* Payment Terms */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium" required>
-                            Payment Terms
+                            {t('app.buyurtmachi.registerForm.paymentTerms.label')}
                         </Label>
                         <CustomInput
-                            placeholder="Enter payment terms"
+                            placeholder={t('app.buyurtmachi.registerForm.paymentTerms.placeholder')}
                             value={formData.payment_terms}
                             onChange={(e) => handleInputChange('payment_terms', e.target.value)}
                         />
@@ -231,10 +231,10 @@ function CustomerRegisterForm() {
                     {/* Total Orders */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium">
-                            Total Orders (Optional)
+                            {t('app.buyurtmachi.registerForm.totalOrders.label')}
                         </Label>
                         <CustomInput
-                            placeholder="Enter total orders count"
+                            placeholder={t('app.buyurtmachi.registerForm.totalOrders.placeholder')}
                             type="number"
                             value={formData.total_orders.toString()}
                             onChange={(e) => handleInputChange('total_orders', parseInt(e.target.value) || 0)}
@@ -243,7 +243,7 @@ function CustomerRegisterForm() {
                 </div>
 
                 {/* Submit Button */}
-                <div className="px-4 pb-8 mt-4">
+                <div className="px-4 pb-8 mt-4 max-w-2xl mx-auto w-full">
                     <Button
                         loading={customerCreateMutation.isPending}
                         variant="default"

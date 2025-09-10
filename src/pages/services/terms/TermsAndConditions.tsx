@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import { useQueryClient } from "@tanstack/react-query"
+import { useTranslation } from "react-i18next"
 import { Button, CustomCheckbox, UnderwaterHeader } from "@/components/ui"
 import { showToast } from "@/lib/utils"
 import { useTelegramBackButton } from "@/lib/hooks"
@@ -9,6 +10,7 @@ import { useTelegramUser } from "@/hooks/useTelegramUser"
 import type { AdditionalService, ManufacturerList } from "@/lib/api/model"
 
 function TermsAndConditions() {
+    const { t } = useTranslation()
     const navigate = useNavigate()
     const location = useLocation()
     const queryClient = useQueryClient()
@@ -35,19 +37,19 @@ function TermsAndConditions() {
 
     const handleSubmit = () => {
         if (!isChecked) {
-            showToast.warning("Iltimos, shartlarni o'qib chiqing va tasdiqlang")
+            showToast.warning(t('app.common.warning.readTerms'))
             return
         }
 
         // Check if we have user ID
         if (!userInfo?.user_id) {
-            showToast.error("User ID not found")
+            showToast.error(t('app.common.error.userNotFound'))
             return
         }
 
         // Check if service has ID
         if (!service.id) {
-            showToast.error("Service ID not found")
+            showToast.error(t('app.common.error.serviceNotFound'))
             return
         }
 
@@ -63,7 +65,7 @@ function TermsAndConditions() {
             { data: applicationData },
             {
                 onSuccess: (response) => {
-                    showToast.success("Ariza muvaffaqiyatli yuborildi!")
+                    showToast.success(t('app.common.success.applicationSubmitted'))
                     console.log("Application created successfully:", response)
 
                     // Invalidate services query to refetch updated data
@@ -76,7 +78,7 @@ function TermsAndConditions() {
                 },
                 onError: (error) => {
                     console.error("Failed to create application:", error)
-                    showToast.error("Ariza yuborishda xatolik yuz berdi")
+                    showToast.error(t('app.common.error.applicationSubmitFailed'))
                 }
             }
         )
@@ -101,7 +103,7 @@ function TermsAndConditions() {
                 {factory && (
                     <div className="mb-4 px-4">
                         <p className="text-white/80 text-sm">
-                            Tanlangan ishlab chiqaruvchi: <span className="font-semibold">{factory.company_name}</span>
+                            {t('app.termsAndConditions.selectedManufacturer')} <span className="font-semibold">{factory.company_name}</span>
                         </p>
                     </div>
                 )}
@@ -110,7 +112,7 @@ function TermsAndConditions() {
                 <div className="flex-1 space-y-6 pb-8">
                     <div className="space-y-2">
                         <h2 className="text-white font-bold text-lg tracking-wide">
-                            Коммерческое предложение
+                            {t('app.termsAndConditions.title')}
                         </h2>
 
                         <div className="space-y-4 text-white/64 text-sm leading-relaxed">
@@ -123,7 +125,7 @@ function TermsAndConditions() {
                         {!service.is_apply && (
                             <div className="pt-4">
                                 <CustomCheckbox
-                                    label="Tanishib chiqdim"
+                                    label={t('app.termsAndConditions.checkboxLabel')}
                                     checked={isChecked}
                                     onCheckedChange={(checked) => setIsChecked(checked === true)}
                                 />
@@ -135,15 +137,15 @@ function TermsAndConditions() {
                 {service.is_apply ? (
                     <div className="text-center mb-5 px-10">
                         <p className="text-white text-sm font-bold mb-2">
-                            Ariza allaqachon yuborilgan
+                            {t('app.termsAndConditions.alreadyApplied.title')}
                         </p>
                         <p className="text-white/64 text-xs">
-                            Menejerlarimiz siz bilan bog'lanishadi
+                            {t('app.termsAndConditions.alreadyApplied.description')}
                         </p>
                     </div>
                 ) : (
                     <p className="text-center text-white text-sm font-bold mb-5 px-10">
-                        Ariza qoldiring va menejerlarimiz siz bilan  tez orada bog'lanishadi
+                        {t('app.termsAndConditions.submitInfo')}
                     </p>
                 )}
 
@@ -156,7 +158,7 @@ function TermsAndConditions() {
                             onClick={handleCancel}
                             className="w-full"
                         >
-                            Bekor qilish
+                            {t('app.termsAndConditions.buttons.cancel')}
                         </Button>
 
                         <Button
@@ -165,7 +167,7 @@ function TermsAndConditions() {
                             disabled={!isChecked || createApplicationMutation.isPending}
                             className="w-full"
                         >
-                            {createApplicationMutation.isPending ? "Yuborilmoqda..." : "Ariza qoldirish"}
+                            {createApplicationMutation.isPending ? t('app.termsAndConditions.buttons.submitting') : t('app.termsAndConditions.buttons.submit')}
                         </Button>
                     </div>
                 )}

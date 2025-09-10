@@ -33,7 +33,7 @@ function OfferDetailsDrawer({ onClose, selectedOffer }: OfferDetailsDrawerProps)
             <DrawerContent>
                 <DrawerHeader>
                     <DrawerTitle className="w-full text-left text-xl">
-                        Fabrika ma'lumotlari
+                        {t('app.common.manufacturerDetails')}
                     </DrawerTitle>
                     <DrawerClose className="absolute right-4 top-4 text-white/60 hover:text-white">
                         ✕

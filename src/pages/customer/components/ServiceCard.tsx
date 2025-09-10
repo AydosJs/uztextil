@@ -1,5 +1,6 @@
 import { AudioWaveform } from "lucide-react"
 import { useNavigate } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 
 interface ServiceCardProps {
     title: string
@@ -10,6 +11,7 @@ interface ServiceCardProps {
 }
 
 function ServiceCard({ title, price, icon, onClick, className = "" }: ServiceCardProps) {
+    const { t } = useTranslation()
     const navigate = useNavigate()
 
     const handleClick = () => {
@@ -62,7 +64,7 @@ function ServiceCard({ title, price, icon, onClick, className = "" }: ServiceCar
                         {title}
                     </h3>
                     <p className="text-[#ACADAF] font-bold text-xs">
-                        Narxi: {price}
+                        {t('app.common.price')}: {price}
                     </p>
                 </div>
 

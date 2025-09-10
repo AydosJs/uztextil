@@ -20,7 +20,7 @@ function PlaceOrderSuccess() {
     const handleChannelClick = () => {
         // In a real app, this would open the Telegram channel
         // For now, we'll just show a message
-        alert('Kanalga o\'tish funksiyasi tez orada qo\'shiladi')
+        alert(t('app.common.channelComingSoon'))
     }
 
     return (
@@ -64,7 +64,7 @@ function PlaceOrderSuccess() {
 
                         {service && (
                             <p className="text-[#ACADAF] text-sm">
-                                Xizmat: {service.name}
+                                {t('app.common.service')}: {service.name}
                             </p>
                         )}
                     </div>

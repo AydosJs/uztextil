@@ -21,8 +21,8 @@ function ChooseDepartment() {
     }
 
     return (
-        <div className="min-h-screen container  min-w-full safe-area-pt  w-full flex flex-col">
-            <main className="w-full min-w-full flex-1 flex flex-col justify-between">
+        <div className="min-h-screen container min-w-full safe-area-pt w-full flex flex-col">
+            <main className="w-full max-w-4xl mx-auto min-w-full flex-1 flex flex-col justify-between">
                 {/* <UnderwaterHeader /> */}
 
 
@@ -42,9 +42,9 @@ function ChooseDepartment() {
                     }}
                 />
 
-                <div className="flex flex-col items-center justify-center space-y-8">
+                <div className="flex flex-col items-center justify-center space-y-8 max-w-2xl mx-auto">
                     {/* Body Selection Header */}
-                    <h1 className="text-white font-bold text-[27px] tracking-wide">
+                    <h1 className="text-white font-bold text-[27px] tracking-wide text-left">
                         {t('app.department.title')}
                     </h1>
                 </div>
@@ -54,12 +54,12 @@ function ChooseDepartment() {
                     <img
                         src={departmentSvg}
                         alt="Department"
-                        className="max-w-full max-h-full object-contain"
+                        className="max-w-2xl max-h-full object-contain"
                     />
                 </div>
 
                 {/* Information Text */}
-                <div className="pb-8 w-full space-y-3">
+                <div className="pb-8 w-full max-w-2xl mx-auto space-y-3">
                     <Option
                         text={t('app.department.customer')}
                         icon={UserRound}

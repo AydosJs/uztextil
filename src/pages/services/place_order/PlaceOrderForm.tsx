@@ -22,7 +22,7 @@ function PlaceOrderForm() {
     const applicationCreateMutation = useApiV1ApplicationCreateCreate({
         mutation: {
             onSuccess: (data) => {
-                showToast.success('Arizangiz qabul qilindi!')
+                showToast.success(t('app.common.application.accepted'))
                 // Navigate to success page with application data
                 navigate('/services/place-order/success', {
                     state: {
@@ -33,7 +33,7 @@ function PlaceOrderForm() {
             },
             onError: (error) => {
                 console.error('Application creation failed:', error)
-                showToast.error('Xatolik yuz berdi. Iltimos, qaytadan urinib ko\'ring.')
+                showToast.error(t('app.common.error.applicationFailed'))
             }
         }
     })
@@ -59,7 +59,7 @@ function PlaceOrderForm() {
 
     const handleSubmit = async () => {
         if (!userInfo?.user_id) {
-            showToast.error('Foydalanuvchi ma\'lumotlari topilmadi')
+            showToast.error(t('app.common.validation.userDataNotFound'))
             return
         }
 
@@ -68,7 +68,7 @@ function PlaceOrderForm() {
         const missingFields = requiredFields.filter(field => !formData[field as keyof typeof formData])
 
         if (missingFields.length > 0) {
-            showToast.error('Iltimos, barcha majburiy maydonlarni to\'ldiring')
+            showToast.error(t('app.common.validation.fillRequiredFields'))
             return
         }
 

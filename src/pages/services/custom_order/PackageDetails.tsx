@@ -3,9 +3,11 @@ import { RadialEffect, UnderwaterHeader, Button } from "@/components/ui"
 import { useTelegramBackButton } from "@/lib/hooks"
 import { useApiV1PackageDetailRead } from "@/lib/api"
 import { CircleCheckBig } from "lucide-react"
+import { useTranslation } from "react-i18next"
 import type { PackageList } from "@/lib/api/model"
 
 function PackageDetails() {
+    const { t } = useTranslation()
     const navigate = useNavigate()
     const location = useLocation()
 
@@ -98,13 +100,13 @@ function PackageDetails() {
                     </div>
                     <div className="flex-1 flex items-center justify-center">
                         <div className="text-center">
-                            <p className="text-red-400 text-lg mb-4">Xatolik yuz berdi</p>
+                            <p className="text-red-400 text-lg mb-4">{t('app.packageSelection.error.message')}</p>
                             <Button
                                 onClick={() => window.location.reload()}
                                 variant="secondary"
                                 size="secondary"
                             >
-                                Qayta urinish
+                                {t('app.packageSelection.error.retryButton')}
                             </Button>
                         </div>
                     </div>
@@ -185,7 +187,7 @@ function PackageDetails() {
                                 ))
                             ) : (
                                 <div className="text-center text-[#ACADAF] text-sm">
-                                    Ma'lumotlar yuklanmoqda...
+                                    {t('app.common.loadingData')}
                                 </div>
                             )}
                         </div>
@@ -198,7 +200,7 @@ function PackageDetails() {
                             size="default"
                             className="mt-4"
                         >
-                            Ariza qoldirish
+                            {t('app.common.submitApplication')}
                         </Button>
                     </div>
                 </div>

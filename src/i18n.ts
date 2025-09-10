@@ -21,7 +21,7 @@ i18n
     .init({
         resources,
         fallbackLng: 'ru',
-        lng: 'uz', // Set Uzbek as default language
+        lng: 'ru', // Set Russian as default language
         debug: false,
 
         interpolation: {

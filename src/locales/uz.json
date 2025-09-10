@@ -142,12 +142,44 @@
         "fileUpload": {
           "label": "Xalqaro sertifikat"
         },
+        "legalAddress": {
+          "label": "Yuridik manzil",
+          "placeholder": "Yuridik manzilni kiriting"
+        },
+        "marketplaceBrand": {
+          "label": "Marketplace brendi",
+          "placeholder": "Marketplace brendini kiriting"
+        },
+        "annualOrderVolume": {
+          "label": "Yillik buyurtma hajmi",
+          "placeholder": "Yillik buyurtma hajmini kiriting"
+        },
+        "productSegment": {
+          "label": "Mahsulot segmenti",
+          "placeholder": "Mahsulot segmentini kiriting"
+        },
+        "cooperationTerms": {
+          "label": "Hamkorlik shartlari",
+          "placeholder": "Hamkorlik shartlarini kiriting"
+        },
+        "paymentTerms": {
+          "label": "To'lov shartlari",
+          "placeholder": "To'lov shartlarini kiriting"
+        },
+        "totalOrders": {
+          "label": "Jami buyurtmalar soni (ixtiyoriy)",
+          "placeholder": "Jami buyurtmalar sonini kiriting"
+        },
         "submitButton": "Yuborish"
+      },
+      "select": {
+        "placeholder": "Tanlang"
       }
     },
     "xizmatlar": {
       "title": "Xizmatlar",
       "description": "Bizning tekstil xizmatlarimizdan tanlang",
+      "additionalServices": "Qo'shimcha xizmatlar",
       "services": {
         "order": {
           "title": "Buyurtma joylashtirish",
@@ -402,6 +434,58 @@
         "subtitle": "Moderator arizangizni ko'rib chiqib tez orada siz bilan bog'lanadi",
         "selectedPackage": "Tanlangan paket:",
         "backButton": "Orqaga"
+      }
+    },
+    "common": {
+      "error": {
+        "message": "Xatolik yuz berdi",
+        "retryButton": "Qayta urinish",
+        "applicationFailed": "Ariza yaratishda xatolik yuz berdi. Iltimos, qaytadan urinib ko'ring.",
+        "manufacturerFailed": "Ishlab chiqaruvchi yaratishda xatolik yuz berdi. Iltimos, qaytadan urinib ko'ring.",
+        "customerFailed": "Buyurtmachi yaratishda xatolik yuz berdi. Iltimos, qaytadan urinib ko'ring.",
+        "applicationSubmitFailed": "Ariza yuborishda xatolik yuz berdi",
+        "userNotFound": "Foydalanuvchi ID topilmadi",
+        "serviceNotFound": "Xizmat ID topilmadi"
+      },
+      "success": {
+        "created": "Muvaffaqiyatli yaratildi!",
+        "applicationSubmitted": "Ariza muvaffaqiyatli yuborildi!"
+      },
+      "warning": {
+        "readTerms": "Iltimos, shartlarni o'qib chiqing va tasdiqlang"
+      },
+      "validation": {
+        "userDataNotFound": "Foydalanuvchi ma'lumotlari topilmadi",
+        "fillRequiredFields": "Iltimos, barcha majburiy maydonlarni to'ldiring"
+      },
+      "application": {
+        "accepted": "Arizangiz qabul qilindi!"
+      },
+      "loading": "Yuklanmoqda...",
+      "manufacturerDetails": "Fabrika ma'lumotlari",
+      "price": "Narxi",
+      "priceNotSet": "Narx belgilanmagan",
+      "noServicesAvailable": "Hozircha xizmatlar mavjud emas",
+      "loadingData": "Ma'lumotlar yuklanmoqda...",
+      "submitApplication": "Ariza qoldirish",
+      "viewMoreDetails": "Ko'proq ma'lumot ko'rish",
+      "channelComingSoon": "Kanalga o'tish funksiyasi tez orada qo'shiladi",
+      "service": "Xizmat",
+      "noManufacturersAvailable": "Hozircha ishlab chiqaruvchilar mavjud emas"
+    },
+    "termsAndConditions": {
+      "title": "Tijorat taklifi",
+      "selectedManufacturer": "Tanlangan ishlab chiqaruvchi:",
+      "checkboxLabel": "Tanishib chiqdim",
+      "alreadyApplied": {
+        "title": "Ariza allaqachon yuborilgan",
+        "description": "Menejerlarimiz siz bilan bog'lanishadi"
+      },
+      "submitInfo": "Ariza qoldiring va menejerlarimiz siz bilan tez orada bog'lanishadi",
+      "buttons": {
+        "cancel": "Bekor qilish",
+        "submit": "Ariza qoldirish",
+        "submitting": "Yuborilmoqda..."
       }
     }
   }

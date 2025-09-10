@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next"
 import { RadialEffect, Spinner } from "@/components/ui"
 import { ServiceCard } from "@/pages/customer/components"
 import { useApiV1ServiceListList } from "@/lib/api"
@@ -5,6 +6,7 @@ import { useTelegramBackButton } from "@/lib/hooks"
 import { useTelegramUser } from "@/hooks/useTelegramUser"
 
 function AdditionalServices() {
+    const { t } = useTranslation()
     const { user } = useTelegramUser()
 
     // Show back button that goes to manufacturer register page
@@ -56,7 +58,7 @@ function AdditionalServices() {
                 </div> */}
 
                 <h1 className="text-white mb-4.5 font-bold text-2xl tracking-wide">
-                    Qo'shimcha xizmatlar
+                    {t('app.xizmatlar.additionalServices')}
                 </h1>
                 <div className="flex-1 pb-8">
                     {isLoading ? (
@@ -66,12 +68,12 @@ function AdditionalServices() {
                     ) : error ? (
                         <div className="flex items-center justify-center h-full">
                             <div className="text-center">
-                                <p className="text-red-400 text-lg mb-4">Xatolik yuz berdi</p>
+                                <p className="text-red-400 text-lg mb-4">{t('app.packageSelection.error.message')}</p>
                                 <button
                                     onClick={() => window.location.reload()}
                                     className="px-4 py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 transition-colors"
                                 >
-                                    Qayta urinish
+                                    {t('app.packageSelection.error.retryButton')}
                                 </button>
                             </div>
                         </div>
@@ -81,14 +83,14 @@ function AdditionalServices() {
                                 <ServiceCard
                                     key={service.id}
                                     title={service.name}
-                                    price={service.price ? `$${service.price}` : 'Narx belgilanmagan'}
+                                    price={service.price ? `$${service.price}` : t('app.common.priceNotSet')}
                                 />
                             ))}
                         </div>
                     ) : (
                         <div className="flex items-center justify-center h-full">
                             <div className="text-center">
-                                <p className="text-[#ACADAF] text-lg">Hozircha xizmatlar mavjud emas</p>
+                                <p className="text-[#ACADAF] text-lg">{t('app.common.noServicesAvailable')}</p>
                             </div>
                         </div>
                     )}

@@ -7,8 +7,12 @@
  */
 
 export type ApiV1ServiceListListParams = {
-/**
- * A search term.
- */
-search?: string;
+    /**
+     * A search term.
+     */
+    search?: string;
+    /**
+     * User ID for filtering services.
+     */
+    user_id?: number;
 };

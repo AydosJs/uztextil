@@ -5,6 +5,7 @@ import { useApiV1ManufacturerListList, useApiV1ManufacturerDetailRead } from "@/
 import { useTelegramBackButton } from "@/lib/hooks"
 import { ChevronRight, Filter } from "lucide-react"
 import { ManufacturerDetailDrawer, FilterDrawer } from "./components"
+import { useTranslation } from "react-i18next"
 import type { AdditionalService, ManufacturerList } from "@/lib/api/model"
 
 interface FilterOptions {
@@ -14,6 +15,7 @@ interface FilterOptions {
 }
 
 function FactorySelection() {
+    const { t } = useTranslation()
     const navigate = useNavigate()
     const location = useLocation()
     const [drawerOpen, setDrawerOpen] = useState(false)
@@ -113,12 +115,12 @@ function FactorySelection() {
                     </div>
                     <div className="flex-1 flex items-center justify-center">
                         <div className="text-center">
-                            <p className="text-red-400 text-lg mb-4">Xatolik yuz berdi</p>
+                            <p className="text-red-400 text-lg mb-4">{t('app.manufacturerDetail.error.message')}</p>
                             <button
                                 onClick={() => window.location.reload()}
                                 className="px-4 py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 transition-colors"
                             >
-                                Qayta urinish
+                                {t('app.manufacturerDetail.error.retryButton')}
                             </button>
                         </div>
                     </div>
@@ -151,7 +153,7 @@ function FactorySelection() {
                 {/* Header */}
                 <div className="flex items-center justify-between mb-8 pt-4">
                     <h1 className="text-white font-bold text-2xl tracking-wide">
-                        Fabrika tanlash
+                        {t('app.filterDrawer.title')}
                     </h1>
                     <button
                         onClick={() => setFilterDrawerOpen(true)}
@@ -166,7 +168,7 @@ function FactorySelection() {
                     {!hasManufacturers ? (
                         <div className="flex items-center justify-center h-full">
                             <div className="text-center">
-                                <p className="text-[#ACADAF] text-lg">Hozircha ishlab chiqaruvchilar mavjud emas</p>
+                                <p className="text-[#ACADAF] text-lg">{t('app.common.noManufacturersAvailable')}</p>
                             </div>
                         </div>
                     ) : (

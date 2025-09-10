@@ -31,7 +31,7 @@ function App() {
             <RadialEffect />
 
             <main className="w-full container min-w-full flex-1 flex flex-col relative">
-                <div className="flex-1 flex flex-col mt-4 justify-center space-y-8 pb-20">
+                <div className="flex-1 flex flex-col mt-4 justify-center space-y-8 pb-26">
                     <SliderCards />
                 </div>
             </main>

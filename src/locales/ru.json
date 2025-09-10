@@ -28,6 +28,11 @@
         "step3": {
           "title": "Разместите заказ",
           "description": "Обеспечьте безопасность вашего заказа нашей гарантией"
+        },
+        "registration": {
+          "title": "Регистрация",
+          "description": "После подтверждения ваших данных модератором вы будете добавлены в каталог",
+          "button": "Зарегистрироваться"
         }
       },
       "registerForm": {
@@ -137,12 +142,44 @@
         "fileUpload": {
           "label": "Международный сертификат"
         },
+        "legalAddress": {
+          "label": "Юридический адрес",
+          "placeholder": "Введите юридический адрес"
+        },
+        "marketplaceBrand": {
+          "label": "Бренд маркетплейса",
+          "placeholder": "Введите бренд маркетплейса"
+        },
+        "annualOrderVolume": {
+          "label": "Годовой объем заказов",
+          "placeholder": "Введите годовой объем заказов"
+        },
+        "productSegment": {
+          "label": "Сегмент продукта",
+          "placeholder": "Введите сегмент продукта"
+        },
+        "cooperationTerms": {
+          "label": "Условия сотрудничества",
+          "placeholder": "Введите условия сотрудничества"
+        },
+        "paymentTerms": {
+          "label": "Условия оплаты",
+          "placeholder": "Введите условия оплаты"
+        },
+        "totalOrders": {
+          "label": "Общее количество заказов (необязательно)",
+          "placeholder": "Введите общее количество заказов"
+        },
         "submitButton": "Отправить"
+      },
+      "select": {
+        "placeholder": "Выберите"
       }
     },
     "xizmatlar": {
       "title": "Услуги",
       "description": "Выберите из нашего ассортимента текстильных услуг",
+      "additionalServices": "Дополнительные услуги",
       "services": {
         "order": {
           "title": "Размещение заказа",
@@ -397,6 +434,58 @@
         "subtitle": "Модератор рассмотрит вашу заявку и свяжется с вами в ближайшее время",
         "selectedPackage": "Выбранный пакет:",
         "backButton": "Назад"
+      }
+    },
+    "common": {
+      "error": {
+        "message": "Произошла ошибка",
+        "retryButton": "Попробовать снова",
+        "applicationFailed": "Ошибка при создании заявки. Пожалуйста, попробуйте еще раз.",
+        "manufacturerFailed": "Ошибка при создании производителя. Пожалуйста, попробуйте еще раз.",
+        "customerFailed": "Ошибка при создании заказчика. Пожалуйста, попробуйте еще раз.",
+        "applicationSubmitFailed": "Ошибка при отправке заявки",
+        "userNotFound": "ID пользователя не найден",
+        "serviceNotFound": "ID услуги не найден"
+      },
+      "success": {
+        "created": "Успешно создано!",
+        "applicationSubmitted": "Заявка успешно отправлена!"
+      },
+      "warning": {
+        "readTerms": "Пожалуйста, прочитайте и подтвердите условия"
+      },
+      "validation": {
+        "userDataNotFound": "Данные пользователя не найдены",
+        "fillRequiredFields": "Пожалуйста, заполните все обязательные поля"
+      },
+      "application": {
+        "accepted": "Ваша заявка принята!"
+      },
+      "loading": "Загрузка...",
+      "manufacturerDetails": "Информация о фабрике",
+      "price": "Цена",
+      "priceNotSet": "Цена не установлена",
+      "noServicesAvailable": "Пока услуги недоступны",
+      "loadingData": "Данные загружаются...",
+      "submitApplication": "Подать заявку",
+      "viewMoreDetails": "Подробнее",
+      "channelComingSoon": "Функция перехода в канал будет добавлена в ближайшее время",
+      "service": "Услуга",
+      "noManufacturersAvailable": "Пока производители недоступны"
+    },
+    "termsAndConditions": {
+      "title": "Коммерческое предложение",
+      "selectedManufacturer": "Выбранный производитель:",
+      "checkboxLabel": "Ознакомился",
+      "alreadyApplied": {
+        "title": "Заявка уже отправлена",
+        "description": "Наши менеджеры свяжутся с вами"
+      },
+      "submitInfo": "Оставьте заявку и наши менеджеры свяжутся с вами в ближайшее время",
+      "buttons": {
+        "cancel": "Отменить",
+        "submit": "Оставить заявку",
+        "submitting": "Отправляется..."
       }
     }
   }

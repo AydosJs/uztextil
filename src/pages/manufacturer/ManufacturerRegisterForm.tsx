@@ -90,12 +90,12 @@ function ManufacturerRegisterForm() {
                     updateUserInfo(updatedUserInfo);
                 }
 
-                showToast.success('Muvaffaqiyatli yaratildi!') // Success message
+                showToast.success(t('app.common.success.created'))
                 navigate('/services')
             },
             onError: (error) => {
                 console.error('Manufacturer creation failed:', error)
-                showToast.error('Xatolik yuz berdi. Iltimos, qaytadan urinib ko\'ring.') // Error message
+                showToast.error(t('app.common.error.manufacturerFailed'))
             }
         }
     })
@@ -153,16 +153,16 @@ function ManufacturerRegisterForm() {
             <UnderwaterHeader />
 
 
-            <main className="w-full container min-w-full flex-1 flex flex-col">
+            <main className="w-full max-w-4xl mx-auto container min-w-full flex-1 flex flex-col">
                 {/* Header */}
-                <div className="text-left space-y-4 mb-8">
+                <div className="text-left space-y-4 mb-8 max-w-2xl mx-auto w-full">
                     <h1 className="text-white font-bold text-[32px] tracking-wide">
                         {t('app.buyurtmachi.registerForm.header')}
                     </h1>
                 </div>
 
                 {/* Form */}
-                <form onSubmit={handleSubmit(onSubmit)} className="flex-1 space-y-6 pb-8">
+                <form onSubmit={handleSubmit(onSubmit)} className="flex-1 space-y-6 pb-8 max-w-2xl mx-auto w-full">
                     {/* Company Name */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium" required>
@@ -293,7 +293,7 @@ function ManufacturerRegisterForm() {
                             onValueChange={(value) => handleSelectChange('qualityControl', value)}
                         >
                             <SelectTrigger error={errors.qualityControl?.message}>
-                                <SelectValue placeholder="Tanlang" />
+                                <SelectValue placeholder={t('app.buyurtmachi.select.placeholder')} />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="yes">{t('app.buyurtmachi.registerForm.qualityControl.options.yes')}</SelectItem>
@@ -313,7 +313,7 @@ function ManufacturerRegisterForm() {
                             onValueChange={(value) => handleSelectChange('crmSystem', value)}
                         >
                             <SelectTrigger error={errors.crmSystem?.message}>
-                                <SelectValue placeholder="Tanlang" />
+                                <SelectValue placeholder={t('app.buyurtmachi.select.placeholder')} />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="yes">{t('app.buyurtmachi.registerForm.crmSystem.options.yes')}</SelectItem>
@@ -333,7 +333,7 @@ function ManufacturerRegisterForm() {
                             onValueChange={(value) => handleSelectChange('geminiGerber', value)}
                         >
                             <SelectTrigger error={errors.geminiGerber?.message}>
-                                <SelectValue placeholder="Tanlang" />
+                                <SelectValue placeholder={t('app.buyurtmachi.select.placeholder')} />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="yes">{t('app.buyurtmachi.registerForm.geminiGerber.options.yes')}</SelectItem>
@@ -365,7 +365,7 @@ function ManufacturerRegisterForm() {
                             onValueChange={(value) => handleSelectChange('buildingOwnership', value)}
                         >
                             <SelectTrigger error={errors.buildingOwnership?.message}>
-                                <SelectValue placeholder="Tanlang" />
+                                <SelectValue placeholder={t('app.buyurtmachi.select.placeholder')} />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="own">{t('app.buyurtmachi.registerForm.buildingOwnership.options.own')}</SelectItem>
@@ -385,7 +385,7 @@ function ManufacturerRegisterForm() {
                             onValueChange={(value) => handleSelectChange('industrialZone', value)}
                         >
                             <SelectTrigger error={errors.industrialZone?.message}>
-                                <SelectValue placeholder="Tanlang" />
+                                <SelectValue placeholder={t('app.buyurtmachi.select.placeholder')} />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="yes">{t('app.buyurtmachi.registerForm.industrialZone.options.yes')}</SelectItem>
@@ -405,7 +405,7 @@ function ManufacturerRegisterForm() {
                             onValueChange={(value) => handleSelectChange('creditBurden', value)}
                         >
                             <SelectTrigger error={errors.creditBurden?.message}>
-                                <SelectValue placeholder="Tanlang" />
+                                <SelectValue placeholder={t('app.buyurtmachi.select.placeholder')} />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="yes">{t('app.buyurtmachi.registerForm.creditBurden.options.yes')}</SelectItem>
@@ -480,7 +480,7 @@ function ManufacturerRegisterForm() {
                     </div>
 
                     {/* Submit Button */}
-                    <div className="px-4 pb-8 mt-4">
+                    <div className="px-4 pb-8 mt-4 max-w-2xl mx-auto w-full">
                         <Button
                             type="submit"
                             loading={manufacturerCreateMutation.isPending}

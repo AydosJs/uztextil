@@ -109,7 +109,7 @@ function OfferCard({ offer, onOfferSelect, userId }: OfferCardProps) {
                         {offer.manufacturer?.company_name || t('app.onlineB2B.offers.unknownCompany')}
                     </h3>
                     <p className="text-[#ACADAF] text-xs">
-                        Ko'proq ma'lumot ko'rish
+                        {t('app.common.viewMoreDetails')}
                     </p>
                 </div>
                 <div className="flex items-center space-x-2 ml-4">
