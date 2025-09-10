@@ -66,7 +66,10 @@ function OnlineB2BForm() {
 
         // Validate required fields
         const requiredFields = ['segment', 'work_purpose', 'interested_factories', 'quantity_to_see', 'planned_stay_days', 'planned_arrival_dates']
-        const missingFields = requiredFields.filter(field => !formData[field as keyof typeof formData])
+        const missingFields = requiredFields.filter(field => {
+            const value = formData[field as keyof typeof formData]
+            return !value || value.trim() === ''
+        })
 
         if (missingFields.length > 0) {
             showToast.error(t('app.common.validation.fillRequiredFields'))

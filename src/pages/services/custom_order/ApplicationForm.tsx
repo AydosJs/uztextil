@@ -25,6 +25,15 @@ function ApplicationForm() {
         needs_tourist_program: ''
     })
 
+    // Check if all required fields are filled
+    const isFormValid = () => {
+        const requiredFields = ['work_purpose', 'interested_factories', 'quantity_to_see', 'planned_stay_days', 'planned_arrival_dates']
+        return requiredFields.every(field => {
+            const value = formData[field as keyof typeof formData]
+            return value && value.trim() !== ''
+        })
+    }
+
     // API mutation
     const createApplicationMutation = useApiV1ApplicationCreateCreate({
         mutation: {
@@ -60,6 +69,11 @@ function ApplicationForm() {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
 
+        // Form validation is handled by button disabled state
+        if (!isFormValid()) {
+            return
+        }
+
         const applicationData = {
             ...formData,
             service: service?.id,
@@ -82,7 +96,7 @@ function ApplicationForm() {
                 {/* Header */}
                 <div className="text-left space-y-4 mb-8 pt-4">
                     <h1 className="text-white font-bold text-[32px] tracking-wide">
-                        Ariza qoldirish
+                        {t('app.customOrderApplication.title')}
                     </h1>
                 </div>
 
@@ -91,7 +105,7 @@ function ApplicationForm() {
                     <div className="space-y-6">
                         {/* Work Purpose */}
                         <div className="space-y-2">
-                            <Label className="text-white text-sm font-medium">
+                            <Label className="text-white text-sm font-medium" required>
                                 {t('app.customOrderApplication.form.workPurpose.label')}
                             </Label>
                             <CustomInput
@@ -105,7 +119,7 @@ function ApplicationForm() {
 
                         {/* Interested Factories */}
                         <div className="space-y-2">
-                            <Label className="text-white text-sm font-medium">
+                            <Label className="text-white text-sm font-medium" required>
                                 {t('app.customOrderApplication.form.interestedFactories.label')}
                             </Label>
                             <CustomInput
@@ -119,7 +133,7 @@ function ApplicationForm() {
 
                         {/* Quantity to See */}
                         <div className="space-y-2">
-                            <Label className="text-white text-sm font-medium">
+                            <Label className="text-white text-sm font-medium" required>
                                 {t('app.customOrderApplication.form.quantityToSee.label')}
                             </Label>
                             <CustomInput
@@ -131,7 +145,7 @@ function ApplicationForm() {
 
                         {/* Planned Stay Days */}
                         <div className="space-y-2">
-                            <Label className="text-white text-sm font-medium">
+                            <Label className="text-white text-sm font-medium" required>
                                 {t('app.customOrderApplication.form.plannedStayDays.label')}
                             </Label>
                             <CustomInput
@@ -143,7 +157,7 @@ function ApplicationForm() {
 
                         {/* Planned Arrival Dates */}
                         <div className="space-y-2">
-                            <Label className="text-white text-sm font-medium">
+                            <Label className="text-white text-sm font-medium" required>
                                 {t('app.customOrderApplication.form.plannedArrivalDates.label')}
                             </Label>
                             <CustomInput
@@ -174,7 +188,7 @@ function ApplicationForm() {
                             size="default"
                             shadow={'sm'}
                             loading={createApplicationMutation.isPending}
-                            disabled={createApplicationMutation.isPending}
+                            disabled={createApplicationMutation.isPending || !isFormValid()}
                         >
                             {t('app.customOrderApplication.form.submitButton')}
                         </Button>

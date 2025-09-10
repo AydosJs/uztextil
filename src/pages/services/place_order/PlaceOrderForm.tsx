@@ -65,7 +65,10 @@ function PlaceOrderForm() {
 
         // Validate required fields
         const requiredFields = ['product_description', 'order_volume', 'production_delivery_time', 'budget_estimated_price', 'segment_category']
-        const missingFields = requiredFields.filter(field => !formData[field as keyof typeof formData])
+        const missingFields = requiredFields.filter(field => {
+            const value = formData[field as keyof typeof formData]
+            return !value || value.trim() === ''
+        })
 
         if (missingFields.length > 0) {
             showToast.error(t('app.common.validation.fillRequiredFields'))
