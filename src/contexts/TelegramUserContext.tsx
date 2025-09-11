@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useTelegramUserData } from '@/lib/hooks';
+import { customInstance } from '@/lib/api-client';
 import type { TelegramUser, TelegramUserInfo } from '@/types/telegram';
 import type { TelegramUserContextType, TelegramUserProviderProps } from '@/types/telegramContext';
 import { TelegramUserContext } from './TelegramUserContextInstance';
@@ -24,13 +25,11 @@ export function TelegramUserProvider({ children }: TelegramUserProviderProps) {
         setIsRegistering(true);
         setIsLoading(true);
         try {
-            // Send user data to the registration endpoint
-            const response = await fetch('https://texttile.dclinics.uz/api/v1/bot-user/register/', {
+            // Send user data to the registration endpoint using customInstance
+            const responseData = await customInstance<TelegramUserInfo>({
+                url: '/api/v1/bot-user/register/',
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
+                data: {
                     telegram_id: user.telegram_id,
                     first_name: user.first_name,
                     last_name: user.last_name,
@@ -40,17 +39,9 @@ export function TelegramUserProvider({ children }: TelegramUserProviderProps) {
                     is_bot: user.is_bot,
                     is_active: user.is_active,
                     created_at: user.created_at,
-                }),
+                }
             });
 
-            if (!response.ok) {
-                const errorData = await response.text();
-                console.error('Registration failed:', response.status, errorData);
-                throw new Error(`Registration failed: ${response.status}`);
-            }
-
-            // Parse the response to get user info directly
-            const responseData = await response.json();
             console.log('User registered successfully, response:', responseData);
 
             // Set userInfo directly from the register response

@@ -7,7 +7,7 @@ import { FileUploader } from "@/components/ui"
 import { UnderwaterHeader } from "@/components/ui"
 import { useCallback } from "react"
 import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
@@ -47,7 +47,11 @@ type ManufacturerRegisterFormData = z.infer<typeof manufacturerRegisterSchema>
 function ManufacturerRegisterForm() {
     const { t } = useTranslation()
     const navigate = useNavigate()
+    const location = useLocation()
     const { userInfo, updateUserInfo } = useTelegramUser()
+
+    // Get department from navigation state
+    const department = (location.state as { department?: 'customer' | 'manufacturer' })?.department || 'manufacturer'
 
     // Show back button that goes to manufacturer welcome page
     useTelegramBackButton({ navigateTo: '/manufacturer' })
@@ -89,7 +93,7 @@ function ManufacturerRegisterForm() {
                 }
 
                 showToast.success(t('app.common.success.created'))
-                navigate('/services')
+                navigate('/services', { state: { department } })
             },
             onError: (error) => {
                 showToast.error(t('app.common.error.manufacturerFailed') + error)

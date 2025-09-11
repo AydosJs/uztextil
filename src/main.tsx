@@ -30,7 +30,7 @@ import { PackageSelection, PackageDetails, ApplicationForm, ApplicationSuccess }
 import { Toaster } from 'sonner'
 import { setSafeAreaCSSProperties, waitForSafeAreaValues } from './utils/safeAreaUtils.ts'
 // import { initEruda } from './utils/eruda.ts'
-import { ChooseDepartmentGuard, ServicesRouteGuard, RegistrationRouteGuard } from './components/RouteGuards'
+import { ServicesRouteGuard, RegistrationRouteGuard } from './components/RouteGuards'
 import { ScrollToTop } from './components/ScrollToTop'
 import { initEruda } from './utils/eruda.ts'
 
@@ -74,9 +74,9 @@ async function initializeApp() {
               <Route path="/" element={<App />} />
               <Route path="/welcome" element={<Welcome />} />
               <Route path="/choose-department" element={
-                <ChooseDepartmentGuard>
-                  <ChooseDepartment />
-                </ChooseDepartmentGuard>
+                // <ChooseDepartmentGuard>
+                <ChooseDepartment />
+                // </ChooseDepartmentGuard>
               } />
 
               {/* Customer Routes */}

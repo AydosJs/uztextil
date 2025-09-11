@@ -3,21 +3,73 @@ import { UserRound, Factory } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { useTelegramBackButton } from "@/lib/hooks"
+import { useTelegramUser } from "@/hooks/useTelegramUser"
+import { customInstance } from "@/lib/api-client"
+import type { TelegramUserInfo } from "@/types/telegram"
 import departmentSvg from "@/assets/department.svg"
 
 function ChooseDepartment() {
     const { t } = useTranslation()
     const navigate = useNavigate()
+    const { user } = useTelegramUser()
 
     // Show back button that goes to welcome page
     useTelegramBackButton({ navigateTo: '/welcome' })
 
+    const handleDepartmentSelect = async (department: 'customer' | 'manufacturer') => {
+        if (!user) {
+            console.error('No user data available')
+            return
+        }
+
+        try {
+            // Always try to register/update user for the selected department
+            // The API should handle if user is already registered
+            const registerResponse = await customInstance<TelegramUserInfo>({
+                url: '/api/v1/bot-user/register/',
+                method: 'POST',
+                data: {
+                    telegram_id: user.telegram_id,
+                    first_name: user.first_name,
+                    last_name: user.last_name,
+                    username: user.username,
+                    phone_number: user.phone_number,
+                    language_code: user.language_code,
+                    is_bot: user.is_bot,
+                    is_active: user.is_active,
+                    created_at: user.created_at,
+                    department: department
+                }
+            })
+
+            console.log('Department registration response:', registerResponse)
+
+            // Check the response to see if user is already registered for this department
+            const isAlreadyRegistered = (department === 'customer' && registerResponse.customer) ||
+                (department === 'manufacturer' && registerResponse.manufacturer)
+
+            if (isAlreadyRegistered) {
+                // User is already registered for this department, go to services
+                console.log(`User already registered for ${department}, navigating to services`)
+                navigate("/services", { state: { department } })
+            } else {
+                // User was just registered for this department, go to welcome/register page
+                console.log(`User registered for ${department}, navigating to welcome page`)
+                navigate(`/${department}`, { state: { department } })
+            }
+        } catch (error) {
+            console.error('Department selection failed:', error)
+            // On error, still navigate to the department page
+            navigate(`/${department}`, { state: { department } })
+        }
+    }
+
     const handleCustomerSelect = () => {
-        navigate("/customer")
+        handleDepartmentSelect('customer')
     }
 
     const handleManufacturerSelect = () => {
-        navigate("/manufacturer")
+        handleDepartmentSelect('manufacturer')
     }
 
     return (

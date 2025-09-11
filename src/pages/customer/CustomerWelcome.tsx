@@ -1,18 +1,22 @@
 import { Button } from "@/components/ui"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { useTelegramBackButton } from "@/lib/hooks"
 import customerWelcomeSvg from "@/assets/customerWelcome.svg"
 
 function CustomerWelcome() {
     const navigate = useNavigate()
+    const location = useLocation()
     const { t } = useTranslation()
+
+    // Get department from navigation state
+    const department = (location.state as { department?: 'customer' | 'manufacturer' })?.department || 'customer'
 
     // Show back button that goes to choose department page
     useTelegramBackButton({ navigateTo: '/choose-department' })
 
     const handleGetStarted = () => {
-        navigate("/customer/register")
+        navigate("/customer/register", { state: { department } })
     }
 
     return (

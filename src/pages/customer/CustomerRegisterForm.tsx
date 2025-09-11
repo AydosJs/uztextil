@@ -3,7 +3,7 @@ import { CustomInput } from "@/components/ui"
 import { Label } from "@/components/ui"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import { useTelegramBackButton } from "@/lib/hooks"
 import { useApiV1CustomerCreateCreate } from "@/lib/api"
 import { useTelegramUser } from "@/hooks/useTelegramUser"
@@ -13,7 +13,12 @@ import { showToast } from "@/lib/utils"
 function CustomerRegisterForm() {
     const { t } = useTranslation()
     const navigate = useNavigate()
+    const location = useLocation()
     const { userInfo, updateUserInfo } = useTelegramUser()
+
+    // Get department from navigation state
+    const department = (location.state as { department?: 'customer' | 'manufacturer' })?.department || 'customer'
+
     const customerCreateMutation = useApiV1CustomerCreateCreate({
         mutation: {
             onSuccess: (data) => {
@@ -29,7 +34,7 @@ function CustomerRegisterForm() {
                 }
 
                 showToast.success(t('app.common.success.created'))
-                navigate('/services')
+                navigate('/services', { state: { department } })
             },
             onError: (error) => {
                 console.error('Customer creation failed:', error)

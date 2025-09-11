@@ -17,7 +17,7 @@ function App() {
     const handleButtonClick = () => {
         if (isRegistered) {
             // If user is registered, navigate to services
-            navigate("/services")
+            navigate("/choose-department")
         } else {
             // If user is not registered, navigate to welcome
             navigate("/welcome")

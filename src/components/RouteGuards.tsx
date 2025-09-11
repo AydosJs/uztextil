@@ -10,25 +10,35 @@ interface RouteGuardProps {
     preventIfRegistered?: boolean;
 }
 
-// Guard for specific user type routes - only allow if user is registered as the specified type
+// Guard for specific user type routes - only allow if user is registered for the specified department
 export function UserTypeRouteGuard({ children, allowedUserType }: RouteGuardProps) {
-    const { user, isLoading, isRegistered, userType } = useTelegramUser();
+    const { user, isLoading, userInfo } = useTelegramUser();
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (isLoading || !user) return;
+        if (isLoading || !user || !userInfo) return;
 
-        if (!isRegistered || userType !== allowedUserType) {
-            // If not registered or not the correct user type, redirect to choose department
+        // Check if user is registered for the specific department
+        const isRegisteredForThisDepartment = (allowedUserType === 'customer' && userInfo.customer) ||
+            (allowedUserType === 'manufacturer' && userInfo.manufacturer);
+
+        if (!isRegisteredForThisDepartment) {
+            // If not registered for this department, redirect to choose department
             navigate('/choose-department');
         }
-    }, [user, isLoading, isRegistered, userType, allowedUserType, navigate]);
+    }, [user, isLoading, userInfo, allowedUserType, navigate]);
 
     if (isLoading) {
         return <GlobalLoading />;
     }
 
-    if (!isRegistered || userType !== allowedUserType) {
+    // Check if user is registered for the specific department
+    const isRegisteredForThisDepartment = userInfo && (
+        (allowedUserType === 'customer' && userInfo.customer) ||
+        (allowedUserType === 'manufacturer' && userInfo.manufacturer)
+    );
+
+    if (!isRegisteredForThisDepartment) {
         return null; // Will redirect
     }
 
@@ -36,83 +46,79 @@ export function UserTypeRouteGuard({ children, allowedUserType }: RouteGuardProp
 }
 
 
-// Guard for choose-department - only allow if user is not registered
+// Guard for choose-department - allow access regardless of registration status
 export function ChooseDepartmentGuard({ children }: RouteGuardProps) {
-    const { user, isLoading, isRegistered, userType } = useTelegramUser();
-    const navigate = useNavigate();
+    const { user, isLoading } = useTelegramUser();
 
-    useEffect(() => {
-        if (isLoading || !user) return;
-
-        if (isRegistered && userType) {
-            // If user is already registered, redirect to services
-            navigate('/services');
-        }
-    }, [user, isLoading, isRegistered, userType, navigate]);
-
-    if (isLoading) {
+    if (isLoading || !user) {
         return <GlobalLoading />;
     }
 
-    if (isRegistered && userType) {
-        return null; // Will redirect
-    }
-
+    // Always allow access to choose department page
     return <>{children}</>;
 }
 
-// Guard for registration routes - allow access if user is not registered yet
+// Guard for registration routes - allow access if user is not registered for this specific department yet
 export function RegistrationRouteGuard({ children, allowedUserType }: RouteGuardProps) {
-    const { user, isLoading, isRegistered, userType } = useTelegramUser();
+    const { user, isLoading, userInfo } = useTelegramUser();
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (isLoading || !user) return;
+        if (isLoading || !user || !userInfo) return;
 
-        // If user is already registered with a different type, redirect to choose department
-        if (isRegistered && userType && userType !== allowedUserType) {
-            navigate('/choose-department');
+        // Check if user is already registered for the specific department
+        const isRegisteredForThisDepartment = (allowedUserType === 'customer' && userInfo.customer) ||
+            (allowedUserType === 'manufacturer' && userInfo.manufacturer);
+
+        // If user is already registered for this specific department, redirect to services
+        if (isRegisteredForThisDepartment) {
+            navigate('/services', { state: { department: allowedUserType } });
         }
-        // If user is already registered with the correct type, redirect to services
-        else if (isRegistered && userType === allowedUserType) {
-            navigate('/services');
-        }
-    }, [user, isLoading, isRegistered, userType, allowedUserType, navigate]);
+    }, [user, isLoading, userInfo, allowedUserType, navigate]);
 
     if (isLoading) {
         return <GlobalLoading />;
     }
 
-    // If user is already registered with a different type or correct type, will redirect
-    if (isRegistered && userType && userType !== allowedUserType) {
-        return null; // Will redirect
-    }
-    if (isRegistered && userType === allowedUserType) {
+    // Check if user is already registered for this specific department
+    const isRegisteredForThisDepartment = userInfo && (
+        (allowedUserType === 'customer' && userInfo.customer) ||
+        (allowedUserType === 'manufacturer' && userInfo.manufacturer)
+    );
+
+    if (isRegisteredForThisDepartment) {
         return null; // Will redirect
     }
 
     return <>{children}</>;
 }
 
-// Guard for services routes - only allow if user is registered
+// Guard for services routes - allow access if user is registered for any department
 export function ServicesRouteGuard({ children }: RouteGuardProps) {
-    const { user, isLoading, isRegistered } = useTelegramUser();
+    const { user, isLoading, userInfo } = useTelegramUser();
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (isLoading || !user) return;
+        if (isLoading || !user || !userInfo) return;
 
-        if (!isRegistered) {
-            // If user is not registered, redirect to choose department
+        // Check if user is registered for any department
+        const isRegisteredForAnyDepartment = userInfo.customer || userInfo.manufacturer;
+
+        if (!isRegisteredForAnyDepartment) {
+            // If user is not registered for any department, redirect to choose department
+            console.log('User not registered for any department, redirecting to choose-department')
             navigate('/choose-department');
         }
-    }, [user, isLoading, isRegistered, navigate]);
+    }, [user, isLoading, userInfo, navigate]);
 
     if (isLoading) {
         return <GlobalLoading />;
     }
 
-    if (!isRegistered) {
+    // Check if user is registered for any department
+    const isRegisteredForAnyDepartment = userInfo && (userInfo.customer || userInfo.manufacturer);
+
+    if (!isRegisteredForAnyDepartment) {
         return null; // Will redirect
     }
 

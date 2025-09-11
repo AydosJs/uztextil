@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import { RadialEffect, UnderwaterHeader } from "@/components/ui"
 import { useApiV1ServiceListList } from "@/lib/api"
 import type { AdditionalService } from "@/lib/api/model"
@@ -10,11 +10,19 @@ import { ServiceCardShimmer } from "./components"
 function Services() {
     const { t } = useTranslation()
     const navigate = useNavigate()
-    const { userInfo, userType, isRegistered } = useTelegramUser()
+    const location = useLocation()
+    const { userInfo, userType } = useTelegramUser()
 
-    // Show back button - navigate to main page if registered, otherwise choose department
+    // Get department from navigation state or use userType as fallback
+    const department = (location.state as { department?: 'customer' | 'manufacturer' })?.department || userType
+
+    // Show back button - navigate to choose department (always allow this)
     useTelegramBackButton({
-        navigateTo: isRegistered ? '/' : '/choose-department'
+        navigateTo: '/choose-department',
+        onBack: () => {
+            console.log('Back button clicked, navigating to choose-department')
+            navigate('/choose-department')
+        }
     })
 
     // Fetch additional services from API
@@ -24,15 +32,15 @@ function Services() {
         },
         {
             query: {
-                enabled: !!userInfo?.user_id && !!userType
+                enabled: !!userInfo?.user_id && !!department
             }
         }
     )
 
-    // Filter services by user type on the client side
+    // Filter services by department on the client side
     const services = allServices?.filter(service => {
         if (!service.type) return true // Show services without type
-        return service.type === userType
+        return service.type === department
     })
 
     // Show loading state
