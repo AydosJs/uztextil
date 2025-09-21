@@ -2,20 +2,21 @@
   "app": {
     "continue": "Davom etish",
     "welcome": {
-      "greeting": "Assalomu aleykum!",
-      "description": "Sizni O'zbekistondagi tasdiqlangan, tekshirilgan tekstil fabrikalari bo'yicha 1-raqamli bot kutib oladi.",
-      "guarantee": "Faqat oraliqsiz, ishonchli fabrikalar. Agar shartlar bajarilmasa, pulni qaytarib berish kafolati mavjud.",
+      "greeting": "Sizni tekstil va teri-oyoq kiyim mahsulotlari ishlab chiqaruvchilarining birinchi tekshirilgan katalogi kutib oladi",
+      "description": "texverified - O'zbekistondagi tekstil va teri-oyoq kiyim mahsulotlari ishlab chiqaruvchilarining birinchi tekshirilgan katalogiga xush kelibsiz.",
+      "guarantee": "Tanlangan segmentingizda taqdim etilgan fabrikalar oldindan audit va OTK tekshiruvidan o'tgan.",
       "getStarted": "Ochish"
     },
     "department": {
       "title": "Kerakli bo'limni tanlang:",
-      "customer": "Buyurtmachi",
-      "manufacturer": "Ishlab chiqaruvchi"
+      "findManufacturer": "Ishlab chiqaruvchi topmoqchiman",
+      "joinCatalog": "Katalogga kirmoqchimiz",
+      "placeAd": "Reklama joylashtirmoqchimiz"
     },
     "buyurtmachi": {
       "welcome": {
-        "title": "Buyurtmachiga xush kelibsiz",
-        "description": "Tasdiqlangan ishlab chiqaruvchilar bilan mato buyurtma safarini boshlang",
+        "title": "Buyurtmachilar bo'limiga xush kelibsiz",
+        "description": "Siz bilan samarali ishlash uchun tekshiruvdan o'tishni so'raymiz",
         "getStarted": "Boshlash",
         "registration": {
           "title": "Ro'yxatdan o'tish",
@@ -123,18 +124,6 @@
             "no": "yo'q"
           }
         },
-        "organizationStructure": {
-          "label": "Tashkilot tuzilmasi",
-          "options": {
-            "director": "Direktor",
-            "manager": "Menejer",
-            "marketer": "Marketolog"
-          }
-        },
-        "equipmentInfo": {
-          "label": "Uskunalar haqida ma'lumot",
-          "placeholder": "(xorijiy mutaxassislar borligi va h.k)"
-        },
         "phone": {
           "label": "Telefon raqamingiz",
           "placeholder": "+998"
@@ -150,30 +139,128 @@
           "label": "Marketplace brendi",
           "placeholder": "Marketplace brendini kiriting"
         },
-        "annualOrderVolume": {
-          "label": "Yillik buyurtma hajmi",
-          "placeholder": "Yillik buyurtma hajmini kiriting"
-        },
-        "productSegment": {
-          "label": "Mahsulot segmenti",
-          "placeholder": "Mahsulot segmentini kiriting"
-        },
-        "cooperationTerms": {
-          "label": "Hamkorlik shartlari",
-          "placeholder": "Hamkorlik shartlarini kiriting"
+        "productCategories": {
+          "label": "Mahsulot kategoriyalari",
+          "placeholder": "Mahsulot kategoriyalarini tanlang"
         },
         "paymentTerms": {
           "label": "To'lov shartlari",
           "placeholder": "To'lov shartlarini kiriting"
         },
-        "totalOrders": {
-          "label": "Jami buyurtmalar soni (ixtiyoriy)",
-          "placeholder": "Jami buyurtmalar sonini kiriting"
+        "orderFrequency": {
+          "label": "Qanday buyurtma chastotasi",
+          "placeholder": "Buyurtma chastotasini kiriting"
+        },
+        "founderName": {
+          "label": "Asoschining F.I.SH",
+          "placeholder": "Asoschining F.I.SH ni kiriting"
+        },
+        "founderPhone": {
+          "label": "Asoschining raqami",
+          "placeholder": "+998901234567"
+        },
+        "contactPersonName": {
+          "label": "Aloqa shaxsining F.I.SH",
+          "placeholder": "Aloqa shaxsining F.I.SH ni kiriting"
+        },
+        "contactPersonPosition": {
+          "label": "Aloqa shaxsining lavozimi",
+          "placeholder": "Lavozimni kiriting"
+        },
+        "tin": {
+          "label": "STIR",
+          "placeholder": "STIR ni kiriting"
+        },
+        "companyRating": {
+          "label": "Oxirgi 3 oy davomida kompaniya reytingi",
+          "placeholder": "Reytingni kiriting"
+        },
+        "annualExportTurnover": {
+          "label": "Yillik eksport aylanmasi dollarda",
+          "placeholder": "Dollardagi summani kiriting"
+        },
+        "exportCountries": {
+          "label": "Eksport mamlakatlari",
+          "placeholder": "Eksport mamlakatlarini kiriting"
+        },
+        "warehouseAvailability": {
+          "label": "Omborxonalar mavjudligi",
+          "options": {
+            "yes": "Ha",
+            "no": "Yo'q"
+          }
+        },
+        "foreignSpecialists": {
+          "label": "Xorijiy mutaxassislar mavjudligi",
+          "position": "Lavozim",
+          "country": "Mamlakat"
+        },
+        "internationalCertificates": {
+          "label": "Xalqaro sertifikatlar mavjudligi",
+          "placeholder": "Sertifikatlarni tanlang"
+        },
+        "brandPartnerships": {
+          "label": "Qaysi brendlar bilan ishlagan",
+          "placeholder": "Brend nomlarini kiriting"
+        },
+        "managerPhone": {
+          "label": "Menejer raqami",
+          "placeholder": "+998901234567"
+        },
+        "logoDisplay": {
+          "label": "Ilovada logoni ko'rsatish imkoniyati",
+          "options": {
+            "yes": "Ha",
+            "no": "Yo'q"
+          }
+        },
+        "commercialProposalPdf": {
+          "label": "Tijorat taklifi (PDF)",
+          "placeholder": "PDF faylni yuklang yoki 'yo'q' deb belgilang"
+        },
+        "organizationStructure": {
+          "label": "Tashkilot tuzilmasi",
+          "options": {
+            "otk": "OTK",
+            "marketer": "Marketolog",
+            "salesManager": "Sotish menejeri",
+            "technologist": "Texnolog",
+            "constructor": "Konstruktor"
+          }
+        },
+        "productionDirections": {
+          "label": "Yo'nalishlar",
+          "options": {
+            "fullCycle": "To'liq mato ishlab chiqarish tsikli",
+            "sewingOnly": "Faqat tikuv ishlab chiqarish"
+          }
+        },
+        "certificates": {
+          "title": "Sertifikatlar",
+          "certificateName": "Sertifikat nomi",
+          "validityPeriod": "Amal qilish muddati",
+          "addCertificate": "Sertifikat qo'shish",
+          "types": {
+            "iso": "ISO (International Organization For Standardization Certificate)",
+            "oekoTex": "OEKO-Tex standart 100 (International Association for Research and Testing in Field of Textile and Leather Ecology Certificate)",
+            "ceMark": "CE Mark (Conformité Européenne Certificate)",
+            "bci": "BCI (Better Cotton Initiative Certificate)",
+            "sedex": "Sedex (Supplier Ethical Data Exchange Certificate)",
+            "gots": "GOTS (Global Organic Textile Standart Certificate)",
+            "globalGap": "GlobalGAP/GRASP (GAP – Good Agricultural Practices)",
+            "bsci": "BSCI (Business Social Compliance Initiative)"
+          }
         },
         "submitButton": "Yuborish"
       },
       "select": {
         "placeholder": "Tanlang"
+      },
+      "contactMessengers": {
+        "title": "Messengerlarda aloqa uchun kontakt",
+        "telegram": "Telegram",
+        "whatsapp": "WhatsApp",
+        "phone": "Telefon"
       }
     },
     "xizmatlar": {
@@ -181,21 +268,21 @@
       "description": "Bizning tekstil xizmatlarimizdan tanlang",
       "additionalServices": "Qo'shimcha xizmatlar",
       "services": {
-        "order": {
-          "title": "Buyurtma joylashtirish",
-          "description": "O'z buyurtmalaringizni joylashtiring"
+        "filterBySegments": {
+          "title": "Segmentlar bo'yicha filtr to'g'ridan-to'g'ri raqamlar bilan",
+          "description": "1$",
+          "price": "1$"
         },
-        "factory": {
-          "title": "Fabrika tanlash",
-          "description": "Fabrikalar ro'yxatidan fabrika tanlang"
+        "placeOrderFree": {
+          "title": "Filtrsiz buyurtma joylashtirish",
+          "description": "Bepul",
+          "price": "Bepul"
         },
-        "meeting": {
-          "title": "Online B2B ga uchrashuv",
-          "description": "Google meet orqali Fabrika rahbari bilan uchrashuv"
-        },
-        "tour": {
-          "title": "Fabrikalarga tur buyurtma qilish",
-          "description": "Tur buyurtma qiling"
+        "personalTour": {
+          "title": "Fabrikalar bo'yicha shaxsiy tur buyurtma qilish",
+          "description": "Menejer bilan bog'lanish",
+          "contact": "Menejer bilan bog'lanish",
+          "telegramLink": "Telegram havolasi"
         }
       }
     },
@@ -286,42 +373,43 @@
     },
     "placeOrder": {
       "title": "Buyurtma berish",
+      "subtitle": "Ishlab chiqarish qidirmoqdaman",
       "form": {
-        "productDescription": {
-          "label": "Mahsulot tavsifi",
-          "placeholder": "Mahsulot haqida batafsil ma'lumot bering"
+        "manufacturerRequirements": {
+          "label": "Ishlab chiqaruvchiga talab",
+          "placeholder": "Ishlab chiqaruvchiga talablarni tasvirlab bering"
         },
         "orderVolume": {
           "label": "Buyurtma hajmi",
           "placeholder": "Buyurtma hajmini kiriting"
         },
-        "productionDeliveryTime": {
-          "label": "Ishlab chiqarish/Yetkazib berish muddati",
-          "placeholder": "Muddatni kiriting"
+        "targetPrice": {
+          "label": "O'tkazish narxi",
+          "placeholder": "O'tkazish narxini kiriting"
         },
-        "specialRequirements": {
-          "label": "Maxsus talablar",
-          "placeholder": "Maxsus talablaringizni kiriting"
+        "samplePhotos": {
+          "label": "Namuna rasmlari",
+          "placeholder": "Namuna rasmlarini yuklang"
         },
-        "budgetEstimatedPrice": {
-          "label": "Byudjet/Taxminiy narx",
-          "placeholder": "Byudjet yoki taxminiy narxni kiriting"
+        "executionTimeline": {
+          "label": "Bajarish muddati",
+          "placeholder": "Bajarish muddatini kiriting"
         },
-        "segmentCategory": {
-          "label": "Segment kategoriyasi",
-          "placeholder": "Mahsulot segmentini kiriting"
+        "paymentTerms": {
+          "label": "To'lov shartlari",
+          "placeholder": "To'lov shartlarini kiriting"
         },
-        "contactPhone": {
-          "label": "Aloqa telefoni",
+        "telegramWhatsapp": {
+          "label": "Telegram/vatsap raqami",
           "placeholder": "+998901234567"
         },
-        "contactEmail": {
-          "label": "Aloqa email",
-          "placeholder": "example@email.com"
+        "contactName": {
+          "label": "Ism",
+          "placeholder": "Ismingizni kiriting"
         },
-        "additionalNotes": {
-          "label": "Qo'shimcha izohlar",
-          "placeholder": "Qo'shimcha ma'lumotlar"
+        "position": {
+          "label": "Lavozim",
+          "placeholder": "Lavozimingizni kiriting"
         },
         "submitButton": "Buyurtma yuborish"
       },
@@ -331,91 +419,6 @@
         "searchInfo": "Sizning buyurtmangiz {{lotNumber}} lot raqami bilan qidiruvda chiqadi",
         "channelButton": "Kanalga o'tish"
       }
-    },
-    "onlineB2B": {
-      "title": "Ariza",
-      "subtitle": "Ma'lumotlarni to'ldirib ariza qoldiring, va moderator sizga mos keladigan taklif beradi",
-      "form": {
-        "segment": {
-          "label": "Segment",
-          "placeholder": "Segment turini kiriting"
-        },
-        "workPurpose": {
-          "label": "Ish maqsadi",
-          "placeholder": "Ish maqsadingizni batafsil yozing"
-        },
-        "interestedFactories": {
-          "label": "Qiziqadigan fabrikalar",
-          "placeholder": "Qiziqadigan fabrikalarni ro'yxatini kiriting"
-        },
-        "quantityToSee": {
-          "label": "Ko'rish kerak bo'lgan miqdor",
-          "placeholder": "Miqdorni kiriting"
-        },
-        "plannedStayDays": {
-          "label": "Rejalashtirilgan qolish kunlari",
-          "placeholder": "Kunlar sonini kiriting"
-        },
-        "plannedArrivalDates": {
-          "label": "Rejalashtirilgan kelish sanalari",
-          "placeholder": "Sanalarni kiriting"
-        },
-        "needsTouristProgram": {
-          "label": "Turist dasturi kerakmi",
-          "placeholder": "Turist dasturi haqida ma'lumot bering"
-        },
-        "submitButton": "Ariza yuborish"
-      },
-      "success": {
-        "header": "Online B2B",
-        "subtitle": "Sizga mos keladigan taklifni tanlang va moderator uchrashuv tashkil etadi",
-        "offersTitle": "Takliflar",
-        "lotNumber": "Sizning lot raqamingiz:",
-        "channelButton": "Kanalga o'tish",
-        "applicationSubmitted": "Arizangiz qabul qilindi!",
-        "applicationDescription": "Moderator sizga mos keladigan takliflarni tayyorlab, tez orada yuboradi.",
-        "viewOffers": "Takliflarni ko'rish"
-      },
-        "offers": {
-          "title": "Takliflar",
-          "subtitle": "Sizga mos keladigan takliflarni ko'ring va tanlang",
-          "error": "Xatolik yuz berdi",
-          "errorDescription": "Takliflarni yuklashda xatolik yuz berdi. Iltimos, qaytadan urinib ko'ring.",
-          "noOffers": "Hozircha takliflar yo'q",
-          "noOffersDescription": "Moderator sizga mos keladigan takliflarni tayyorlab, tez orada yuboradi.",
-          "noApplicationData": "Ariza ma'lumotlari topilmadi",
-          "noApplicationDataDescription": "Takliflarni ko'rish uchun avval ariza to'ldirishingiz kerak.",
-          "status": {
-            "chosen": "Belgilandi",
-            "notChosen": "Belgilandi",
-            "unknown": "Noma'lum",
-            "selected": "Belgilandi",
-            "select": "Belgilash",
-            "updating": "Yangilanmoqda...",
-            "updated": "Muvaffaqiyatli yangilandi",
-            "updateError": "Yangilashda xatolik yuz berdi"
-          },
-          "details": {
-            "title": "Taklif tafsilotlari",
-            "companyName": "Kompaniya nomi",
-            "lotNumber": "Lot raqami",
-            "minOrderQuantity": "Minimal buyurtma hajmi",
-            "phoneNumber": "Telefon raqami",
-            "website": "Sayt",
-            "officeAddress": "Ofis manzili",
-            "hasCrm": "CRM tizimi mavjudmi",
-            "employeeCount": "Hodimlar soni",
-            "notAvailable": "Mavjud emas",
-            "yes": "Ha",
-            "no": "Yo'q",
-            "loadError": "Ma'lumotlarni yuklashda xatolik"
-          },
-          "manufacturer": "Ishlab chiqaruvchi",
-          "segment": "Segment",
-          "serviceId": "Xizmat ID",
-          "select": "Belgilash",
-          "unknownCompany": "Noma'lum kompaniya"
-        }
     },
     "packageSelection": {
       "title": "Paket turini tanlang",
@@ -481,7 +484,7 @@
       "subtitle": "Ma'lumotlarni to'ldirib ariza qoldiring, va moderator sizga mos keladigan taklif beradi",
       "packageTypes": {
         "start": "Boshlang'ich",
-        "growth": "Rivojlanish", 
+        "growth": "Rivojlanish",
         "export": "Eksport",
         "startDescription": "Asosiy paket",
         "growthDescription": "Rivojlanish paketi",
