@@ -27,9 +27,7 @@ function Services() {
 
     // Fetch additional services from API
     const { data: allServices, isLoading, error } = useApiV1ServiceListList(
-        {
-            user_id: userInfo?.user_id
-        },
+        undefined, // No parameters needed for this API
         {
             query: {
                 enabled: !!userInfo?.user_id && !!department
