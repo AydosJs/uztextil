@@ -2,21 +2,20 @@
   "app": {
     "continue": "Продолжить",
     "welcome": {
-      "greeting": "Вас приветствует первый каталог проверенных производителей текстильных и кожевенно-обувных изделий",
-      "description": "Добро пожаловать в texverified - первый каталог проверенных производителей текстильных и кожевенно-обувных изделий в Узбекистане.",
-      "guarantee": "Представленные в выбранном вами сегменте фабрики прошли предварительный аудит и проверку ОТК.",
+      "greeting": "Привет!",
+      "description": "Добро пожаловать в бот №1 для проверенных, протестированных текстильных фабрик в Узбекистане.",
+      "guarantee": "Только прямые, надежные фабрики. Гарантия возврата денег, если условия не выполнены.",
       "getStarted": "Открыть"
     },
     "department": {
-      "title": "Выберите нужный раздел:",
-      "findManufacturer": "Хочу найти производителя",
-      "joinCatalog": "Хотим попасть в каталог",
-      "placeAd": "Хотим разместить рекламу"
+      "title": "Выберите нужный отдел:",
+      "customer": "Заказчик",
+      "manufacturer": "Производитель"
     },
     "buyurtmachi": {
       "welcome": {
-        "title": "Добро пожаловать в раздел заказчиков",
-        "description": "Просим пройти верификацию для эффективности взаимодействия с вами",
+        "title": "Добро пожаловать в Заказчик",
+        "description": "Начните свой путь заказа текстиля с проверенными производителями",
         "getStarted": "Начать",
         "step1": {
           "title": "Выберите ваш продукт",
@@ -59,8 +58,8 @@
           "placeholder": "1 тонна"
         },
         "productSegment": {
-          "label": "Сегмент продукции",
-          "placeholder": "Выберите тип сегмента"
+          "label": "Сегмент продукта",
+          "placeholder": "Тип сегмента"
         },
         "commercialOffer": {
           "label": "Коммерческое предложение *",
@@ -77,6 +76,13 @@
         "website": {
           "label": "Сайт *",
           "placeholder": "www"
+        },
+        "qualityControl": {
+          "label": "Наличие контроля качества",
+          "options": {
+            "yes": "да",
+            "no": "нет"
+          }
         },
         "crmSystem": {
           "label": "Наличие CRM-системы",
@@ -117,6 +123,18 @@
             "no": "нет"
           }
         },
+        "organizationStructure": {
+          "label": "Организационная структура",
+          "options": {
+            "director": "Директор",
+            "manager": "Менеджер",
+            "marketer": "Маркетолог"
+          }
+        },
+        "equipmentInfo": {
+          "label": "Сведения об оборудовании (наличие иностранных специалистов и т.п.)",
+          "placeholder": "(наличие иностранных специалистов и т.д.)"
+        },
         "phone": {
           "label": "Ваш номер телефона",
           "placeholder": "+998"
@@ -132,128 +150,427 @@
           "label": "Бренд на маркетплейсе",
           "placeholder": "Введите бренд маркетплейса"
         },
-        "productCategories": {
-          "label": "Категории продукции",
-          "placeholder": "Выберите категории продукции"
+        "annualOrderVolume": {
+          "label": "Годовой объем заказов",
+          "placeholder": "Введите годовой объем заказов"
+        },
+        "productSegment": {
+          "label": "Сегмент продукта",
+          "placeholder": "Введите сегмент продукта"
+        },
+        "cooperationTerms": {
+          "label": "Условия сотрудничества",
+          "placeholder": "Введите условия сотрудничества"
         },
         "paymentTerms": {
           "label": "Условия оплаты",
           "placeholder": "Введите условия оплаты"
         },
-        "orderFrequency": {
-          "label": "Какая периодичность заказа",
-          "placeholder": "Введите периодичность заказа"
-        },
-        "founderName": {
-          "label": "ФИО учредителя",
-          "placeholder": "Введите ФИО учредителя"
-        },
-        "founderPhone": {
-          "label": "Номер учредителя",
-          "placeholder": "+998901234567"
-        },
-        "contactPersonName": {
-          "label": "ФИО контактного лица",
-          "placeholder": "Введите ФИО контактного лица"
-        },
-        "contactPersonPosition": {
-          "label": "Должность контактного лица",
-          "placeholder": "Введите должность"
-        },
-        "tin": {
-          "label": "ИНН",
-          "placeholder": "Введите ИНН"
-        },
-        "companyRating": {
-          "label": "Рейтинг компании за последние 3 месяца",
-          "placeholder": "Введите рейтинг"
-        },
-        "annualExportTurnover": {
-          "label": "Годовой экспортный оборот в долларах",
-          "placeholder": "Введите сумму в долларах"
-        },
-        "exportCountries": {
-          "label": "Страны экспорта",
-          "placeholder": "Введите страны экспорта"
-        },
-        "warehouseAvailability": {
-          "label": "Наличие складов",
-          "options": {
-            "yes": "Да",
-            "no": "Нет"
-          }
-        },
-        "foreignSpecialists": {
-          "label": "Наличие иностранных специалистов",
-          "position": "Должность",
-          "country": "Страна"
-        },
-        "internationalCertificates": {
-          "label": "Наличие международных сертификатов",
-          "placeholder": "Выберите сертификаты"
-        },
-        "brandPartnerships": {
-          "label": "С какими брендами работали",
-          "placeholder": "Введите названия брендов"
-        },
-        "managerPhone": {
-          "label": "Номер менеджера",
-          "placeholder": "+998901234567"
-        },
-        "logoDisplay": {
-          "label": "Возможность отобразить лого в приложении",
-          "options": {
-            "yes": "Да",
-            "no": "Нет"
-          }
-        },
-        "commercialProposalPdf": {
-          "label": "Коммерческое предложение (PDF)",
-          "placeholder": "Загрузите PDF файл или укажите 'нет'"
-        },
-        "organizationStructure": {
-          "label": "Организационная структура",
-          "options": {
-            "otk": "ОТК",
-            "marketer": "Маркетолог",
-            "salesManager": "Менеджер по продажам",
-            "technologist": "Технолог",
-            "constructor": "Конструктор"
-          }
-        },
-        "productionDirections": {
-          "label": "Направления",
-          "options": {
-            "fullCycle": "Полный цикл производства ткани",
-            "sewingOnly": "Только швейное производство"
-          }
-        },
-        "certificates": {
-          "title": "Сертификаты",
-          "certificateName": "Название сертификата",
-          "validityPeriod": "Срок действия",
-          "addCertificate": "Добавить сертификат",
-          "types": {
-            "iso": "ISO (International Organization For Standardization Certificate)",
-            "oekoTex": "OEKO-Tex standart 100 (International Association for Research and Testing in Field of Textile and Leather Ecology Certificate)",
-            "ceMark": "CE Mark (Conformité Européenne Certificate)",
-            "bci": "BCI (Better Cotton Initiative Certificate)",
-            "sedex": "Sedex (Supplier Ethical Data Exchange Certificate)",
-            "gots": "GOTS (Global Organic Textile Standart Certificate)",
-            "globalGap": "GlobalGAP/GRASP (GAP – Good Agricultural Practices)",
-            "bsci": "BSCI (Business Social Compliance Initiative)"
-          }
+        "totalOrders": {
+          "label": "Общее количество заказов (необязательно)",
+          "placeholder": "Введите общее количество заказов"
         },
         "submitButton": "Отправить"
       },
       "select": {
         "placeholder": "Выберите"
+      }
+    },
+    "xizmatlar": {
+      "title": "Услуги",
+      "description": "Выберите из нашего ассортимента текстильных услуг",
+      "additionalServices": "Дополнительные услуги",
+      "services": {
+        "order": {
+          "title": "Размещение заказа",
+          "description": "Разместите свои заказы"
+        },
+        "factory": {
+          "title": "Выбор фабрики",
+          "description": "Выберите фабрику из списка фабрик"
+        },
+        "meeting": {
+          "title": "Онлайн B2B встреча",
+          "description": "Встреча с руководителем фабрики через Google Meet"
+        },
+        "tour": {
+          "title": "Заказ тура на фабрики",
+          "description": "Закажите тур"
+        }
       },
-      "contactMessengers": {
-        "title": "Контакт для связи в мессенджерах",
-        "telegram": "Telegram",
-        "whatsapp": "WhatsApp",
-        "phone": "Телефон"
+      "onlineB2B": {
+        "title": "Заявка",
+        "subtitle": "Заполните информацию и оставьте заявку, модератор подберет подходящее предложение",
+        "form": {
+          "segment": {
+            "label": "Сегмент",
+            "placeholder": "Введите тип сегмента"
+          },
+          "workPurpose": {
+            "label": "Цель работы",
+            "placeholder": "Подробно опишите цель вашей работы"
+          },
+          "interestedFactories": {
+            "label": "Интересующие фабрики",
+            "placeholder": "Введите список интересующих фабрик"
+          },
+          "quantityToSee": {
+            "label": "Необходимое количество для просмотра",
+            "placeholder": "Введите количество"
+          },
+          "plannedStayDays": {
+            "label": "Запланированные дни пребывания",
+            "placeholder": "Введите количество дней"
+          },
+          "plannedArrivalDates": {
+            "label": "Запланированные даты прибытия",
+            "placeholder": "Введите даты"
+          },
+          "needsTouristProgram": {
+            "label": "Нужна ли туристическая программа",
+            "placeholder": "Предоставьте информацию о туристической программе"
+          },
+          "submitButton": "Отправить заявку"
+        },
+        "success": {
+          "header": "Онлайн B2B",
+          "subtitle": "Выберите подходящее предложение, и модератор организует встречу",
+          "offersTitle": "Предложения",
+          "lotNumber": "Ваш номер лота:",
+          "channelButton": "Перейти в канал",
+          "applicationSubmitted": "Ваша заявка принята!",
+          "applicationDescription": "Модератор подготовит подходящие предложения и отправит их в ближайшее время.",
+          "viewOffers": "Просмотреть предложения"
+        },
+        "offers": {
+          "title": "Предложения",
+          "subtitle": "Просмотрите и выберите подходящие предложения",
+          "error": "Произошла ошибка",
+          "errorDescription": "Ошибка при загрузке предложений. Пожалуйста, попробуйте еще раз.",
+          "noOffers": "Пока нет предложений",
+          "noOffersDescription": "Модератор подготовит подходящие предложения и отправит их в ближайшее время.",
+          "noApplicationData": "Данные заявки не найдены",
+          "noApplicationDataDescription": "Для просмотра предложений необходимо сначала заполнить заявку.",
+          "status": {
+            "chosen": "Отмечено",
+            "notChosen": "Отмечено",
+            "unknown": "Неизвестно",
+            "selected": "Отмечено",
+            "select": "Отметить",
+            "updating": "Обновление...",
+            "updated": "Успешно обновлено",
+            "updateError": "Ошибка при обновлении"
+          },
+          "details": {
+            "title": "Детали предложения",
+            "companyName": "Название компании",
+            "lotNumber": "Номер лота",
+            "minOrderQuantity": "Минимальный объем заказа",
+            "phoneNumber": "Номер телефона",
+            "website": "Сайт",
+            "officeAddress": "Адрес офиса",
+            "hasCrm": "Есть ли CRM система",
+            "employeeCount": "Количество сотрудников",
+            "notAvailable": "Недоступно",
+            "yes": "Да",
+            "no": "Нет",
+            "loadError": "Ошибка загрузки данных"
+          },
+          "manufacturer": "Производитель",
+          "segment": "Сегмент",
+          "serviceId": "ID услуги",
+          "select": "Отметить",
+          "unknownCompany": "Неизвестная компания"
+        }
+      }
+    },
+    "onlineB2B": {
+      "title": "Заявка",
+      "subtitle": "Заполните информацию и оставьте заявку, модератор подберет подходящее предложение",
+      "form": {
+        "segment": {
+          "label": "Сегмент",
+          "placeholder": "Введите тип сегмента"
+        },
+        "workPurpose": {
+          "label": "Цель работы",
+          "placeholder": "Подробно опишите цель вашей работы"
+        },
+        "interestedFactories": {
+          "label": "Интересующие фабрики",
+          "placeholder": "Введите список интересующих фабрик"
+        },
+        "quantityToSee": {
+          "label": "Необходимое количество для просмотра",
+          "placeholder": "Введите количество"
+        },
+        "plannedStayDays": {
+          "label": "Запланированные дни пребывания",
+          "placeholder": "Введите количество дней"
+        },
+        "plannedArrivalDates": {
+          "label": "Запланированные даты прибытия",
+          "placeholder": "Введите даты"
+        },
+        "needsTouristProgram": {
+          "label": "Нужна ли туристическая программа",
+          "placeholder": "Предоставьте информацию о туристической программе"
+        },
+        "submitButton": "Отправить заявку"
+      },
+      "success": {
+        "header": "Онлайн B2B",
+        "subtitle": "Выберите подходящее предложение, и модератор организует встречу",
+        "offersTitle": "Предложения",
+        "lotNumber": "Ваш номер лота:",
+        "channelButton": "Перейти в канал",
+        "applicationSubmitted": "Ваша заявка принята!",
+        "applicationDescription": "Модератор подготовит подходящие предложения и отправит их в ближайшее время.",
+        "viewOffers": "Просмотреть предложения"
+      },
+      "offers": {
+        "title": "Предложения",
+        "subtitle": "Просмотрите и выберите подходящие предложения",
+        "error": "Произошла ошибка",
+        "errorDescription": "Ошибка при загрузке предложений. Пожалуйста, попробуйте еще раз.",
+        "noOffers": "Пока нет предложений",
+        "noOffersDescription": "Модератор подготовит подходящие предложения и отправит их в ближайшее время.",
+        "noApplicationData": "Данные заявки не найдены",
+        "noApplicationDataDescription": "Для просмотра предложений необходимо сначала заполнить заявку.",
+        "status": {
+          "chosen": "Отмечено",
+          "notChosen": "Отмечено",
+          "unknown": "Неизвестно",
+          "selected": "Отмечено",
+          "select": "Отметить",
+          "updating": "Обновление...",
+          "updated": "Успешно обновлено",
+          "updateError": "Ошибка при обновлении"
+        },
+        "details": {
+          "title": "Детали предложения",
+          "companyName": "Название компании",
+          "lotNumber": "Номер лота",
+          "minOrderQuantity": "Минимальный объем заказа",
+          "phoneNumber": "Номер телефона",
+          "website": "Сайт",
+          "officeAddress": "Адрес офиса",
+          "hasCrm": "Есть ли CRM система",
+          "employeeCount": "Количество сотрудников",
+          "notAvailable": "Недоступно",
+          "yes": "Да",
+          "no": "Нет",
+          "loadError": "Ошибка загрузки данных"
+        },
+        "manufacturer": "Производитель",
+        "segment": "Сегмент",
+        "serviceId": "ID услуги",
+        "select": "Отметить",
+        "unknownCompany": "Неизвестная компания"
+      }
+    },
+    "placeOrder": {
+      "title": "Разместить заказ",
+      "form": {
+        "productDescription": {
+          "label": "Описание продукта",
+          "placeholder": "Подробная информация о продукте"
+        },
+        "orderVolume": {
+          "label": "Объем заказа",
+          "placeholder": "Введите объем заказа"
+        },
+        "productionDeliveryTime": {
+          "label": "Срок производства/доставки",
+          "placeholder": "Введите срок"
+        },
+        "specialRequirements": {
+          "label": "Особые требования",
+          "placeholder": "Введите ваши особые требования"
+        },
+        "budgetEstimatedPrice": {
+          "label": "Бюджет/Примерная цена",
+          "placeholder": "Введите бюджет или примерную цену"
+        },
+        "segmentCategory": {
+          "label": "Категория сегмента",
+          "placeholder": "Введите сегмент продукта"
+        },
+        "contactPhone": {
+          "label": "Контактный телефон",
+          "placeholder": "+998901234567"
+        },
+        "contactEmail": {
+          "label": "Контактный email",
+          "placeholder": "example@email.com"
+        },
+        "additionalNotes": {
+          "label": "Дополнительные примечания",
+          "placeholder": "Дополнительная информация"
+        },
+        "submitButton": "Отправить заказ"
+      },
+      "success": {
+        "title": "Ваша заявка принята!",
+        "lotNumber": "Ваш номер лота:",
+        "searchInfo": "Ваш заказ будет отображаться в поиске под номером лота {{lotNumber}}",
+        "channelButton": "Перейти в канал"
+      }
+    },
+    "packageSelection": {
+      "title": "Выберите тип пакета",
+      "error": {
+        "message": "Произошла ошибка",
+        "retryButton": "Попробовать снова"
+      },
+      "empty": {
+        "message": "Пакеты пока недоступны"
+      },
+      "packageTypes": {
+        "start": "Стартовый пакет",
+        "growth": "Пакет развития",
+        "export": "Экспортный пакет"
+      },
+      "fullInfo": "Полная информация"
+    },
+    "filterDrawer": {
+      "title": "Выбор фабрики",
+      "search": {
+        "label": "Поиск",
+        "placeholder": "Поиск по названию фабрики, компании или должности..."
+      },
+      "productSegment": {
+        "label": "Сегмент продукта",
+        "placeholder": "Введите сегмент продукта..."
+      },
+      "minOrderQuantity": {
+        "label": "Минимальный объем заказа",
+        "placeholder": "Введите минимальный объем заказа..."
+      },
+      "buttons": {
+        "reset": "Очистить",
+        "search": "Поиск"
+      }
+    },
+    "manufacturerDetail": {
+      "error": {
+        "message": "Произошла ошибка",
+        "retryButton": "Попробовать снова"
+      },
+      "companyInfo": {
+        "title": "Информация о компании",
+        "companyName": "Название компании",
+        "fullName": "Полное имя",
+        "minOrderQuantity": "Минимальный объем заказа"
+      },
+      "contactInfo": {
+        "title": "Контактная информация",
+        "officeAddress": "Адрес офиса",
+        "website": "Веб-сайт"
+      },
+      "businessInfo": {
+        "title": "Бизнес-информация",
+        "employeeCount": "Количество сотрудников",
+        "crmSystem": "CRM система",
+        "available": "Доступно",
+        "notAvailable": "Недоступно"
+      }
+    },
+    "customOrderApplication": {
+      "title": "Заявка",
+      "subtitle": "Заполните данные и оставьте заявку, модератор предложит вам подходящее предложение",
+      "packageTypes": {
+        "start": "Старт",
+        "growth": "Рост",
+        "export": "Экспорт",
+        "startDescription": "Базовый пакет",
+        "growthDescription": "Пакет развития",
+        "exportDescription": "Экспортный пакет"
+      },
+      "form": {
+        "workPurpose": {
+          "label": "Цель работы",
+          "placeholder": "Подробно опишите цель вашей работы"
+        },
+        "interestedFactories": {
+          "label": "Интересующие фабрики",
+          "placeholder": "Введите список интересующих фабрик"
+        },
+        "quantityToSee": {
+          "label": "Количество для просмотра",
+          "placeholder": "Введите количество"
+        },
+        "plannedStayDays": {
+          "label": "Запланированные дни пребывания",
+          "placeholder": "Введите количество дней"
+        },
+        "plannedArrivalDates": {
+          "label": "Запланированные даты прибытия",
+          "placeholder": "Введите даты"
+        },
+        "needsTouristProgram": {
+          "label": "Нужна ли туристическая программа",
+          "placeholder": "Предоставьте информацию о туристической программе"
+        },
+        "submitButton": "Отправить заявку"
+      },
+      "success": {
+        "title": "Заявка подана",
+        "subtitle": "Модератор рассмотрит вашу заявку и свяжется с вами в ближайшее время",
+        "selectedPackage": "Выбранный пакет:",
+        "backButton": "Назад"
+      }
+    },
+    "common": {
+      "error": {
+        "message": "Произошла ошибка",
+        "retryButton": "Попробовать снова",
+        "applicationFailed": "Ошибка при создании заявки. Пожалуйста, попробуйте еще раз.",
+        "manufacturerFailed": "Ошибка при создании производителя. Пожалуйста, попробуйте еще раз.",
+        "customerFailed": "Ошибка при создании заказчика. Пожалуйста, попробуйте еще раз.",
+        "applicationSubmitFailed": "Ошибка при отправке заявки",
+        "userNotFound": "ID пользователя не найден",
+        "serviceNotFound": "ID услуги не найден"
+      },
+      "success": {
+        "created": "Успешно создано!",
+        "applicationSubmitted": "Заявка успешно отправлена!"
+      },
+      "warning": {
+        "readTerms": "Пожалуйста, прочитайте и подтвердите условия"
+      },
+      "validation": {
+        "userDataNotFound": "Данные пользователя не найдены",
+        "fillRequiredFields": "Пожалуйста, заполните все обязательные поля"
+      },
+      "application": {
+        "accepted": "Ваша заявка принята!"
+      },
+      "loading": "Загрузка...",
+      "manufacturerDetails": "Информация о фабрике",
+      "price": "Цена",
+      "priceNotSet": "Цена не установлена",
+      "noServicesAvailable": "Пока услуги недоступны",
+      "loadingData": "Данные загружаются...",
+      "submitApplication": "Подать заявку",
+      "viewMoreDetails": "Подробнее",
+      "channelComingSoon": "Функция перехода в канал будет добавлена в ближайшее время",
+      "service": "Услуга",
+      "noManufacturersAvailable": "Пока производители недоступны"
+    },
+    "termsAndConditions": {
+      "title": "Коммерческое предложение",
+      "selectedManufacturer": "Выбранный производитель:",
+      "checkboxLabel": "Ознакомился",
+      "alreadyApplied": {
+        "title": "Заявка уже отправлена",
+        "description": "Наши менеджеры свяжутся с вами"
+      },
+      "submitInfo": "Оставьте заявку и наши менеджеры свяжутся с вами в ближайшее время",
+      "buttons": {
+        "cancel": "Отменить",
+        "submit": "Оставить заявку",
+        "submitting": "Отправляется..."
       }
     }
   }
