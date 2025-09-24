@@ -6,7 +6,7 @@
  * OpenAPI spec version: v1
  */
 
-export type ApiV1ServiceListListParams = {
+export type ApiV1SegmentListListParams = {
 /**
  * A search term.
  */

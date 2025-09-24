@@ -58,6 +58,10 @@
           "label": "Минимальный объем заказа",
           "placeholder": "1 тонна"
         },
+        "productSegment": {
+          "label": "Сегмент продукции",
+          "placeholder": "Выберите тип сегмента"
+        },
         "commercialOffer": {
           "label": "Коммерческое предложение *",
           "placeholder": "Введите предложение"

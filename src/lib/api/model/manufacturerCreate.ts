@@ -36,11 +36,6 @@ export interface ManufacturerCreate {
    * @maxLength 100
    */
   min_order_quantity: string;
-  /**
-   * @minLength 1
-   * @maxLength 100
-   */
-  product_segment: string;
   /** @minLength 1 */
   commercial_offer_text: string;
   /** @nullable */
@@ -84,4 +79,5 @@ export interface ManufacturerCreate {
    */
   order?: number;
   user: number;
+  product_segment: number[];
 }

@@ -6,9 +6,11 @@
  * OpenAPI spec version: v1
  */
 
-export type ApiV1ServiceListListParams = {
-/**
- * A search term.
- */
-search?: string;
-};
+export interface SegmentList {
+  readonly id?: number;
+  /**
+   * @minLength 1
+   * @maxLength 255
+   */
+  title: string;
+}

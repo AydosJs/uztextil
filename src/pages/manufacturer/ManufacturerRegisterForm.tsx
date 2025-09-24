@@ -11,7 +11,7 @@ import { useNavigate, useLocation } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
-import { useApiV1ManufacturerCreateCreate } from "@/lib/api"
+import { useApiV1ManufacturerCreateCreate, useApiV1SegmentListList } from "@/lib/api"
 import type { ManufacturerCreate } from "@/lib/api"
 import { showToast } from "@/lib/utils"
 import { useTelegramBackButton } from "@/lib/hooks"
@@ -24,7 +24,7 @@ const manufacturerRegisterSchema = z.object({
     fullName: z.string().min(1, ""),
     position: z.string().min(1, ""),
     minOrder: z.string().min(1, ""),
-    productSegment: z.string().min(1, ""),
+    productSegment: z.number().min(1, ""),
     commercialOffer: z.string().min(1, ""),
     productionAddress: z.string().min(1, ""),
     officeAddress: z.string().min(1, ""),
@@ -78,6 +78,10 @@ function ManufacturerRegisterForm() {
     const industrialZone = watch('industrialZone')
     const creditBurden = watch('creditBurden')
     const organizationStructure = watch('organizationStructure')
+    const productSegment = watch('productSegment')
+
+    // Fetch segments list
+    const { data: segmentsData, isLoading: segmentsLoading } = useApiV1SegmentListList()
 
     // API mutation hook
     const manufacturerCreateMutation = useApiV1ManufacturerCreateCreate({
@@ -110,7 +114,7 @@ function ManufacturerRegisterForm() {
                 full_name: data.fullName || '',
                 position: data.position || '',
                 min_order_quantity: data.minOrder || '',
-                product_segment: data.productSegment || '',
+                product_segment: data.productSegment ? [data.productSegment] : [],
                 commercial_offer_text: data.commercialOffer || '',
                 production_address: data.productionAddress || '',
                 office_address: data.officeAddress || '',
@@ -136,7 +140,7 @@ function ManufacturerRegisterForm() {
         }
     }, [manufacturerCreateMutation, userInfo?.user_id])
 
-    const handleSelectChange = useCallback((field: keyof ManufacturerRegisterFormData, value: string) => {
+    const handleSelectChange = useCallback((field: keyof ManufacturerRegisterFormData, value: string | number) => {
         setValue(field, value as ManufacturerRegisterFormData[keyof ManufacturerRegisterFormData], { shouldValidate: false })
     }, [setValue])
 
@@ -229,11 +233,31 @@ function ManufacturerRegisterForm() {
                         <Label className="text-white text-sm font-medium" required>
                             {t('app.buyurtmachi.registerForm.productSegment.label')}
                         </Label>
-                        <CustomInput
-                            placeholder={t('app.buyurtmachi.registerForm.productSegment.placeholder')}
-                            error={errors.productSegment?.message}
-                            {...register('productSegment')}
-                        />
+                        <Select
+                            value={productSegment?.toString() || ''}
+                            onValueChange={(value) => handleSelectChange('productSegment', parseInt(value))}
+                        >
+                            <SelectTrigger error={errors.productSegment?.message}>
+                                <SelectValue placeholder={t('app.buyurtmachi.select.placeholder')} />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {segmentsLoading ? (
+                                    <SelectItem value="" disabled>
+                                        {t('app.common.loading')}
+                                    </SelectItem>
+                                ) : segmentsData?.length ? (
+                                    segmentsData.map((segment) => (
+                                        <SelectItem key={segment.id} value={segment.id?.toString() || ''}>
+                                            {segment.title}
+                                        </SelectItem>
+                                    ))
+                                ) : (
+                                    <SelectItem value="" disabled>
+                                        {t('app.common.noServicesAvailable')}
+                                    </SelectItem>
+                                )}
+                            </SelectContent>
+                        </Select>
                     </div>
 
                     {/* Commercial Offer */}

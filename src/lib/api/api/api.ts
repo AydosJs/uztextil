@@ -28,6 +28,7 @@ import type {
   AdditionalService,
   ApiV1ManufacturerListListParams,
   ApiV1PackageListListParams,
+  ApiV1SegmentListListParams,
   ApiV1ServiceListListParams,
   ApiV1SliderListListParams,
   ApplicationCreate,
@@ -41,6 +42,7 @@ import type {
   OfferUpdateBody,
   PackageDetail,
   PackageList,
+  SegmentList,
   Slider,
   UserApply
 } from '.././model';
@@ -307,7 +309,62 @@ export function useApiV1ApplicationListList<TData = Awaited<ReturnType<typeof ap
 
 
 
-export const apiV1BotUserRegisterCreate = (
+export const apiV1BotUserDeleteAccountDelete = (
+    userId: string,
+ options?: SecondParameter<typeof customInstance>,) => {
+      
+      
+      return customInstance<null>(
+      {url: `/api/v1/bot-user/delete-account/${userId}/`, method: 'DELETE'
+    },
+      options);
+    }
+  
+
+
+export const getApiV1BotUserDeleteAccountDeleteMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiV1BotUserDeleteAccountDelete>>, TError,{userId: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof apiV1BotUserDeleteAccountDelete>>, TError,{userId: string}, TContext> => {
+
+const mutationKey = ['apiV1BotUserDeleteAccountDelete'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiV1BotUserDeleteAccountDelete>>, {userId: string}> = (props) => {
+          const {userId} = props ?? {};
+
+          return  apiV1BotUserDeleteAccountDelete(userId,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ApiV1BotUserDeleteAccountDeleteMutationResult = NonNullable<Awaited<ReturnType<typeof apiV1BotUserDeleteAccountDelete>>>
+    
+    export type ApiV1BotUserDeleteAccountDeleteMutationError = unknown
+
+    export const useApiV1BotUserDeleteAccountDelete = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiV1BotUserDeleteAccountDelete>>, TError,{userId: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof apiV1BotUserDeleteAccountDelete>>,
+        TError,
+        {userId: string},
+        TContext
+      > => {
+
+      const mutationOptions = getApiV1BotUserDeleteAccountDeleteMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    export const apiV1BotUserRegisterCreate = (
     
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
@@ -992,6 +1049,88 @@ export function useApiV1PackageListList<TData = Awaited<ReturnType<typeof apiV1P
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
   const queryOptions = getApiV1PackageListListQueryOptions(params,options)
+
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+export const apiV1SegmentListList = (
+    params?: ApiV1SegmentListListParams,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<SegmentList[]>(
+      {url: `/api/v1/segment/list/`, method: 'GET',
+        params, signal
+    },
+      options);
+    }
+  
+
+export const getApiV1SegmentListListQueryKey = (params?: ApiV1SegmentListListParams,) => {
+    return [`/api/v1/segment/list/`, ...(params ? [params]: [])] as const;
+    }
+
+    
+export const getApiV1SegmentListListQueryOptions = <TData = Awaited<ReturnType<typeof apiV1SegmentListList>>, TError = unknown>(params?: ApiV1SegmentListListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1SegmentListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getApiV1SegmentListListQueryKey(params);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiV1SegmentListList>>> = ({ signal }) => apiV1SegmentListList(params, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof apiV1SegmentListList>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type ApiV1SegmentListListQueryResult = NonNullable<Awaited<ReturnType<typeof apiV1SegmentListList>>>
+export type ApiV1SegmentListListQueryError = unknown
+
+
+export function useApiV1SegmentListList<TData = Awaited<ReturnType<typeof apiV1SegmentListList>>, TError = unknown>(
+ params: undefined |  ApiV1SegmentListListParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1SegmentListList>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiV1SegmentListList>>,
+          TError,
+          Awaited<ReturnType<typeof apiV1SegmentListList>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useApiV1SegmentListList<TData = Awaited<ReturnType<typeof apiV1SegmentListList>>, TError = unknown>(
+ params?: ApiV1SegmentListListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1SegmentListList>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiV1SegmentListList>>,
+          TError,
+          Awaited<ReturnType<typeof apiV1SegmentListList>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useApiV1SegmentListList<TData = Awaited<ReturnType<typeof apiV1SegmentListList>>, TError = unknown>(
+ params?: ApiV1SegmentListListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1SegmentListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useApiV1SegmentListList<TData = Awaited<ReturnType<typeof apiV1SegmentListList>>, TError = unknown>(
+ params?: ApiV1SegmentListListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1SegmentListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getApiV1SegmentListListQueryOptions(params,options)
 
   const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
