@@ -234,7 +234,7 @@ function ManufacturerRegisterForm() {
                             {t('app.buyurtmachi.registerForm.productSegment.label')}
                         </Label>
                         <Select
-                            value={productSegment?.toString() || ''}
+                            value={productSegment?.toString() || undefined}
                             onValueChange={(value) => handleSelectChange('productSegment', parseInt(value))}
                         >
                             <SelectTrigger error={errors.productSegment?.message}>
@@ -242,17 +242,17 @@ function ManufacturerRegisterForm() {
                             </SelectTrigger>
                             <SelectContent>
                                 {segmentsLoading ? (
-                                    <SelectItem value="" disabled>
+                                    <SelectItem value="loading" disabled>
                                         {t('app.common.loading')}
                                     </SelectItem>
                                 ) : segmentsData?.length ? (
                                     segmentsData.map((segment) => (
-                                        <SelectItem key={segment.id} value={segment.id?.toString() || ''}>
+                                        <SelectItem key={segment.id} value={segment.id?.toString() || 'unknown'}>
                                             {segment.title}
                                         </SelectItem>
                                     ))
                                 ) : (
-                                    <SelectItem value="" disabled>
+                                    <SelectItem value="no-data" disabled>
                                         {t('app.common.noServicesAvailable')}
                                     </SelectItem>
                                 )}
@@ -314,7 +314,7 @@ function ManufacturerRegisterForm() {
                             {t('app.buyurtmachi.registerForm.qualityControl.label')}
                         </Label>
                         <Select
-                            value={qualityControl || ''}
+                            value={qualityControl || undefined}
                             onValueChange={(value) => handleSelectChange('qualityControl', value)}
                         >
                             <SelectTrigger error={errors.qualityControl?.message}>
@@ -334,7 +334,7 @@ function ManufacturerRegisterForm() {
                             {t('app.buyurtmachi.registerForm.crmSystem.label')}
                         </Label>
                         <Select
-                            value={crmSystem || ''}
+                            value={crmSystem || undefined}
                             onValueChange={(value) => handleSelectChange('crmSystem', value)}
                         >
                             <SelectTrigger error={errors.crmSystem?.message}>
@@ -354,7 +354,7 @@ function ManufacturerRegisterForm() {
                             {t('app.buyurtmachi.registerForm.geminiGerber.label')}
                         </Label>
                         <Select
-                            value={geminiGerber || ''}
+                            value={geminiGerber || undefined}
                             onValueChange={(value) => handleSelectChange('geminiGerber', value)}
                         >
                             <SelectTrigger error={errors.geminiGerber?.message}>
@@ -386,7 +386,7 @@ function ManufacturerRegisterForm() {
                             {t('app.buyurtmachi.registerForm.buildingOwnership.label')}
                         </Label>
                         <Select
-                            value={buildingOwnership || ''}
+                            value={buildingOwnership || undefined}
                             onValueChange={(value) => handleSelectChange('buildingOwnership', value)}
                         >
                             <SelectTrigger error={errors.buildingOwnership?.message}>
@@ -406,7 +406,7 @@ function ManufacturerRegisterForm() {
                             {t('app.buyurtmachi.registerForm.industrialZone.label')}
                         </Label>
                         <Select
-                            value={industrialZone || ''}
+                            value={industrialZone || undefined}
                             onValueChange={(value) => handleSelectChange('industrialZone', value)}
                         >
                             <SelectTrigger error={errors.industrialZone?.message}>
@@ -426,7 +426,7 @@ function ManufacturerRegisterForm() {
                             {t('app.buyurtmachi.registerForm.creditBurden.label')}
                         </Label>
                         <Select
-                            value={creditBurden || ''}
+                            value={creditBurden || undefined}
                             onValueChange={(value) => handleSelectChange('creditBurden', value)}
                         >
                             <SelectTrigger error={errors.creditBurden?.message}>

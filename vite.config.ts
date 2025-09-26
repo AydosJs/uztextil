@@ -25,7 +25,7 @@ export default defineConfig({
     host: 'localhost',
     port: 5173,
     hmr: true,
-    allowedHosts: ['c8909540b9b7.ngrok-free.app']
+    allowedHosts: ['yusuf-joseph-rahimov-clone.jprq.site']
   },
   build: {
     rollupOptions: {
