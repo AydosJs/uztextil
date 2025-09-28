@@ -1,6 +1,5 @@
 import { useApiV1SliderListList } from "@/lib/api"
-import { Card } from "@/components/ui"
-import { Spinner } from "@/components/ui"
+import { Card, Skeleton } from "@/components/ui"
 import { cn } from "@/lib/utils"
 
 interface SliderCardsProps {
@@ -21,10 +20,31 @@ export const SliderCards = ({ className }: SliderCardsProps) => {
         }
     }
 
+    // Skeleton Card Component
+    const SkeletonCard = () => (
+        <div className="relative w-full mx-auto rounded-xl overflow-hidden  bg-transparent border-gray-700/50">
+            {/* Image skeleton */}
+            <Skeleton className="w-full h-48" />
+
+            {/* Content skeleton */}
+            <div className="absolute inset-0 bg-gradient-to-t bg-transparent " />
+            <div className="absolute bottom-0 left-0 right-0 p-4">
+                {/* Title skeleton */}
+                <Skeleton className="h-5 w-3/4 mb-2" />
+                {/* Description skeletons */}
+                <Skeleton className="h-4 w-full mb-1" />
+                <Skeleton className="h-4 w-2/3" />
+            </div>
+        </div>
+    )
+
     if (isLoading) {
         return (
-            <div className="flex justify-center items-center py-8">
-                <Spinner />
+            <div className={cn("grid grid-cols-1 w-full gap-4", className)}>
+                {/* Show 3 skeleton cards while loading */}
+                {Array.from({ length: 3 }).map((_, index) => (
+                    <SkeletonCard key={index} />
+                ))}
             </div>
         )
     }

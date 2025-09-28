@@ -16,6 +16,7 @@ export { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 export { FileUploader } from "./file-uploader"
 export { GlobalLoading } from "./global-loading"
 export { Spinner } from "./spinner"
+export { Skeleton } from "./skeleton"
 export { UnderwaterHeader } from "./underwater-header"
 export { MultiSelectCombobox } from "./multi-select-combobox"
 export type { MultiSelectOption } from "./multi-select-combobox"

@@ -90,6 +90,31 @@ function CustomerRegisterForm() {
         }))
     }
 
+    // Check if all required fields are filled
+    const isFormValid = useMemo(() => {
+        const requiredFields = [
+            'full_name',
+            'position',
+            'company_name',
+            'legal_address',
+            'marketplace_brand',
+            'annual_order_volume',
+            'cooperation_terms',
+            'payment_terms'
+        ]
+
+        // Check if all required string fields are filled
+        const allStringFieldsFilled = requiredFields.every(field => {
+            const value = formData[field as keyof typeof formData]
+            return typeof value === 'string' && value.trim().length > 0
+        })
+
+        // Check if segment array has at least one item
+        const segmentSelected = formData.segment.length > 0
+
+        return allStringFieldsFilled && segmentSelected
+    }, [formData])
+
     const handleSubmit = async () => {
         if (!userInfo?.user_id) {
             console.error('User ID not available')
@@ -280,7 +305,7 @@ function CustomerRegisterForm() {
                         variant="default"
                         shadow="lg"
                         onClick={handleSubmit}
-                        disabled={customerCreateMutation.isPending}
+                        disabled={customerCreateMutation.isPending || !isFormValid}
                         className="w-full"
                     >
                         {t('app.buyurtmachi.registerForm.submitButton')}
