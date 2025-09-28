@@ -17,5 +17,7 @@ export { FileUploader } from "./file-uploader"
 export { GlobalLoading } from "./global-loading"
 export { Spinner } from "./spinner"
 export { UnderwaterHeader } from "./underwater-header"
+export { MultiSelectCombobox } from "./multi-select-combobox"
+export type { MultiSelectOption } from "./multi-select-combobox"
 
 

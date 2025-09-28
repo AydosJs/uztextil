@@ -41,11 +41,6 @@ export interface CustomerCreate {
   annual_order_volume: string;
   /**
    * @minLength 1
-   * @maxLength 100
-   */
-  segment: string;
-  /**
-   * @minLength 1
    * @maxLength 250
    */
   cooperation_terms: string;
@@ -65,4 +60,5 @@ export interface CustomerCreate {
    */
   total_orders?: number;
   user: number;
+  segment: number[];
 }

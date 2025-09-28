@@ -1,11 +1,13 @@
 import { Button, UnderwaterHeader } from "@/components/ui"
 import { CustomInput } from "@/components/ui"
 import { Label } from "@/components/ui"
-import { useState } from "react"
+import { MultiSelectCombobox } from "@/components/ui"
+import type { MultiSelectOption } from "@/components/ui"
+import { useState, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate, useLocation } from "react-router-dom"
 import { useTelegramBackButton } from "@/lib/hooks"
-import { useApiV1CustomerCreateCreate } from "@/lib/api"
+import { useApiV1CustomerCreateCreate, useApiV1SegmentListList } from "@/lib/api"
 import { useTelegramUser } from "@/hooks/useTelegramUser"
 import type { CustomerCreate } from "@/lib/api/model"
 import { showToast } from "@/lib/utils"
@@ -51,12 +53,25 @@ function CustomerRegisterForm() {
         legal_address: '',
         marketplace_brand: '',
         annual_order_volume: '',
-        segment: '',
+        segment: [] as number[],
         cooperation_terms: '',
         payment_terms: '',
         phone: '',
         total_orders: 0
     })
+
+    // Fetch segments list
+    const { data: segmentsData, isLoading: segmentsLoading } = useApiV1SegmentListList()
+
+    // Transform segments data for MultiSelectCombobox
+    const segmentOptions: MultiSelectOption[] = useMemo(() => {
+        if (!segmentsData) return []
+        return segmentsData.map(segment => ({
+            id: segment.id || 0,
+            label: segment.title,
+            value: segment.id?.toString() || '0'
+        }))
+    }, [segmentsData])
 
     // Show back button that goes to customer welcome page
     useTelegramBackButton({ navigateTo: '/customer' })
@@ -65,6 +80,13 @@ function CustomerRegisterForm() {
         setFormData(prev => ({
             ...prev,
             [field]: value
+        }))
+    }
+
+    const handleSegmentChange = (selectedIds: (number | string)[]) => {
+        setFormData(prev => ({
+            ...prev,
+            segment: selectedIds.map(id => typeof id === 'string' ? parseInt(id) : id)
         }))
     }
 
@@ -185,15 +207,19 @@ function CustomerRegisterForm() {
                         />
                     </div>
 
-                    {/* Segment */}
+                    {/* Segments */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium" required>
-                            {t('app.buyurtmachi.registerForm.productSegment.label')}
+                            {t('app.buyurtmachi.registerForm.segments.label')}
                         </Label>
-                        <CustomInput
-                            placeholder={t('app.buyurtmachi.registerForm.productSegment.placeholder')}
+                        <MultiSelectCombobox
+                            options={segmentOptions}
                             value={formData.segment}
-                            onChange={(e) => handleInputChange('segment', e.target.value)}
+                            onChange={handleSegmentChange}
+                            placeholder={t('app.buyurtmachi.registerForm.segments.placeholder')}
+                            emptyText={t('app.common.noSegmentsAvailable')}
+                            loadingText={t('app.common.loading')}
+                            isLoading={segmentsLoading}
                         />
                     </div>
 

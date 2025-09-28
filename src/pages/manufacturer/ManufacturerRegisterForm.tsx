@@ -5,7 +5,9 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui"
 import { FileUploader } from "@/components/ui"
 import { UnderwaterHeader } from "@/components/ui"
-import { useCallback } from "react"
+import { MultiSelectCombobox } from "@/components/ui"
+import type { MultiSelectOption } from "@/components/ui"
+import { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate, useLocation } from "react-router-dom"
 import { useForm } from "react-hook-form"
@@ -24,7 +26,7 @@ const manufacturerRegisterSchema = z.object({
     fullName: z.string().min(1, ""),
     position: z.string().min(1, ""),
     minOrder: z.string().min(1, ""),
-    productSegment: z.number().min(1, ""),
+    productSegment: z.array(z.number()).min(1, ""),
     commercialOffer: z.string().min(1, ""),
     productionAddress: z.string().min(1, ""),
     officeAddress: z.string().min(1, ""),
@@ -83,6 +85,16 @@ function ManufacturerRegisterForm() {
     // Fetch segments list
     const { data: segmentsData, isLoading: segmentsLoading } = useApiV1SegmentListList()
 
+    // Transform segments data for MultiSelectCombobox
+    const segmentOptions: MultiSelectOption[] = useMemo(() => {
+        if (!segmentsData) return []
+        return segmentsData.map(segment => ({
+            id: segment.id || 0,
+            label: segment.title,
+            value: segment.id?.toString() || '0'
+        }))
+    }, [segmentsData])
+
     // API mutation hook
     const manufacturerCreateMutation = useApiV1ManufacturerCreateCreate({
         mutation: {
@@ -114,7 +126,7 @@ function ManufacturerRegisterForm() {
                 full_name: data.fullName || '',
                 position: data.position || '',
                 min_order_quantity: data.minOrder || '',
-                product_segment: data.productSegment ? [data.productSegment] : [],
+                product_segment: data.productSegment || [],
                 commercial_offer_text: data.commercialOffer || '',
                 production_address: data.productionAddress || '',
                 office_address: data.officeAddress || '',
@@ -142,6 +154,11 @@ function ManufacturerRegisterForm() {
 
     const handleSelectChange = useCallback((field: keyof ManufacturerRegisterFormData, value: string | number) => {
         setValue(field, value as ManufacturerRegisterFormData[keyof ManufacturerRegisterFormData], { shouldValidate: false })
+    }, [setValue])
+
+    const handleSegmentChange = useCallback((selectedIds: (number | string)[]) => {
+        const numberIds = selectedIds.map(id => typeof id === 'string' ? parseInt(id) : id)
+        setValue('productSegment', numberIds, { shouldValidate: false })
     }, [setValue])
 
     const handleRadioChange = useCallback((field: keyof ManufacturerRegisterFormData, value: string) => {
@@ -231,33 +248,18 @@ function ManufacturerRegisterForm() {
                     {/* Product Segment */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium" required>
-                            {t('app.buyurtmachi.registerForm.productSegment.label')}
+                            {t('app.buyurtmachi.registerForm.segments.label')}
                         </Label>
-                        <Select
-                            value={productSegment?.toString() || undefined}
-                            onValueChange={(value) => handleSelectChange('productSegment', parseInt(value))}
-                        >
-                            <SelectTrigger error={errors.productSegment?.message}>
-                                <SelectValue placeholder={t('app.buyurtmachi.select.placeholder')} />
-                            </SelectTrigger>
-                            <SelectContent>
-                                {segmentsLoading ? (
-                                    <SelectItem value="loading" disabled>
-                                        {t('app.common.loading')}
-                                    </SelectItem>
-                                ) : segmentsData?.length ? (
-                                    segmentsData.map((segment) => (
-                                        <SelectItem key={segment.id} value={segment.id?.toString() || 'unknown'}>
-                                            {segment.title}
-                                        </SelectItem>
-                                    ))
-                                ) : (
-                                    <SelectItem value="no-data" disabled>
-                                        {t('app.common.noServicesAvailable')}
-                                    </SelectItem>
-                                )}
-                            </SelectContent>
-                        </Select>
+                        <MultiSelectCombobox
+                            options={segmentOptions}
+                            value={productSegment || []}
+                            onChange={handleSegmentChange}
+                            placeholder={t('app.buyurtmachi.registerForm.segments.placeholder')}
+                            emptyText={t('app.common.noSegmentsAvailable')}
+                            loadingText={t('app.common.loading')}
+                            isLoading={segmentsLoading}
+                            error={errors.productSegment?.message}
+                        />
                     </div>
 
                     {/* Commercial Offer */}

@@ -58,9 +58,10 @@
           "label": "Minimal buyurtma hajmi",
           "placeholder": "1 tonna"
         },
-        "productSegment": {
-          "label": "Mahsulot segmenti",
-          "placeholder": "Segment turini tanlang"
+        "segments": {
+          "label": "Mahsulot segmentlari",
+          "placeholder": "Mahsulot segmentlarini tanlang",
+          "selected": "Tanlangan segmentlar: {{count}}"
         },
         "commercialOffer": {
           "label": "Tijorat taklifi",
@@ -554,6 +555,7 @@
       "price": "Narxi",
       "priceNotSet": "Narx belgilanmagan",
       "noServicesAvailable": "Hozircha xizmatlar mavjud emas",
+      "noSegmentsAvailable": "Segmentlar mavjud emas",
       "loadingData": "Ma'lumotlar yuklanmoqda...",
       "submitApplication": "Ariza qoldirish",
       "viewMoreDetails": "Ko'proq ma'lumot ko'rish",
