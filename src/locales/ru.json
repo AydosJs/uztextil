@@ -220,27 +220,27 @@
             "placeholder": "Введите тип сегмента"
           },
           "workPurpose": {
-            "label": "Цель работы",
+            "label": "Цель труда",
             "placeholder": "Подробно опишите цель вашей работы"
           },
           "interestedFactories": {
-            "label": "Интересующие фабрики",
+            "label": "Какие фабрики интересуют",
             "placeholder": "Введите список интересующих фабрик"
           },
           "quantityToSee": {
-            "label": "Необходимое количество для просмотра",
+            "label": "Какое количество хотелось бы посмотреть",
             "placeholder": "Введите количество"
           },
           "plannedStayDays": {
-            "label": "Запланированные дни пребывания",
+            "label": "Сколько день планируется прибывание",
             "placeholder": "Введите количество дней"
           },
           "plannedArrivalDates": {
-            "label": "Запланированные даты прибытия",
+            "label": "В каких датах планируется приезд",
             "placeholder": "Введите даты"
           },
           "needsTouristProgram": {
-            "label": "Нужна ли туристическая программа",
+            "label": "Нужна ли туристическая программа?",
             "placeholder": "Предоставьте информацию о туристической программе"
           },
           "submitButton": "Отправить заявку"
@@ -385,41 +385,41 @@
     "placeOrder": {
       "title": "Разместить заказ",
       "form": {
-        "productDescription": {
-          "label": "Описание продукта",
-          "placeholder": "Подробная информация о продукте"
+        "lookingForProduction": {
+          "label": "Ищу производство",
+          "placeholder": "Подробно опишите, какое производство вам нужно"
+        },
+        "manufacturerRequirements": {
+          "label": "Требование к производителю",
+          "placeholder": "Опишите требования к производителю"
         },
         "orderVolume": {
-          "label": "Объем заказа",
-          "placeholder": "Введите объем заказа"
+          "label": "Объём заказа",
+          "placeholder": "Введите объём заказа"
         },
-        "productionDeliveryTime": {
-          "label": "Срок производства/доставки",
-          "placeholder": "Введите срок"
+        "passingPrice": {
+          "label": "Проходная цена",
+          "placeholder": "Введите проходную цену"
         },
-        "specialRequirements": {
-          "label": "Особые требования",
-          "placeholder": "Введите ваши особые требования"
+        "samplePhoto": {
+          "label": "Фото образца",
+          "placeholder": "Загрузите фото образца"
         },
-        "budgetEstimatedPrice": {
-          "label": "Бюджет/Примерная цена",
-          "placeholder": "Введите бюджет или примерную цену"
+        "executionTerms": {
+          "label": "Сроки исполнения",
+          "placeholder": "Выберите сроки исполнения"
         },
-        "segmentCategory": {
-          "label": "Категория сегмента",
-          "placeholder": "Введите сегмент продукта"
+        "paymentTerms": {
+          "label": "Условия оплаты",
+          "placeholder": "Введите условия оплаты"
         },
-        "contactPhone": {
-          "label": "Контактный телефон",
+        "telegramWhatsappNumber": {
+          "label": "Номер в телеграм, вацап",
           "placeholder": "+998901234567"
         },
-        "contactEmail": {
-          "label": "Контактный email",
-          "placeholder": "example@email.com"
-        },
-        "additionalNotes": {
-          "label": "Дополнительные примечания",
-          "placeholder": "Дополнительная информация"
+        "nameAndPosition": {
+          "label": "Имя и должность",
+          "placeholder": "Введите полное имя и должность"
         },
         "submitButton": "Отправить заказ"
       },
@@ -579,7 +579,10 @@
       "viewMoreDetails": "Подробнее",
       "channelComingSoon": "Функция перехода в канал будет добавлена в ближайшее время",
       "service": "Услуга",
-      "noManufacturersAvailable": "Пока производители недоступны"
+      "noManufacturersAvailable": "Пока производители недоступны",
+      "writeToManager": "Написать менеджеру",
+      "noSegmentsAvailable": "Пока сегменты недоступны",
+      "loading": "Загрузка..."
     },
     "termsAndConditions": {
       "title": "Коммерческое предложение",
@@ -594,6 +597,27 @@
         "cancel": "Отменить",
         "submit": "Оставить заявку",
         "submitting": "Отправляется..."
+      }
+    },
+    "applicationDrawer": {
+      "title": "Оставить заявку",
+      "form": {
+        "fullName": {
+          "label": "Ф.И.О",
+          "placeholder": "Введите ваше полное имя"
+        },
+        "position": {
+          "label": "Должность",
+          "placeholder": "Введите вашу должность"
+        },
+        "companyName": {
+          "label": "Название компании",
+          "placeholder": "Введите название компании"
+        },
+        "submitButton": "Оставить заявку"
+      },
+      "validation": {
+        "fillAllFields": "Пожалуйста, заполните все поля"
       }
     }
   }

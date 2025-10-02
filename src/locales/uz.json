@@ -372,6 +372,10 @@
       "title": "Buyurtma berish",
       "subtitle": "Ishlab chiqarish qidirmoqdaman",
       "form": {
+        "lookingForProduction": {
+          "label": "Ishlab chiqarish qidirmoqdaman",
+          "placeholder": "Qanday mahsulot ishlab chiqarish kerakligini batafsil yozing"
+        },
         "manufacturerRequirements": {
           "label": "Ishlab chiqaruvchiga talab",
           "placeholder": "Ishlab chiqaruvchiga talablarni tasvirlab bering"
@@ -380,33 +384,29 @@
           "label": "Buyurtma hajmi",
           "placeholder": "Buyurtma hajmini kiriting"
         },
-        "targetPrice": {
+        "passingPrice": {
           "label": "O'tkazish narxi",
           "placeholder": "O'tkazish narxini kiriting"
         },
-        "samplePhotos": {
-          "label": "Namuna rasmlari",
-          "placeholder": "Namuna rasmlarini yuklang"
+        "samplePhoto": {
+          "label": "Namuna rasmi",
+          "placeholder": "Namuna rasmini yuklang"
         },
-        "executionTimeline": {
+        "executionTerms": {
           "label": "Bajarish muddati",
-          "placeholder": "Bajarish muddatini kiriting"
+          "placeholder": "Bajarish muddatini tanlang"
         },
         "paymentTerms": {
           "label": "To'lov shartlari",
           "placeholder": "To'lov shartlarini kiriting"
         },
-        "telegramWhatsapp": {
+        "telegramWhatsappNumber": {
           "label": "Telegram/vatsap raqami",
           "placeholder": "+998901234567"
         },
-        "contactName": {
-          "label": "Ism",
-          "placeholder": "Ismingizni kiriting"
-        },
-        "position": {
-          "label": "Lavozim",
-          "placeholder": "Lavozimingizni kiriting"
+        "nameAndPosition": {
+          "label": "Ism va lavozim",
+          "placeholder": "To'liq ism va lavozimni kiriting"
         },
         "submitButton": "Buyurtma yuborish"
       },
@@ -565,7 +565,10 @@
       "viewMoreDetails": "Ko'proq ma'lumot ko'rish",
       "channelComingSoon": "Kanalga o'tish funksiyasi tez orada qo'shiladi",
       "service": "Xizmat",
-      "noManufacturersAvailable": "Hozircha ishlab chiqaruvchilar mavjud emas"
+      "noManufacturersAvailable": "Hozircha ishlab chiqaruvchilar mavjud emas",
+      "writeToManager": "Menejerga yozish",
+      "noSegmentsAvailable": "Hozircha segmentlar mavjud emas",
+      "loading": "Yuklanmoqda..."
     },
     "termsAndConditions": {
       "title": "Tijorat taklifi",
@@ -580,6 +583,27 @@
         "cancel": "Bekor qilish",
         "submit": "Ariza qoldirish",
         "submitting": "Yuborilmoqda..."
+      }
+    },
+    "applicationDrawer": {
+      "title": "Ariza qoldirish",
+      "form": {
+        "fullName": {
+          "label": "F.I.SH",
+          "placeholder": "To'liq ism sharifingizni kiriting"
+        },
+        "position": {
+          "label": "Lavozimi",
+          "placeholder": "Lavozimingizni kiriting"
+        },
+        "companyName": {
+          "label": "Kompaniya nomi",
+          "placeholder": "Kompaniya nomini kiriting"
+        },
+        "submitButton": "Ariza qoldirish"
+      },
+      "validation": {
+        "fillAllFields": "Iltimos, barcha maydonlarni to'ldiring"
       }
     }
   }

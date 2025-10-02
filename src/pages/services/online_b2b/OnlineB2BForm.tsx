@@ -1,13 +1,14 @@
-import { Button, UnderwaterHeader } from "@/components/ui"
+import { Button, UnderwaterHeader, MultiSelectCombobox } from "@/components/ui"
 import { CustomInput } from "@/components/ui"
 import { Label } from "@/components/ui"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate, useLocation } from "react-router-dom"
 import { useTelegramBackButton } from "@/lib/hooks"
-import { useApiV1ApplicationCreateCreate } from "@/lib/api"
+import { useApiV1ApplicationCreateCreate, useApiV1SegmentListList } from "@/lib/api"
 import { useTelegramUser } from "@/hooks/useTelegramUser"
 import type { ApplicationCreate } from "@/lib/api/model"
+import type { MultiSelectOption } from "@/components/ui/multi-select-combobox"
 import { showToast } from "@/lib/utils"
 
 function OnlineB2BForm() {
@@ -38,7 +39,7 @@ function OnlineB2BForm() {
     })
 
     const [formData, setFormData] = useState({
-        segment: '',
+        segment: [] as number[],
         work_purpose: '',
         interested_factories: '',
         quantity_to_see: '',
@@ -47,23 +48,41 @@ function OnlineB2BForm() {
         needs_tourist_program: '',
     })
 
+    // Fetch segments list
+    const { data: segmentsData, isLoading: segmentsLoading } = useApiV1SegmentListList()
+
+    // Transform segments data for MultiSelectCombobox
+    const segmentOptions: MultiSelectOption[] = segmentsData?.map(segment => ({
+        id: segment.id || 0,
+        label: segment.title || '',
+        value: segment.id?.toString() || '0'
+    })) || []
+
     // Check if all required fields are filled
     const isFormValid = () => {
         const requiredFields = ['segment', 'work_purpose', 'interested_factories', 'quantity_to_see', 'planned_stay_days', 'planned_arrival_dates']
         return requiredFields.every(field => {
             const value = formData[field as keyof typeof formData]
-            return value && value.trim() !== ''
+            if (field === 'segment') {
+                return Array.isArray(value) && value.length > 0
+            }
+            return value && value.toString().trim() !== ''
         })
     }
 
     // Show back button that goes to services page
     useTelegramBackButton({ navigateTo: '/services' })
 
-    const handleInputChange = (field: string, value: string) => {
+    const handleInputChange = (field: string, value: string | number[]) => {
         setFormData(prev => ({
             ...prev,
             [field]: value
         }))
+    }
+
+    const handleSegmentChange = (selectedIds: (number | string)[]) => {
+        const numberIds = selectedIds.map(id => typeof id === 'string' ? parseInt(id) : id)
+        setFormData(prev => ({ ...prev, segment: numberIds }))
     }
 
     const handleSubmit = async () => {
@@ -114,10 +133,14 @@ function OnlineB2BForm() {
                         <Label className="text-white text-sm font-medium" required>
                             {t('app.onlineB2B.form.segment.label')}
                         </Label>
-                        <CustomInput
-                            placeholder={t('app.onlineB2B.form.segment.placeholder')}
+                        <MultiSelectCombobox
+                            options={segmentOptions}
                             value={formData.segment}
-                            onChange={(e) => handleInputChange('segment', e.target.value)}
+                            onChange={handleSegmentChange}
+                            placeholder={t('app.onlineB2B.form.segment.placeholder')}
+                            emptyText={t('app.common.noSegmentsAvailable')}
+                            loadingText={t('app.common.loading')}
+                            isLoading={segmentsLoading}
                         />
                     </div>
 

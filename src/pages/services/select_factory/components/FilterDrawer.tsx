@@ -7,8 +7,11 @@ import {
 } from "@/components/ui/drawer"
 import { Button } from "@/components/ui/button"
 import { CustomInput } from "@/components/ui/custom-input"
+import { MultiSelectCombobox } from "@/components/ui/multi-select-combobox"
+import type { MultiSelectOption } from "@/components/ui/multi-select-combobox"
 import { Search, X } from "lucide-react"
 import { useTranslation } from "react-i18next"
+import { useApiV1SegmentListList } from "@/lib/api"
 
 interface FilterDrawerProps {
     open: boolean
@@ -19,7 +22,7 @@ interface FilterDrawerProps {
 
 interface FilterOptions {
     search: string
-    product_segment: string
+    product_segment: number[]
     min_order_quantity: string
 }
 
@@ -31,6 +34,16 @@ export function FilterDrawer({
 }: FilterDrawerProps) {
     const { t } = useTranslation()
     const [filters, setFilters] = useState<FilterOptions>(currentFilters)
+
+    // Fetch segments list
+    const { data: segmentsData, isLoading: segmentsLoading } = useApiV1SegmentListList()
+
+    // Transform segments data for MultiSelectCombobox
+    const segmentOptions: MultiSelectOption[] = segmentsData?.map(segment => ({
+        id: segment.id || 0,
+        label: segment.title || '',
+        value: segment.id?.toString() || '0'
+    })) || []
 
     // Update local state when currentFilters change
     useEffect(() => {
@@ -47,7 +60,7 @@ export function FilterDrawer({
     const resetFilters = () => {
         const resetFilters = {
             search: '',
-            product_segment: '',
+            product_segment: [],
             min_order_quantity: ''
         }
         setFilters(resetFilters)
@@ -56,7 +69,7 @@ export function FilterDrawer({
     }
 
     // Check if there are any active filters
-    const hasActiveFilters = filters.search || filters.product_segment || filters.min_order_quantity
+    const hasActiveFilters = filters.search || filters.product_segment.length > 0 || filters.min_order_quantity
 
     const handleFilterChange = (key: keyof FilterOptions, value: string) => {
         // For min_order_quantity, only allow numbers
@@ -67,6 +80,11 @@ export function FilterDrawer({
         } else {
             setFilters(prev => ({ ...prev, [key]: value }))
         }
+    }
+
+    const handleSegmentChange = (selectedIds: (number | string)[]) => {
+        const numberIds = selectedIds.map(id => typeof id === 'string' ? parseInt(id) : id)
+        setFilters(prev => ({ ...prev, product_segment: numberIds }))
     }
 
     return (
@@ -99,13 +117,20 @@ export function FilterDrawer({
                     />
 
                     {/* Product Segment */}
-                    <CustomInput
-                        label={t('app.filterDrawer.productSegment.label')}
-                        type="text"
-                        value={filters.product_segment}
-                        onChange={(e) => handleFilterChange('product_segment', e.target.value)}
-                        placeholder={t('app.filterDrawer.productSegment.placeholder')}
-                    />
+                    <div className="space-y-2">
+                        <label className="block text-base font-normal leading-6 tracking-[0.15px] text-[#9FA0A1]">
+                            {t('app.filterDrawer.productSegment.label')}
+                        </label>
+                        <MultiSelectCombobox
+                            options={segmentOptions}
+                            value={filters.product_segment}
+                            onChange={handleSegmentChange}
+                            placeholder={t('app.filterDrawer.productSegment.placeholder')}
+                            emptyText={t('app.common.noSegmentsAvailable')}
+                            loadingText={t('app.common.loading')}
+                            isLoading={segmentsLoading}
+                        />
+                    </div>
 
                     <CustomInput
                         label={t('app.filterDrawer.minOrderQuantity.label')}

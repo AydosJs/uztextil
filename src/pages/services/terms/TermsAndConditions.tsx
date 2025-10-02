@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import { useQueryClient } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
-import { Button, CustomCheckbox, UnderwaterHeader } from "@/components/ui"
+import { Button, CustomCheckbox, UnderwaterHeader, ApplicationDrawer } from "@/components/ui"
 import { showToast } from "@/lib/utils"
 import { useTelegramBackButton } from "@/lib/hooks"
 import { useApiV1ServiceApplyCreate } from "@/lib/api"
@@ -15,6 +15,7 @@ function TermsAndConditions() {
     const location = useLocation()
     const queryClient = useQueryClient()
     const [isChecked, setIsChecked] = useState(false)
+    const [applicationDrawerOpen, setApplicationDrawerOpen] = useState(false)
     const { userInfo } = useTelegramUser()
 
     // Get service and factory data from navigation state
@@ -86,6 +87,12 @@ function TermsAndConditions() {
 
     const handleCancel = () => {
         navigate(-1)
+    }
+
+    const handleApplicationSubmit = (data: { fullName: string; position: string; companyName: string }) => {
+        // Show success toast in Russian
+        showToast.success("Ваша заявка принята!")
+        console.log("Application submitted:", data)
     }
 
     return (
@@ -160,7 +167,7 @@ function TermsAndConditions() {
                         >
                             {t('app.termsAndConditions.buttons.cancel')}
                         </Button>
-
+                        {/* 
                         <Button
                             variant="default"
                             onClick={handleSubmit}
@@ -168,10 +175,25 @@ function TermsAndConditions() {
                             className="w-full"
                         >
                             {createApplicationMutation.isPending ? t('app.termsAndConditions.buttons.submitting') : t('app.termsAndConditions.buttons.submit')}
+                        </Button> */}
+
+                        <Button
+                            variant="outline"
+                            onClick={() => setApplicationDrawerOpen(true)}
+                            className="w-full border-[#FCE803] text-[#FCE803] hover:bg-[#FCE803]/10"
+                        >
+                            {t('app.applicationDrawer.title')}
                         </Button>
                     </div>
                 )}
             </main>
+
+            {/* Application Drawer */}
+            <ApplicationDrawer
+                open={applicationDrawerOpen}
+                onOpenChange={setApplicationDrawerOpen}
+                onSubmit={handleApplicationSubmit}
+            />
         </div>
     )
 }

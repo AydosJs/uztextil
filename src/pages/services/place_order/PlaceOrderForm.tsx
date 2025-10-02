@@ -1,4 +1,4 @@
-import { Button, UnderwaterHeader } from "@/components/ui"
+import { Button, UnderwaterHeader, DatePicker } from "@/components/ui"
 import { CustomInput } from "@/components/ui"
 import { Label } from "@/components/ui"
 import { useState } from "react"
@@ -39,27 +39,33 @@ function PlaceOrderForm() {
     })
 
     const [formData, setFormData] = useState({
-        product_description: '',
-        order_volume: '',
-        production_delivery_time: '',
-        special_requirements: '',
-        budget_estimated_price: '',
-        segment_category: '',
+        looking_for_production: '', // Ищу производство
+        manufacturer_requirements: '', // Требование к производителю
+        order_volume: '', // Объём заказа
+        passing_price: '', // Проходная цена
+        sample_photo: '', // Фото образца
+        execution_terms: null as Date | null, // Сроки исполнения
+        payment_terms: '', // Условия оплаты
+        telegram_whatsapp_number: '', // Номер в телеграм, вацап
+        name_and_position: '', // Имя и должность
     })
 
     // Check if all required fields are filled
     const isFormValid = () => {
-        const requiredFields = ['product_description', 'order_volume', 'production_delivery_time', 'budget_estimated_price', 'segment_category']
+        const requiredFields = ['looking_for_production', 'manufacturer_requirements', 'order_volume', 'passing_price', 'execution_terms', 'payment_terms', 'telegram_whatsapp_number', 'name_and_position']
         return requiredFields.every(field => {
             const value = formData[field as keyof typeof formData]
-            return value && value.trim() !== ''
+            if (field === 'execution_terms') {
+                return value !== null && value !== undefined
+            }
+            return value && value.toString().trim() !== ''
         })
     }
 
     // Show back button that goes to services page
     useTelegramBackButton({ navigateTo: '/services' })
 
-    const handleInputChange = (field: string, value: string) => {
+    const handleInputChange = (field: string, value: string | Date | null) => {
         setFormData(prev => ({
             ...prev,
             [field]: value
@@ -111,17 +117,31 @@ function PlaceOrderForm() {
 
                 {/* Form */}
                 <div className="flex-1 space-y-4 pb-8">
-                    {/* Product Description */}
+                    {/* Looking for Production */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium" required>
-                            {t('app.placeOrder.form.productDescription.label')}
+                            {t('app.placeOrder.form.lookingForProduction.label')}
                         </Label>
                         <CustomInput
-                            placeholder={t('app.placeOrder.form.productDescription.placeholder')}
-                            value={formData.product_description}
-                            onChange={(e) => handleInputChange('product_description', e.target.value)}
+                            placeholder={t('app.placeOrder.form.lookingForProduction.placeholder')}
+                            value={formData.looking_for_production}
+                            onChange={(e) => handleInputChange('looking_for_production', e.target.value)}
                             multiline
-                            rows={4}
+                            rows={3}
+                        />
+                    </div>
+
+                    {/* Manufacturer Requirements */}
+                    <div className="space-y-2">
+                        <Label className="text-white text-sm font-medium" required>
+                            {t('app.placeOrder.form.manufacturerRequirements.label')}
+                        </Label>
+                        <CustomInput
+                            placeholder={t('app.placeOrder.form.manufacturerRequirements.placeholder')}
+                            value={formData.manufacturer_requirements}
+                            onChange={(e) => handleInputChange('manufacturer_requirements', e.target.value)}
+                            multiline
+                            rows={3}
                         />
                     </div>
 
@@ -137,53 +157,77 @@ function PlaceOrderForm() {
                         />
                     </div>
 
-                    {/* Production/Delivery Time */}
+                    {/* Passing Price */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium" required>
-                            {t('app.placeOrder.form.productionDeliveryTime.label')}
+                            {t('app.placeOrder.form.passingPrice.label')}
                         </Label>
                         <CustomInput
-                            placeholder={t('app.placeOrder.form.productionDeliveryTime.placeholder')}
-                            value={formData.production_delivery_time}
-                            onChange={(e) => handleInputChange('production_delivery_time', e.target.value)}
+                            placeholder={t('app.placeOrder.form.passingPrice.placeholder')}
+                            value={formData.passing_price}
+                            onChange={(e) => handleInputChange('passing_price', e.target.value)}
                         />
                     </div>
 
-                    {/* Special Requirements */}
+                    {/* Sample Photo */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium">
-                            {t('app.placeOrder.form.specialRequirements.label')}
+                            {t('app.placeOrder.form.samplePhoto.label')}
                         </Label>
                         <CustomInput
-                            placeholder={t('app.placeOrder.form.specialRequirements.placeholder')}
-                            value={formData.special_requirements}
-                            onChange={(e) => handleInputChange('special_requirements', e.target.value)}
-                            multiline
-                            rows={3}
+                            placeholder={t('app.placeOrder.form.samplePhoto.placeholder')}
+                            value={formData.sample_photo}
+                            onChange={(e) => handleInputChange('sample_photo', e.target.value)}
                         />
                     </div>
 
-                    {/* Budget/Estimated Price */}
+                    {/* Execution Terms (Date Picker) */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium" required>
-                            {t('app.placeOrder.form.budgetEstimatedPrice.label')}
+                            {t('app.placeOrder.form.executionTerms.label')}
                         </Label>
-                        <CustomInput
-                            placeholder={t('app.placeOrder.form.budgetEstimatedPrice.placeholder')}
-                            value={formData.budget_estimated_price}
-                            onChange={(e) => handleInputChange('budget_estimated_price', e.target.value)}
+                        <DatePicker
+                            value={formData.execution_terms}
+                            onChange={(date) => handleInputChange('execution_terms', date)}
+                            placeholder={t('app.placeOrder.form.executionTerms.placeholder')}
+                            fromYear={new Date().getFullYear()}
+                            toYear={new Date().getFullYear() + 5}
                         />
                     </div>
 
-                    {/* Segment Category */}
+                    {/* Payment Terms */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium" required>
-                            {t('app.placeOrder.form.segmentCategory.label')}
+                            {t('app.placeOrder.form.paymentTerms.label')}
                         </Label>
                         <CustomInput
-                            placeholder={t('app.placeOrder.form.segmentCategory.placeholder')}
-                            value={formData.segment_category}
-                            onChange={(e) => handleInputChange('segment_category', e.target.value)}
+                            placeholder={t('app.placeOrder.form.paymentTerms.placeholder')}
+                            value={formData.payment_terms}
+                            onChange={(e) => handleInputChange('payment_terms', e.target.value)}
+                        />
+                    </div>
+
+                    {/* Telegram/WhatsApp Number */}
+                    <div className="space-y-2">
+                        <Label className="text-white text-sm font-medium" required>
+                            {t('app.placeOrder.form.telegramWhatsappNumber.label')}
+                        </Label>
+                        <CustomInput
+                            placeholder={t('app.placeOrder.form.telegramWhatsappNumber.placeholder')}
+                            value={formData.telegram_whatsapp_number}
+                            onChange={(e) => handleInputChange('telegram_whatsapp_number', e.target.value)}
+                        />
+                    </div>
+
+                    {/* Name and Position */}
+                    <div className="space-y-2">
+                        <Label className="text-white text-sm font-medium" required>
+                            {t('app.placeOrder.form.nameAndPosition.label')}
+                        </Label>
+                        <CustomInput
+                            placeholder={t('app.placeOrder.form.nameAndPosition.placeholder')}
+                            value={formData.name_and_position}
+                            onChange={(e) => handleInputChange('name_and_position', e.target.value)}
                         />
                     </div>
                 </div>

@@ -10,7 +10,7 @@ import type { AdditionalService, ManufacturerList } from "@/lib/api/model"
 
 interface FilterOptions {
     search: string
-    product_segment: string
+    product_segment: number[]
     min_order_quantity: string
 }
 
@@ -24,7 +24,7 @@ function FactorySelection() {
     const [isLoadingDetails, setIsLoadingDetails] = useState(false)
     const [filters, setFilters] = useState<FilterOptions>({
         search: '',
-        product_segment: '',
+        product_segment: [],
         min_order_quantity: ''
     })
 
@@ -37,7 +37,7 @@ function FactorySelection() {
     // Prepare API parameters - this will be reactive to filters changes
     const apiParams = {
         search: filters.search.trim() || undefined,
-        product_segment: filters.product_segment.trim() || undefined,
+        product_segment: filters.product_segment.length > 0 ? filters.product_segment.join(',') : undefined,
         min_order_quantity: filters.min_order_quantity.trim() || undefined
     }
 
