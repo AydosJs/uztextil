@@ -8,6 +8,7 @@
 
 export * from './additionalService';
 export * from './additionalServiceOption';
+export * from './additionalServicePaymentType';
 export * from './additionalServiceType';
 export * from './apiV1AdditionalServicesListListParams';
 export * from './apiV1ManufacturerListListParams';
@@ -23,6 +24,7 @@ export * from './applicationList';
 export * from './applicationListStatus';
 export * from './customerCreate';
 export * from './login';
+export * from './manufacturerCertificate';
 export * from './manufacturerCreate';
 export * from './manufacturerCreateStatus';
 export * from './manufacturerDetail';

@@ -5,6 +5,7 @@
  * API for your Django project
  * OpenAPI spec version: v1
  */
+import type { ManufacturerCertificate } from './manufacturerCertificate';
 
 export interface ManufacturerDetail {
   readonly id?: number;
@@ -36,4 +37,5 @@ export interface ManufacturerDetail {
    * @maximum 2147483647
    */
   employee_count: number;
+  certificates: ManufacturerCertificate[];
 }

@@ -65,8 +65,6 @@ export interface ManufacturerCreate {
   organization_structure: string;
   /** @minLength 1 */
   equipment_info: string;
-  /** @nullable */
-  readonly certificate?: string | null;
   /**
    * @maxLength 30
    * @nullable
@@ -80,4 +78,5 @@ export interface ManufacturerCreate {
   order?: number;
   user: number;
   product_segment: number[];
+  sertificates?: number[];
 }

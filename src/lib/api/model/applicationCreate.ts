@@ -11,6 +11,19 @@ export interface ApplicationCreate {
   readonly id?: number;
   created_at?: string;
   readonly updated_at?: string;
+  /** @nullable */
+  looking_for_production?: string | null;
+  /** @nullable */
+  manufacturer_requirements?: string | null;
+  /** @nullable */
+  readonly sample_photo?: string | null;
+  /**
+   * @maxLength 255
+   * @nullable
+   */
+  execution_terms?: string | null;
+  /** @nullable */
+  payment_terms?: string | null;
   /**
    * @maxLength 255
    * @nullable
@@ -64,6 +77,16 @@ export interface ApplicationCreate {
    * @nullable
    */
   segment_category?: string | null;
+  /**
+   * @maxLength 100
+   * @nullable
+   */
+  full_name?: string | null;
+  /**
+   * @maxLength 100
+   * @nullable
+   */
+  company_name?: string | null;
   /** @nullable */
   additional_notes?: string | null;
   /**

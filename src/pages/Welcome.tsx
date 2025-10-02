@@ -21,7 +21,7 @@ function Welcome() {
                 <div className=" flex px-3 flex-col items-center justify-center space-y-8">
                     {/* Welcome Header */}
                     <div className="text-left space-y-2 max-w-2xl">
-                        <h1 className="text-white font-bold text-3xl tracking-wide">
+                        <h1 className="text-white font-bold text-xl tracking-wide">
                             {t('app.welcome.greeting')}
                         </h1>
                         <p className="text-gray-300 max-w-md font-medium text-sm leading-relaxed">

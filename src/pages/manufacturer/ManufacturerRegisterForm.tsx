@@ -3,7 +3,7 @@ import { CustomInput } from "@/components/ui"
 import { Label } from "@/components/ui"
 import { RadioGroup, RadioGroupItem } from "@/components/ui"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui"
-import { FileUploader } from "@/components/ui"
+import { CertificateUploader } from "@/components/ui"
 import { UnderwaterHeader } from "@/components/ui"
 import { MultiSelectCombobox } from "@/components/ui"
 import type { MultiSelectOption } from "@/components/ui"
@@ -41,7 +41,7 @@ const manufacturerRegisterSchema = z.object({
     organizationStructure: z.enum(["director", "manager", "marketer"]).optional(),
     equipmentInfo: z.string().min(1, ""),
     phone: z.string().regex(/^\+?[0-9\s\-()]+$/, "").optional().or(z.literal("")),
-    files: z.array(z.instanceof(File)).optional()
+    certificateIds: z.array(z.number()).optional()
 })
 
 type ManufacturerRegisterFormData = z.infer<typeof manufacturerRegisterSchema>
@@ -142,7 +142,8 @@ function ManufacturerRegisterForm() {
                 organization_structure: data.organizationStructure || '',
                 equipment_info: data.equipmentInfo || '',
                 phone: data.phone || null,
-                user: userInfo?.user_id || 0 // Use user_id from bot-user/register API response
+                user: userInfo?.user_id || 0, // Use user_id from bot-user/register API response
+                sertificates: data.certificateIds || [] // Add certificate IDs
             }
 
             // Call the API
@@ -165,8 +166,8 @@ function ManufacturerRegisterForm() {
         setValue(field, value as ManufacturerRegisterFormData[keyof ManufacturerRegisterFormData], { shouldValidate: false })
     }, [setValue])
 
-    const handleFileChange = useCallback((files: File[]) => {
-        setValue('files', files, { shouldValidate: false })
+    const handleCertificateIdsChange = useCallback((certificateIds: number[]) => {
+        setValue('certificateIds', certificateIds, { shouldValidate: false })
     }, [setValue])
 
     return (
@@ -485,13 +486,12 @@ function ManufacturerRegisterForm() {
                         />
                     </div>
 
-                    {/* File Upload */}
+                    {/* Certificate Upload */}
                     <div className="space-y-2">
-                        <FileUploader
-                            label={t('app.buyurtmachi.registerForm.fileUpload.label')}
-                            onFileChange={handleFileChange}
+                        <CertificateUploader
+                            label={t('app.buyurtmachi.registerForm.certificates.title')}
+                            onCertificateIdsChange={handleCertificateIdsChange}
                         />
-
                     </div>
 
                     {/* Phone */}

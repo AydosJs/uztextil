@@ -34,6 +34,7 @@ import type {
   ApplicationCreate,
   ApplicationList,
   CustomerCreate,
+  ManufacturerCertificate,
   ManufacturerCreate,
   ManufacturerDetail,
   ManufacturerList,
@@ -475,6 +476,64 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
       > => {
 
       const mutationOptions = getApiV1CustomerCreateCreateMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    export const apiV1ManufacturerCertificateCreate = (
+    manufacturerCertificate: NonReadonly<ManufacturerCertificate>,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<ManufacturerCertificate>(
+      {url: `/api/v1/manufacturer/certificate/`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: manufacturerCertificate, signal
+    },
+      options);
+    }
+  
+
+
+export const getApiV1ManufacturerCertificateCreateMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiV1ManufacturerCertificateCreate>>, TError,{data: NonReadonly<ManufacturerCertificate>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof apiV1ManufacturerCertificateCreate>>, TError,{data: NonReadonly<ManufacturerCertificate>}, TContext> => {
+
+const mutationKey = ['apiV1ManufacturerCertificateCreate'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiV1ManufacturerCertificateCreate>>, {data: NonReadonly<ManufacturerCertificate>}> = (props) => {
+          const {data} = props ?? {};
+
+          return  apiV1ManufacturerCertificateCreate(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ApiV1ManufacturerCertificateCreateMutationResult = NonNullable<Awaited<ReturnType<typeof apiV1ManufacturerCertificateCreate>>>
+    export type ApiV1ManufacturerCertificateCreateMutationBody = NonReadonly<ManufacturerCertificate>
+    export type ApiV1ManufacturerCertificateCreateMutationError = unknown
+
+    export const useApiV1ManufacturerCertificateCreate = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiV1ManufacturerCertificateCreate>>, TError,{data: NonReadonly<ManufacturerCertificate>}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof apiV1ManufacturerCertificateCreate>>,
+        TError,
+        {data: NonReadonly<ManufacturerCertificate>},
+        TContext
+      > => {
+
+      const mutationOptions = getApiV1ManufacturerCertificateCreateMutationOptions(options);
 
       return useMutation(mutationOptions , queryClient);
     }

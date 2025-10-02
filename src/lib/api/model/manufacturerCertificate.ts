@@ -6,10 +6,13 @@
  * OpenAPI spec version: v1
  */
 
-export interface UserApply {
+export interface ManufacturerCertificate {
   readonly id?: number;
   created_at?: string;
   readonly updated_at?: string;
-  service: number;
-  user: number;
+  readonly certificate?: string;
+  /** @nullable */
+  certificate_received_date?: string | null;
+  /** @nullable */
+  certificate_expiration_date?: string | null;
 }

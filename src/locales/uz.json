@@ -238,19 +238,15 @@
         },
         "certificates": {
           "title": "Sertifikatlar",
-          "certificateName": "Sertifikat nomi",
-          "validityPeriod": "Amal qilish muddati",
           "addCertificate": "Sertifikat qo'shish",
-          "types": {
-            "iso": "ISO (International Organization For Standardization Certificate)",
-            "oekoTex": "OEKO-Tex standart 100 (International Association for Research and Testing in Field of Textile and Leather Ecology Certificate)",
-            "ceMark": "CE Mark (Conformité Européenne Certificate)",
-            "bci": "BCI (Better Cotton Initiative Certificate)",
-            "sedex": "Sedex (Supplier Ethical Data Exchange Certificate)",
-            "gots": "GOTS (Global Organic Textile Standart Certificate)",
-            "globalGap": "GlobalGAP/GRASP (GAP – Good Agricultural Practices)",
-            "bsci": "BSCI (Business Social Compliance Initiative)"
-          }
+          "uploadCertificate": "Sertifikatni yuklash",
+          "receivedDate": "Olingan sana",
+          "expirationDate": "Amal qilish muddati tugaydi",
+          "expirationDateOptional": "Amal qilish muddati tugaydi (ixtiyoriy)",
+          "uploading": "Yuklanmoqda...",
+          "uploaded": "Yuklandi",
+          "uploadFailed": "Yuklash muvaffaqiyatsiz",
+          "fillRequiredFields": "Iltimos, barcha majburiy maydonlarni to'ldiring"
         },
         "submitButton": "Yuborish"
       },

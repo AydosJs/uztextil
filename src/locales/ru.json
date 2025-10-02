@@ -171,6 +171,18 @@
           "label": "Общее количество заказов (необязательно)",
           "placeholder": "Введите общее количество заказов"
         },
+        "certificates": {
+          "title": "Сертификаты",
+          "addCertificate": "Добавить сертификат",
+          "uploadCertificate": "Загрузить сертификат",
+          "receivedDate": "Дата получения",
+          "expirationDate": "Дата истечения",
+          "expirationDateOptional": "Дата истечения (необязательно)",
+          "uploading": "Загрузка...",
+          "uploaded": "Загружено",
+          "uploadFailed": "Ошибка загрузки",
+          "fillRequiredFields": "Пожалуйста, заполните все обязательные поля"
+        },
         "submitButton": "Отправить"
       },
       "select": {

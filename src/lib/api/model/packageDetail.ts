@@ -9,19 +9,26 @@ import type { PackageItemList } from './packageItemList';
 
 export interface PackageDetail {
   readonly id?: number;
+  items: PackageItemList[];
+  created_at?: string;
+  readonly updated_at?: string;
   /**
    * @minLength 1
    * @maxLength 255
    */
   name: string;
   /** @nullable */
-  readonly banner?: string | null;
-  /** @nullable */
   description?: string | null;
+  /** @nullable */
+  readonly banner?: string | null;
   /**
    * @minimum -2147483648
    * @maximum 2147483647
    */
   order?: number;
-  items: PackageItemList[];
+  /**
+   * @maxLength 100
+   * @nullable
+   */
+  contact_manager?: string | null;
 }

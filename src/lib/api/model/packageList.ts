@@ -8,18 +8,25 @@
 
 export interface PackageList {
   readonly id?: number;
+  created_at?: string;
+  readonly updated_at?: string;
   /**
    * @minLength 1
    * @maxLength 255
    */
   name: string;
   /** @nullable */
-  readonly banner?: string | null;
-  /** @nullable */
   description?: string | null;
+  /** @nullable */
+  readonly banner?: string | null;
   /**
    * @minimum -2147483648
    * @maximum 2147483647
    */
   order?: number;
+  /**
+   * @maxLength 100
+   * @nullable
+   */
+  contact_manager?: string | null;
 }

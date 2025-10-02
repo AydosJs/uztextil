@@ -7,9 +7,14 @@
  */
 import type { AdditionalServiceType } from './additionalServiceType';
 import type { AdditionalServiceOption } from './additionalServiceOption';
+import type { AdditionalServicePaymentType } from './additionalServicePaymentType';
 
 export interface AdditionalService {
   readonly id?: number;
+  created_at?: string;
+  readonly updated_at?: string;
+  type?: AdditionalServiceType;
+  option?: AdditionalServiceOption;
   /**
    * @minLength 1
    * @maxLength 255
@@ -18,7 +23,13 @@ export interface AdditionalService {
   /** @nullable */
   description?: string | null;
   price: string;
-  type?: AdditionalServiceType;
-  option?: AdditionalServiceOption;
-  readonly is_apply?: boolean;
+  /** @nullable */
+  readonly offerta_file?: string | null;
+  payment_type?: AdditionalServicePaymentType;
+  is_active?: boolean;
+  /**
+   * @minimum -2147483648
+   * @maximum 2147483647
+   */
+  order?: number;
 }
