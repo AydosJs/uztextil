@@ -99,6 +99,7 @@ function OnlineB2BForm() {
         try {
             const applicationData: ApplicationCreate = {
                 ...formData,
+                segment: formData.segment.length > 0 ? formData.segment.join(',') : null,
                 user: userInfo.user_id,
                 service: service?.id || null,
                 customer: userInfo.customer || null,

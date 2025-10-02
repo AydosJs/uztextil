@@ -86,6 +86,7 @@ function PlaceOrderForm() {
         try {
             const applicationData: ApplicationCreate = {
                 ...formData,
+                execution_terms: formData.execution_terms ? formData.execution_terms.toISOString() : null,
                 user: userInfo.user_id,
                 service: service?.id || null,
                 customer: userInfo.customer || null,
@@ -187,8 +188,8 @@ function PlaceOrderForm() {
                             {t('app.placeOrder.form.executionTerms.label')}
                         </Label>
                         <DatePicker
-                            value={formData.execution_terms}
-                            onChange={(date) => handleInputChange('execution_terms', date)}
+                            value={formData.execution_terms || undefined}
+                            onChange={(date) => handleInputChange('execution_terms', date || null)}
                             placeholder={t('app.placeOrder.form.executionTerms.placeholder')}
                             fromYear={new Date().getFullYear()}
                             toYear={new Date().getFullYear() + 5}

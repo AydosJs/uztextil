@@ -11,7 +11,7 @@ export default function SliderDetails() {
     const { t } = useTranslation()
     const { data: sliders, isLoading, error } = useApiV1SliderListList()
 
-    useTelegramBackButton(() => navigate(-1))
+    useTelegramBackButton({ onBack: () => navigate(-1) })
 
     // Find the specific slider by ID
     const slider = sliders?.find(s => s.id === Number(id))

@@ -1,22 +1,17 @@
 import { useState } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
-import { useQueryClient } from "@tanstack/react-query"
 import { useTranslation } from "react-i18next"
 import { Button, CustomCheckbox, UnderwaterHeader, ApplicationDrawer } from "@/components/ui"
 import { showToast } from "@/lib/utils"
 import { useTelegramBackButton } from "@/lib/hooks"
-import { useApiV1ServiceApplyCreate } from "@/lib/api"
-import { useTelegramUser } from "@/hooks/useTelegramUser"
 import type { AdditionalService, ManufacturerList } from "@/lib/api/model"
 
 function TermsAndConditions() {
     const { t } = useTranslation()
     const navigate = useNavigate()
     const location = useLocation()
-    const queryClient = useQueryClient()
     const [isChecked, setIsChecked] = useState(false)
     const [applicationDrawerOpen, setApplicationDrawerOpen] = useState(false)
-    const { userInfo } = useTelegramUser()
 
     // Get service and factory data from navigation state
     const service = location.state?.service as AdditionalService
@@ -27,8 +22,6 @@ function TermsAndConditions() {
         navigateTo: factory ? '/services/factory-selection' : '/services'
     })
 
-    // Initialize the mutation for creating application
-    const createApplicationMutation = useApiV1ServiceApplyCreate()
 
     // If no service data, redirect back to services
     if (!service) {
@@ -36,54 +29,6 @@ function TermsAndConditions() {
         return null
     }
 
-    const handleSubmit = () => {
-        if (!isChecked) {
-            showToast.warning(t('app.common.warning.readTerms'))
-            return
-        }
-
-        // Check if we have user ID
-        if (!userInfo?.user_id) {
-            showToast.error(t('app.common.error.userNotFound'))
-            return
-        }
-
-        // Check if service has ID
-        if (!service.id) {
-            showToast.error(t('app.common.error.serviceNotFound'))
-            return
-        }
-
-        // Create application data
-        const applicationData = {
-            service: service.id,
-            user: userInfo.user_id,
-            ...(factory && { factory: factory.id }) // Include factory ID if available
-        }
-
-        // Make API call
-        createApplicationMutation.mutate(
-            { data: applicationData },
-            {
-                onSuccess: (response) => {
-                    showToast.success(t('app.common.success.applicationSubmitted'))
-                    console.log("Application created successfully:", response)
-
-                    // Invalidate services query to refetch updated data
-                    queryClient.invalidateQueries({
-                        queryKey: ['/api/v1/service/list/']
-                    })
-
-                    // Navigate back to services page
-                    navigate('/services')
-                },
-                onError: (error) => {
-                    console.error("Failed to create application:", error)
-                    showToast.error(t('app.common.error.applicationSubmitFailed'))
-                }
-            }
-        )
-    }
 
     const handleCancel = () => {
         navigate(-1)
@@ -129,7 +74,7 @@ function TermsAndConditions() {
                         </div>
 
                         {/* Checkbox */}
-                        {!service.is_apply && (
+                        {!service.is_active && (
                             <div className="pt-4">
                                 <CustomCheckbox
                                     label={t('app.termsAndConditions.checkboxLabel')}
@@ -141,7 +86,7 @@ function TermsAndConditions() {
                     </div>
                 </div>
 
-                {service.is_apply ? (
+                {service.is_active ? (
                     <div className="text-center mb-5 px-10">
                         <p className="text-white text-sm font-bold mb-2">
                             {t('app.termsAndConditions.alreadyApplied.title')}
@@ -157,7 +102,7 @@ function TermsAndConditions() {
                 )}
 
                 {/* Bottom Buttons */}
-                {!service.is_apply && (
+                {!service.is_active && (
                     <div className="px-6 pb-8 space-y-3">
                         <Button
                             variant="secondary"
