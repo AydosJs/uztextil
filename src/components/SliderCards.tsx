@@ -1,6 +1,7 @@
 import { useApiV1SliderListList } from "@/lib/api"
 import { Card, Skeleton } from "@/components/ui"
 import { cn } from "@/lib/utils"
+import { useNavigate } from "react-router-dom"
 
 interface SliderCardsProps {
     className?: string
@@ -8,6 +9,7 @@ interface SliderCardsProps {
 
 export const SliderCards = ({ className }: SliderCardsProps) => {
     const { data: sliders, isLoading, error } = useApiV1SliderListList()
+    const navigate = useNavigate()
 
     // URL validation function
     const isValidUrl = (url: string | undefined): boolean => {
@@ -66,21 +68,26 @@ export const SliderCards = ({ className }: SliderCardsProps) => {
     return (
         <div className={cn("grid grid-cols-1 w-full gap-4", className)}>
             {validSliders.map((slider) => (
-                <Card
+                <div
                     key={slider.id}
-                    image={slider.image}
-                    imageAlt={slider.title}
-                    className="w-full mx-auto"
+                    onClick={() => navigate(`/slider/${slider.id}`)}
+                    className="cursor-pointer"
                 >
-                    <div className="flex flex-col justify-end h-full">
-                        <h3 className="text-white line-clamp-1 font-semibold mb-2 text-base">
-                            {slider.title}
-                        </h3>
-                        <p className="text-gray-300 line-clamp-2 leading-relaxed text-sm">
-                            {slider.description}
-                        </p>
-                    </div>
-                </Card>
+                    <Card
+                        image={slider.image}
+                        imageAlt={slider.title}
+                        className="w-full mx-auto"
+                    >
+                        <div className="flex flex-col justify-end h-full">
+                            <h3 className="text-white line-clamp-1 font-semibold mb-2 text-base">
+                                {slider.title}
+                            </h3>
+                            <p className="text-gray-300 line-clamp-2 leading-relaxed text-sm">
+                                {slider.description}
+                            </p>
+                        </div>
+                    </Card>
+                </div>
             ))}
         </div>
     )

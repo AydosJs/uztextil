@@ -521,7 +521,15 @@
         "backButton": "Orqaga"
       }
     },
+    "slider": {
+      "details": {
+        "title": "Tafsilotlar",
+        "notFound": "Slayd topilmadi",
+        "publishedOn": "Nashr etilgan"
+      }
+    },
     "common": {
+      "goBack": "Orqaga",
       "error": {
         "message": "Xatolik yuz berdi",
         "retryButton": "Qayta urinish",

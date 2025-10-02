@@ -16,6 +16,7 @@ import './i18n'
 import App from './App.tsx'
 import Dev from './pages/Dev.tsx'
 import Welcome from './pages/Welcome.tsx'
+import SliderDetails from './pages/SliderDetails.tsx'
 import ChooseDepartment from './pages/ChooseDepartment.tsx'
 import CustomerWelcome from './pages/customer/CustomerWelcome.tsx'
 import CustomerRegisterForm from './pages/customer/CustomerRegisterForm.tsx'
@@ -73,6 +74,7 @@ async function initializeApp() {
             <Routes>
               <Route path="/" element={<App />} />
               <Route path="/welcome" element={<Welcome />} />
+              <Route path="/slider/:id" element={<SliderDetails />} />
               <Route path="/choose-department" element={
                 // <ChooseDepartmentGuard>
                 <ChooseDepartment />

@@ -534,7 +534,16 @@
         "backButton": "Назад"
       }
     },
+    "slider": {
+      "details": {
+        "title": "Подробности",
+        "published": "Опубликовано",
+        "notFound": "Слайд не найден",
+        "publishedOn": "Опубликовано"
+      }
+    },
     "common": {
+      "goBack": "Назад",
       "error": {
         "message": "Произошла ошибка",
         "retryButton": "Попробовать снова",
