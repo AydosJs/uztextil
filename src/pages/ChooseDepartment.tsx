@@ -1,5 +1,5 @@
 import { Option } from "@/components/ui"
-import { UserRound, Factory } from "lucide-react"
+import { UserRound, Factory, FileText } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { useTelegramBackButton } from "@/lib/hooks"
@@ -72,6 +72,10 @@ function ChooseDepartment() {
         handleDepartmentSelect('manufacturer')
     }
 
+    const handleApplicationSelect = () => {
+        navigate('/application-form')
+    }
+
     return (
         <div className="min-h-screen container min-w-full safe-area-pt w-full flex flex-col">
             <main className="w-full max-w-4xl mx-auto min-w-full flex-1 flex flex-col justify-between">
@@ -121,6 +125,11 @@ function ChooseDepartment() {
                         text={t('app.department.manufacturer')}
                         icon={Factory}
                         onClick={handleManufacturerSelect}
+                    />
+                    <Option
+                        text={t('app.department.application')}
+                        icon={FileText}
+                        onClick={handleApplicationSelect}
                     />
                 </div>
             </main >

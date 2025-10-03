@@ -10,7 +10,8 @@
     "department": {
       "title": "Выберите нужный отдел:",
       "customer": "Заказчик",
-      "manufacturer": "Производитель"
+      "manufacturer": "Производитель",
+      "application": "Заказать рекламу"
     },
     "buyurtmachi": {
       "welcome": {
@@ -582,7 +583,8 @@
       "noManufacturersAvailable": "Пока производители недоступны",
       "writeToManager": "Написать менеджеру",
       "noSegmentsAvailable": "Пока сегменты недоступны",
-      "loading": "Загрузка..."
+      "loading": "Загрузка...",
+      "applicationId": "Номер заявки"
     },
     "termsAndConditions": {
       "title": "Коммерческое предложение",
@@ -618,6 +620,36 @@
       },
       "validation": {
         "fillAllFields": "Пожалуйста, заполните все поля"
+      }
+    },
+    "applicationForm": {
+      "title": "Подать заявку",
+      "subtitle": "Заполните данные и подайте заявку",
+      "form": {
+        "fullName": {
+          "label": "Ф.И.О",
+          "placeholder": "Введите ваше полное имя"
+        },
+        "companyName": {
+          "label": "Название компании",
+          "placeholder": "Введите название компании"
+        },
+        "additionalNotes": {
+          "label": "Дополнительные заметки",
+          "placeholder": "Введите дополнительную информацию"
+        },
+        "contactPhone": {
+          "label": "Контактный телефон",
+          "placeholder": "+998901234567"
+        },
+        "submitButton": "Подать заявку"
+      },
+      "success": {
+        "title": "Заявка принята!",
+        "subtitle": "Ваша заявка успешно отправлена. Мы свяжемся с вами в ближайшее время."
+      },
+      "validation": {
+        "fillAllFields": "Пожалуйста, заполните все обязательные поля"
       }
     }
   }

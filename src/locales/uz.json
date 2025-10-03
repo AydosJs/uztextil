@@ -9,9 +9,9 @@
     },
     "department": {
       "title": "Kerakli bo'limni tanlang:",
-      "findManufacturer": "Ishlab chiqaruvchi topmoqchiman",
-      "joinCatalog": "Katalogga kirmoqchimiz",
-      "placeAd": "Reklama joylashtirmoqchimiz"
+      "customer": "Ishlab chiqaruvchi topmoqchiman",
+      "manufacturer": "Katalogga kirmoqchimiz",
+      "application": "Reklama zakaz qilish"
     },
     "buyurtmachi": {
       "welcome": {
@@ -568,7 +568,8 @@
       "noManufacturersAvailable": "Hozircha ishlab chiqaruvchilar mavjud emas",
       "writeToManager": "Menejerga yozish",
       "noSegmentsAvailable": "Hozircha segmentlar mavjud emas",
-      "loading": "Yuklanmoqda..."
+      "loading": "Yuklanmoqda...",
+      "applicationId": "Ariza raqami"
     },
     "termsAndConditions": {
       "title": "Tijorat taklifi",
@@ -604,6 +605,36 @@
       },
       "validation": {
         "fillAllFields": "Iltimos, barcha maydonlarni to'ldiring"
+      }
+    },
+    "applicationForm": {
+      "title": "Ariza qoldirish",
+      "subtitle": "Ma'lumotlarni to'ldirib ariza qoldiring",
+      "form": {
+        "fullName": {
+          "label": "F.I.SH",
+          "placeholder": "To'liq ism sharifingizni kiriting"
+        },
+        "companyName": {
+          "label": "Kompaniya nomi",
+          "placeholder": "Kompaniya nomini kiriting"
+        },
+        "additionalNotes": {
+          "label": "Qo'shimcha eslatmalar",
+          "placeholder": "Qo'shimcha ma'lumotlarni kiriting"
+        },
+        "contactPhone": {
+          "label": "Aloqa telefoni",
+          "placeholder": "+998901234567"
+        },
+        "submitButton": "Ariza qoldirish"
+      },
+      "success": {
+        "title": "Ariza qabul qilindi!",
+        "subtitle": "Arizangiz muvaffaqiyatli yuborildi. Tez orada siz bilan bog'lanamiz."
+      },
+      "validation": {
+        "fillAllFields": "Iltimos, barcha majburiy maydonlarni to'ldiring"
       }
     }
   }

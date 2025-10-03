@@ -28,6 +28,8 @@ import { FactorySelection } from './pages/services/select_factory'
 import { PlaceOrderForm, PlaceOrderSuccess } from './pages/services/place_order'
 import { OnlineB2BForm, OnlineB2BSuccess, OfferList } from './pages/services/online_b2b'
 import { PackageSelection, PackageDetails, ApplicationForm, ApplicationSuccess } from './pages/services/custom_order'
+import ApplicationFormPage from './pages/ApplicationForm.tsx'
+import ApplicationSuccessPage from './pages/ApplicationSuccess.tsx'
 import { Toaster } from 'sonner'
 import { setSafeAreaCSSProperties, waitForSafeAreaValues } from './utils/safeAreaUtils.ts'
 // import { initEruda } from './utils/eruda.ts'
@@ -180,6 +182,11 @@ async function initializeApp() {
                   <ApplicationSuccess />
                 </ServicesRouteGuard>
               } />
+              
+              {/* Application Form Routes */}
+              <Route path="/application-form" element={<ApplicationFormPage />} />
+              <Route path="/application-success" element={<ApplicationSuccessPage />} />
+              
               <Route path="/dev" element={<Dev />} />
             </Routes>
           </BrowserRouter>
