@@ -1,5 +1,5 @@
 import { Button, RadialEffect, UnderwaterHeader } from "@/components/ui"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { useTelegramBackButton } from "@/lib/hooks"
 // import { TelegramUserDebug } from "@/components/TelegramUserDebug"
@@ -9,8 +9,12 @@ import { SliderCards } from "@/components/SliderCards"
 
 function App() {
     const navigate = useNavigate()
+    const location = useLocation()
     const { t } = useTranslation()
     const { isRegistered } = useTelegramUser()
+
+    // Log current path to console
+    console.log('📍 Current Path:', location.pathname)
 
     useTelegramBackButton()
 

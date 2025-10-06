@@ -176,11 +176,17 @@ function Services() {
                                         )}
                                     </div>
 
-                                    {/* Service Icon */}
-                                    {service.price && service.option !== 'custom_order' && (
-                                        <p className="text-[#FCE803] font-bold min-w-[110px] text-lg text-center">
-                                            ${service.price}
-                                        </p>
+                                    {/* Service Price */}
+                                    {service.price !== undefined && service.option !== 'custom_order' && (
+                                        String(service.price) === '0' || String(service.price) === '0.00' ? (
+                                            <p className="text-[#FCE803] font-bold min-w-[110px] text-sm text-center">
+                                                Бесплатно
+                                            </p>
+                                        ) : (
+                                            <p className="text-[#FCE803] font-bold min-w-[110px] text-lg text-center">
+                                                ${service.price}
+                                            </p>
+                                        )
                                     )}
 
                                     <div className="absolute right-2 top-0">

@@ -22,6 +22,7 @@ function CustomerWelcome() {
     return (
         <div className="min-h-screen min-w-full safe-area-pt w-full flex flex-col">
             <main className="w-full max-w-4xl mx-auto container min-w-full flex-1 flex flex-col justify-between">
+
                 <div className="flex px-3 flex-col items-center justify-center space-y-8">
                     {/* Welcome Header */}
                     <div className="text-left space-y-2 max-w-2xl">

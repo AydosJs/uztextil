@@ -1,7 +1,7 @@
 import { Option } from "@/components/ui"
 import { UserRound, Factory, FileText } from "lucide-react"
 import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import { useTelegramBackButton } from "@/lib/hooks"
 import { useTelegramUser } from "@/hooks/useTelegramUser"
 import { customInstance } from "@/lib/api-client"
@@ -11,7 +11,11 @@ import departmentSvg from "@/assets/department.svg"
 function ChooseDepartment() {
     const { t } = useTranslation()
     const navigate = useNavigate()
+    const location = useLocation()
     const { user } = useTelegramUser()
+
+    // Log current path to console
+    console.log('📍 Current Path:', location.pathname)
 
     // Show back button that goes to welcome page
     useTelegramBackButton({ navigateTo: '/welcome' })

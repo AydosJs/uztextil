@@ -1,11 +1,15 @@
 import { Button } from "@/components/ui"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import { useTelegramBackButton } from "@/lib/hooks"
 
 function Welcome() {
     const navigate = useNavigate()
+    const location = useLocation()
     const { t } = useTranslation()
+
+    // Log current path to console
+    console.log('📍 Current Path:', location.pathname)
 
     // Welcome page should show back button that goes back one step (close behavior)
     useTelegramBackButton({ navigateTo: "/" })
@@ -17,6 +21,7 @@ function Welcome() {
 
     return (
         <div className="min-h-screen min-w-full safe-area-pt w-full flex flex-col">
+            hello
             <main className="w-full max-w-4xl mx-auto min-w-full flex-1 flex flex-col justify-between">
                 <div className=" flex px-3 flex-col items-center justify-center space-y-8">
                     {/* Welcome Header */}

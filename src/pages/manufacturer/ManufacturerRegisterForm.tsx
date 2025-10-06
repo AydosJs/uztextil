@@ -52,6 +52,9 @@ function ManufacturerRegisterForm() {
     const location = useLocation()
     const { userInfo, updateUserInfo } = useTelegramUser()
 
+    // Log current path to console
+    console.log('📍 Current Path:', location.pathname)
+
     // Get department from navigation state
     const department = (location.state as { department?: 'customer' | 'manufacturer' })?.department || 'manufacturer'
 
