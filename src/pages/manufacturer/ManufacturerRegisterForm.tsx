@@ -30,7 +30,7 @@ const manufacturerRegisterSchema = z.object({
     commercialOffer: z.string().min(1, ""),
     productionAddress: z.string().min(1, ""),
     officeAddress: z.string().min(1, ""),
-    website: z.string().url("").optional().or(z.literal("")),
+    website: z.string().optional(),
     qualityControl: z.enum(["yes", "no"]).optional(),
     crmSystem: z.enum(["yes", "no"]).optional(),
     geminiGerber: z.enum(["yes", "no"]).optional(),
@@ -306,7 +306,6 @@ function ManufacturerRegisterForm() {
                         </Label>
                         <CustomInput
                             placeholder={t('app.buyurtmachi.registerForm.website.placeholder')}
-                            error={errors.website?.message}
                             {...register('website')}
                         />
                     </div>
