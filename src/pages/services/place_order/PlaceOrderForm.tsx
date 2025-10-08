@@ -1,11 +1,11 @@
 import { Button, UnderwaterHeader, DatePicker } from "@/components/ui"
-import { CustomInput } from "@/components/ui"
+import { CustomInput, SingleFileUploader } from "@/components/ui"
 import { Label } from "@/components/ui"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate, useLocation } from "react-router-dom"
 import { useTelegramBackButton } from "@/lib/hooks"
-import { useApiV1ApplicationCreateCreate } from "@/lib/api"
+import { customInstance } from "@/lib/api-client"
 import { useTelegramUser } from "@/hooks/useTelegramUser"
 import type { ApplicationCreate } from "@/lib/api/model"
 import { showToast } from "@/lib/utils"
@@ -19,31 +19,14 @@ function PlaceOrderForm() {
     // Get service data from navigation state
     const service = location.state?.service
 
-    const applicationCreateMutation = useApiV1ApplicationCreateCreate({
-        mutation: {
-            onSuccess: (data) => {
-                showToast.success(t('app.common.application.accepted'))
-                // Navigate to success page with application data
-                navigate('/services/place-order/success', {
-                    state: {
-                        applicationData: data,
-                        service: service
-                    }
-                })
-            },
-            onError: (error) => {
-                console.error('Application creation failed:', error)
-                showToast.error(t('app.common.error.applicationFailed'))
-            }
-        }
-    })
+    const [isSubmitting, setIsSubmitting] = useState(false)
 
     const [formData, setFormData] = useState({
         looking_for_production: '', // Ищу производство
         manufacturer_requirements: '', // Требование к производителю
         order_volume: '', // Объём заказа
         passing_price: '', // Проходная цена
-        sample_photo: '', // Фото образца
+        sample_photo: null as File | null, // Фото образца
         execution_terms: null as Date | null, // Сроки исполнения
         payment_terms: '', // Условия оплаты
         telegram_whatsapp_number: '', // Номер в телеграм, вацап
@@ -65,7 +48,7 @@ function PlaceOrderForm() {
     // Show back button that goes to services page
     useTelegramBackButton({ navigateTo: '/services' })
 
-    const handleInputChange = (field: string, value: string | Date | null) => {
+    const handleInputChange = (field: string, value: string | Date | null | File) => {
         setFormData(prev => ({
             ...prev,
             [field]: value
@@ -83,19 +66,66 @@ function PlaceOrderForm() {
             return
         }
 
+        setIsSubmitting(true)
+
         try {
-            const applicationData: ApplicationCreate = {
-                ...formData,
-                execution_terms: formData.execution_terms ? formData.execution_terms.toISOString() : null,
-                user: userInfo.user_id,
-                service: service?.id || null,
-                customer: userInfo.customer || null,
-                manufacturer: userInfo.manufacturer || null
+            // Create FormData for file upload
+            const formDataToSend = new FormData()
+
+            // Add all form fields except sample_photo
+            formDataToSend.append('looking_for_production', formData.looking_for_production)
+            formDataToSend.append('manufacturer_requirements', formData.manufacturer_requirements)
+            formDataToSend.append('order_volume', formData.order_volume)
+            formDataToSend.append('passing_price', formData.passing_price)
+            formDataToSend.append('payment_terms', formData.payment_terms)
+            formDataToSend.append('telegram_whatsapp_number', formData.telegram_whatsapp_number)
+            formDataToSend.append('name_and_position', formData.name_and_position)
+
+            // Add execution terms if available
+            if (formData.execution_terms) {
+                formDataToSend.append('execution_terms', formData.execution_terms.toISOString())
             }
 
-            await applicationCreateMutation.mutateAsync({ data: applicationData })
+            // Add user and service data
+            formDataToSend.append('user', userInfo.user_id.toString())
+            if (service?.id) {
+                formDataToSend.append('service', service.id.toString())
+            }
+            if (userInfo.customer) {
+                formDataToSend.append('customer', userInfo.customer.toString())
+            }
+            if (userInfo.manufacturer) {
+                formDataToSend.append('manufacturer', userInfo.manufacturer.toString())
+            }
+
+            // Add image file if available
+            if (formData.sample_photo) {
+                formDataToSend.append('sample_photo', formData.sample_photo)
+            }
+
+            // Use custom API call for FormData upload
+            const response = await customInstance<ApplicationCreate>({
+                url: '/api/v1/application/create/',
+                method: 'POST',
+                data: formDataToSend,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            })
+
+            // Trigger success callback manually
+            showToast.success(t('app.common.application.accepted'))
+            navigate('/services/place-order/success', {
+                state: {
+                    applicationData: response,
+                    service: service
+                }
+            })
         } catch (error) {
             console.error('Form submission error:', error)
+            showToast.error(t('app.common.error.applicationFailed'))
+        } finally {
+            setIsSubmitting(false)
         }
     }
 
@@ -175,10 +205,9 @@ function PlaceOrderForm() {
                         <Label className="text-white text-sm font-medium">
                             {t('app.placeOrder.form.samplePhoto.label')}
                         </Label>
-                        <CustomInput
-                            placeholder={t('app.placeOrder.form.samplePhoto.placeholder')}
-                            value={formData.sample_photo}
-                            onChange={(e) => handleInputChange('sample_photo', e.target.value)}
+                        <SingleFileUploader
+                            onFileChange={(file) => handleInputChange('sample_photo', file)}
+                            accept="image/*"
                         />
                     </div>
 
@@ -236,11 +265,11 @@ function PlaceOrderForm() {
                 {/* Submit Button */}
                 <div className="pb-4 safe-area-pb mt-4">
                     <Button
-                        loading={applicationCreateMutation.isPending}
+                        loading={isSubmitting}
                         variant="default"
                         shadow="lg"
                         onClick={handleSubmit}
-                        disabled={applicationCreateMutation.isPending || !isFormValid()}
+                        disabled={isSubmitting || !isFormValid()}
                         className="w-full"
                     >
                         {t('app.placeOrder.form.submitButton')}
