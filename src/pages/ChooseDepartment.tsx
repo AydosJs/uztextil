@@ -1,7 +1,7 @@
 import { Option } from "@/components/ui"
 import { UserRound, Factory, FileText } from "lucide-react"
 import { useTranslation } from "react-i18next"
-import { useNavigate, useLocation } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useTelegramBackButton } from "@/lib/hooks"
 import { useTelegramUser } from "@/hooks/useTelegramUser"
 import { customInstance } from "@/lib/api-client"
@@ -11,18 +11,13 @@ import departmentSvg from "@/assets/department.svg"
 function ChooseDepartment() {
     const { t } = useTranslation()
     const navigate = useNavigate()
-    const location = useLocation()
     const { user } = useTelegramUser()
-
-    // Log current path to console
-    console.log('📍 Current Path:', location.pathname)
 
     // Show back button that goes to welcome page
     useTelegramBackButton({ navigateTo: '/welcome' })
 
     const handleDepartmentSelect = async (department: 'customer' | 'manufacturer') => {
         if (!user) {
-            console.error('No user data available')
             return
         }
 
@@ -46,7 +41,6 @@ function ChooseDepartment() {
                 }
             })
 
-            console.log('Department registration response:', registerResponse)
 
             // Check the response to see if user is already registered for this department
             const isAlreadyRegistered = (department === 'customer' && registerResponse.customer) ||
@@ -54,15 +48,12 @@ function ChooseDepartment() {
 
             if (isAlreadyRegistered) {
                 // User is already registered for this department, go to services
-                console.log(`User already registered for ${department}, navigating to services`)
                 navigate("/services", { state: { department } })
             } else {
                 // User was just registered for this department, go to welcome/register page
-                console.log(`User registered for ${department}, navigating to welcome page`)
                 navigate(`/${department}`, { state: { department } })
             }
-        } catch (error) {
-            console.error('Department selection failed:', error)
+        } catch {
             // On error, still navigate to the department page
             navigate(`/${department}`, { state: { department } })
         }
@@ -136,8 +127,8 @@ function ChooseDepartment() {
                         onClick={handleApplicationSelect}
                     />
                 </div>
-            </main >
-        </div >
+            </main>
+        </div>
     )
 }
 

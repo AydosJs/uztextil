@@ -18,17 +18,12 @@ function CustomerRegisterForm() {
     const location = useLocation()
     const { userInfo, updateUserInfo } = useTelegramUser()
 
-    // Log current path to console
-    console.log('📍 Current Path:', location.pathname)
-
     // Get department from navigation state
     const department = (location.state as { department?: 'customer' | 'manufacturer' })?.department || 'customer'
 
     const customerCreateMutation = useApiV1CustomerCreateCreate({
         mutation: {
             onSuccess: (data) => {
-                console.log('Customer created successfully:', data)
-
                 // Update user info with the new customer data
                 if (userInfo && data) {
                     const updatedUserInfo = {
@@ -41,8 +36,7 @@ function CustomerRegisterForm() {
                 showToast.success(t('app.common.success.created'))
                 navigate('/services', { state: { department } })
             },
-            onError: (error) => {
-                console.error('Customer creation failed:', error)
+            onError: () => {
                 showToast.error(t('app.common.error.customerFailed'))
             }
         }
@@ -55,9 +49,9 @@ function CustomerRegisterForm() {
         website: '',
         legal_address: '',
         marketplace_brand: '',
-        annual_order_volume: '',
+        annual_order_volume: '', // Hidden field - required by API
         segment: [] as number[],
-        cooperation_terms: '',
+        cooperation_terms: '', // Hidden field - required by API
         payment_terms: '',
         phone: '',
         total_orders: 0
@@ -101,8 +95,6 @@ function CustomerRegisterForm() {
             'company_name',
             'legal_address',
             'marketplace_brand',
-            'annual_order_volume',
-            'cooperation_terms',
             'payment_terms'
         ]
 
@@ -120,7 +112,6 @@ function CustomerRegisterForm() {
 
     const handleSubmit = async () => {
         if (!userInfo?.user_id) {
-            console.error('User ID not available')
             showToast.error(t('app.common.validation.userDataNotFound'))
             return
         }
@@ -133,8 +124,8 @@ function CustomerRegisterForm() {
             }
 
             await customerCreateMutation.mutateAsync({ data: customerData })
-        } catch (error) {
-            console.error('Form submission error:', error)
+        } catch {
+            // Error handling is done in the mutation onError callback
         }
     }
 
@@ -223,17 +214,6 @@ function CustomerRegisterForm() {
                         />
                     </div>
 
-                    {/* Annual Order Volume */}
-                    <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium" required>
-                            {t('app.buyurtmachi.registerForm.annualOrderVolume.label')}
-                        </Label>
-                        <CustomInput
-                            placeholder={t('app.buyurtmachi.registerForm.annualOrderVolume.placeholder')}
-                            value={formData.annual_order_volume}
-                            onChange={(e) => handleInputChange('annual_order_volume', e.target.value)}
-                        />
-                    </div>
 
                     {/* Segments */}
                     <div className="space-y-2">
@@ -251,17 +231,6 @@ function CustomerRegisterForm() {
                         />
                     </div>
 
-                    {/* Cooperation Terms */}
-                    <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium" required>
-                            {t('app.buyurtmachi.registerForm.cooperationTerms.label')}
-                        </Label>
-                        <CustomInput
-                            placeholder={t('app.buyurtmachi.registerForm.cooperationTerms.placeholder')}
-                            value={formData.cooperation_terms}
-                            onChange={(e) => handleInputChange('cooperation_terms', e.target.value)}
-                        />
-                    </div>
 
                     {/* Payment Terms */}
                     <div className="space-y-2">

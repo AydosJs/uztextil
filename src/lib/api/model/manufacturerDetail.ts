@@ -37,5 +37,5 @@ export interface ManufacturerDetail {
    * @maximum 2147483647
    */
   employee_count: number;
-  certificates: ManufacturerCertificate[];
+  sertificates: ManufacturerCertificate[];
 }
