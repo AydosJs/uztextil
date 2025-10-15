@@ -174,7 +174,7 @@ function ManufacturerRegisterForm() {
     }, [setValue])
 
     return (
-        <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col">
+        <div className="min-h-screen bg-background-primary min-w-full safe-area-pt w-full dark flex flex-col">
 
             <UnderwaterHeader />
 

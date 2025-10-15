@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom"
 import { RadialEffect, Spinner, UnderwaterHeader } from "@/components/ui"
 import { useApiV1ManufacturerListList, useApiV1ManufacturerDetailRead } from "@/lib/api"
 import { useTelegramBackButton } from "@/lib/hooks"
-import { ChevronRight, Filter } from "lucide-react"
+import { ChevronRight, Search } from "lucide-react"
 import { ManufacturerDetailDrawer, FilterDrawer } from "./components"
 import { useTranslation } from "react-i18next"
 import type { AdditionalService, ManufacturerList } from "@/lib/api/model"
@@ -159,7 +159,7 @@ function FactorySelection() {
                         onClick={() => setFilterDrawerOpen(true)}
                         className="p-2 rounded-lg bg-background-card border border-border-primary hover:bg-background-card-hover transition-colors"
                     >
-                        <Filter className="w-5 h-5 text-white" />
+                        <Search className="w-5 h-5 text-white" />
                     </button>
                 </div>
 

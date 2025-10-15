@@ -35,7 +35,7 @@ import { setSafeAreaCSSProperties, waitForSafeAreaValues } from './utils/safeAre
 // import { initEruda } from './utils/eruda.ts'
 import { ServicesRouteGuard, RegistrationRouteGuard } from './components/RouteGuards'
 import { ScrollToTop } from './components/ScrollToTop'
-import { DebugPath } from './components/DebugPath'
+// import { DebugPath } from './components/DebugPath'
 import { initEruda } from './utils/eruda.ts'
 
 // Create a QueryClient instance
@@ -73,7 +73,7 @@ async function initializeApp() {
         <TelegramUserProvider>
           <BrowserRouter>
             <ScrollToTop />
-            <DebugPath />
+            {/* <DebugPath /> */}
             <Toaster />
             <Routes>
               <Route path="/" element={<App />} />

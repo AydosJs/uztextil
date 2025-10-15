@@ -66,6 +66,8 @@ export function TelegramUserProvider({ children }: TelegramUserProviderProps) {
     const clearUser = useCallback(() => {
         setUser(null);
         setUserInfo(null);
+        // Clear telegram_id from localStorage
+        localStorage.removeItem('telegram_id');
     }, []);
 
     const updateUserInfo = useCallback((newUserInfo: TelegramUserInfo) => {
@@ -96,6 +98,8 @@ export function TelegramUserProvider({ children }: TelegramUserProviderProps) {
             };
 
             setUser(telegramUser);
+            // Store telegram_id in localStorage for API client access
+            localStorage.setItem('telegram_id', userData.id.toString());
             hasRegistered.current = true;
         } else {
             console.warn('No user data found in initData');
