@@ -179,12 +179,12 @@ function FactorySelection() {
                                     onClick={() => handleFactorySelect(factory)}
                                     className="relative flex items-center justify-between min-h-[82px] py-2.5 px-3.5 flex-row w-full rounded-[16px] border border-border-primary bg-background-card shadow-card overflow-hidden cursor-pointer"
                                     style={{
-                                        backdropFilter: 'blur(128px)',
-                                        WebkitBackdropFilter: 'blur(128px)'
+                                        backdropFilter: 'blur(256px)',
+                                        WebkitBackdropFilter: 'blur(256px)'
                                     }}
                                 >
                                     {/* Factory Content */}
-                                    <div className="space-y-1 flex-1">
+                                    <div className="space-y-1 flex-1 blur-sm">
                                         <h3 className="text-white font-extrabold">
                                             {factory.full_name}
                                         </h3>
