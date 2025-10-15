@@ -89,7 +89,7 @@ export function FilterDrawer({
 
     return (
         <Drawer open={open} onOpenChange={onOpenChange} direction="bottom">
-            <DrawerContent className="h-auto min-h-[99vh]  max-h-[99vh] flex flex-col">
+            <DrawerContent className="h-auto min-h-[96vh]  max-h-[96vh] flex flex-col">
                 <DrawerHeader className="border-none">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
