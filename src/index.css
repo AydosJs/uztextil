@@ -86,6 +86,11 @@
 --spacing-safe-top: var(--safe-area-inset-top);
 --spacing-safe-bottom: var(--safe-area-inset-bottom);
 
+  /* Font families */
+  --font-plus-jakarta-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-montserrat: "Montserrat", system-ui, sans-serif;
+}
+
 /* Debug bar spacing */
 .debug-padding-top {
   padding-top: 3rem; /* 48px - space for debug bar */
@@ -110,11 +115,6 @@
 [data-slot="drawer-content"] *:focus {
   outline: none !important;
   box-shadow: none !important;
-}
-
-  /* Font families */
-  --font-plus-jakarta-sans: "Plus Jakarta Sans", system-ui, sans-serif;
-  --font-montserrat: "Montserrat", system-ui, sans-serif;
 }
 
 /* Font Utility Classes */
