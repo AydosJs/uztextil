@@ -116,12 +116,12 @@ function FactorySelection() {
                     <div className="flex-1 flex items-center justify-center">
                         <div className="text-center">
                             <p className="text-status-error text-lg mb-4">{t('app.manufacturerDetail.error.message')}</p>
-                            <button
+                            {/* <button
                                 onClick={() => window.location.reload()}
                                 className="px-4 py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 transition-colors"
                             >
                                 {t('app.manufacturerDetail.error.retryButton')}
-                            </button>
+                            </button> */}
                         </div>
                     </div>
                 </main>

@@ -1,19 +1,15 @@
 import { useState, useEffect } from "react"
-import {
-    Drawer,
-    DrawerContent,
-    DrawerHeader,
-    DrawerTitle
-} from "@/components/ui/drawer"
 import { Button } from "@/components/ui/button"
 import { CustomInput } from "@/components/ui/custom-input"
 import { MultiSelectCombobox } from "@/components/ui/multi-select-combobox"
 import type { MultiSelectOption } from "@/components/ui/multi-select-combobox"
+import { Card } from "@/components/ui/card"
 import { Search, X } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { useApiV1SegmentListList } from "@/lib/api"
+import { cn } from "@/lib/utils"
 
-interface FilterDrawerProps {
+interface FilterModalProps {
     open: boolean
     onOpenChange: (open: boolean) => void
     onFilterChange: (filters: FilterOptions) => void
@@ -26,12 +22,12 @@ interface FilterOptions {
     min_order_quantity: string
 }
 
-export function FilterDrawer({
+export function FilterModal({
     open,
     onOpenChange,
     onFilterChange,
     currentFilters
-}: FilterDrawerProps) {
+}: FilterModalProps) {
     const { t } = useTranslation()
     const [filters, setFilters] = useState<FilterOptions>(currentFilters)
 
@@ -87,26 +83,39 @@ export function FilterDrawer({
         setFilters(prev => ({ ...prev, product_segment: numberIds }))
     }
 
-    return (
-        <Drawer open={open} onOpenChange={onOpenChange} direction="bottom">
-            <DrawerContent className="h-auto min-h-[99vh]  max-h-[99vh] flex flex-col">
-                <DrawerHeader className="border-none">
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                            <DrawerTitle className="text-white text-2xl">{t('app.filterDrawer.title')}</DrawerTitle>
-                        </div>
-                        <Button
-                            onClick={() => onOpenChange(false)}
-                            variant="ghost"
-                            size="icon"
-                            className="text-white hover:bg-white/10"
-                        >
-                            <X className="size-6" />
-                        </Button>
-                    </div>
-                </DrawerHeader>
+    if (!open) return null
 
-                <div className="px-4 space-y-6 overflow-y-auto flex-1">
+    return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            {/* Backdrop */}
+            <div 
+                className="fixed inset-0 bg-black/50 backdrop-blur-sm"
+                onClick={() => onOpenChange(false)}
+            />
+            
+            {/* Modal Content */}
+            <Card className={cn(
+                "relative w-full max-w-md max-h-[90vh] overflow-hidden",
+                "bg-background-primary border-border-primary",
+                "animate-in fade-in-0 zoom-in-95 duration-200"
+            )}>
+                {/* Header */}
+                <div className="flex items-center justify-between p-6 border-b border-border-primary">
+                    <h2 className="text-text-primary text-2xl font-semibold">
+                        {t('app.filterDrawer.title')}
+                    </h2>
+                    <Button
+                        onClick={() => onOpenChange(false)}
+                        variant="ghost"
+                        size="icon"
+                        className="text-text-primary hover:bg-text-primary/10"
+                    >
+                        <X className="size-6" />
+                    </Button>
+                </div>
+
+                {/* Content */}
+                <div className="p-6 space-y-6 overflow-y-auto max-h-[calc(90vh-140px)]">
                     {/* Search Input */}
                     <CustomInput
                         label={t('app.filterDrawer.search.label')}
@@ -140,28 +149,28 @@ export function FilterDrawer({
                         onChange={(e) => handleFilterChange('min_order_quantity', e.target.value)}
                         placeholder={t('app.filterDrawer.minOrderQuantity.placeholder')}
                     />
-
-                    <div className="flex flex-col gap-2 safe-area-pb">
-                        {hasActiveFilters && (
-                            <Button
-                                onClick={resetFilters}
-                                variant="outline"
-                                className="flex-1 bg-transparent border-border-primary text-white hover:bg-white/10"
-                            >
-                                {t('app.filterDrawer.buttons.reset')}
-                            </Button>
-                        )}
-                        <Button
-                            onClick={applyFilters}
-                            className="flex-1 bg-brand-primary text-black hover:bg-brand-primary/90 font-semibold flex items-center justify-center gap-2"
-                        >
-                            <Search className="size-5" />
-                            {t('app.filterDrawer.buttons.search')}
-                        </Button>
-                    </div>
                 </div>
 
-            </DrawerContent>
-        </Drawer>
+                {/* Footer */}
+                <div className="p-6 border-t border-border-primary space-y-2">
+                    {hasActiveFilters && (
+                        <Button
+                            onClick={resetFilters}
+                            variant="outline"
+                            className="w-full bg-transparent border-border-primary text-text-primary hover:bg-text-primary/10"
+                        >
+                            {t('app.filterDrawer.buttons.reset')}
+                        </Button>
+                    )}
+                    <Button
+                        onClick={applyFilters}
+                        className="w-full bg-brand-primary text-brand-primary-foreground hover:bg-brand-primary/90 font-semibold flex items-center justify-center gap-2"
+                    >
+                        <Search className="size-5" />
+                        {t('app.filterDrawer.buttons.search')}
+                    </Button>
+                </div>
+            </Card>
+        </div>
     )
 }
