@@ -20,14 +20,14 @@ function ManufacturerWelcome() {
     }
 
     return (
-        <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col">
+        <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col bg-background-primary">
             <main className="w-full max-w-4xl mx-auto container min-w-full flex-1 flex flex-col justify-between">
                 {/* Header */}
                 <div className="text-left space-y-4 max-w-2xl mx-auto w-full">
                     <h1 className="text-white font-bold text-[32px] tracking-wide">
                         {t('app.buyurtmachi.welcome.registration.title')}
                     </h1>
-                    <p className="text-gray-300 text-sm font-medium">
+                    <p className="text-text-secondary text-sm font-medium">
                         {t('app.buyurtmachi.welcome.registration.description')}
                     </p>
                 </div>

@@ -22,9 +22,9 @@ const CustomInput = React.forwardRef<HTMLInputElement, CustomInputProps>(
       "rounded-[14px] border-[1.8px] bg-transparent transition-colors duration-200",
       "focus-visible:ring-0 focus-visible:ring-offset-0 shadow-none",
       // Default state
-      "border-[rgba(255,255,255,0.58)] text-current",
+      "border-border-primary text-current",
       // Focused state
-      "focus-visible:border-[rgb(252,232,3)]",
+      "focus-visible:border-brand-primary",
       // Error state
       error && "border-red-500",
       multiline ? "min-h-[80px] resize-none" : "h-[52px]",
@@ -38,7 +38,7 @@ const CustomInput = React.forwardRef<HTMLInputElement, CustomInputProps>(
             htmlFor={inputId}
             className={cn(
               "block mb-2 text-base font-normal leading-6 tracking-[0.15px] transition-colors duration-200",
-              isFocused ? "text-[rgb(252,232,3)]" : "text-[#9FA0A1]"
+              isFocused ? "text-brand-primary" : "text-text-tertiary"
             )}
           >
             {label}

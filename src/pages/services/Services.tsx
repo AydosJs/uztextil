@@ -44,7 +44,7 @@ function Services() {
     // Show loading state
     if (isLoading) {
         return (
-            <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden">
+            <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden bg-background-primary">
                 <UnderwaterHeader />
                 <RadialEffect
                     className="!w-[512px] !h-[512px] !-top-[202px] !-left-[256px] !opacity-[0.08]"
@@ -66,7 +66,7 @@ function Services() {
     // Show error state
     if (error) {
         return (
-            <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden">
+            <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden bg-background-primary">
                 <RadialEffect
                     className="!w-[512px] !h-[512px] !-top-[202px] !-left-[256px] !opacity-[0.08]"
                 />
@@ -78,7 +78,7 @@ function Services() {
                     </div>
                     <div className="flex-1 flex items-center justify-center">
                         <div className="text-center">
-                            <p className="text-red-400 text-lg mb-4">{t('app.packageSelection.error.message')}</p>
+                            <p className="text-status-error text-lg mb-4">{t('app.packageSelection.error.message')}</p>
                             <button
                                 onClick={() => window.location.reload()}
                                 className="px-4 py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 transition-colors"
@@ -128,7 +128,7 @@ function Services() {
     }
 
     return (
-        <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden">
+        <div className="min-h-screen min-w-full bg-background-primary safe-area-pt w-full dark flex flex-col relative overflow-hidden">
             <UnderwaterHeader />
 
             <RadialEffect
@@ -148,7 +148,7 @@ function Services() {
                     {!hasServices ? (
                         <div className="flex items-center justify-center h-full">
                             <div className="text-center">
-                                <p className="text-[#ACADAF] text-lg">{t('common.noServicesAvailable')}</p>
+                                <p className="text-text-secondary text-lg">{t('common.noServicesAvailable')}</p>
                             </div>
                         </div>
                     ) : (
@@ -157,7 +157,7 @@ function Services() {
                                 <div
                                     key={service.id}
                                     onClick={() => handleServiceClick(service)}
-                                    className="relative flex items-center justify-between px-6 pr-3 flex-row w-full h-[108px] rounded-[22px] border border-[#FFFFFF0A] bg-[#FFFFFF05] shadow-[0px_1px_0px_0px_#FFFFFF14_inset] overflow-hidden cursor-pointer"
+                                    className="relative flex items-center justify-between px-6 pr-3 flex-row w-full h-[108px] rounded-[22px] border border-border-primary bg-background-card shadow-card overflow-hidden cursor-pointer"
                                     style={{
                                         backdropFilter: 'blur(128px)',
                                         WebkitBackdropFilter: 'blur(128px)'
@@ -170,7 +170,7 @@ function Services() {
                                             {service.name}
                                         </h3>
                                         {(service.option === 'select_factory' || service.option === 'online_b2b' || service.option === 'custom_order') && service.description && (
-                                            <p className="text-[#ACADAF] font-normal text-xs">
+                                            <p className="text-text-secondary font-normal text-xs">
                                                 {service.description}
                                             </p>
                                         )}
@@ -179,11 +179,11 @@ function Services() {
                                     {/* Service Price */}
                                     {service.price !== undefined && service.option !== 'custom_order' && (
                                         String(service.price) === '0' || String(service.price) === '0.00' ? (
-                                            <p className="text-[#FCE803] font-bold min-w-[110px] text-sm text-center">
+                                            <p className="text-brand-primary font-bold min-w-[110px] text-sm text-center">
                                                 Бесплатно
                                             </p>
                                         ) : (
-                                            <p className="text-[#FCE803] font-bold min-w-[110px] text-lg text-center">
+                                            <p className="text-brand-primary font-bold min-w-[110px] text-lg text-center">
                                                 ${service.price}
                                             </p>
                                         )

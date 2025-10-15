@@ -20,7 +20,7 @@ function CustomerWelcome() {
     }
 
     return (
-        <div className="min-h-screen min-w-full safe-area-pt w-full flex flex-col">
+        <div className="min-h-screen min-w-full safe-area-pt w-full flex flex-col bg-background-primary">
             <main className="w-full max-w-4xl mx-auto container min-w-full flex-1 flex flex-col justify-between">
 
                 <div className="flex px-3 flex-col items-center justify-center space-y-8">
@@ -29,7 +29,7 @@ function CustomerWelcome() {
                         <h1 className="text-white font-bold text-[27px] tracking-wide">
                             {t('app.buyurtmachi.welcome.title')}
                         </h1>
-                        <p className="text-gray-300 max-w-md font-medium text-sm leading-relaxed">
+                        <p className="text-text-secondary max-w-md font-medium text-sm leading-relaxed">
                             {t('app.buyurtmachi.welcome.description')}
                         </p>
                     </div>

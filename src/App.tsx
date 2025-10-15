@@ -29,12 +29,11 @@ function App() {
     }
 
     return (
-        <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative">
-
+        <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative bg-background-primary ">
             <UnderwaterHeader />
             <RadialEffect />
 
-            <main className="w-full container min-w-full flex-1 flex flex-col relative">
+            <main className="w-full container min-w-full flex-1 flex flex-col relative debug-padding-top">
                 <div className="flex-1 flex flex-col mt-4 justify-center space-y-8 pb-26">
                     <SliderCards />
                 </div>

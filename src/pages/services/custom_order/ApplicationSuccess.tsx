@@ -22,7 +22,7 @@ function ApplicationSuccess() {
     }
 
     return (
-        <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden">
+        <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden bg-background-primary">
             <UnderwaterHeader />
             <RadialEffect
                 className="!w-[512px] !h-[512px] !-top-[202px] !-left-[256px] !opacity-[0.08]"
@@ -33,7 +33,7 @@ function ApplicationSuccess() {
                 <div className="flex-1 flex flex-col items-center justify-center text-center space-y-8 px-4">
                     {/* Success Icon */}
                     <div className="w-24 h-24 rounded-full bg-green-500/20 flex items-center justify-center">
-                        <CheckCircle className="w-12 h-12 text-green-500" />
+                        <CheckCircle className="w-12 h-12 text-status-success" />
                     </div>
 
                     {/* Success Message */}
@@ -48,7 +48,7 @@ function ApplicationSuccess() {
 
                     {/* Package Info */}
                     {packageData && (
-                        <div className="w-full max-w-md p-4 rounded-lg border border-[#FFFFFF0A] bg-[#181B20]">
+                        <div className="w-full max-w-md p-4 rounded-lg border border-[#FFFFFF0A] bg-background-primary">
                             <h3 className="text-white font-medium text-sm mb-2">
                                 {t('app.customOrderApplication.success.selectedPackage')}
                             </h3>

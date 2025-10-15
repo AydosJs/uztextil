@@ -35,7 +35,7 @@ function PackageSelection() {
     // Show loading state
     if (isLoading) {
         return (
-            <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden">
+            <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden bg-background-primary">
                 <UnderwaterHeader />
                 <RadialEffect
                     className="!w-[512px] !h-[512px] !-top-[202px] !-left-[256px] !opacity-[0.08]"
@@ -51,7 +51,7 @@ function PackageSelection() {
                             {[1, 2, 3].map((i) => (
                                 <div
                                     key={i}
-                                    className="relative flex items-center justify-between px-6 pr-3 flex-row w-full h-[108px] rounded-[22px] border border-[#FFFFFF0A] bg-[#FFFFFF05] shadow-[0px_1px_0px_0px_#FFFFFF14_inset] overflow-hidden animate-pulse"
+                                    className="relative flex items-center justify-between px-6 pr-3 flex-row w-full h-[108px] rounded-[22px] border border-border-primary bg-background-card shadow-card overflow-hidden animate-pulse"
                                     style={{
                                         backdropFilter: 'blur(128px)',
                                         WebkitBackdropFilter: 'blur(128px)'
@@ -74,7 +74,7 @@ function PackageSelection() {
     // Show error state
     if (error) {
         return (
-            <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden">
+            <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden bg-background-primary">
                 <RadialEffect
                     className="!w-[512px] !h-[512px] !-top-[202px] !-left-[256px] !opacity-[0.08]"
                 />
@@ -86,7 +86,7 @@ function PackageSelection() {
                     </div>
                     <div className="flex-1 flex items-center justify-center">
                         <div className="text-center">
-                            <p className="text-red-400 text-lg mb-4">{t('app.packageSelection.error.message')}</p>
+                            <p className="text-status-error text-lg mb-4">{t('app.packageSelection.error.message')}</p>
                             <button
                                 onClick={() => window.location.reload()}
                                 className="py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 transition-colors"
@@ -114,7 +114,7 @@ function PackageSelection() {
     }
 
     return (
-        <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden">
+        <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden bg-background-primary">
             <UnderwaterHeader />
 
             <RadialEffect
@@ -134,7 +134,7 @@ function PackageSelection() {
                     {!hasPackages ? (
                         <div className="flex items-center justify-center h-full">
                             <div className="text-center">
-                                <p className="text-[#ACADAF] text-lg">{t('app.packageSelection.empty.message')}</p>
+                                <p className="text-text-secondary text-lg">{t('app.packageSelection.empty.message')}</p>
                             </div>
                         </div>
                     ) : (
@@ -143,7 +143,7 @@ function PackageSelection() {
                                 <div
                                     key={packageItem.id}
                                     onClick={() => handlePackageClick(packageItem)}
-                                    className="relative flex items-center justify-between px-6 pr-3 flex-row w-full py-5 rounded-[22px] border border-[#FFFFFF0A] bg-[#FFFFFF05] shadow-[0px_1px_0px_0px_#FFFFFF14_inset] overflow-hidden cursor-pointer"
+                                    className="relative flex items-center justify-between px-6 pr-3 flex-row w-full py-5 rounded-[22px] border border-border-primary bg-background-card shadow-card overflow-hidden cursor-pointer"
                                     style={{
                                         backdropFilter: 'blur(128px)',
                                         WebkitBackdropFilter: 'blur(128px)'
@@ -154,13 +154,13 @@ function PackageSelection() {
                                         <h3 className=" font-semibold text-xl text-white bg-gradient-to-r from-white to-white bg-clip-text">
                                             {packageItem.name}
                                         </h3>
-                                        <p className="text-[#ACADAF] font-normal text-xs">
+                                        <p className="text-text-secondary font-normal text-xs">
                                             {packageItem.name}
                                         </p>
                                     </div>
 
                                     {/* To'liq ma'lumot text */}
-                                    <div className="flex items-center justify-center  rounded-full gap-2 px-3 py-1 bg-[#37393EB2] opacity-100">
+                                    <div className="flex items-center justify-center  rounded-full gap-2 px-3 py-1 bg-brand-secondary opacity-100">
                                         <p className=" text-xs font-semibold  text-white opacity-100 whitespace-nowrap">
                                             {t('app.packageSelection.fullInfo')}
                                         </p>

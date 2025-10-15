@@ -33,7 +33,7 @@ function PlaceOrderSuccess() {
                     {/* Success Icon */}
                     <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mb-6">
                         <svg
-                            className="w-10 h-10 text-green-400"
+                            className="w-10 h-10 text-status-success"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -54,16 +54,16 @@ function PlaceOrderSuccess() {
                         </h1>
 
                         <div className="space-y-2">
-                            <p className="text-[#ACADAF] text-lg">
-                                {t('app.placeOrder.success.lotNumber')} <span className="text-[#FCE803] font-bold">{lotNumber}</span>
+                            <p className="text-text-secondary text-lg">
+                                {t('app.placeOrder.success.lotNumber')} <span className="text-brand-primary font-bold">{lotNumber}</span>
                             </p>
-                            <p className="text-[#ACADAF] text-lg">
+                            <p className="text-text-secondary text-lg">
                                 {t('app.placeOrder.success.searchInfo', { lotNumber })}
                             </p>
                         </div>
 
                         {service && (
-                            <p className="text-[#ACADAF] text-sm">
+                            <p className="text-text-secondary text-sm">
                                 {t('app.common.service')}: {service.name}
                             </p>
                         )}

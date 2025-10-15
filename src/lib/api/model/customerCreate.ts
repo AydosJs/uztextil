@@ -36,16 +36,6 @@ export interface CustomerCreate {
   marketplace_brand: string;
   /**
    * @minLength 1
-   * @maxLength 100
-   */
-  annual_order_volume: string;
-  /**
-   * @minLength 1
-   * @maxLength 250
-   */
-  cooperation_terms: string;
-  /**
-   * @minLength 1
    * @maxLength 250
    */
   payment_terms: string;

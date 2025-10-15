@@ -130,7 +130,7 @@ function PlaceOrderForm() {
     }
 
     return (
-        <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col">
+        <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col bg-background-primary">
             <main className="w-full container min-w-full flex-1 flex flex-col">
                 <UnderwaterHeader />
 
@@ -140,7 +140,7 @@ function PlaceOrderForm() {
                         {t('app.placeOrder.title')}
                     </h1>
                     {service && (
-                        <p className="text-[#ACADAF] text-sm">
+                        <p className="text-text-secondary text-sm">
                             {service.name}
                         </p>
                     )}

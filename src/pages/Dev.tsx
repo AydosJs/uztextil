@@ -32,7 +32,7 @@ function Dev() {
   }, []);
 
   return (
-    <div className="min-h-screen min-w-full w-full dark">
+    <div className="min-h-screen min-w-full w-full dark bg-background-primary">
       <header className="border w-full min-w-full  safe-area-pt h-full block">
         header
       </header>
@@ -77,7 +77,7 @@ function Dev() {
                     Destroy Eruda
                   </button>
                 </div>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                <p className="text-sm text-text-muted dark:text-text-secondary mt-2">
                   Use these buttons to control the mobile debugging console. Only available in development mode.
                   <br />
                   <span className="font-mono text-xs">Keyboard shortcut: Ctrl/Cmd + Shift + E</span>

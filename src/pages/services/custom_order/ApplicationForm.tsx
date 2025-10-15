@@ -87,7 +87,7 @@ function ApplicationForm() {
     }
 
     return (
-        <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden">
+        <div className="min-h-screen bg-background-primary min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden">
             <UnderwaterHeader />
             <RadialEffect
                 className="!w-[512px] !h-[512px] !-top-[202px] !-left-[256px] !opacity-[0.08]"

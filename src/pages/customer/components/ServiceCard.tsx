@@ -28,7 +28,7 @@ function ServiceCard({ title, price, icon, onClick, className = "" }: ServiceCar
     return (
         <div
             onClick={handleClick}
-            className={`relative flex items-center px-6 w-full h-[108px] rounded-[22px] border border-[#FFFFFF0A] bg-[#FFFFFF05] shadow-[0px_1px_0px_0px_#FFFFFF14_inset] overflow-hidden cursor-pointer hover:bg-[#FFFFFF08] transition-colors ${className}`}
+            className={`relative flex items-center px-6 w-full h-[108px] rounded-[22px] border border-border-primary bg-background-card shadow-card overflow-hidden cursor-pointer hover:bg-background-card-hover transition-colors ${className}`}
             style={{
                 backdropFilter: 'blur(128px)',
                 WebkitBackdropFilter: 'blur(128px)'
@@ -38,7 +38,7 @@ function ServiceCard({ title, price, icon, onClick, className = "" }: ServiceCar
             <div
                 className="absolute w-[512px] h-[512px] -top-[202px] -left-[256px] opacity-[0.08] pointer-events-none"
                 style={{
-                    background: 'radial-gradient(50% 50% at 50% 50%, #FCE803 0%, rgba(252, 232, 3, 0) 100%)',
+                    background: 'radial-gradient(50% 50% at 50% 50%, var(--color-brand-primary) 0%, rgba(252, 232, 3, 0) 100%)',
                     backdropFilter: 'blur(128px)',
                     WebkitBackdropFilter: 'blur(128px)'
                 }}
@@ -63,7 +63,7 @@ function ServiceCard({ title, price, icon, onClick, className = "" }: ServiceCar
                     <h3 className="text-white font-extrabold text-base">
                         {title}
                     </h3>
-                    <p className="text-[#ACADAF] font-bold text-xs">
+                    <p className="text-text-secondary font-bold text-xs">
                         {t('app.common.price')}: {price}
                     </p>
                 </div>

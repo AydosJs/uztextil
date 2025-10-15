@@ -21,11 +21,11 @@ const CustomCheckbox = React.forwardRef<
         ref={ref}
         id={checkboxId}
         className={cn(
-          "w-[22px] h-[22px] rounded-[6px] border-2 border-[rgb(252,232,3)] bg-transparent",
+          "w-[22px] h-[22px] rounded-[6px] border-2 border-brand-primary bg-transparent",
           "flex items-center justify-center shrink-0",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgb(252,232,3)] focus-visible:ring-offset-2",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2",
           "disabled:cursor-not-allowed disabled:opacity-50",
-          "data-[state=checked]:bg-[rgb(252,232,3)] data-[state=checked]:border-[rgb(252,232,3)]",
+          "data-[state=checked]:bg-brand-primary data-[state=checked]:border-brand-primary",
           "transition-colors duration-200",
           className
         )}

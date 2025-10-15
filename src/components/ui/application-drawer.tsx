@@ -129,7 +129,7 @@ export function ApplicationDrawer({ open, onOpenChange, onSubmit }: ApplicationD
                         <Button
                             onClick={handleSubmit}
                             disabled={!isFormValid()}
-                            className="flex-1 bg-[#FCE803] text-black hover:bg-[#FCE803]/90 font-semibold"
+                            className="flex-1 bg-brand-primary text-black hover:bg-brand-primary/90 font-semibold"
                         >
                             {t('app.applicationDrawer.form.submitButton')}
                         </Button>

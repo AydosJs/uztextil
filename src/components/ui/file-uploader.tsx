@@ -49,20 +49,20 @@ const FileUploader: React.FC<FileUploaderProps> = ({
 
         switch (extension) {
             case 'pdf':
-                return <FileText className="w-6 h-6 text-[rgba(252,232,3,1)]" />
+                return <FileText className="w-6 h-6 text-brand-primary" />
             case 'doc':
             case 'docx':
-                return <FileText className="w-6 h-6 text-[rgba(252,232,3,1)]" />
+                return <FileText className="w-6 h-6 text-brand-primary" />
             case 'xls':
             case 'xlsx':
-                return <FileText className="w-6 h-6 text-[rgba(252,232,3,1)]" />
+                return <FileText className="w-6 h-6 text-brand-primary" />
             case 'jpg':
             case 'jpeg':
             case 'png':
             case 'gif':
-                return <FileText className="w-6 h-6 text-[rgba(252,232,3,1)]" />
+                return <FileText className="w-6 h-6 text-brand-primary" />
             default:
-                return <FileText className="w-6 h-6 text-[rgba(252,232,3,1)]" />
+                return <FileText className="w-6 h-6 text-brand-primary" />
         }
     }
 
@@ -94,7 +94,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
         <div className={cn("w-full", className)}>
             {label && (
                 <div className="mb-2">
-                    <label className="block text-base font-normal leading-6 tracking-[0.15px] text-[#9FA0A1]">
+                    <label className="block text-base font-normal leading-6 tracking-[0.15px] text-text-tertiary">
                         {label}
                     </label>
                 </div>
@@ -104,19 +104,19 @@ const FileUploader: React.FC<FileUploaderProps> = ({
             {files.map((fileItem) => (
                 <div
                     key={fileItem.id}
-                    className=" h-[78px] rounded-[18px] bg-[rgba(39,43,50,1)] flex items-center px-4 mb-3"
+                    className="h-[78px] rounded-[18px] bg-background-tertiary flex items-center px-4 mb-3"
                 >
                     {/* File Icon */}
-                    <div className="w-[48px] h-[48px] rounded-[8px] bg-[rgba(252,232,3,0.13)] flex items-center justify-center mr-4">
+                    <div className="w-[48px] h-[48px] rounded-[8px] bg-brand-primary/13 flex items-center justify-center mr-4">
                         {getFileIcon(fileItem.file.name)}
                     </div>
 
                     {/* File Info */}
                     <div className="flex-1 min-w-0">
-                        <div className="font-normal text-[rgba(255,255,255,1)] mb-1 truncate">
+                        <div className="font-normal text-text-primary mb-1 truncate">
                             {fileItem.file.name}
                         </div>
-                        <div className="text-sm font-normal text-[rgb(112,117,121)] truncate">
+                        <div className="text-sm font-normal text-text-muted truncate">
                             {getFileType(fileItem.file.name)}
                         </div>
                     </div>
@@ -124,7 +124,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
                     {/* Remove Button */}
                     <button
                         onClick={() => removeFile(fileItem.id)}
-                        className="size-6 flex items-center justify-center text-white hover:bg-gray-700 rounded-full transition-colors duration-200"
+                        className="size-6 flex items-center justify-center text-text-primary hover:bg-background-secondary rounded-full transition-colors duration-200"
                     >
                         <X className="w-4 h-4" />
                     </button>
@@ -132,7 +132,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
             ))}
 
             {/* Upload Button */}
-            <div className="h-[41px] rounded-[19px] bg-[rgba(39,43,50,1)] flex items-center justify-center cursor-pointer hover:bg-[rgba(39,43,50,0.8)] transition-colors duration-200">
+            <div className="h-[41px] rounded-[19px] bg-background-tertiary flex items-center justify-center cursor-pointer hover:bg-background-tertiary/80 transition-colors duration-200">
                 <input
                     ref={fileInputRef}
                     type="file"
@@ -144,7 +144,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({
                     onClick={() => fileInputRef.current?.click()}
                     className="w-full h-full flex items-center justify-center"
                 >
-                    <Plus className="size-6 text-white rounded-sm" />
+                    <Plus className="size-6 text-text-primary rounded-sm" />
                 </button>
             </div>
         </div>

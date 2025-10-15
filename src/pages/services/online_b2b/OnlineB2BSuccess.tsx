@@ -31,7 +31,7 @@ function OnlineB2BSuccess() {
                     <h1 className="text-white font-bold text-[32px] tracking-wide">
                         {t('app.onlineB2B.success.header')}
                     </h1>
-                    <p className="text-[#ACADAF] text-sm">
+                    <p className="text-text-secondary text-sm">
                         {t('app.onlineB2B.success.subtitle')}
                     </p>
                 </div>
@@ -39,14 +39,14 @@ function OnlineB2BSuccess() {
                 {/* Success Content */}
                 <div className="flex-1 flex flex-col items-center justify-center text-center space-y-6 pb-8">
                     <div className="w-20 h-20 rounded-full bg-green-500/20 flex items-center justify-center mb-4">
-                        <CheckCircle className="w-10 h-10 text-green-500" />
+                        <CheckCircle className="w-10 h-10 text-status-success" />
                     </div>
 
                     <div className="space-y-2">
                         <h2 className="text-white font-bold text-xl">
                             {t('app.onlineB2B.success.applicationSubmitted')}
                         </h2>
-                        <p className="text-[#ACADAF] text-sm max-w-md">
+                        <p className="text-text-secondary text-sm max-w-md">
                             {t('app.onlineB2B.success.applicationDescription')}
                         </p>
                     </div>

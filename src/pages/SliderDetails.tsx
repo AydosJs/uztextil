@@ -16,25 +16,11 @@ export default function SliderDetails() {
     // Find the specific slider by ID
     const slider = sliders?.find(s => s.id === Number(id))
 
-    // Format date function
-    const formatDate = (dateString: string | undefined) => {
-        if (!dateString) return ""
-        try {
-            const date = new Date(dateString)
-            return date.toLocaleDateString('ru-RU', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            })
-        } catch {
-            return dateString
-        }
-    }
 
     if (isLoading) {
         return (
-            <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col">
-                <div className="flex items-center p-4 border-b border-gray-800">
+            <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col bg-background-primary">
+                <div className="flex items-center p-4 border-b border-border-primary">
                     <Skeleton className="w-6 h-6 mr-3" />
                     <Skeleton className="h-6 w-32" />
                 </div>
@@ -62,8 +48,8 @@ export default function SliderDetails() {
 
     if (error || !slider) {
         return (
-            <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col">
-                <div className="flex items-center p-4 border-b border-gray-800">
+            <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col bg-background-primary">
+                <div className="flex items-center p-4 border-b border-border-primary">
                     <Button
                         variant="ghost"
                         size="sm"
@@ -72,14 +58,14 @@ export default function SliderDetails() {
                     >
                         <ChevronLeft className="w-5 h-5" />
                     </Button>
-                    <h1 className="text-lg font-semibold text-white">
+                    <h1 className="text-lg font-semibold text-text-primary">
                         {t('app.slider.details.title')}
                     </h1>
                 </div>
 
                 <div className="flex-1 flex items-center justify-center p-4">
                     <div className="text-center">
-                        <p className="text-gray-400 mb-4">
+                        <p className="text-text-secondary mb-4">
                             {t('slider.details.notFound')}
                         </p>
                         <Button
@@ -95,16 +81,16 @@ export default function SliderDetails() {
     }
 
     return (
-        <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col">
+        <div className="min-h-screen min-w-full bg-background-primary safe-area-pt w-full dark flex flex-col">
             {/* Header */}
-            <div className="flex items-center border-gray-800 px-4 mb-4 mt-2">
+            <div className="flex items-center border-border-primary px-4 mb-4 mt-2">
                 <div
                     onClick={() => navigate(-1)}
                     className="mr-3"
                 >
                     <ChevronLeft className="w-5 h-5" />
                 </div>
-                <h1 className="text-lg font-semibold text-white truncate">
+                <h1 className="text-lg font-semibold text-text-primary truncate">
                     {slider?.title || t('app.slider.details.title')}
                 </h1>
             </div>
@@ -113,7 +99,7 @@ export default function SliderDetails() {
             <div className="flex-1 p-4 space-y-6 pb-8">
                 {/* Image */}
                 {slider.image && (
-                    <div className="w-full h-64 rounded-2xl overflow-hidden bg-gray-800">
+                    <div className="w-full h-64 rounded-2xl overflow-hidden bg-background-secondary">
                         <img
                             src={slider.image}
                             alt={slider.title}
@@ -124,21 +110,21 @@ export default function SliderDetails() {
 
                 <div className="space-y-2">
                     {/* Title */}
-                    <h2 className="text-2xl font-bold text-white leading-tight">
+                    <h2 className="text-2xl font-bold text-text-primary leading-tight">
                         {slider.title}
                     </h2>
 
-                    {/* Date */}
+                    {/* Date
                     {slider.created_at && (
-                        <p className="text-sm text-gray-400">
-                            {t('app.slider.details.publishedOn')}: <span className="text-white">{formatDate(slider.created_at)}</span>
+                        <p className="text-sm text-text-secondary">
+                            {t('app.slider.details.publishedOn')}: <span className="text-text-primary">{formatDate(slider.created_at)}</span>
                         </p>
-                    )}
+                    )} */}
                 </div>
 
                 {/* Description */}
                 <div className="prose prose-invert max-w-none">
-                    <p className="text-gray-300 leading-relaxed whitespace-pre-wrap">
+                    <p className="text-text-secondary leading-relaxed whitespace-pre-wrap">
                         {slider.description}
                     </p>
                 </div>

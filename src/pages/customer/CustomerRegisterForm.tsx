@@ -130,7 +130,7 @@ function CustomerRegisterForm() {
     }
 
     return (
-        <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col">
+        <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col bg-background-primary">
             <main className="w-full max-w-4xl mx-auto container min-w-full flex-1 flex flex-col">
                 <UnderwaterHeader />
                 {/* Header */}

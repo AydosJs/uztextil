@@ -70,11 +70,11 @@ export function DatePicker({
                         "focus-visible:ring-0 focus-visible:ring-offset-0 shadow-none",
                         "justify-start text-left",
                         // Default state
-                        "border-[rgba(255,255,255,0.58)] text-white hover:bg-transparent",
+                        "border-border-primary text-text-primary hover:bg-transparent",
                         // Focused state  
-                        "focus-visible:border-[rgb(252,232,3)]",
+                        "focus-visible:border-brand-primary",
                         // Empty state
-                        "data-[empty=true]:text-[#9FA0A1]",
+                        "data-[empty=true]:text-text-tertiary",
                         className
                     )}
                     disabled={disabled}
@@ -83,7 +83,7 @@ export function DatePicker({
                     {value ? format(value, "PPP", { locale }) : <span>{placeholder}</span>}
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0 bg-[rgba(39,43,50,1)] border-gray-600" align="start">
+            <PopoverContent className="w-auto p-0 bg-background-tertiary border-border-primary" align="start">
                 <Calendar
                     mode="single"
                     selected={value}
@@ -94,7 +94,7 @@ export function DatePicker({
                     fromYear={fromYear}
                     toYear={toYear}
                     disabled={disabledDates}
-                    className="bg-[rgba(39,43,50,1)] text-white"
+                    className="bg-background-tertiary text-text-primary"
                 />
             </PopoverContent>
         </Popover>

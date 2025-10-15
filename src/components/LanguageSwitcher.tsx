@@ -12,8 +12,8 @@ export function LanguageSwitcher() {
             <button
                 onClick={() => changeLanguage('uz')}
                 className={`px-3 py-1 rounded text-sm font-medium transition-colors ${i18n.language === 'uz'
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-background-secondary text-text-primary hover:bg-background-tertiary'
                     }`}
             >
                 UZ
@@ -21,8 +21,8 @@ export function LanguageSwitcher() {
             <button
                 onClick={() => changeLanguage('ru')}
                 className={`px-3 py-1 rounded text-sm font-medium transition-colors ${i18n.language === 'ru'
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-background-secondary text-text-primary hover:bg-background-tertiary'
                     }`}
             >
                 RU

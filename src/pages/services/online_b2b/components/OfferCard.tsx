@@ -73,11 +73,11 @@ function OfferCard({ offer, onOfferSelect, userId }: OfferCardProps) {
     const getStatusColor = (status?: string) => {
         switch (status) {
             case 'chosen':
-                return 'bg-green-500/20 text-green-400'
+                return 'bg-status-success/20 text-status-success'
             case 'not_chosen':
-                return 'bg-yellow-500/20 text-yellow-400'
+                return 'bg-status-warning/20 text-status-warning'
             default:
-                return 'bg-gray-500/20 text-gray-400'
+                return 'bg-text-secondary/20 text-text-secondary'
         }
     }
 
@@ -93,7 +93,7 @@ function OfferCard({ offer, onOfferSelect, userId }: OfferCardProps) {
     }
 
     return (
-        <div className="relative flex flex-col px-6 py-4 w-full rounded-[22px] border border-[#FFFFFF0A] bg-[#FFFFFF05] shadow-[0px_1px_0px_0px_#FFFFFF14_inset] overflow-hidden hover:bg-[#FFFFFF08] transition-colors"
+        <div className="relative flex flex-col px-6 py-4 w-full rounded-[22px] border border-border-primary bg-background-card shadow-card overflow-hidden hover:bg-background-card-hover transition-colors"
             style={{
                 backdropFilter: 'blur(128px)',
                 WebkitBackdropFilter: 'blur(128px)'
@@ -108,13 +108,13 @@ function OfferCard({ offer, onOfferSelect, userId }: OfferCardProps) {
                     <h3 className="text-white font-extrabold text-base">
                         {offer.manufacturer?.company_name || t('app.onlineB2B.offers.unknownCompany')}
                     </h3>
-                    <p className="text-[#ACADAF] text-xs">
+                    <p className="text-text-secondary text-xs">
                         {t('app.common.viewMoreDetails')}
                     </p>
                 </div>
                 <div className="flex items-center space-x-2 ml-4">
                     {isUpdating ? (
-                        <span className="px-2 py-1 rounded-full text-xs font-medium bg-blue-500/20 text-blue-400">
+                        <span className="px-2 py-1 rounded-full text-xs font-medium bg-status-info/20 text-status-info">
                             {t('app.onlineB2B.offers.status.updating')}
                         </span>
                     ) : (

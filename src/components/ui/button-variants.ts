@@ -11,7 +11,7 @@ export const buttonVariants = cva(
                 outline:
                     "border border-border bg-background hover:bg-accent hover:text-accent-foreground",
                 secondary:
-                    "bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.04)] text-white hover:bg-[rgba(255,255,255,0.04)] [box-shadow:0px_1px_0px_0px_rgba(255,255,255,0.08)_inset]",
+                    "bg-background-card border border-border-tertiary text-text-primary hover:bg-background-card-hover shadow-card-inset",
                 ghost: "hover:bg-accent hover:text-accent-foreground",
                 link: "text-primary underline-offset-4 hover:underline",
             },
@@ -24,8 +24,8 @@ export const buttonVariants = cva(
             },
             shadow: {
                 none: "",
-                sm: "[box-shadow:0px_4px_64px_0px_rgba(252,232,3,0.32)]",
-                lg: "[box-shadow:0px_4px_128px_0px_rgba(252,232,3,0.32)]",
+                sm: "shadow-brand-lg",
+                lg: "shadow-brand-lg",
             },
         },
         defaultVariants: {

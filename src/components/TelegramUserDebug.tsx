@@ -53,12 +53,12 @@ export function TelegramUserDebug() {
                 </div>
 
                 {error && (
-                    <div className="text-red-400">
+                    <div className="text-status-error">
                         <strong>Error:</strong> {error}
                     </div>
                 )}
 
-                <div className="text-yellow-400 text-xs">
+                <div className="text-status-warning text-xs">
                     <strong>Note:</strong> If you see null user data, make sure:
                     <br />• App is launched from Telegram (not browser)
                     <br />• Bot has WebApp configured

@@ -25,13 +25,13 @@ const RadioGroupItem = React.forwardRef<
         <RadioGroupPrimitive.Item
             ref={ref}
             className={cn(
-                "w-[23px] h-[23px] rounded-full border-[rgba(252,232,3,1)] bg-[rgba(159,160,161,0.44)] transition-all duration-200 ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-[rgba(252,232,3,1)] data-[state=checked]:shadow-[0px_0px_4px_0px_rgba(252,232,3,1)]",
+                "w-[23px] h-[23px] rounded-full border-brand-primary bg-text-tertiary/44 transition-all duration-200 ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-brand-primary data-[state=checked]:shadow-brand",
                 className
             )}
             {...props}
         >
             <RadioGroupPrimitive.Indicator className="flex items-center justify-center w-full h-full">
-                <div className="w-[11px] h-[11px] rounded-full bg-[rgb(24,27,32)]" />
+                <div className="w-[11px] h-[11px] rounded-full bg-background-primary" />
             </RadioGroupPrimitive.Indicator>
         </RadioGroupPrimitive.Item>
     )

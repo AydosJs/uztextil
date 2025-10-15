@@ -118,7 +118,7 @@ export function FilterDrawer({
 
                     {/* Product Segment */}
                     <div className="space-y-2">
-                        <label className="block text-base font-normal leading-6 tracking-[0.15px] text-[#9FA0A1]">
+                        <label className="block text-base font-normal leading-6 tracking-[0.15px] text-text-tertiary">
                             {t('app.filterDrawer.productSegment.label')}
                         </label>
                         <MultiSelectCombobox
@@ -146,14 +146,14 @@ export function FilterDrawer({
                             <Button
                                 onClick={resetFilters}
                                 variant="outline"
-                                className="flex-1 bg-transparent border-[#FFFFFF0A] text-white hover:bg-white/10"
+                                className="flex-1 bg-transparent border-border-primary text-white hover:bg-white/10"
                             >
                                 {t('app.filterDrawer.buttons.reset')}
                             </Button>
                         )}
                         <Button
                             onClick={applyFilters}
-                            className="flex-1 bg-[#FCE803] text-black hover:bg-[#FCE803]/90 font-semibold flex items-center justify-center gap-2"
+                            className="flex-1 bg-brand-primary text-black hover:bg-brand-primary/90 font-semibold flex items-center justify-center gap-2"
                         >
                             <Search className="size-5" />
                             {t('app.filterDrawer.buttons.search')}

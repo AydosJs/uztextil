@@ -4,14 +4,53 @@
 @import "tailwindcss";
 
 @theme {
-  /* Colors */
+  /* Brand Colors */
+  --color-brand-primary: #F7D000;
+  --color-brand-primary-foreground: #000000;
+  --color-brand-secondary: #37393E;
+  --color-brand-secondary-foreground: #FFFFFF;
+  
+  /* Background Colors */
+  --color-background-primary: #144338;
+  --color-background-secondary: #1D1F24;
+  --color-background-tertiary: #272B32;
+  --color-background-card: rgba(255, 255, 255, 0.05);
+  --color-background-card-hover: rgba(255, 255, 255, 0.08);
+  
+  /* Text Colors */
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #ACADAF;
+  --color-text-tertiary: #9FA0A1;
+  --color-text-muted: #707579;
+  
+  /* Border Colors */
+  --color-border-primary: rgba(255, 255, 255, 0.1);
+  --color-border-secondary: rgba(255, 255, 255, 0.05);
+  --color-border-tertiary: rgba(255, 255, 255, 0.04);
+  --color-border-focus: #F7D000;
+  
+  /* Status Colors */
+  --color-status-success: #10B981;
+  --color-status-success-foreground: #000000;
+  --color-status-error: #EF4444;
+  --color-status-error-foreground: #000000;
+  --color-status-warning: #F59E0B;
+  --color-status-warning-foreground: #000000;
+  --color-status-info: #3B82F6;
+  --color-status-info-foreground: #000000;
+  
+  /* Shadow Colors */
+  --color-shadow-primary: rgba(247, 208, 0, 0.32);
+  --color-shadow-secondary: rgba(255, 255, 255, 0.08);
+  
+  /* Legacy shadcn/ui colors for compatibility */
   --color-border: hsl(215 27.9% 16.9%);
   --color-input: hsl(215 27.9% 16.9%);
   --color-ring: hsl(216 12.2% 83.9%);
   --color-background: hsl(214 17% 11%);
   --color-foreground: hsl(210 20% 98%);
   
-  --color-primary: hsl(57 98% 50%);
+  --color-primary: #F7D000;
   --color-primary-foreground: hsl(214 20% 8%);
   
   --color-secondary: hsl(215 27.9% 16.9%);
@@ -37,9 +76,41 @@
   --radius-md: calc(0.5rem - 2px);
   --radius-sm: calc(0.5rem - 4px);
 
-  /* Custom spacing */
-  --spacing-safe-top: var(--safe-area-inset-top);
-  --spacing-safe-bottom: var(--safe-area-inset-bottom);
+  /* Shadow Variables */
+  --shadow-brand: 0px 2px 20px -4px var(--color-shadow-primary);
+  --shadow-brand-lg: 0px 4px 64px 0px var(--color-shadow-primary);
+  --shadow-card: 0px 1px 0px 0px var(--color-shadow-secondary) inset;
+  --shadow-card-inset: inset 0px 1px 0px 0px var(--color-shadow-secondary);
+
+/* Custom spacing */
+--spacing-safe-top: var(--safe-area-inset-top);
+--spacing-safe-bottom: var(--safe-area-inset-bottom);
+
+/* Debug bar spacing */
+.debug-padding-top {
+  padding-top: 3rem; /* 48px - space for debug bar */
+}
+
+/* Remove drawer outlines and rings */
+[data-slot="drawer-content"],
+[data-slot="drawer-content"]:focus,
+[data-slot="drawer-content"]:focus-visible,
+[data-slot="drawer-content"]:active,
+[data-slot="drawer-content"]:hover {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Remove any ring effects from drawer */
+[data-slot="drawer-content"] * {
+  outline: none !important;
+}
+
+[data-slot="drawer-content"] *:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
 
   /* Font families */
   --font-plus-jakarta-sans: "Plus Jakarta Sans", system-ui, sans-serif;
@@ -269,10 +340,10 @@
 .loading-background {
   background: repeating-linear-gradient(
     45deg,
-    hsl(57 98% 50%) 0,
-    hsl(57 98% 50%) 10px,
-    hsl(57 98% 60%) 10px,
-    hsl(57 98% 60%) 20px
+    #F7D000 0,
+    #F7D000 10px,
+    #F7D000 10px,
+    #F7D000 20px
   ) !important;
   background-size: 40px 100% !important;
   animation: loading-slide 1.5s linear infinite !important;

@@ -28,7 +28,7 @@ export function ManufacturerDetailDrawer({
     return (
         <Drawer open={open} onOpenChange={onOpenChange}>
             <DrawerContent className="max-h-[96vh]">
-                <DrawerHeader className="border-b border-[#FFFFFF0A] pb-2">
+                <DrawerHeader className="border-b border-border-primary pb-2">
                     <DrawerTitle className="text-white text-left text-xl font-bold">
                         {manufacturer?.company_name}
                     </DrawerTitle>
@@ -45,7 +45,7 @@ export function ManufacturerDetailDrawer({
                         </div>
                     ) : error ? (
                         <div className="text-center py-8">
-                            <p className="text-red-400 text-lg mb-4">{t('app.manufacturerDetail.error.message')}</p>
+                            <p className="text-status-error text-lg mb-4">{t('app.manufacturerDetail.error.message')}</p>
                             <Button
                                 onClick={() => window.location.reload()}
                                 variant="secondary"
@@ -71,7 +71,7 @@ export function ManufacturerDetailDrawer({
                                             left: '-248px', // Half of 294px (147px) so only half is visible
                                             transform: 'translateY(-50%)', // Center vertically
                                             opacity: 0.08,
-                                            background: 'radial-gradient(50% 50% at 50% 50%, #FCE803 0%, rgba(252, 232, 3, 0) 100%)',
+                                            background: 'radial-gradient(50% 50% at 50% 50%, var(--color-brand-primary) 0%, rgba(252, 232, 3, 0) 100%)',
                                             backdropFilter: 'blur(128px)',
                                             WebkitBackdropFilter: 'blur(128px)', // For Safari support
                                             zIndex: -1, // Ensure it stays behind other content

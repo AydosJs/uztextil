@@ -9,7 +9,7 @@ interface OptionProps {
 export function Option({ text, icon: Icon, onClick }: OptionProps) {
     return (
         <div
-            className="w-full h-[57px] bg-[#1D1F24]/80 rounded-2xl border border-white/5 shadow-[0px_1px_0px_0px_rgba(255,255,255,0.08)_inset] flex items-center justify-between px-4 cursor-pointer hover:bg-[#1D1F24]/50 transition-colors relative overflow-hidden"
+            className="w-full h-[57px] bg-background-secondary/40 rounded-2xl border border-border-primary shadow-card-inset flex items-center justify-between px-4 cursor-pointer hover:bg-background-secondary/50 transition-colors relative overflow-hidden"
             onClick={onClick}
         >
             <span className="text-white font-semibold text-md">

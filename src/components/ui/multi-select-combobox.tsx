@@ -103,11 +103,11 @@ export const MultiSelectCombobox = React.forwardRef<
             {/* Trigger */}
             <div
                 className={cn(
-                    "flex h-[52px] min-h-[48px] w-full items-center justify-between rounded-[14px] border-[1.8px] bg-transparent px-4 py-2 text-white cursor-pointer transition-colors duration-200",
+                    "flex h-[52px] min-h-[48px] w-full items-center justify-between rounded-[14px] border-[1.8px] bg-transparent px-4 py-2 text-text-primary cursor-pointer transition-colors duration-200",
                     // Default state
-                    "border-[rgba(255,255,255,0.58)]",
+                    "border-border-primary",
                     // Focused state
-                    isOpen && "border-[rgb(252,232,3)]",
+                    isOpen && "border-brand-primary",
                     // Error state
                     error && "border-red-500",
                     // Disabled state
@@ -121,7 +121,7 @@ export const MultiSelectCombobox = React.forwardRef<
                             {selectedOptions.slice(0, maxDisplayCount).map((option) => (
                                 <div
                                     key={option.id}
-                                    className="flex items-center gap-1 bg-[rgb(252,232,3)] text-black px-2 py-1 rounded-md text-xs font-medium"
+                                    className="flex items-center gap-1 bg-brand-primary text-black px-2 py-1 rounded-md text-xs font-medium"
                                 >
                                     <span className="truncate max-w-[100px]">{option.label}</span>
                                     <button
@@ -134,13 +134,13 @@ export const MultiSelectCombobox = React.forwardRef<
                                 </div>
                             ))}
                             {selectedOptions.length > maxDisplayCount && (
-                                <span className="text-white/60 text-sm">
+                                <span className="text-text-primary/60 text-sm">
                                     +{selectedOptions.length - maxDisplayCount} more
                                 </span>
                             )}
                         </div>
                     ) : (
-                        <span className="text-gray-400 truncate">{placeholder}</span>
+                        <span className="text-text-secondary truncate">{placeholder}</span>
                     )}
                 </div>
 
@@ -149,7 +149,7 @@ export const MultiSelectCombobox = React.forwardRef<
                         <button
                             type="button"
                             onClick={handleClearAll}
-                            className="text-white/60 hover:text-white transition-colors p-1"
+                            className="text-text-primary/60 hover:text-text-primary transition-colors p-1"
                         >
                             <X className="h-4 w-4" />
                         </button>
@@ -168,29 +168,30 @@ export const MultiSelectCombobox = React.forwardRef<
                 <div
                     ref={dropdownRef}
                     className={cn(
-                        "absolute z-50 w-full mt-1 overflow-hidden rounded-[12px] border bg-[rgba(24,27,32,1)] border-gray-700 text-white shadow-md animate-in fade-in-0 zoom-in-95 slide-in-from-top-2"
+                        "absolute z-50 w-full mt-1 overflow-hidden rounded-[12px] border bg-background-primary border-border-primary text-text-primary shadow-md animate-in fade-in-0 zoom-in-95 slide-in-from-top-2",
+                        "max-h-96" // Ensure dropdown doesn't exceed viewport
                     )}
                 >
                     {/* Search Input */}
-                    <div className="p-2 border-b border-gray-700">
+                    <div className="p-2 border-b border-border-primary">
                         <input
                             ref={inputRef}
                             type="text"
                             placeholder="Search options..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full bg-transparent border-0 outline-none text-white placeholder:text-gray-400 text-sm"
+                            className="w-full bg-transparent border-0 outline-none text-text-primary placeholder:text-text-secondary text-sm"
                         />
                     </div>
 
                     {/* Options List */}
-                    <div className="max-h-60 overflow-y-auto">
+                    <div className="max-h-72 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-transparent">
                         {isLoading ? (
-                            <div className="p-3 text-center text-white/60 text-sm">
+                            <div className="p-3 text-center text-text-primary/60 text-sm">
                                 {loadingText}
                             </div>
                         ) : filteredOptions.length === 0 ? (
-                            <div className="p-3 text-center text-white/60 text-sm">
+                            <div className="p-3 text-center text-text-primary/60 text-sm">
                                 {emptyText}
                             </div>
                         ) : (
@@ -200,15 +201,15 @@ export const MultiSelectCombobox = React.forwardRef<
                                     <div
                                         key={option.id}
                                         className={cn(
-                                            "relative flex w-full cursor-pointer select-none items-center py-2 pl-3 pr-8 text-sm hover:bg-gray-700 transition-colors",
-                                            isSelected && "bg-gray-700/50"
+                                            "relative flex w-full cursor-pointer select-none items-center py-3 pl-3 pr-8 text-sm hover:bg-background-secondary transition-colors",
+                                            isSelected && "bg-background-secondary/50"
                                         )}
                                         onClick={() => handleOptionToggle(option.id)}
                                     >
                                         <span className="flex-1">{option.label}</span>
                                         {isSelected && (
                                             <span className="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
-                                                <Check className="h-4 w-4 text-[rgb(252,232,3)]" />
+                                                <Check className="h-4 w-4 text-brand-primary" />
                                             </span>
                                         )}
                                     </div>
@@ -219,15 +220,15 @@ export const MultiSelectCombobox = React.forwardRef<
 
                     {/* Footer with selection count */}
                     {selectedOptions.length > 0 && (
-                        <div className="p-2 border-t border-gray-700 bg-gray-800/50">
-                            <div className="flex items-center justify-between text-xs text-white/60">
+                        <div className="p-2 border-t border-border-primary bg-background-secondary/50">
+                            <div className="flex items-center justify-between text-xs text-text-primary/60">
                                 <span>{selectedOptions.length} selected</span>
                                 <Button
                                     type="button"
                                     variant="ghost"
                                     size="sm"
                                     onClick={handleClearAll}
-                                    className="h-6 px-2 text-xs text-white/60 hover:text-white"
+                                    className="h-6 px-2 text-xs text-text-primary/60 hover:text-text-primary"
                                 >
                                     Clear all
                                 </Button>

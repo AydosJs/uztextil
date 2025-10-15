@@ -64,10 +64,10 @@ function OfferListPage() {
                     <UnderwaterHeader />
                     <div className="flex-1 flex items-center justify-center">
                         <div className="text-center">
-                            <p className="text-red-400 text-lg mb-4">
+                            <p className="text-status-error text-lg mb-4">
                                 {t('app.onlineB2B.offers.noApplicationData')}
                             </p>
-                            <p className="text-[#ACADAF] text-sm">
+                            <p className="text-text-secondary text-sm">
                                 {t('app.onlineB2B.offers.noApplicationDataDescription')}
                             </p>
                         </div>
@@ -97,10 +97,10 @@ function OfferListPage() {
                     <UnderwaterHeader />
                     <div className="flex-1 flex items-center justify-center">
                         <div className="text-center">
-                            <p className="text-red-400 text-lg mb-4">
+                            <p className="text-status-error text-lg mb-4">
                                 {t('app.onlineB2B.offers.error')}
                             </p>
-                            <p className="text-[#ACADAF] text-sm">
+                            <p className="text-text-secondary text-sm">
                                 {t('app.onlineB2B.offers.errorDescription')}
                             </p>
                         </div>
@@ -120,7 +120,7 @@ function OfferListPage() {
                     <h1 className="text-white font-bold text-[32px] tracking-wide">
                         {t('app.onlineB2B.offers.title')}
                     </h1>
-                    <p className="text-[#ACADAF] text-sm">
+                    <p className="text-text-secondary text-sm">
                         {t('app.onlineB2B.offers.subtitle')}
                     </p>
                 </div>
@@ -141,10 +141,10 @@ function OfferListPage() {
                     ) : (
                         <div className="flex-1 flex items-center justify-center">
                             <div className="text-center">
-                                <p className="text-[#ACADAF] text-lg mb-2">
+                                <p className="text-text-secondary text-lg mb-2">
                                     {t('app.onlineB2B.offers.noOffers')}
                                 </p>
-                                <p className="text-[#ACADAF] text-sm">
+                                <p className="text-text-secondary text-sm">
                                     {t('app.onlineB2B.offers.noOffersDescription')}
                                 </p>
                             </div>

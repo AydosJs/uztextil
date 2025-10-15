@@ -48,7 +48,7 @@ function PackageDetails() {
     // Show loading state
     if (isLoading) {
         return (
-            <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden">
+            <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden bg-background-primary">
                 <UnderwaterHeader />
                 <RadialEffect
                     className="!w-[512px] !h-[512px] !-top-[202px] !-left-[256px] !opacity-[0.08]"
@@ -60,11 +60,11 @@ function PackageDetails() {
                         </h1>
                     </div>
                     <div className="mb-6">
-                        <div className="w-full h-[366px] rounded-[32px] border border-[#FFFFFF0A] bg-[#FFFFFF05] shadow-[0px_1px_0px_0px_#FFFFFF14_inset] flex items-center justify-center animate-pulse">
+                        <div className="w-full h-[366px] rounded-[32px] border border-border-primary bg-background-card shadow-card flex items-center justify-center animate-pulse">
                         </div>
                     </div>
                     <div className="flex-1 pb-8">
-                        <div className="w-full h-[312px] rounded-[22px] border border-[#FFFFFF0A] bg-[#181B20] shadow-[0px_1px_0px_0px_#FFFFFF14_inset] p-6 animate-pulse">
+                        <div className="w-full h-[312px] rounded-[22px] border border-border-primary bg-background-primary shadow-card p-6 animate-pulse">
                             <div className="space-y-4">
                                 <div className="h-6 bg-white/20 rounded w-24"></div>
                                 <div className="h-4 bg-white/10 rounded w-32"></div>
@@ -87,7 +87,7 @@ function PackageDetails() {
     // Show error state
     if (error) {
         return (
-            <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden">
+            <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden bg-background-primary">
                 <UnderwaterHeader />
                 <RadialEffect
                     className="!w-[512px] !h-[512px] !-top-[202px] !-left-[256px] !opacity-[0.08]"
@@ -100,7 +100,7 @@ function PackageDetails() {
                     </div>
                     <div className="flex-1 flex items-center justify-center">
                         <div className="text-center">
-                            <p className="text-red-400 text-lg mb-4">{t('app.packageSelection.error.message')}</p>
+                            <p className="text-status-error text-lg mb-4">{t('app.packageSelection.error.message')}</p>
                             <Button
                                 onClick={() => window.location.reload()}
                                 variant="secondary"
@@ -119,7 +119,7 @@ function PackageDetails() {
     const features = packageDetail?.items || []
 
     return (
-        <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden">
+        <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden bg-background-primary">
             <UnderwaterHeader />
 
             <RadialEffect
@@ -137,7 +137,7 @@ function PackageDetails() {
                 {/* Banner */}
                 <div className=" mb-6">
                     <div
-                        className="w-full h-[366px] rounded-[32px] border border-[#FFFFFF0A] bg-[#FFFFFF05] shadow-[0px_1px_0px_0px_#FFFFFF14_inset] flex items-center justify-center overflow-hidden"
+                        className="w-full h-[366px] rounded-[32px] border border-border-primary bg-background-card shadow-card flex items-center justify-center overflow-hidden"
                         style={{
                             backdropFilter: 'blur(128px)',
                             WebkitBackdropFilter: 'blur(128px)'
@@ -161,14 +161,14 @@ function PackageDetails() {
 
                 {/* Details Card */}
                 <div className="flex-1 pb-8">
-                    <div className="w-full rounded-[22px] border border-[#FFFFFF0A] bg-[#181B20] shadow-[0px_1px_0px_0px_#FFFFFF14_inset] p-6 relative">
+                    <div className="w-full rounded-[22px] border border-border-primary bg-background-primary shadow-card p-6 relative">
                         {/* Manager Contact Button - Top Right */}
                         <button
                             onClick={() => {
                                 // TODO: Implement manager contact functionality
                                 console.log('Contact manager clicked')
                             }}
-                            className="absolute top-6 right-6 w-fit py-1 px-3 rounded-full border border-[#26282D] bg-transparent flex items-center justify-center gap-2 text-white text-sm font-medium hover:bg-white/5 transition-colors"
+                            className="absolute top-6 right-6 w-fit py-1 px-3 rounded-full border border-border-secondary bg-transparent flex items-center justify-center gap-2 text-white text-sm font-medium hover:bg-white/5 transition-colors"
                         >
                             <svg width="17" height="13" viewBox="0 0 17 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clipPath="url(#clip0_570_8483)">
@@ -188,7 +188,7 @@ function PackageDetails() {
                             <h2 className="text-white font-bold text-xl mb-2">
                                 {packageDetail?.name || packageData.name}
                             </h2>
-                            <p className="text-[#ACADAF] text-sm">
+                            <p className="text-text-secondary text-sm">
                                 {packageDetail?.name || packageData.name}
                             </p>
                         </div>
@@ -207,7 +207,7 @@ function PackageDetails() {
                                     </div>
                                 ))
                             ) : (
-                                <div className="text-center text-[#ACADAF] text-sm">
+                                <div className="text-center text-text-secondary text-sm">
                                     {t('app.common.loadingData')}
                                 </div>
                             )}

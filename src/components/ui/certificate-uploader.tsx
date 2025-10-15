@@ -125,25 +125,25 @@ const CertificateUploader: React.FC<CertificateUploaderProps> = ({
 
         switch (extension) {
             case 'pdf':
-                return <FileText className="w-6 h-6 text-yellow-400" />
+                return <FileText className="w-6 h-6 text-status-warning" />
             case 'jpg':
             case 'jpeg':
             case 'png':
-                return <FileText className="w-6 h-6 text-blue-400" />
+                return <FileText className="w-6 h-6 text-status-info" />
             default:
-                return <FileText className="w-6 h-6 text-gray-400" />
+                return <FileText className="w-6 h-6 text-text-secondary" />
         }
     }
 
     const getCertificateStatus = (certificate: CertificateFile) => {
         if (certificate.isUploading) {
-            return <Upload className="w-5 h-5 text-blue-400 animate-pulse" />
+            return <Upload className="w-5 h-5 text-status-info animate-pulse" />
         }
         if (certificate.uploadedId) {
-            return <CheckCircle className="w-5 h-5 text-green-400" />
+            return <CheckCircle className="w-5 h-5 text-status-success" />
         }
         if (certificate.uploadError) {
-            return <AlertCircle className="w-5 h-5 text-red-400" />
+            return <AlertCircle className="w-5 h-5 text-status-error" />
         }
         return null
     }
@@ -152,14 +152,14 @@ const CertificateUploader: React.FC<CertificateUploaderProps> = ({
         <div className={cn("w-full", className)}>
             {label && (
                 <div className="mb-2">
-                    <label className="block text-base font-normal leading-6 tracking-[0.15px] text-[#9FA0A1]">
+                    <label className="block text-base font-normal leading-6 tracking-[0.15px] text-text-tertiary">
                         {label}
                     </label>
                 </div>
             )}
 
             {error && (
-                <div className="mb-2 text-red-400 text-sm">
+                <div className="mb-2 text-status-error text-sm">
                     {error}
                 </div>
             )}
@@ -168,11 +168,11 @@ const CertificateUploader: React.FC<CertificateUploaderProps> = ({
             {certificates.map((certificate) => (
                 <div
                     key={certificate.id}
-                    className="rounded-[18px] bg-[rgba(39,43,50,1)] p-4 mb-3 space-y-3"
+                    className="rounded-[18px] bg-background-tertiary p-4 mb-3 space-y-3"
                 >
                     {/* File Info Header */}
                     <div className="flex items-center">
-                        <div className="w-[48px] h-[48px] rounded-[8px] bg-[rgba(252,232,3,0.13)] flex items-center justify-center mr-4">
+                        <div className="w-[48px] h-[48px] rounded-[8px] bg-brand-primary/13 flex items-center justify-center mr-4">
                             {getFileIcon(certificate.file.name)}
                         </div>
 
@@ -180,7 +180,7 @@ const CertificateUploader: React.FC<CertificateUploaderProps> = ({
                             <div className="font-normal text-white mb-1 truncate">
                                 {certificate.file.name}
                             </div>
-                            <div className="text-sm font-normal text-gray-400 truncate">
+                            <div className="text-sm font-normal text-text-secondary truncate">
                                 {(certificate.file.size / 1024 / 1024).toFixed(2)} MB
                             </div>
                         </div>
@@ -202,7 +202,7 @@ const CertificateUploader: React.FC<CertificateUploaderProps> = ({
                     <div className="space-y-4">
                         {/* Received Date */}
                         <div>
-                            <label className="block text-sm text-gray-300 mb-1">
+                            <label className="block text-sm text-text-secondary mb-1">
                                 {t('app.buyurtmachi.registerForm.certificates.receivedDate')} *
                             </label>
                             <DatePicker
@@ -218,7 +218,7 @@ const CertificateUploader: React.FC<CertificateUploaderProps> = ({
 
                         {/* Expiration Date */}
                         <div>
-                            <label className="block text-sm text-gray-300 mb-1">
+                            <label className="block text-sm text-text-secondary mb-1">
                                 {t('app.buyurtmachi.registerForm.certificates.expirationDateOptional')}
                             </label>
                             <DatePicker
@@ -233,7 +233,7 @@ const CertificateUploader: React.FC<CertificateUploaderProps> = ({
 
                         {/* Upload Error */}
                         {certificate.uploadError && (
-                            <div className="text-red-400 text-sm">
+                            <div className="text-status-error text-sm">
                                 {certificate.uploadError}
                             </div>
                         )}
@@ -255,7 +255,7 @@ const CertificateUploader: React.FC<CertificateUploaderProps> = ({
 
                         {/* Upload Success Message */}
                         {certificate.uploadedId && (
-                            <div className="text-green-400 text-sm flex items-center">
+                            <div className="text-status-success text-sm flex items-center">
                                 <CheckCircle className="w-4 h-4 mr-2" />
                                 {t('app.buyurtmachi.registerForm.certificates.uploaded')}
                             </div>
@@ -265,7 +265,7 @@ const CertificateUploader: React.FC<CertificateUploaderProps> = ({
             ))}
 
             {/* Add Certificate Button */}
-            <div className="h-[41px] rounded-[19px] bg-[rgba(39,43,50,1)] flex items-center justify-center cursor-pointer hover:bg-[rgba(39,43,50,0.8)] transition-colors duration-200">
+            <div className="h-[41px] rounded-[19px] bg-background-tertiary flex items-center justify-center cursor-pointer hover:bg-background-tertiary/80 transition-colors duration-200">
                 <input
                     ref={fileInputRef}
                     type="file"

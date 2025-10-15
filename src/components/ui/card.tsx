@@ -14,8 +14,8 @@ export const Card = ({ className, children, image, imageAlt = "Card image" }: Ca
     <div
       className={cn(
         "relative w-full max-w-[366px] h-[220px] rounded-[32px] border overflow-hidden",
-        "bg-[rgba(255,255,255,0.02)] border-[rgba(255,255,255,0.04)]",
-        "shadow-[inset_0px_1px_0px_0px_rgba(255,255,255,0.08)]",
+        "bg-background-card border-border-tertiary",
+        "shadow-card-inset",
         className
       )}
       style={{

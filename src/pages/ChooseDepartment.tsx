@@ -72,7 +72,7 @@ function ChooseDepartment() {
     }
 
     return (
-        <div className="min-h-screen container min-w-full safe-area-pt w-full flex flex-col">
+        <div className="min-h-screen container min-w-full safe-area-pt w-full flex flex-col bg-background-primary">
             <main className="w-full max-w-4xl mx-auto min-w-full flex-1 flex flex-col justify-between">
                 {/* <UnderwaterHeader /> */}
 
@@ -86,7 +86,7 @@ function ChooseDepartment() {
                         left: '-248px', // Half of 294px (147px) so only half is visible
                         transform: 'translateY(-50%)', // Center vertically
                         opacity: 0.08,
-                        background: 'radial-gradient(50% 50% at 50% 50%, #FCE803 0%, rgba(252, 232, 3, 0) 100%)',
+                        background: 'radial-gradient(50% 50% at 50% 50%, var(--color-brand-primary) 0%, rgba(252, 232, 3, 0) 100%)',
                         backdropFilter: 'blur(128px)',
                         WebkitBackdropFilter: 'blur(128px)', // For Safari support
                         zIndex: -1, // Ensure it stays behind other content
@@ -101,7 +101,7 @@ function ChooseDepartment() {
                 </div>
 
                 {/* Department SVG Image */}
-                <div className="absolute inset-0 mt-20 flex justify-center items-center">
+                <div className="absolute inset-0 opacity-20 mt-20 flex justify-center items-center">
                     <img
                         src={departmentSvg}
                         alt="Department"

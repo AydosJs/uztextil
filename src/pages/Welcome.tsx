@@ -20,8 +20,7 @@ function Welcome() {
     }
 
     return (
-        <div className="min-h-screen min-w-full safe-area-pt w-full flex flex-col">
-            hello
+        <div className="min-h-screen min-w-full safe-area-pt w-full flex flex-col bg-background-primary">
             <main className="w-full max-w-4xl mx-auto min-w-full flex-1 flex flex-col justify-between">
                 <div className=" flex px-3 flex-col items-center justify-center space-y-8">
                     {/* Welcome Header */}
@@ -29,9 +28,6 @@ function Welcome() {
                         <h1 className="text-white font-bold text-xl tracking-wide">
                             {t('app.welcome.greeting')}
                         </h1>
-                        <p className="text-gray-300 max-w-md font-medium text-sm leading-relaxed">
-                            {t('app.welcome.description')}
-                        </p>
                     </div>
                 </div>
 
@@ -47,7 +43,7 @@ function Welcome() {
                 {/* Action Buttons */}
                 <div className="px-4 pb-8 space-y-8 max-w-2xl mx-auto w-full">
 
-                    <p className="text-gray-300 mx-auto max-w-md font-medium text-center text-sm leading-relaxed">
+                    <p className="text-text-secondary mx-auto max-w-md font-medium text-center text-sm leading-relaxed">
                         {t('app.welcome.guarantee')}
                     </p>
 

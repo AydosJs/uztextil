@@ -80,7 +80,7 @@ function FactorySelection() {
     // Show loading state
     if (isLoading) {
         return (
-            <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden">
+            <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden bg-background-primary">
                 <UnderwaterHeader />
                 <RadialEffect
                     className="!w-[512px] !h-[512px] !-top-[202px] !-left-[256px] !opacity-[0.08]"
@@ -102,7 +102,7 @@ function FactorySelection() {
     // Show error state
     if (error) {
         return (
-            <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden">
+            <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden bg-background-primary">
                 <UnderwaterHeader />
                 <RadialEffect
                     className="!w-[512px] !h-[512px] !-top-[202px] !-left-[256px] !opacity-[0.08]"
@@ -115,7 +115,7 @@ function FactorySelection() {
                     </div>
                     <div className="flex-1 flex items-center justify-center">
                         <div className="text-center">
-                            <p className="text-red-400 text-lg mb-4">{t('app.manufacturerDetail.error.message')}</p>
+                            <p className="text-status-error text-lg mb-4">{t('app.manufacturerDetail.error.message')}</p>
                             <button
                                 onClick={() => window.location.reload()}
                                 className="px-4 py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 transition-colors"
@@ -143,7 +143,7 @@ function FactorySelection() {
     const hasManufacturers = manufacturers && manufacturers.length > 0
 
     return (
-        <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden">
+        <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden bg-background-primary">
             <UnderwaterHeader />
             <RadialEffect
                 className="!w-[512px] !h-[512px] !-top-[202px] !-left-[256px] !opacity-[0.08]"
@@ -157,7 +157,7 @@ function FactorySelection() {
                     </h1>
                     <button
                         onClick={() => setFilterDrawerOpen(true)}
-                        className="p-2 rounded-lg bg-[#FFFFFF05] border border-[#FFFFFF0A] hover:bg-[#FFFFFF10] transition-colors"
+                        className="p-2 rounded-lg bg-background-card border border-border-primary hover:bg-background-card-hover transition-colors"
                     >
                         <Filter className="w-5 h-5 text-white" />
                     </button>
@@ -168,7 +168,7 @@ function FactorySelection() {
                     {!hasManufacturers ? (
                         <div className="flex items-center justify-center h-full">
                             <div className="text-center">
-                                <p className="text-[#ACADAF] text-lg">{t('app.common.noManufacturersAvailable')}</p>
+                                <p className="text-text-secondary text-lg">{t('app.common.noManufacturersAvailable')}</p>
                             </div>
                         </div>
                     ) : (
@@ -177,7 +177,7 @@ function FactorySelection() {
                                 <div
                                     key={factory.id}
                                     onClick={() => handleFactorySelect(factory)}
-                                    className="relative flex items-center justify-between min-h-[82px] py-2.5 px-3.5 flex-row w-full rounded-[16px] border border-[#FFFFFF0A] bg-[#FFFFFF05] shadow-[0px_1px_0px_0px_#FFFFFF14_inset] overflow-hidden cursor-pointer"
+                                    className="relative flex items-center justify-between min-h-[82px] py-2.5 px-3.5 flex-row w-full rounded-[16px] border border-border-primary bg-background-card shadow-card overflow-hidden cursor-pointer"
                                     style={{
                                         backdropFilter: 'blur(128px)',
                                         WebkitBackdropFilter: 'blur(128px)'
@@ -188,13 +188,13 @@ function FactorySelection() {
                                         <h3 className="text-white font-extrabold">
                                             {factory.full_name}
                                         </h3>
-                                        <p className="text-[#ACADAF] font-normal text-sm pr-10">
+                                        <p className="text-text-secondary font-normal text-sm pr-10">
                                             {factory.company_name} - {factory.product_segment}
                                         </p>
                                     </div>
 
                                     {/* Right Arrow Button */}
-                                    <div className="absolute right-8 top-1/2 -translate-y-1/2 w-[27px] h-[27px] rounded-[4px] bg-[#FCE803] flex items-center justify-center shadow-[0px_2px_20px_-4px_#FCE803]">
+                                    <div className="absolute right-8 top-1/2 -translate-y-1/2 w-[27px] h-[27px] rounded-[4px] bg-brand-primary flex items-center justify-center shadow-brand">
                                         <ChevronRight className="w-4 h-4 text-black" />
                                     </div>
 

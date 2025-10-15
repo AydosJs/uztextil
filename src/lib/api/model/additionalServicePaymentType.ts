@@ -11,6 +11,7 @@ export type AdditionalServicePaymentType = typeof AdditionalServicePaymentType[k
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const AdditionalServicePaymentType = {
+  free: 'free',
   one_time: 'one_time',
   monthly: 'monthly',
 } as const;
