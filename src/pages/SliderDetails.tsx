@@ -137,7 +137,7 @@ export default function SliderDetails() {
                         className="w-full max-h-12 font-semibold"
                         onClick={() => {
                             // Navigate to application form or handle submission
-                            navigate('/services')
+                            navigate('/application-form')
                         }}
                     >
                         {t('app.common.submitApplication')}
