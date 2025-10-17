@@ -29,9 +29,9 @@ function CustomerWelcome() {
                         <h1 className="text-white font-bold text-[27px] tracking-wide">
                             {t('app.buyurtmachi.welcome.title')}
                         </h1>
-                        <p className="text-text-secondary max-w-md font-medium text-sm leading-relaxed">
+                        {/* <p className="text-text-secondary max-w-md font-medium text-sm leading-relaxed">
                             {t('app.buyurtmachi.welcome.description')}
-                        </p>
+                        </p> */}
                     </div>
                 </div>
 
