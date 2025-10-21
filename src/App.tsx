@@ -33,8 +33,8 @@ function App() {
             <UnderwaterHeader />
             <RadialEffect />
 
-            <main className="w-full container min-w-full flex-1 flex flex-col relative debug-padding-top">
-                <div className="flex-1 flex flex-col mt-4 justify-center space-y-8 pb-26">
+            <main className="w-full container min-w-full flex-1 flex flex-col relative pt-4">
+                <div className="flex-1 flex flex-col justify-center space-y-8 pb-26">
                     <SliderCards />
                 </div>
             </main>

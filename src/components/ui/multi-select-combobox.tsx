@@ -103,7 +103,7 @@ export const MultiSelectCombobox = React.forwardRef<
             {/* Trigger */}
             <div
                 className={cn(
-                    "flex h-[52px] min-h-[48px] w-full items-center justify-between rounded-[14px] border-[1.8px] bg-transparent px-4 py-2 text-text-primary cursor-pointer transition-colors duration-200",
+                    "flex min-h-[48px] w-full items-center justify-between rounded-[14px] border-[1.8px] bg-transparent px-4 py-2 text-text-primary cursor-pointer transition-colors duration-200",
                     // Default state
                     "border-border-primary",
                     // Focused state

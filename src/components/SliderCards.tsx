@@ -71,18 +71,21 @@ export const SliderCards = ({ className }: SliderCardsProps) => {
                 <div
                     key={slider.id}
                     onClick={() => navigate(`/slider/${slider.id}`)}
-                    className="cursor-pointer"
+                    className="cursor-pointer w-full"
                 >
                     <Card
                         image={slider.image}
                         imageAlt={slider.title}
                         className="w-full mx-auto"
                     >
-                        <div className="flex flex-col justify-end h-full">
+                        {/* Gradient overlay positioned relative to card, ignoring padding */}
+                        <div className="absolute  bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black to-transparent z-10" />
+
+                        <div className="flex flex-col justify-end h-full relative z-20 w-full">
                             <h3 className="text-white line-clamp-1 font-semibold mb-2 text-base">
                                 {slider.title}
                             </h3>
-                            <p className="text-text-secondary line-clamp-2 leading-relaxed text-sm">
+                            <p className="text-white/90 line-clamp-2 leading-relaxed text-sm">
                                 {slider.description}
                             </p>
                         </div>

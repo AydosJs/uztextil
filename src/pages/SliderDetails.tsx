@@ -83,7 +83,7 @@ export default function SliderDetails() {
     return (
         <div className="min-h-screen min-w-full bg-background-primary safe-area-pt w-full dark flex flex-col">
             {/* Header */}
-            <div className="flex items-center border-border-primary px-4 mb-4 mt-2">
+            {/* <div className="flex items-center border-border-primary px-4 mb-4 mt-2">
                 <div
                     onClick={() => navigate(-1)}
                     className="mr-3"
@@ -93,48 +93,51 @@ export default function SliderDetails() {
                 <h1 className="text-lg font-semibold text-text-primary truncate">
                     {slider?.title || t('app.slider.details.title')}
                 </h1>
-            </div>
+            </div> */}
 
-            {/* Content */}
-            <div className="flex-1 p-4 space-y-6 pb-8">
-                {/* Image */}
-                {slider.image && (
-                    <div className="w-full h-64 rounded-2xl overflow-hidden bg-background-secondary">
-                        <img
-                            src={slider.image}
-                            alt={slider.title}
-                            className="w-full h-full object-cover"
-                        />
+            {/* Content - flex-1 to take available space */}
+            <div className="flex-1 flex flex-col p-4">
+                {/* Scrollable content */}
+                <div className="flex-1 space-y-6 overflow-y-auto">
+                    {/* Image */}
+                    {slider.image && (
+                        <div className="w-full h-64 rounded-2xl overflow-hidden bg-background-secondary">
+                            <img
+                                src={slider.image}
+                                alt={slider.title}
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
+                    )}
+
+                    <div className="space-y-2">
+                        {/* Title */}
+                        <h2 className="text-2xl font-bold text-text-primary leading-tight">
+                            {slider.title}
+                        </h2>
+
+                        {/* Date
+                        {slider.created_at && (
+                            <p className="text-sm text-text-secondary">
+                                {t('app.slider.details.publishedOn')}: <span className="text-text-primary">{formatDate(slider.created_at)}</span>
+                            </p>
+                        )} */}
                     </div>
-                )}
 
-                <div className="space-y-2">
-                    {/* Title */}
-                    <h2 className="text-2xl font-bold text-text-primary leading-tight">
-                        {slider.title}
-                    </h2>
-
-                    {/* Date
-                    {slider.created_at && (
-                        <p className="text-sm text-text-secondary">
-                            {t('app.slider.details.publishedOn')}: <span className="text-text-primary">{formatDate(slider.created_at)}</span>
+                    {/* Description */}
+                    <div className="prose prose-invert max-w-none">
+                        <p className="text-text-secondary leading-relaxed whitespace-pre-wrap">
+                            {slider.description}
                         </p>
-                    )} */}
+                    </div>
                 </div>
 
-                {/* Description */}
-                <div className="prose prose-invert max-w-none">
-                    <p className="text-text-secondary leading-relaxed whitespace-pre-wrap">
-                        {slider.description}
-                    </p>
-                </div>
-
-                {/* Submit Application Button */}
-                <div className="pt-4">
+                {/* Submit Application Button - Fixed at bottom */}
+                <div className="pt-4 pb-safe-area-b">
                     <Button
                         variant="default"
                         shadow="lg"
-                        className="w-full max-h-12 font-semibold"
+                        className="w-full max-h-12 font-semibold mb-4"
                         onClick={() => {
                             // Navigate to application form or handle submission
                             navigate('/application-form')
