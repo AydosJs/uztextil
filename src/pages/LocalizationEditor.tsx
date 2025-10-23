@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card } from '@/components/ui/card'
-import { useTranslation } from 'react-i18next'
 import ruLocale from '@/locales/ru.json'
 import uzLocale from '@/locales/uz.json'
 
@@ -14,7 +13,6 @@ interface LocaleEntry {
 }
 
 const LocalizationEditor: React.FC = () => {
-    const { t } = useTranslation()
     const [searchTerm, setSearchTerm] = useState('')
     const [localeData, setLocaleData] = useState<LocaleEntry[]>([])
     const [editingKey, setEditingKey] = useState<string | null>(null)
