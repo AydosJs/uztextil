@@ -243,13 +243,14 @@ function CustomerRegisterForm() {
                             onChange={(e) => handleInputChange('payment_terms', e.target.value)}
                         />
                     </div>
-
+s
                     {/* Phone */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium">
                             {t('app.buyurtmachi.registerForm.phone.label')}
                         </Label>
                         <CustomInput
+                            type="tel"
                             placeholder={t('app.buyurtmachi.registerForm.phone.placeholder')}
                             value={formData.phone}
                             onChange={(e) => handleInputChange('phone', e.target.value)}

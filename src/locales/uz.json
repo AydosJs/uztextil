@@ -477,6 +477,13 @@
         "crmSystem": "CRM tizimi",
         "available": "Mavjud",
         "notAvailable": "Mavjud emas"
+      },
+      "certificates": {
+        "title": "Sertifikatlar",
+        "noCertificates": "Sertifikatlar ko'rsatilmagan",
+        "receivedDate": "Olingan sana",
+        "expirationDate": "Muddati tugash sanasi",
+        "certificate": "Sertifikat"
       }
     },
     "customOrderApplication": {

@@ -8,7 +8,7 @@ interface ManufacturerDetailDrawerProps {
     manufacturer: ManufacturerList | null
     manufacturerDetail?: ManufacturerDetail | null
     isLoading?: boolean
-    error?: any
+    error?: Error | null
 }
 
 export function ManufacturerDetailDrawer({
@@ -60,8 +60,8 @@ export function ManufacturerDetailDrawer({
                             <div className="space-y-4">
                                 <h3 className="text-white font-bold text-lg">{t('app.manufacturerDetail.companyInfo.title')}</h3>
 
-                                <div className="space-y-3 overflow-y-auto">
-
+                                <div className="space-y-4 relative">
+                                    {/* Background gradient effect */}
                                     <div
                                         className={`fixed pointer-events-none`}
                                         style={{
@@ -78,34 +78,37 @@ export function ManufacturerDetailDrawer({
                                         }}
                                     />
 
-                                    <div>
-                                        <p className="text-white/64 text-sm">{t('app.manufacturerDetail.companyInfo.companyName')}</p>
-                                        <p className="text-white font-medium">{manufacturerDetail.company_name}</p>
+                                    {/* Company Name */}
+                                    <div className="bg-background-card/30 border border-border-primary rounded-lg p-4">
+                                        <p className="text-white/64 text-sm mb-1">{t('app.manufacturerDetail.companyInfo.companyName')}</p>
+                                        <p className="text-white font-semibold text-lg">{manufacturerDetail.company_name}</p>
                                     </div>
 
-                                    <div>
-                                        <p className="text-white/64 text-sm">{t('app.manufacturerDetail.companyInfo.fullName')}</p>
+                                    {/* Full Name */}
+                                    <div className="bg-background-card/30 border border-border-primary rounded-lg p-4">
+                                        <p className="text-white/64 text-sm mb-1">{t('app.manufacturerDetail.companyInfo.fullName')}</p>
                                         <p className="text-white font-medium">{manufacturerDetail.full_name}</p>
                                     </div>
 
-
-                                    <div>
-                                        <p className="text-white/64 text-sm">{t('app.manufacturerDetail.companyInfo.minOrderQuantity')}</p>
-                                        <p className="text-white font-medium">{manufacturerDetail.min_order_quantity}</p>
+                                    {/* Minimum Order Quantity */}
+                                    <div className="bg-background-card/30 border border-border-primary rounded-lg p-4">
+                                        <p className="text-white/64 text-sm mb-1">{t('app.manufacturerDetail.companyInfo.minOrderQuantity')}</p>
+                                        <p className="text-white font-medium text-lg">{manufacturerDetail.min_order_quantity}</p>
                                     </div>
 
-                                    <div>
-                                        <p className="text-white/64 text-sm">{t('app.manufacturerDetail.companyInfo.productSegments')}</p>
+                                    {/* Product Segments */}
+                                    <div className="bg-background-card/30 border border-border-primary rounded-lg p-4">
+                                        <p className="text-white/64 text-sm mb-3">{t('app.manufacturerDetail.companyInfo.productSegments')}</p>
                                         {manufacturerDetail.product_segment && manufacturerDetail.product_segment.length > 0 ? (
-                                            <div className="flex flex-wrap gap-2 mt-1">
+                                            <div className="flex flex-wrap gap-2">
                                                 {manufacturerDetail.product_segment.map(segment => (
-                                                    <span key={segment.id} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-background-card text-text-primary border border-border-primary">
+                                                    <span key={segment.id} className="inline-flex items-center px-3 py-2 rounded-full text-sm font-medium bg-brand-primary/20 text-brand-primary border border-brand-primary/30">
                                                         {segment.title}
                                                     </span>
                                                 ))}
                                             </div>
                                         ) : (
-                                            <p className="text-text-tertiary text-sm mt-1">{t('app.manufacturerDetail.companyInfo.noSegments')}</p>
+                                            <p className="text-text-tertiary text-sm">{t('app.manufacturerDetail.companyInfo.noSegments')}</p>
                                         )}
                                     </div>
                                 </div>
@@ -118,16 +121,25 @@ export function ManufacturerDetailDrawer({
                             <div className="space-y-4">
                                 <h3 className="text-white font-bold text-lg">{t('app.manufacturerDetail.contactInfo.title')}</h3>
 
-                                <div className="space-y-3">
-                                    <div>
-                                        <p className="text-white/64 text-sm">{t('app.manufacturerDetail.contactInfo.officeAddress')}</p>
+                                <div className="space-y-4">
+                                    {/* Office Address */}
+                                    <div className="bg-background-card/30 border border-border-primary rounded-lg p-4">
+                                        <p className="text-white/64 text-sm mb-1">{t('app.manufacturerDetail.contactInfo.officeAddress')}</p>
                                         <p className="text-white font-medium">{manufacturerDetail.office_address}</p>
                                     </div>
 
+                                    {/* Website */}
                                     {manufacturerDetail.website && (
-                                        <div>
-                                            <p className="text-white/64 text-sm">{t('app.manufacturerDetail.contactInfo.website')}</p>
-                                            <p className="text-white font-medium">{manufacturerDetail.website}</p>
+                                        <div className="bg-background-card/30 border border-border-primary rounded-lg p-4">
+                                            <p className="text-white/64 text-sm mb-1">{t('app.manufacturerDetail.contactInfo.website')}</p>
+                                            <a
+                                                href={manufacturerDetail.website.startsWith('http') ? manufacturerDetail.website : `https://${manufacturerDetail.website}`}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-brand-primary hover:text-brand-primary/80 font-medium underline"
+                                            >
+                                                {manufacturerDetail.website}
+                                            </a>
                                         </div>
                                     )}
                                 </div>
@@ -140,19 +152,79 @@ export function ManufacturerDetailDrawer({
                             <div className="space-y-4">
                                 <h3 className="text-white font-bold text-lg">{t('app.manufacturerDetail.businessInfo.title')}</h3>
 
-                                <div className="space-y-3">
-                                    <div>
-                                        <p className="text-white/64 text-sm">{t('app.manufacturerDetail.businessInfo.employeeCount')}</p>
-                                        <p className="text-white font-medium">{manufacturerDetail.employee_count}</p>
+                                <div className="space-y-4">
+                                    {/* Employee Count */}
+                                    <div className="bg-background-card/30 border border-border-primary rounded-lg p-4">
+                                        <p className="text-white/64 text-sm mb-1">{t('app.manufacturerDetail.businessInfo.employeeCount')}</p>
+                                        <p className="text-white font-semibold text-lg">{manufacturerDetail.employee_count.toLocaleString()}</p>
                                     </div>
 
-                                    <div>
-                                        <p className="text-white/64 text-sm">{t('app.manufacturerDetail.businessInfo.crmSystem')}</p>
-                                        <p className="text-white font-medium">{manufacturerDetail.has_crm ? t('app.manufacturerDetail.businessInfo.available') : t('app.manufacturerDetail.businessInfo.notAvailable')}</p>
+                                    {/* CRM System */}
+                                    <div className="bg-background-card/30 border border-border-primary rounded-lg p-4">
+                                        <p className="text-white/64 text-sm mb-1">{t('app.manufacturerDetail.businessInfo.crmSystem')}</p>
+                                        <div className="flex items-center gap-2">
+                                            <div className={`w-2 h-2 rounded-full ${manufacturerDetail.has_crm ? 'bg-green-500' : 'bg-red-500'}`}></div>
+                                            <p className="text-white font-medium">
+                                                {manufacturerDetail.has_crm ? t('app.manufacturerDetail.businessInfo.available') : t('app.manufacturerDetail.businessInfo.notAvailable')}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
+                            {/* Divider */}
+                            <div className="border-t border-border-primary my-6"></div>
+
+                            {/* Certificates */}
+                            <div className="space-y-4">
+                                <h3 className="text-white font-bold text-lg">{t('app.manufacturerDetail.certificates.title')}</h3>
+
+                                <div className="space-y-4">
+                                    {manufacturerDetail.sertificates && manufacturerDetail.sertificates.length > 0 ? (
+                                        manufacturerDetail.sertificates.map((certificate, index) => (
+                                            <div key={certificate.id || index} className="bg-background-card/50 border border-border-primary rounded-lg p-4 space-y-3">
+                                                <div className="flex items-center justify-between">
+                                                    <h4 className="text-white font-medium">{t('app.manufacturerDetail.certificates.certificate')} #{index + 1}</h4>
+                                                    {certificate.certificate && (
+                                                        <a
+                                                            href={certificate.certificate}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="text-brand-primary hover:text-brand-primary/80 text-sm font-medium underline"
+                                                        >
+                                                            {t('app.manufacturerDetail.certificates.certificate')}
+                                                        </a>
+                                                    )}
+                                                </div>
+
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                                    {certificate.certificate_received_date && (
+                                                        <div>
+                                                            <p className="text-white/64 text-sm">{t('app.manufacturerDetail.certificates.receivedDate')}</p>
+                                                            <p className="text-white font-medium">
+                                                                {new Date(certificate.certificate_received_date).toLocaleDateString()}
+                                                            </p>
+                                                        </div>
+                                                    )}
+
+                                                    {certificate.certificate_expiration_date && (
+                                                        <div>
+                                                            <p className="text-white/64 text-sm">{t('app.manufacturerDetail.certificates.expirationDate')}</p>
+                                                            <p className="text-white font-medium">
+                                                                {new Date(certificate.certificate_expiration_date).toLocaleDateString()}
+                                                            </p>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <div className="text-center py-6">
+                                            <p className="text-text-tertiary text-sm">{t('app.manufacturerDetail.certificates.noCertificates')}</p>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
 
                         </div>
                     ) : null}
