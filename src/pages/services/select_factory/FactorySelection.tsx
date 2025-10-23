@@ -190,7 +190,7 @@ function FactorySelection() {
                                             {factory.full_name}
                                         </h3>
                                         <p className="text-text-secondary font-normal text-sm pr-10">
-                                            {factory.company_name} - {factory.product_segment}
+                                            {factory.company_name}
                                         </p>
                                     </div>
 
@@ -228,7 +228,7 @@ function FactorySelection() {
                 manufacturer={selectedManufacturer}
                 manufacturerDetail={manufacturerDetail}
                 isLoading={isDetailLoading}
-                error={detailError}
+                error={detailError as Error | null | undefined}
             />
 
             {/* Filter Drawer */}
