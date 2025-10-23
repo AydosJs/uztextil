@@ -37,6 +37,8 @@ import { ServicesRouteGuard, RegistrationRouteGuard } from './components/RouteGu
 import { ScrollToTop } from './components/ScrollToTop'
 // import { DebugPath } from './components/DebugPath'
 import { initEruda } from './utils/eruda.ts'
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 
 // Create a QueryClient instance
 const queryClient = new QueryClient({
@@ -50,6 +52,19 @@ const queryClient = new QueryClient({
     },
   },
 });
+
+// Component to track and log current page
+function RouteLogger() {
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log('📍 Current Page:', location.pathname);
+    console.log('🔍 Full URL:', window.location.href);
+    console.log('📊 Route State:', location.state);
+  }, [location]);
+
+  return null;
+}
 
 // Initialize app
 async function initializeApp() {
@@ -73,6 +88,7 @@ async function initializeApp() {
         <TelegramUserProvider>
           <BrowserRouter>
             <ScrollToTop />
+            <RouteLogger />
             {/* <DebugPath /> */}
             <Toaster />
             <Routes>

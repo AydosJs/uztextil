@@ -8,7 +8,7 @@
       "getStarted": "Открыть"
     },
     "department": {
-      "title": "Выберите нужный отдел:",
+      "title": "Выберите нужный раздел:",
       "customer": "Хотим попасть в каталог",
       "manufacturer": "Хочу найти производителя",
       "application": "Хотим разместить рекламу"
@@ -41,6 +41,9 @@
         "companyName": {
           "label": "Название компании",
           "placeholder": "CapsLock Development"
+        },
+        "logo": {
+          "label": "Логотип компании"
         },
         "experience": {
           "label": "Сколько лет на рынке",
@@ -475,7 +478,9 @@
         "title": "Информация о компании",
         "companyName": "Название компании",
         "fullName": "Полное имя",
-        "minOrderQuantity": "Минимальный объем заказа"
+        "minOrderQuantity": "Минимальный объем заказа",
+        "productSegments": "Сегменты",
+        "noSegments": "Сегменты не указаны"
       },
       "contactInfo": {
         "title": "Контактная информация",
@@ -582,8 +587,6 @@
       "service": "Услуга",
       "noManufacturersAvailable": "Пока производители недоступны",
       "writeToManager": "Написать менеджеру",
-      "noSegmentsAvailable": "Пока сегменты недоступны",
-      "loading": "Загрузка...",
       "applicationId": "Номер заявки"
     },
     "termsAndConditions": {

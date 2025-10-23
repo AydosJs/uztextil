@@ -1118,7 +1118,66 @@ export function useApiV1PackageListList<TData = Awaited<ReturnType<typeof apiV1P
 
 
 
-export const apiV1SegmentListList = (
+/**
+ * Handles POST requests to perform actions related to Paylov transactions.
+ */
+export const apiV1PaylovPaylovCreate = (
+    
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<null>(
+      {url: `/api/v1/paylov/paylov/`, method: 'POST', signal
+    },
+      options);
+    }
+  
+
+
+export const getApiV1PaylovPaylovCreateMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiV1PaylovPaylovCreate>>, TError,void, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof apiV1PaylovPaylovCreate>>, TError,void, TContext> => {
+
+const mutationKey = ['apiV1PaylovPaylovCreate'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiV1PaylovPaylovCreate>>, void> = () => {
+          
+
+          return  apiV1PaylovPaylovCreate(requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ApiV1PaylovPaylovCreateMutationResult = NonNullable<Awaited<ReturnType<typeof apiV1PaylovPaylovCreate>>>
+    
+    export type ApiV1PaylovPaylovCreateMutationError = unknown
+
+    export const useApiV1PaylovPaylovCreate = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiV1PaylovPaylovCreate>>, TError,void, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof apiV1PaylovPaylovCreate>>,
+        TError,
+        void,
+        TContext
+      > => {
+
+      const mutationOptions = getApiV1PaylovPaylovCreateMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    export const apiV1SegmentListList = (
     params?: ApiV1SegmentListListParams,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {

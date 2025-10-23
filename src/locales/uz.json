@@ -42,6 +42,9 @@
           "label": "Kompaniya nomi",
           "placeholder": "CapsLock Development"
         },
+        "logo": {
+          "label": "Kompaniya logotipi"
+        },
         "experience": {
           "label": "Bozorga chiqqaniga qancha bo'lgan",
           "placeholder": "2 yil"

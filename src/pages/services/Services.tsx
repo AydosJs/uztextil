@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next"
 import { useNavigate, useLocation } from "react-router-dom"
+import { useEffect, useState } from "react"
 import { RadialEffect, UnderwaterHeader } from "@/components/ui"
 import { useApiV1ServiceListList } from "@/lib/api"
 import type { AdditionalService } from "@/lib/api/model"
@@ -12,9 +13,25 @@ function Services() {
     const navigate = useNavigate()
     const location = useLocation()
     const { userInfo, userType } = useTelegramUser()
+    const [department, setDepartment] = useState<'customer' | 'manufacturer' | null>(null)
 
-    // Get department from navigation state or use userType as fallback
-    const department = (location.state as { department?: 'customer' | 'manufacturer' })?.department || userType
+    // Initialize department from localStorage, navigation state, or userType
+    useEffect(() => {
+        // First, try to get from localStorage
+        const storedDepartment = localStorage.getItem('user_department') as 'customer' | 'manufacturer' | null
+
+        // Then try navigation state
+        const navigationDepartment = (location.state as { department?: 'customer' | 'manufacturer' })?.department
+
+        // Finally fallback to userType
+        const finalDepartment = storedDepartment || navigationDepartment || userType
+
+        if (finalDepartment) {
+            setDepartment(finalDepartment)
+            // Store in localStorage for future use
+            localStorage.setItem('user_department', finalDepartment)
+        }
+    }, [location.state, userType])
 
     // Show back button - navigate to choose department (always allow this)
     useTelegramBackButton({

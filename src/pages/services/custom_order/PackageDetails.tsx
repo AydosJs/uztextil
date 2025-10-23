@@ -5,6 +5,7 @@ import { useApiV1PackageDetailRead } from "@/lib/api"
 import { CircleCheckBig } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import type { PackageList } from "@/lib/api/model"
+import { TELEGRAM_CONFIG } from "@/lib/config"
 
 function PackageDetails() {
     const { t } = useTranslation()
@@ -165,8 +166,8 @@ function PackageDetails() {
                         {/* Manager Contact Button - Top Right */}
                         <button
                             onClick={() => {
-                                // TODO: Implement manager contact functionality
-                                console.log('Contact manager clicked')
+                                // Redirect to Telegram username from environment
+                                window.open(`https://t.me/${TELEGRAM_CONFIG.MANAGER_USERNAME}`, '_blank')
                             }}
                             className="absolute top-6 right-6 w-fit py-1 px-3 rounded-full border border-border-secondary bg-transparent flex items-center justify-center gap-2 text-white text-sm font-medium hover:bg-white/5 transition-colors"
                         >

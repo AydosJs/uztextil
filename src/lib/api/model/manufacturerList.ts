@@ -18,5 +18,4 @@ export interface ManufacturerList {
    * @maxLength 255
    */
   full_name: string;
-  product_segment: number[];
 }

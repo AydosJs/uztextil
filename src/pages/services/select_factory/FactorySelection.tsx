@@ -163,6 +163,7 @@ function FactorySelection() {
                     </button>
                 </div>
 
+
                 {/* Manufacturers List */}
                 <div className="flex-1">
                     {!hasManufacturers ? (

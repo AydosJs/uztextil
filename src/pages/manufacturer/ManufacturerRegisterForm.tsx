@@ -4,6 +4,7 @@ import { Label } from "@/components/ui"
 import { RadioGroup, RadioGroupItem } from "@/components/ui"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui"
 import { CertificateUploader } from "@/components/ui"
+import { SingleFileUploader } from "@/components/ui"
 import { UnderwaterHeader } from "@/components/ui"
 import { MultiSelectCombobox } from "@/components/ui"
 import type { MultiSelectOption } from "@/components/ui"
@@ -22,6 +23,7 @@ import { useTelegramUser } from "@/hooks/useTelegramUser"
 // Zod schema for form validation
 const manufacturerRegisterSchema = z.object({
     companyName: z.string().min(1, ""),
+    logo: z.any().optional(), // Logo file - optional for now
     experience: z.string().min(1, ""),
     fullName: z.string().min(1, ""),
     position: z.string().min(1, ""),
@@ -30,18 +32,18 @@ const manufacturerRegisterSchema = z.object({
     commercialOffer: z.string().min(1, ""),
     productionAddress: z.string().min(1, ""),
     officeAddress: z.string().min(1, ""),
-    website: z.string().optional(),
-    qualityControl: z.enum(["yes", "no"]).optional(),
-    crmSystem: z.enum(["yes", "no"]).optional(),
-    geminiGerber: z.enum(["yes", "no"]).optional(),
+    website: z.string().min(1, ""),
+    qualityControl: z.enum(["yes", "no"]),
+    crmSystem: z.enum(["yes", "no"]),
+    geminiGerber: z.enum(["yes", "no"]),
     employeesCount: z.string().min(1, ""),
-    buildingOwnership: z.enum(["own", "rented"]).optional(),
-    industrialZone: z.enum(["yes", "no"]).optional(),
-    creditBurden: z.enum(["yes", "no"]).optional(),
-    organizationStructure: z.enum(["director", "manager", "marketer"]).optional(),
+    buildingOwnership: z.enum(["own", "rented"]),
+    industrialZone: z.enum(["yes", "no"]),
+    creditBurden: z.enum(["yes", "no"]),
+    organizationStructure: z.enum(["director", "manager", "marketer"]),
     equipmentInfo: z.string().min(1, ""),
-    phone: z.string().regex(/^\+?[0-9\s\-()]+$/, "").optional().or(z.literal("")),
-    certificateIds: z.array(z.number()).optional()
+    phone: z.string().regex(/^\+?[0-9\s\-()]+$/, "").min(1, ""),
+    certificateIds: z.array(z.number()).min(1, "")
 })
 
 type ManufacturerRegisterFormData = z.infer<typeof manufacturerRegisterSchema>
@@ -69,8 +71,8 @@ function ManufacturerRegisterForm() {
         watch
     } = useForm<ManufacturerRegisterFormData>({
         resolver: zodResolver(manufacturerRegisterSchema),
-        mode: "onBlur",
-        reValidateMode: "onBlur",
+        mode: "onSubmit",
+        reValidateMode: "onChange",
         criteriaMode: "firstError",
         delayError: 100
     })
@@ -200,6 +202,19 @@ function ManufacturerRegisterForm() {
                             {...register('companyName')}
                         />
                     </div>
+                    {/* Logo Upload */}
+                    <div className="space-y-2">
+                        <Label className="text-white text-sm font-medium">
+                            {t('app.buyurtmachi.registerForm.logo.label')}
+                        </Label>
+                        <SingleFileUploader
+                            label=""
+                            onFileChange={(file) => {
+                                setValue('logo', file, { shouldValidate: false, shouldDirty: false })
+                            }}
+                            accept="image/*"
+                        />
+                    </div>
 
                     {/* Experience */}
                     <div className="space-y-2">
@@ -304,7 +319,7 @@ function ManufacturerRegisterForm() {
 
                     {/* Website */}
                     <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium">
+                        <Label className="text-white text-sm font-medium" required>
                             {t('app.buyurtmachi.registerForm.website.label')}
                         </Label>
                         <CustomInput
@@ -315,7 +330,7 @@ function ManufacturerRegisterForm() {
 
                     {/* Quality Control */}
                     <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium">
+                        <Label className="text-white text-sm font-medium" required>
                             {t('app.buyurtmachi.registerForm.qualityControl.label')}
                         </Label>
                         <Select
@@ -335,7 +350,7 @@ function ManufacturerRegisterForm() {
 
                     {/* CRM System */}
                     <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium">
+                        <Label className="text-white text-sm font-medium" required>
                             {t('app.buyurtmachi.registerForm.crmSystem.label')}
                         </Label>
                         <Select
@@ -355,7 +370,7 @@ function ManufacturerRegisterForm() {
 
                     {/* Gemini/Gerber */}
                     <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium">
+                        <Label className="text-white text-sm font-medium" required>
                             {t('app.buyurtmachi.registerForm.geminiGerber.label')}
                         </Label>
                         <Select
@@ -387,7 +402,7 @@ function ManufacturerRegisterForm() {
 
                     {/* Building Ownership */}
                     <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium">
+                        <Label className="text-white text-sm font-medium" required>
                             {t('app.buyurtmachi.registerForm.buildingOwnership.label')}
                         </Label>
                         <Select
@@ -407,7 +422,7 @@ function ManufacturerRegisterForm() {
 
                     {/* Industrial Zone */}
                     <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium">
+                        <Label className="text-white text-sm font-medium" required>
                             {t('app.buyurtmachi.registerForm.industrialZone.label')}
                         </Label>
                         <Select
@@ -427,7 +442,7 @@ function ManufacturerRegisterForm() {
 
                     {/* Credit Burden */}
                     <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium">
+                        <Label className="text-white text-sm font-medium" required>
                             {t('app.buyurtmachi.registerForm.creditBurden.label')}
                         </Label>
                         <Select
@@ -498,10 +513,11 @@ function ManufacturerRegisterForm() {
 
                     {/* Phone */}
                     <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium">
+                        <Label className="text-white text-sm font-medium" required>
                             {t('app.buyurtmachi.registerForm.phone.label')}
                         </Label>
                         <CustomInput
+                            type="tel"
                             placeholder={t('app.buyurtmachi.registerForm.phone.placeholder')}
                             error={errors.phone?.message}
                             {...register('phone')}

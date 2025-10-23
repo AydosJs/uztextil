@@ -21,6 +21,9 @@ function ChooseDepartment() {
             return
         }
 
+        // Store department in localStorage immediately
+        localStorage.setItem('user_department', department)
+
         try {
             // Always try to register/update user for the selected department
             // The API should handle if user is already registered

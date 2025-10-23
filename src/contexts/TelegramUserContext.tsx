@@ -66,8 +66,9 @@ export function TelegramUserProvider({ children }: TelegramUserProviderProps) {
     const clearUser = useCallback(() => {
         setUser(null);
         setUserInfo(null);
-        // Clear telegram_id from localStorage
+        // Clear telegram_id and user_department from localStorage
         localStorage.removeItem('telegram_id');
+        localStorage.removeItem('user_department');
     }, []);
 
     const updateUserInfo = useCallback((newUserInfo: TelegramUserInfo) => {

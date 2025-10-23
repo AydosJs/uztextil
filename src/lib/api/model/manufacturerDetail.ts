@@ -6,6 +6,7 @@
  * OpenAPI spec version: v1
  */
 import type { ManufacturerCertificate } from './manufacturerCertificate';
+import type { SegmentList } from './segmentList';
 
 export interface ManufacturerDetail {
   readonly id?: number;
@@ -38,4 +39,5 @@ export interface ManufacturerDetail {
    */
   employee_count: number;
   sertificates: ManufacturerCertificate[];
+  product_segment: SegmentList[];
 }

@@ -33,12 +33,12 @@ export function ManufacturerDetailDrawer({
                         {manufacturer?.company_name}
                     </DrawerTitle>
                     <DrawerDescription className="text-white/64 text-left">
-                        {manufacturer?.full_name} - {manufacturer?.product_segment}
+                        {manufacturer?.full_name}
                     </DrawerDescription>
                     <DrawerClose onClick={handleClose} className="text-white/64 hover:text-white" />
                 </DrawerHeader>
 
-                <div className="px-4 pb-6 pt-6 space-y-6 overflow-y-auto max-h-[96vh]">
+                <div className="px-4 pb-10 pt-6 space-y-6 overflow-y-auto max-h-[96vh]">
                     {isLoading ? (
                         <div className="flex items-center justify-center py-8">
                             <Spinner className="w-8 h-8 text-white" />
@@ -93,8 +93,26 @@ export function ManufacturerDetailDrawer({
                                         <p className="text-white/64 text-sm">{t('app.manufacturerDetail.companyInfo.minOrderQuantity')}</p>
                                         <p className="text-white font-medium">{manufacturerDetail.min_order_quantity}</p>
                                     </div>
+
+                                    <div>
+                                        <p className="text-white/64 text-sm">{t('app.manufacturerDetail.companyInfo.productSegments')}</p>
+                                        {manufacturerDetail.product_segment && manufacturerDetail.product_segment.length > 0 ? (
+                                            <div className="flex flex-wrap gap-2 mt-1">
+                                                {manufacturerDetail.product_segment.map(segment => (
+                                                    <span key={segment.id} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-background-card text-text-primary border border-border-primary">
+                                                        {segment.title}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        ) : (
+                                            <p className="text-text-tertiary text-sm mt-1">{t('app.manufacturerDetail.companyInfo.noSegments')}</p>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
+
+                            {/* Divider */}
+                            <div className="border-t border-border-primary my-6"></div>
 
                             {/* Contact Information */}
                             <div className="space-y-4">
@@ -114,6 +132,9 @@ export function ManufacturerDetailDrawer({
                                     )}
                                 </div>
                             </div>
+
+                            {/* Divider */}
+                            <div className="border-t border-border-primary my-6"></div>
 
                             {/* Business Information */}
                             <div className="space-y-4">

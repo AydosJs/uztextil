@@ -38,6 +38,12 @@ function TermsAndConditions() {
         // Show success toast in Russian
         showToast.success("Ваша заявка принята!")
         console.log("Application submitted:", data)
+
+        // Close the drawer
+        setApplicationDrawerOpen(false)
+
+        // Navigate to services list
+        navigate('/services')
     }
 
     return (
@@ -74,45 +80,24 @@ function TermsAndConditions() {
                         </div>
 
                         {/* Checkbox */}
-                        {!service.is_active && (
-                            <div className="pt-4">
-                                <CustomCheckbox
-                                    label={t('app.termsAndConditions.checkboxLabel')}
-                                    checked={isChecked}
-                                    onCheckedChange={(checked) => setIsChecked(checked === true)}
-                                />
-                            </div>
-                        )}
+                        <div className="pt-4">
+                            <CustomCheckbox
+                                label={t('app.termsAndConditions.checkboxLabel')}
+                                checked={isChecked}
+                                onCheckedChange={(checked) => setIsChecked(checked === true)}
+                            />
+                        </div>
                     </div>
                 </div>
 
-                {service.is_active ? (
-                    <div className="text-center mb-5 px-10">
-                        <p className="text-white text-sm font-bold mb-2">
-                            {t('app.termsAndConditions.alreadyApplied.title')}
-                        </p>
-                        <p className="text-white/64 text-xs">
-                            {t('app.termsAndConditions.alreadyApplied.description')}
-                        </p>
-                    </div>
-                ) : (
-                    <p className="text-center text-white text-sm font-bold mb-5 px-10">
-                        {t('app.termsAndConditions.submitInfo')}
-                    </p>
-                )}
+                <p className="text-center text-white text-sm font-bold mb-5 px-10">
+                    {t('app.termsAndConditions.submitInfo')}
+                </p>
 
                 {/* Bottom Buttons */}
-                {!service.is_active && (
-                    <div className="px-6 pb-8 space-y-3">
-                        <Button
-                            variant="secondary"
-                            shadow="lg"
-                            onClick={handleCancel}
-                            className="w-full"
-                        >
-                            {t('app.termsAndConditions.buttons.cancel')}
-                        </Button>
-                        {/* 
+                <div className="px-6 pb-8 space-y-3">
+
+                    {/* 
                         <Button
                             variant="default"
                             onClick={handleSubmit}
@@ -122,15 +107,22 @@ function TermsAndConditions() {
                             {createApplicationMutation.isPending ? t('app.termsAndConditions.buttons.submitting') : t('app.termsAndConditions.buttons.submit')}
                         </Button> */}
 
-                        <Button
-                            variant="outline"
-                            onClick={() => setApplicationDrawerOpen(true)}
-                            className="w-full border-brand-primary text-brand-primary hover:bg-[#FCE803]/10"
-                        >
-                            {t('app.applicationDrawer.title')}
-                        </Button>
-                    </div>
-                )}
+                    <Button
+                        variant="outline"
+                        onClick={() => setApplicationDrawerOpen(true)}
+                        disabled={!isChecked}
+                        className="w-full border-brand-primary bg-brand-primary text-black! font-semibold! hover:bg-[#FCE803]/10 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                        {t('app.applicationDrawer.title')}
+                    </Button>
+                    <Button
+                        variant="secondary"
+                        onClick={handleCancel}
+                        className="w-full border-brand-primary/30!"
+                    >
+                        {t('app.termsAndConditions.buttons.cancel')}
+                    </Button>
+                </div>
             </main>
 
             {/* Application Drawer */}

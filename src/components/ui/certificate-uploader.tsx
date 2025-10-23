@@ -168,7 +168,7 @@ const CertificateUploader: React.FC<CertificateUploaderProps> = ({
             {certificates.map((certificate) => (
                 <div
                     key={certificate.id}
-                    className="rounded-[18px] bg-background-tertiary p-4 mb-3 space-y-3"
+                    className="rounded-[18px] bg-border-primary/50 p-4 mb-3 space-y-3"
                 >
                     {/* File Info Header */}
                     <div className="flex items-center">
@@ -265,7 +265,7 @@ const CertificateUploader: React.FC<CertificateUploaderProps> = ({
             ))}
 
             {/* Add Certificate Button */}
-            <div className="h-[41px] rounded-[19px] bg-background-tertiary flex items-center justify-center cursor-pointer hover:bg-background-tertiary/80 transition-colors duration-200">
+            <div className="h-[41px] rounded-[19px] bg-transparent border-border-primary border flex items-center justify-center cursor-pointer hover:bg-background-tertiary/80 transition-colors duration-200">
                 <input
                     ref={fileInputRef}
                     type="file"
