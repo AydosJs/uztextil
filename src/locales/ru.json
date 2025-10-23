@@ -45,6 +45,9 @@
         "logo": {
           "label": "Логотип компании"
         },
+        "companyImages": {
+          "label": "Фотографии компании"
+        },
         "experience": {
           "label": "Сколько лет на рынке",
           "placeholder": "2 года"

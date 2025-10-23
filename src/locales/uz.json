@@ -45,6 +45,9 @@
         "logo": {
           "label": "Kompaniya logotipi"
         },
+        "companyImages": {
+          "label": "Kompaniya rasmlari"
+        },
         "experience": {
           "label": "Bozorga chiqqaniga qancha bo'lgan",
           "placeholder": "2 yil"

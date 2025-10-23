@@ -4,7 +4,7 @@ import { Label } from "@/components/ui"
 import { RadioGroup, RadioGroupItem } from "@/components/ui"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui"
 import { CertificateUploader } from "@/components/ui"
-import { SingleFileUploader } from "@/components/ui"
+import { SingleFileUploader, FileUploader } from "@/components/ui"
 import { UnderwaterHeader } from "@/components/ui"
 import { MultiSelectCombobox } from "@/components/ui"
 import type { MultiSelectOption } from "@/components/ui"
@@ -24,6 +24,7 @@ import { useTelegramUser } from "@/hooks/useTelegramUser"
 const manufacturerRegisterSchema = z.object({
     companyName: z.string().min(1, ""),
     logo: z.any().optional(), // Logo file - optional for now
+    companyImages: z.array(z.instanceof(File)).optional(), // Company images - optional array of File objects
     experience: z.string().min(1, ""),
     fullName: z.string().min(1, ""),
     position: z.string().min(1, ""),
@@ -74,7 +75,10 @@ function ManufacturerRegisterForm() {
         mode: "onSubmit",
         reValidateMode: "onChange",
         criteriaMode: "firstError",
-        delayError: 100
+        delayError: 100,
+        defaultValues: {
+            companyImages: []
+        }
     })
 
     // Only watch specific fields that need to trigger re-renders
@@ -86,6 +90,8 @@ function ManufacturerRegisterForm() {
     const creditBurden = watch('creditBurden')
     const organizationStructure = watch('organizationStructure')
     const productSegment = watch('productSegment')
+    // const companyImages = watch('companyImages') // Uncomment if needed for debugging
+
 
     // Fetch segments list
     const { data: segmentsData, isLoading: segmentsLoading } = useApiV1SegmentListList()
@@ -124,6 +130,12 @@ function ManufacturerRegisterForm() {
 
     const onSubmit = useCallback(async (data: ManufacturerRegisterFormData) => {
         try {
+            // Log company images for debugging (not sent to API yet)
+            if (data.companyImages && data.companyImages.length > 0) {
+                console.log('Company images uploaded:', data.companyImages.length, 'files')
+                // TODO: Upload company images to server when backend supports it
+            }
+
             // Transform form data to API format
             const apiData: ManufacturerCreate = {
                 company_name: data.companyName,
@@ -214,6 +226,25 @@ function ManufacturerRegisterForm() {
                             }}
                             accept="image/*"
                         />
+                    </div>
+
+                    {/* Company Images Upload */}
+                    <div className="space-y-2">
+                        <Label className="text-white text-sm font-medium">
+                            {t('app.buyurtmachi.registerForm.companyImages.label')}
+                        </Label>
+                        <FileUploader
+                            label=""
+                            onFileChange={(files) => {
+                                setValue('companyImages', files, { shouldValidate: false, shouldDirty: false })
+                            }}
+                            accept="image/*"
+                        />
+                        {errors.companyImages && (
+                            <p className="text-red-500 text-sm mt-1">
+                                {String(errors.companyImages.message)}
+                            </p>
+                        )}
                     </div>
 
                     {/* Experience */}

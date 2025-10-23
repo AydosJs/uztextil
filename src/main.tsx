@@ -30,6 +30,7 @@ import { OnlineB2BForm, OnlineB2BSuccess, OfferList } from './pages/services/onl
 import { PackageSelection, PackageDetails, ApplicationForm, ApplicationSuccess } from './pages/services/custom_order'
 import ApplicationFormPage from './pages/ApplicationForm.tsx'
 import ApplicationSuccessPage from './pages/ApplicationSuccess.tsx'
+import LocalizationEditor from './pages/LocalizationEditor.tsx'
 import { Toaster } from 'sonner'
 import { setSafeAreaCSSProperties, waitForSafeAreaValues } from './utils/safeAreaUtils.ts'
 // import { initEruda } from './utils/eruda.ts'
@@ -206,6 +207,7 @@ async function initializeApp() {
               <Route path="/application-success" element={<ApplicationSuccessPage />} />
 
               <Route path="/dev" element={<Dev />} />
+              <Route path="/localization-editor" element={<LocalizationEditor />} />
             </Routes>
           </BrowserRouter>
         </TelegramUserProvider>
