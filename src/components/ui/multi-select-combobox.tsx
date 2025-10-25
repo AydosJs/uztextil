@@ -2,6 +2,7 @@ import * as React from "react"
 import { Check, ChevronDown, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "./button"
+import { useTranslation } from "react-i18next"
 
 export interface MultiSelectOption {
     id: number | string
@@ -30,9 +31,9 @@ export const MultiSelectCombobox = React.forwardRef<
     options,
     value,
     onChange,
-    placeholder = "Select options...",
-    emptyText = "No options available",
-    loadingText = "Loading...",
+    placeholder,
+    emptyText,
+    loadingText,
     isLoading = false,
     className,
     disabled = false,
@@ -40,6 +41,7 @@ export const MultiSelectCombobox = React.forwardRef<
     maxDisplayCount = 3,
     ...props
 }, ref) => {
+    const { t } = useTranslation()
     const [isOpen, setIsOpen] = React.useState(false)
     const [searchTerm, setSearchTerm] = React.useState("")
     const inputRef = React.useRef<HTMLInputElement>(null)
@@ -140,7 +142,7 @@ export const MultiSelectCombobox = React.forwardRef<
                             )}
                         </div>
                     ) : (
-                        <span className="text-text-secondary truncate">{placeholder}</span>
+                        <span className="text-text-secondary truncate">{placeholder || t('app.common.selectOptions')}</span>
                     )}
                 </div>
 
@@ -177,7 +179,7 @@ export const MultiSelectCombobox = React.forwardRef<
                         <input
                             ref={inputRef}
                             type="text"
-                            placeholder="Search options..."
+                            placeholder={t('app.common.searchOptions')}
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             className="w-full bg-transparent border-0 outline-none text-text-primary placeholder:text-text-secondary text-sm"
@@ -188,11 +190,11 @@ export const MultiSelectCombobox = React.forwardRef<
                     <div className="max-h-72 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-transparent">
                         {isLoading ? (
                             <div className="p-3 text-center text-text-primary/60 text-sm">
-                                {loadingText}
+                                {loadingText || t('app.common.loading')}
                             </div>
                         ) : filteredOptions.length === 0 ? (
                             <div className="p-3 text-center text-text-primary/60 text-sm">
-                                {emptyText}
+                                {emptyText || t('app.common.noOptionsAvailable')}
                             </div>
                         ) : (
                             filteredOptions.map((option) => {

@@ -243,7 +243,6 @@ function CustomerRegisterForm() {
                             onChange={(e) => handleInputChange('payment_terms', e.target.value)}
                         />
                     </div>
-s
                     {/* Phone */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium">

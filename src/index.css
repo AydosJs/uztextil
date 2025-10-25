@@ -83,8 +83,8 @@
   --shadow-card-inset: inset 0px 1px 0px 0px var(--color-shadow-secondary);
 
 /* Custom spacing */
---spacing-safe-top: var(--safe-area-inset-top);
---spacing-safe-bottom: var(--safe-area-inset-bottom);
+--spacing-safe-top: var(--safe-area-top, 16px);
+--spacing-safe-bottom: var(--safe-area-bottom, 8px);
 
   /* Font families */
   --font-plus-jakarta-sans: "Plus Jakarta Sans", system-ui, sans-serif;
@@ -128,11 +128,11 @@
 
 /* Safe Area Utility Classes */
 .safe-area-pt {
-  padding-top: calc(var(--safe-area-inset-top, 0px));
+  padding-top: calc(var(--safe-area-top, 16px));
 }
 
 .safe-area-pb {
-  padding-bottom: max(var(--safe-area-inset-bottom, 0px), 8px);
+  padding-bottom: max(var(--safe-area-bottom, 8px), 8px);
 }
 
 /* Container Class */

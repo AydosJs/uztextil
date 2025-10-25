@@ -5,16 +5,24 @@
  * API for your Django project
  * OpenAPI spec version: v1
  */
-import type { ManufacturerCertificate } from './manufacturerCertificate';
+import type { ManufacturerDetailStatus } from './manufacturerDetailStatus';
 import type { SegmentList } from './segmentList';
+import type { ManufacturerCertificate } from './manufacturerCertificate';
+import type { ManufacturerCompanyImage } from './manufacturerCompanyImage';
 
 export interface ManufacturerDetail {
   readonly id?: number;
+  user: number;
   /**
    * @minLength 1
    * @maxLength 255
    */
   company_name: string;
+  /**
+   * @minLength 1
+   * @maxLength 100
+   */
+  market_experience: string;
   /**
    * @minLength 1
    * @maxLength 255
@@ -24,7 +32,18 @@ export interface ManufacturerDetail {
    * @minLength 1
    * @maxLength 100
    */
+  position: string;
+  /**
+   * @minLength 1
+   * @maxLength 100
+   */
   min_order_quantity: string;
+  /** @minLength 1 */
+  commercial_offer_text: string;
+  /** @nullable */
+  readonly commercial_offer?: string | null;
+  /** @minLength 1 */
+  production_address: string;
   /** @minLength 1 */
   office_address: string;
   /**
@@ -32,12 +51,36 @@ export interface ManufacturerDetail {
    * @nullable
    */
   website?: string | null;
+  has_quality_control?: boolean;
   has_crm?: boolean;
+  has_erp?: boolean;
+  has_gemini_gerber?: boolean;
   /**
    * @minimum -2147483648
    * @maximum 2147483647
    */
   employee_count: number;
-  sertificates: ManufacturerCertificate[];
+  owns_building: boolean;
+  has_power_issues: boolean;
+  has_credit_load: boolean;
+  /** @minLength 1 */
+  organization_structure: string;
+  /** @minLength 1 */
+  equipment_info: string;
+  /**
+   * @maxLength 30
+   * @nullable
+   */
+  phone?: string | null;
+  status?: ManufacturerDetailStatus;
+  /**
+   * @minimum -2147483648
+   * @maximum 2147483647
+   */
+  order?: number;
+  /** @nullable */
+  readonly logo?: string | null;
   product_segment: SegmentList[];
+  sertificates: ManufacturerCertificate[];
+  images: ManufacturerCompanyImage[];
 }

@@ -76,7 +76,10 @@ export interface ManufacturerCreate {
    * @maximum 2147483647
    */
   order?: number;
+  /** @nullable */
+  readonly logo?: string | null;
   user: number;
   product_segment: number[];
   sertificates?: number[];
+  images?: number[];
 }

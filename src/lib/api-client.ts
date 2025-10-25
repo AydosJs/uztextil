@@ -28,7 +28,7 @@ axiosInstance.interceptors.request.use(
         // Add telegram_id to headers if available
         const telegramId = getTelegramId();
         if (telegramId) {
-            // config.headers['telegram_id'] = telegramId;
+            // config.headers['Telegram_Id'] = telegramId;
         }
 
         return config;

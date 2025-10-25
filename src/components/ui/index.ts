@@ -16,6 +16,7 @@ export { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 export { FileUploader } from "./file-uploader"
 export { SingleFileUploader } from "./single-file-uploader"
 export { CertificateUploader } from "./certificate-uploader"
+export { CompanyImageUploader } from "./company-image-uploader"
 export { Calendar } from "./calendar"
 export { Popover, PopoverTrigger, PopoverContent, PopoverAnchor } from "./popover"
 export { DatePicker } from "./date-picker"

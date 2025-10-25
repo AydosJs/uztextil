@@ -4,18 +4,18 @@ import { Label } from "@/components/ui"
 import { RadioGroup, RadioGroupItem } from "@/components/ui"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui"
 import { CertificateUploader } from "@/components/ui"
-import { SingleFileUploader, FileUploader } from "@/components/ui"
+import { SingleFileUploader, CompanyImageUploader } from "@/components/ui"
 import { UnderwaterHeader } from "@/components/ui"
 import { MultiSelectCombobox } from "@/components/ui"
 import type { MultiSelectOption } from "@/components/ui"
-import { useCallback, useMemo } from "react"
+import React, { useCallback, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate, useLocation } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
-import { useApiV1ManufacturerCreateCreate, useApiV1SegmentListList } from "@/lib/api"
-import type { ManufacturerCreate } from "@/lib/api"
+import { useApiV1SegmentListList } from "@/lib/api"
+import { customInstance } from "@/lib/api-client"
 import { showToast } from "@/lib/utils"
 import { useTelegramBackButton } from "@/lib/hooks"
 import { useTelegramUser } from "@/hooks/useTelegramUser"
@@ -24,7 +24,7 @@ import { useTelegramUser } from "@/hooks/useTelegramUser"
 const manufacturerRegisterSchema = z.object({
     companyName: z.string().min(1, ""),
     logo: z.any().optional(), // Logo file - optional for now
-    companyImages: z.array(z.instanceof(File)).optional(), // Company images - optional array of File objects
+    companyImageIds: z.array(z.number()).optional(), // Company image IDs - optional array of numbers
     experience: z.string().min(1, ""),
     fullName: z.string().min(1, ""),
     position: z.string().min(1, ""),
@@ -77,7 +77,7 @@ function ManufacturerRegisterForm() {
         criteriaMode: "firstError",
         delayError: 100,
         defaultValues: {
-            companyImages: []
+            companyImageIds: []
         }
     })
 
@@ -106,69 +106,97 @@ function ManufacturerRegisterForm() {
         }))
     }, [segmentsData])
 
-    // API mutation hook
-    const manufacturerCreateMutation = useApiV1ManufacturerCreateCreate({
-        mutation: {
-            onSuccess: (data) => {
-                // Update user info with the new manufacturer data
-                if (userInfo && data) {
-                    const updatedUserInfo = {
-                        ...userInfo,
-                        manufacturer: data.id // Extract just the ID
-                    };
-                    updateUserInfo(updatedUserInfo);
-                }
-
-                showToast.success(t('app.common.success.created'))
-                navigate('/services', { state: { department } })
-            },
-            onError: (error) => {
-                showToast.error(t('app.common.error.manufacturerFailed') + error)
-            }
-        }
-    })
+    // State for API call
+    const [isSubmitting, setIsSubmitting] = React.useState(false)
 
     const onSubmit = useCallback(async (data: ManufacturerRegisterFormData) => {
+        if (isSubmitting) return
+
+        setIsSubmitting(true)
         try {
-            // Log company images for debugging (not sent to API yet)
-            if (data.companyImages && data.companyImages.length > 0) {
-                console.log('Company images uploaded:', data.companyImages.length, 'files')
-                // TODO: Upload company images to server when backend supports it
+            // Create FormData for file upload
+            const formData = new FormData()
+
+            // Add all form fields
+            formData.append('company_name', data.companyName)
+            formData.append('market_experience', data.experience)
+            formData.append('full_name', data.fullName || '')
+            formData.append('position', data.position || '')
+            formData.append('min_order_quantity', data.minOrder || '')
+            formData.append('commercial_offer_text', data.commercialOffer || '')
+            formData.append('production_address', data.productionAddress || '')
+            formData.append('office_address', data.officeAddress || '')
+            formData.append('website', data.website || '')
+            formData.append('has_quality_control', data.qualityControl === 'yes' ? 'true' : 'false')
+            formData.append('has_crm', data.crmSystem === 'yes' ? 'true' : 'false')
+            formData.append('has_erp', 'false')
+            formData.append('has_gemini_gerber', data.geminiGerber === 'yes' ? 'true' : 'false')
+            formData.append('employee_count', (parseInt(data.employeesCount || '0') || 0).toString())
+            formData.append('owns_building', data.buildingOwnership === 'own' ? 'true' : 'false')
+            formData.append('has_power_issues', data.industrialZone === 'yes' ? 'true' : 'false')
+            formData.append('has_credit_load', data.creditBurden === 'yes' ? 'true' : 'false')
+            formData.append('organization_structure', data.organizationStructure || '')
+            formData.append('equipment_info', data.equipmentInfo || '')
+            formData.append('phone', data.phone || '')
+            formData.append('user', (userInfo?.user_id || 0).toString())
+
+            // Add product segments as array
+            if (data.productSegment && data.productSegment.length > 0) {
+                data.productSegment.forEach(segmentId => {
+                    formData.append('product_segment', segmentId.toString())
+                })
             }
 
-            // Transform form data to API format
-            const apiData: ManufacturerCreate = {
-                company_name: data.companyName,
-                market_experience: data.experience,
-                full_name: data.fullName || '',
-                position: data.position || '',
-                min_order_quantity: data.minOrder || '',
-                product_segment: data.productSegment || [],
-                commercial_offer_text: data.commercialOffer || '',
-                production_address: data.productionAddress || '',
-                office_address: data.officeAddress || '',
-                website: data.website || null,
-                has_quality_control: data.qualityControl === 'yes',
-                has_crm: data.crmSystem === 'yes',
-                has_erp: false, // Not in form, default to false
-                has_gemini_gerber: data.geminiGerber === 'yes',
-                employee_count: parseInt(data.employeesCount || '0') || 0,
-                owns_building: data.buildingOwnership === 'own',
-                has_power_issues: data.industrialZone === 'yes',
-                has_credit_load: data.creditBurden === 'yes',
-                organization_structure: data.organizationStructure || '',
-                equipment_info: data.equipmentInfo || '',
-                phone: data.phone || null,
-                user: userInfo?.user_id || 0, // Use user_id from bot-user/register API response
-                sertificates: data.certificateIds || [] // Add certificate IDs
+            // Add certificate IDs as array
+            if (data.certificateIds && data.certificateIds.length > 0) {
+                data.certificateIds.forEach(certId => {
+                    formData.append('sertificates', certId.toString())
+                })
             }
 
-            // Call the API
-            await manufacturerCreateMutation.mutateAsync({ data: apiData })
+            // Add company image IDs as array
+            if (data.companyImageIds && data.companyImageIds.length > 0) {
+                data.companyImageIds.forEach(imageId => {
+                    formData.append('images', imageId.toString())
+                })
+            }
+
+            // Add logo file if present
+            if (data.logo && data.logo instanceof File) {
+                formData.append('logo', data.logo)
+                console.log('Logo file added to FormData:', data.logo.name, data.logo.size, data.logo.type)
+            } else {
+                console.log('No logo file or invalid file:', data.logo)
+            }
+
+            // Call the API with FormData using customInstance
+            const response = await customInstance({
+                url: '/api/v1/manufacturer/create/',
+                method: 'POST',
+                data: formData,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            })
+
+            // Update user info with the new manufacturer data
+            if (userInfo && response && typeof response === 'object' && response !== null && 'id' in response) {
+                const updatedUserInfo = {
+                    ...userInfo,
+                    manufacturer: (response as { id: number }).id // Extract just the ID
+                };
+                updateUserInfo(updatedUserInfo);
+            }
+
+            showToast.success(t('app.common.success.created'))
+            navigate('/services', { state: { department } })
         } catch (error) {
             console.error('Form submission error:', error)
+            showToast.error(t('app.common.error.manufacturerFailed') + error)
+        } finally {
+            setIsSubmitting(false)
         }
-    }, [manufacturerCreateMutation, userInfo?.user_id])
+    }, [isSubmitting, userInfo, updateUserInfo, t, navigate, department])
 
     const handleSelectChange = useCallback((field: keyof ManufacturerRegisterFormData, value: string | number) => {
         setValue(field, value as ManufacturerRegisterFormData[keyof ManufacturerRegisterFormData], { shouldValidate: false })
@@ -233,16 +261,15 @@ function ManufacturerRegisterForm() {
                         <Label className="text-white text-sm font-medium">
                             {t('app.buyurtmachi.registerForm.companyImages.label')}
                         </Label>
-                        <FileUploader
+                        <CompanyImageUploader
                             label=""
-                            onFileChange={(files) => {
-                                setValue('companyImages', files, { shouldValidate: false, shouldDirty: false })
+                            onImageIdsChange={(imageIds) => {
+                                setValue('companyImageIds', imageIds, { shouldValidate: false, shouldDirty: false })
                             }}
-                            accept="image/*"
                         />
-                        {errors.companyImages && (
+                        {errors.companyImageIds && (
                             <p className="text-red-500 text-sm mt-1">
-                                {String(errors.companyImages.message)}
+                                {String(errors.companyImageIds.message)}
                             </p>
                         )}
                     </div>
@@ -253,6 +280,7 @@ function ManufacturerRegisterForm() {
                             {t('app.buyurtmachi.registerForm.experience.label')}
                         </Label>
                         <CustomInput
+                            type="number"
                             placeholder={t('app.buyurtmachi.registerForm.experience.placeholder')}
                             error={errors.experience?.message}
                             {...register('experience')}
@@ -559,10 +587,10 @@ function ManufacturerRegisterForm() {
                     <div className="px-4 pb-8 mt-4 max-w-2xl mx-auto w-full">
                         <Button
                             type="submit"
-                            loading={manufacturerCreateMutation.isPending}
+                            loading={isSubmitting}
                             variant="default"
                             shadow="lg"
-                            disabled={manufacturerCreateMutation.isPending || !isValid}
+                            disabled={isSubmitting || !isValid}
                             className="w-full"
                         >
                             {t('app.buyurtmachi.registerForm.submitButton')}

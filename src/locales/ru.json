@@ -46,7 +46,9 @@
           "label": "Логотип компании"
         },
         "companyImages": {
-          "label": "Фотографии компании"
+          "label": "Фотографии компании",
+          "uploading": "Загрузка...",
+          "uploaded": "Загружено"
         },
         "experience": {
           "label": "Сколько лет на рынке",
@@ -497,6 +499,9 @@
         "available": "Доступно",
         "notAvailable": "Недоступно"
       },
+      "companyImages": {
+        "title": "Фотографии компании"
+      },
       "certificates": {
         "title": "Сертификаты",
         "noCertificates": "Сертификаты не указаны",
@@ -585,6 +590,9 @@
         "accepted": "Ваша заявка принята!"
       },
       "loading": "Загрузка...",
+      "selectOptions": "Выберите опции...",
+      "searchOptions": "Поиск опций...",
+      "noOptionsAvailable": "Опции недоступны",
       "manufacturerDetails": "Информация о фабрике",
       "price": "Цена",
       "priceNotSet": "Цена не установлена",

@@ -2,11 +2,17 @@ import { isMobileDevice } from './deviceUtils';
 import {
     viewport,
 } from '@telegram-apps/sdk-react';
+import { isTelegramEnvironment } from './environmentUtils';
 
 /**
  * Checks if the Telegram SDK is ready and safe area functions are available
  */
 export function isSDKReady(): boolean {
+    // If not in Telegram environment, SDK is not ready
+    if (!isTelegramEnvironment()) {
+        return false;
+    }
+
     try {
         return viewport &&
             typeof viewport.safeAreaInsetTop === 'function' &&
@@ -23,6 +29,12 @@ export function isSDKReady(): boolean {
  */
 export function waitForSafeAreaValues(): Promise<{ top: number, bottom: number }> {
     return new Promise((resolve) => {
+        // If not in Telegram environment, return web-safe defaults immediately
+        if (!isTelegramEnvironment()) {
+            resolve({ top: 16, bottom: 8 }); // Web browser defaults
+            return;
+        }
+
         const checkSDK = () => {
             if (isSDKReady()) {
                 try {
@@ -58,19 +70,23 @@ export function setSafeAreaCSSProperties(): void {
     if (typeof document === 'undefined') return;
 
     try {
-        if (!isSDKReady()) {
-            return;
+        let topValue = 16; // Web browser default
+        let bottomValue = 8; // Web browser default
+
+        // If in Telegram environment and SDK is ready, get actual values
+        if (isTelegramEnvironment() && isSDKReady()) {
+            const safeAreaInsetTop = viewport.safeAreaInsetTop();
+            const safeAreaInsetBottom = viewport.safeAreaInsetBottom();
+
+            // Validate values
+            if (safeAreaInsetTop >= 0 && safeAreaInsetBottom >= 0) {
+                topValue = safeAreaInsetTop > 0 ? safeAreaInsetTop : 0;
+                bottomValue = safeAreaInsetBottom > 0 ? safeAreaInsetBottom : 0;
+            }
         }
 
-        const isMobile = isMobileDevice()
-
-        const safeAreaInsetTop = viewport.safeAreaInsetTop();
-        const safeAreaInsetBottom = viewport.safeAreaInsetBottom();
-
-        // Validate values
-        if (safeAreaInsetTop < 0 || safeAreaInsetBottom < 0) {
-            return;
-        }
+        const isMobile = isMobileDevice();
+        const finalTopValue = topValue + (isMobile ? 48 : 16);
 
         let styleEl = document.getElementById("safe-area-styles");
         if (!styleEl) {
@@ -79,13 +95,10 @@ export function setSafeAreaCSSProperties(): void {
             document.head.appendChild(styleEl);
         }
 
-        const topValue = safeAreaInsetTop > 0 ? safeAreaInsetTop : 0;
-        const bottomValue = safeAreaInsetBottom > 0 ? safeAreaInsetBottom : 0;
-
         // Create CSS custom properties for Tailwind to use
         styleEl.innerHTML = `
             :root {
-                --safe-area-top: ${topValue + (isMobile ? 48 : 16)}px;
+                --safe-area-top: ${finalTopValue}px;
                 --safe-area-bottom: ${bottomValue}px;
             }
             
@@ -127,8 +140,8 @@ export function setSafeAreaCSSProperties(): void {
  */
 export function getSafeAreaValues() {
     try {
-        if (!isSDKReady()) {
-            return { top: 0, bottom: 0 };
+        if (!isTelegramEnvironment() || !isSDKReady()) {
+            return { top: 16, bottom: 8 }; // Web browser defaults
         }
         const top = viewport.safeAreaInsetTop();
         const bottom = viewport.safeAreaInsetBottom();
@@ -137,7 +150,7 @@ export function getSafeAreaValues() {
             bottom: bottom > 0 ? bottom : 0,
         };
     } catch {
-        return { top: 0, bottom: 0 };
+        return { top: 16, bottom: 8 }; // Web browser defaults
     }
 }
 
@@ -147,8 +160,9 @@ export function getSafeAreaValues() {
  */
 export function getSafeAreaClass(property: 'pt' | 'pb' | 'py'): string {
     try {
-        if (!isSDKReady()) {
-            return property === 'pt' ? 'pt-[0px]' : property === 'pb' ? 'pb-[0px]' : 'pt-[0px] pb-[0px]';
+        if (!isTelegramEnvironment() || !isSDKReady()) {
+            // Return web browser defaults
+            return property === 'pt' ? 'pt-[16px]' : property === 'pb' ? 'pb-[8px]' : 'pt-[16px] pb-[8px]';
         }
 
         if (property === 'py') {
@@ -169,6 +183,7 @@ export function getSafeAreaClass(property: 'pt' | 'pb' | 'py'): string {
 
         return '';
     } catch {
-        return property === 'pt' ? 'pt-[0px]' : property === 'pb' ? 'pb-[0px]' : 'pt-[0px] pb-[0px]';
+        // Return web browser defaults on error
+        return property === 'pt' ? 'pt-[16px]' : property === 'pb' ? 'pb-[8px]' : 'pt-[16px] pb-[8px]';
     }
 }

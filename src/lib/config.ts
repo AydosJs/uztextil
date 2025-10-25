@@ -7,3 +7,17 @@ export const API_CONFIG = {
 export const TELEGRAM_CONFIG = {
     MANAGER_USERNAME: import.meta.env.VITE_TELEGRAM_MANAGER_USERNAME || 'iroda_ex',
 } as const;
+
+export const DEV_CONFIG = {
+    ENABLE_MOCK_USER: true, // Auto-detect or force mock
+    MOCK_TELEGRAM_ID: 296875296,
+    MOCK_USER_DATA: {
+        id: 296875296,
+        firstName: 'Aydos',
+        lastName: '',
+        username: 'sankibayev',
+        languageCode: 'en',
+        isBot: false,
+        phoneNumber: '+998901234567'
+    }
+} as const;

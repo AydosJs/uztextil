@@ -14,4 +14,5 @@ export const ManufacturerCreateStatus = {
   in_progress: 'in_progress',
   approved: 'approved',
   paid: 'paid',
+  canceled: 'canceled',
 } as const;

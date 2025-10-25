@@ -33,8 +33,10 @@ import type {
   ApiV1SliderListListParams,
   ApplicationCreate,
   ApplicationList,
+  ContactSettings,
   CustomerCreate,
   ManufacturerCertificate,
+  ManufacturerCompanyImage,
   ManufacturerCreate,
   ManufacturerDetail,
   ManufacturerList,
@@ -421,7 +423,88 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
       return useMutation(mutationOptions , queryClient);
     }
-    export const apiV1CustomerCreateCreate = (
+    export const apiV1ContactSettingsContactSettingsList = (
+    
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<ContactSettings[]>(
+      {url: `/api/v1/contact-settings/contact-settings/`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+export const getApiV1ContactSettingsContactSettingsListQueryKey = () => {
+    return [`/api/v1/contact-settings/contact-settings/`] as const;
+    }
+
+    
+export const getApiV1ContactSettingsContactSettingsListQueryOptions = <TData = Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getApiV1ContactSettingsContactSettingsListQueryKey();
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>> = ({ signal }) => apiV1ContactSettingsContactSettingsList(requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type ApiV1ContactSettingsContactSettingsListQueryResult = NonNullable<Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>>
+export type ApiV1ContactSettingsContactSettingsListQueryError = unknown
+
+
+export function useApiV1ContactSettingsContactSettingsList<TData = Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>,
+          TError,
+          Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useApiV1ContactSettingsContactSettingsList<TData = Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>,
+          TError,
+          Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useApiV1ContactSettingsContactSettingsList<TData = Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useApiV1ContactSettingsContactSettingsList<TData = Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getApiV1ContactSettingsContactSettingsListQueryOptions(options)
+
+  const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+export const apiV1CustomerCreateCreate = (
     customerCreate: NonReadonly<CustomerCreate>,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
@@ -534,6 +617,64 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
       > => {
 
       const mutationOptions = getApiV1ManufacturerCertificateCreateMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    export const apiV1ManufacturerCompanyImageCreate = (
+    manufacturerCompanyImage: NonReadonly<ManufacturerCompanyImage>,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<ManufacturerCompanyImage>(
+      {url: `/api/v1/manufacturer/company-image/`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: manufacturerCompanyImage, signal
+    },
+      options);
+    }
+  
+
+
+export const getApiV1ManufacturerCompanyImageCreateMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiV1ManufacturerCompanyImageCreate>>, TError,{data: NonReadonly<ManufacturerCompanyImage>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof apiV1ManufacturerCompanyImageCreate>>, TError,{data: NonReadonly<ManufacturerCompanyImage>}, TContext> => {
+
+const mutationKey = ['apiV1ManufacturerCompanyImageCreate'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiV1ManufacturerCompanyImageCreate>>, {data: NonReadonly<ManufacturerCompanyImage>}> = (props) => {
+          const {data} = props ?? {};
+
+          return  apiV1ManufacturerCompanyImageCreate(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ApiV1ManufacturerCompanyImageCreateMutationResult = NonNullable<Awaited<ReturnType<typeof apiV1ManufacturerCompanyImageCreate>>>
+    export type ApiV1ManufacturerCompanyImageCreateMutationBody = NonReadonly<ManufacturerCompanyImage>
+    export type ApiV1ManufacturerCompanyImageCreateMutationError = unknown
+
+    export const useApiV1ManufacturerCompanyImageCreate = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiV1ManufacturerCompanyImageCreate>>, TError,{data: NonReadonly<ManufacturerCompanyImage>}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof apiV1ManufacturerCompanyImageCreate>>,
+        TError,
+        {data: NonReadonly<ManufacturerCompanyImage>},
+        TContext
+      > => {
+
+      const mutationOptions = getApiV1ManufacturerCompanyImageCreateMutationOptions(options);
 
       return useMutation(mutationOptions , queryClient);
     }

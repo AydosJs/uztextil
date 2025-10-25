@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { initDataUser } from '@telegram-apps/sdk-react';
+import { isTelegramEnvironment } from '@/utils/environmentUtils';
+import { getMockUserData, getStoredMockUserData, storeMockUserData } from '@/utils/mockTelegramUser';
 
 
 
@@ -26,7 +28,6 @@ export function useTelegramUserData(): TelegramWebAppData {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-
     useEffect(() => {
         let hasData = false;
 
@@ -34,7 +35,29 @@ export function useTelegramUserData(): TelegramWebAppData {
             if (hasData) return; // Prevent multiple calls
 
             try {
-                // Get user data using the React SDK
+                // Check if we're in a web browser environment
+                if (!isTelegramEnvironment()) {
+                    console.log('Web browser environment detected, using mock user data');
+
+                    // Try to get stored mock user data first
+                    const storedData = getStoredMockUserData();
+                    if (storedData) {
+                        setUserData(storedData);
+                        hasData = true;
+                        setIsLoading(false);
+                        return;
+                    }
+
+                    // Generate new mock user data
+                    const mockData = getMockUserData();
+                    setUserData(mockData);
+                    storeMockUserData(mockData); // Store for persistence
+                    hasData = true;
+                    setIsLoading(false);
+                    return;
+                }
+
+                // Get user data using the React SDK (Telegram environment)
                 const user = initDataUser();
 
                 console.log('Raw Telegram user data from React SDK:', user);
@@ -75,7 +98,7 @@ export function useTelegramUserData(): TelegramWebAppData {
         userData,
         isLoading,
         error,
-        platform: 'telegram', // Telegram WebApp platform
+        platform: isTelegramEnvironment() ? 'telegram' : 'web',
         version: '1.0' // Default version
     };
 }

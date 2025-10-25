@@ -6,12 +6,19 @@ import {
     swipeBehavior,
     viewport,
 } from "@telegram-apps/sdk-react";
+import { isTelegramEnvironment } from './environmentUtils';
 
 
 /**
  * Initializes the application and configures its dependencies.
  */
 export async function initSDK(): Promise<string> {
+    // Check if we're in a web browser environment
+    if (!isTelegramEnvironment()) {
+        console.log('Web browser environment detected, skipping Telegram SDK initialization');
+        return "done";
+    }
+
     // Initialize special event handlers for Telegram Desktop, Android, iOS, etc.
     // Also, configure the package.
     init();

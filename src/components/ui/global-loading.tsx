@@ -10,7 +10,7 @@ export function GlobalLoading({
     className
 }: GlobalLoadingProps) {
     return (
-        <div className={`min-h-screen min-w-full safe-area-pt w-full dark flex flex-col items-center justify-center ${className || ''}`}>
+        <div className={`min-h-screen min-w-full bg-background-primary safe-area-pt w-full dark flex flex-col items-center justify-center ${className || ''}`}>
             <Spinner size="lg" />
             <p className="mt-4 text-white">{message}</p>
         </div>

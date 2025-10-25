@@ -38,8 +38,7 @@ import { ServicesRouteGuard, RegistrationRouteGuard } from './components/RouteGu
 import { ScrollToTop } from './components/ScrollToTop'
 // import { DebugPath } from './components/DebugPath'
 import { initEruda } from './utils/eruda.ts'
-import { useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { RouteLogger } from './components/RouteLogger'
 
 // Create a QueryClient instance
 const queryClient = new QueryClient({
@@ -54,31 +53,19 @@ const queryClient = new QueryClient({
   },
 });
 
-// Component to track and log current page
-function RouteLogger() {
-  const location = useLocation();
-
-  useEffect(() => {
-    console.log('📍 Current Page:', location.pathname);
-    console.log('🔍 Full URL:', window.location.href);
-    console.log('📊 Route State:', location.state);
-  }, [location]);
-
-  return null;
-}
 
 // Initialize app
 async function initializeApp() {
   // Initialize Eruda for mobile debugging (development only)
   await initEruda();
 
-  // Initialize the Telegram Mini Apps SDK
+  // Initialize the Telegram Mini Apps SDK (only in Telegram environment)
   await initSDK();
 
-  // Wait for safe area values to be available
+  // Wait for safe area values to be available (handles both Telegram and web)
   await waitForSafeAreaValues();
 
-  // Set safe area CSS properties
+  // Set safe area CSS properties (works for both environments)
   setSafeAreaCSSProperties();
 
   // Render the app

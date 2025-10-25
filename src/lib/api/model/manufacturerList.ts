@@ -5,6 +5,7 @@
  * API for your Django project
  * OpenAPI spec version: v1
  */
+import type { ManufacturerCompanyImage } from './manufacturerCompanyImage';
 
 export interface ManufacturerList {
   readonly id?: number;
@@ -18,4 +19,7 @@ export interface ManufacturerList {
    * @maxLength 255
    */
   full_name: string;
+  /** @nullable */
+  readonly logo?: string | null;
+  images: ManufacturerCompanyImage[];
 }

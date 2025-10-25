@@ -46,7 +46,9 @@
           "label": "Kompaniya logotipi"
         },
         "companyImages": {
-          "label": "Kompaniya rasmlari"
+          "label": "Kompaniya rasmlari",
+          "uploading": "Yuklanmoqda...",
+          "uploaded": "Yuklandi"
         },
         "experience": {
           "label": "Bozorga chiqqaniga qancha bo'lgan",
@@ -481,6 +483,9 @@
         "available": "Mavjud",
         "notAvailable": "Mavjud emas"
       },
+      "companyImages": {
+        "title": "Kompaniya rasmlari"
+      },
       "certificates": {
         "title": "Sertifikatlar",
         "noCertificates": "Sertifikatlar ko'rsatilmagan",
@@ -568,6 +573,9 @@
         "accepted": "Arizangiz qabul qilindi!"
       },
       "loading": "Yuklanmoqda...",
+      "selectOptions": "Variantlarni tanlang...",
+      "searchOptions": "Variantlarni qidirish...",
+      "noOptionsAvailable": "Variantlar mavjud emas",
       "manufacturerDetails": "Fabrika ma'lumotlari",
       "price": "Narxi",
       "priceNotSet": "Narx belgilanmagan",

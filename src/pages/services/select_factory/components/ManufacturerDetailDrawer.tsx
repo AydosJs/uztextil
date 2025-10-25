@@ -27,7 +27,7 @@ export function ManufacturerDetailDrawer({
 
     return (
         <Drawer open={open} onOpenChange={onOpenChange}>
-            <DrawerContent className="max-h-[96vh]">
+            <DrawerContent className="max-h-[99vh]!">
                 <DrawerHeader className="border-b border-border-primary pb-2">
                     <DrawerTitle className="text-white text-left text-xl font-bold">
                         {manufacturer?.company_name}
@@ -38,7 +38,7 @@ export function ManufacturerDetailDrawer({
                     <DrawerClose onClick={handleClose} className="text-white/64 hover:text-white" />
                 </DrawerHeader>
 
-                <div className="px-4 pb-10 pt-6 space-y-6 overflow-y-auto max-h-[96vh]">
+                <div className="px-4 pb-10 pt-6 space-y-6 overflow-y-auto max-h-[99vh]">
                     {isLoading ? (
                         <div className="flex items-center justify-center py-8">
                             <Spinner className="w-8 h-8 text-white" />
@@ -56,6 +56,25 @@ export function ManufacturerDetailDrawer({
                         </div>
                     ) : manufacturerDetail ? (
                         <div className="space-y-6">
+                            {/* Company Logo */}
+                            <div className="flex justify-center">
+                                <div className="w-32 h-32 rounded-2xl bg-brand-primary/13 flex items-center justify-center">
+                                    {manufacturerDetail.logo ? (
+                                        <img
+                                            src={manufacturerDetail.logo}
+                                            alt={`${manufacturerDetail.company_name} logo`}
+                                            className="w-full h-full object-cover rounded-2xl"
+                                        />
+                                    ) : (
+                                        <div className="w-24 h-24 bg-brand-primary/20 rounded-xl flex items-center justify-center">
+                                            <span className="text-brand-primary font-bold text-4xl">
+                                                {manufacturerDetail.company_name?.charAt(0).toUpperCase()}
+                                            </span>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+
                             {/* Company Information */}
                             <div className="space-y-4">
                                 <h3 className="text-white font-bold text-lg">{t('app.manufacturerDetail.companyInfo.title')}</h3>
@@ -79,26 +98,26 @@ export function ManufacturerDetailDrawer({
                                     />
 
                                     {/* Company Name */}
-                                    <div className="bg-background-card/30 border border-border-primary rounded-lg p-4">
-                                        <p className="text-white/64 text-sm mb-1">{t('app.manufacturerDetail.companyInfo.companyName')}</p>
+                                    <div className="space-y-1">
+                                        <p className="text-white/64 text-sm">{t('app.manufacturerDetail.companyInfo.companyName')}</p>
                                         <p className="text-white font-semibold text-lg">{manufacturerDetail.company_name}</p>
                                     </div>
 
                                     {/* Full Name */}
-                                    <div className="bg-background-card/30 border border-border-primary rounded-lg p-4">
-                                        <p className="text-white/64 text-sm mb-1">{t('app.manufacturerDetail.companyInfo.fullName')}</p>
+                                    <div className="space-y-1">
+                                        <p className="text-white/64 text-sm">{t('app.manufacturerDetail.companyInfo.fullName')}</p>
                                         <p className="text-white font-medium">{manufacturerDetail.full_name}</p>
                                     </div>
 
                                     {/* Minimum Order Quantity */}
-                                    <div className="bg-background-card/30 border border-border-primary rounded-lg p-4">
-                                        <p className="text-white/64 text-sm mb-1">{t('app.manufacturerDetail.companyInfo.minOrderQuantity')}</p>
+                                    <div className="space-y-1">
+                                        <p className="text-white/64 text-sm">{t('app.manufacturerDetail.companyInfo.minOrderQuantity')}</p>
                                         <p className="text-white font-medium text-lg">{manufacturerDetail.min_order_quantity}</p>
                                     </div>
 
                                     {/* Product Segments */}
-                                    <div className="bg-background-card/30 border border-border-primary rounded-lg p-4">
-                                        <p className="text-white/64 text-sm mb-3">{t('app.manufacturerDetail.companyInfo.productSegments')}</p>
+                                    <div className="space-y-3">
+                                        <p className="text-white/64 text-sm">{t('app.manufacturerDetail.companyInfo.productSegments')}</p>
                                         {manufacturerDetail.product_segment && manufacturerDetail.product_segment.length > 0 ? (
                                             <div className="flex flex-wrap gap-2">
                                                 {manufacturerDetail.product_segment.map(segment => (
@@ -117,21 +136,51 @@ export function ManufacturerDetailDrawer({
                             {/* Divider */}
                             <div className="border-t border-border-primary my-6"></div>
 
+                            {/* Company Images */}
+                            {manufacturerDetail.images && manufacturerDetail.images.length > 0 && (
+                                <>
+                                    <div className="space-y-4">
+                                        <h3 className="text-white font-bold text-lg">{t('app.manufacturerDetail.companyImages.title')}</h3>
+
+                                        <div className="grid grid-cols-2 gap-3">
+                                            {manufacturerDetail.images.map((image, index) => (
+                                                <div key={image.id || index} className="aspect-square rounded-lg overflow-hidden bg-brand-primary/13">
+                                                    {image.image ? (
+                                                        <img
+                                                            src={image.image}
+                                                            alt={`${manufacturerDetail.company_name} image ${index + 1}`}
+                                                            className="w-full h-full object-cover"
+                                                        />
+                                                    ) : (
+                                                        <div className="w-full h-full flex items-center justify-center">
+                                                            <span className="text-brand-primary/50 text-sm">No image</span>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Divider */}
+                                    <div className="border-t border-border-primary my-6"></div>
+                                </>
+                            )}
+
                             {/* Contact Information */}
                             <div className="space-y-4">
                                 <h3 className="text-white font-bold text-lg">{t('app.manufacturerDetail.contactInfo.title')}</h3>
 
                                 <div className="space-y-4">
                                     {/* Office Address */}
-                                    <div className="bg-background-card/30 border border-border-primary rounded-lg p-4">
-                                        <p className="text-white/64 text-sm mb-1">{t('app.manufacturerDetail.contactInfo.officeAddress')}</p>
+                                    <div className="space-y-1">
+                                        <p className="text-white/64 text-sm">{t('app.manufacturerDetail.contactInfo.officeAddress')}</p>
                                         <p className="text-white font-medium">{manufacturerDetail.office_address}</p>
                                     </div>
 
                                     {/* Website */}
                                     {manufacturerDetail.website && (
-                                        <div className="bg-background-card/30 border border-border-primary rounded-lg p-4">
-                                            <p className="text-white/64 text-sm mb-1">{t('app.manufacturerDetail.contactInfo.website')}</p>
+                                        <div className="space-y-1">
+                                            <p className="text-white/64 text-sm">{t('app.manufacturerDetail.contactInfo.website')}</p>
                                             <a
                                                 href={manufacturerDetail.website.startsWith('http') ? manufacturerDetail.website : `https://${manufacturerDetail.website}`}
                                                 target="_blank"
@@ -154,14 +203,14 @@ export function ManufacturerDetailDrawer({
 
                                 <div className="space-y-4">
                                     {/* Employee Count */}
-                                    <div className="bg-background-card/30 border border-border-primary rounded-lg p-4">
-                                        <p className="text-white/64 text-sm mb-1">{t('app.manufacturerDetail.businessInfo.employeeCount')}</p>
+                                    <div className="space-y-1">
+                                        <p className="text-white/64 text-sm">{t('app.manufacturerDetail.businessInfo.employeeCount')}</p>
                                         <p className="text-white font-semibold text-lg">{manufacturerDetail.employee_count.toLocaleString()}</p>
                                     </div>
 
                                     {/* CRM System */}
-                                    <div className="bg-background-card/30 border border-border-primary rounded-lg p-4">
-                                        <p className="text-white/64 text-sm mb-1">{t('app.manufacturerDetail.businessInfo.crmSystem')}</p>
+                                    <div className="space-y-1">
+                                        <p className="text-white/64 text-sm">{t('app.manufacturerDetail.businessInfo.crmSystem')}</p>
                                         <div className="flex items-center gap-2">
                                             <div className={`w-2 h-2 rounded-full ${manufacturerDetail.has_crm ? 'bg-green-500' : 'bg-red-500'}`}></div>
                                             <p className="text-white font-medium">
@@ -179,10 +228,10 @@ export function ManufacturerDetailDrawer({
                             <div className="space-y-4">
                                 <h3 className="text-white font-bold text-lg">{t('app.manufacturerDetail.certificates.title')}</h3>
 
-                                <div className="space-y-4">
+                                <div className="space-y-6">
                                     {manufacturerDetail.sertificates && manufacturerDetail.sertificates.length > 0 ? (
                                         manufacturerDetail.sertificates.map((certificate, index) => (
-                                            <div key={certificate.id || index} className="bg-background-card/50 border border-border-primary rounded-lg p-4 space-y-3">
+                                            <div key={certificate.id || index} className="space-y-3">
                                                 <div className="flex items-center justify-between">
                                                     <h4 className="text-white font-medium">{t('app.manufacturerDetail.certificates.certificate')} #{index + 1}</h4>
                                                     {certificate.certificate && (
@@ -199,7 +248,7 @@ export function ManufacturerDetailDrawer({
 
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                                     {certificate.certificate_received_date && (
-                                                        <div>
+                                                        <div className="space-y-1">
                                                             <p className="text-white/64 text-sm">{t('app.manufacturerDetail.certificates.receivedDate')}</p>
                                                             <p className="text-white font-medium">
                                                                 {new Date(certificate.certificate_received_date).toLocaleDateString()}
@@ -208,7 +257,7 @@ export function ManufacturerDetailDrawer({
                                                     )}
 
                                                     {certificate.certificate_expiration_date && (
-                                                        <div>
+                                                        <div className="space-y-1">
                                                             <p className="text-white/64 text-sm">{t('app.manufacturerDetail.certificates.expirationDate')}</p>
                                                             <p className="text-white font-medium">
                                                                 {new Date(certificate.certificate_expiration_date).toLocaleDateString()}
