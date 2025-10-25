@@ -67,7 +67,7 @@
           "placeholder": "1 тонна"
         },
         "productSegment": {
-          "label": "Сегмент продукта",
+          "label": "Категории продукции",
           "placeholder": "Тип сегмента"
         },
         "commercialOffer": {
@@ -462,8 +462,8 @@
         "placeholder": "Поиск по названию фабрики, компании или должности..."
       },
       "productSegment": {
-        "label": "Сегмент продукта",
-        "placeholder": "Введите сегмент продукта..."
+        "label": "Категории продукции",
+        "placeholder": "Введите категории продукции..."
       },
       "minOrderQuantity": {
         "label": "Минимальный объем заказа",
