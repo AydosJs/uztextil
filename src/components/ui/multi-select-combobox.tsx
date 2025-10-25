@@ -137,7 +137,7 @@ export const MultiSelectCombobox = React.forwardRef<
                             ))}
                             {selectedOptions.length > maxDisplayCount && (
                                 <span className="text-text-primary/60 text-sm">
-                                    +{selectedOptions.length - maxDisplayCount} more
+                                    +{selectedOptions.length - maxDisplayCount} {t('app.common.more')}
                                 </span>
                             )}
                         </div>

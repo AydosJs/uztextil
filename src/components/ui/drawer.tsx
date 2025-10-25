@@ -45,23 +45,36 @@ function DrawerOverlay({
     )
 }
 
+interface DrawerContentProps extends React.ComponentProps<typeof DrawerPrimitive.Content> {
+    fullHeight?: boolean;
+    fitHeight?: boolean;
+}
+
 function DrawerContent({
     className,
     children,
+    fullHeight = false,
+    fitHeight = false,
     ...props
-}: React.ComponentProps<typeof DrawerPrimitive.Content>) {
+}: DrawerContentProps) {
     return (
         <DrawerPortal data-slot="drawer-portal">
             <DrawerOverlay />
             <DrawerPrimitive.Content
                 data-slot="drawer-content"
                 className={cn(
-                    "group/drawer-content bg-background-primary fixed z-50 flex h-auto flex-col",
+                    "group/drawer-content bg-background-primary fixed z-50 flex flex-col",
                     "focus:outline-none focus-visible:outline-none focus-visible:ring-0",
-                    "data-[vaul-drawer-direction=top]:inset-x-0 data-[vaul-drawer-direction=top]:top-0 data-[vaul-drawer-direction=top]:mb-24 data-[vaul-drawer-direction=top]:max-h-[80vh] data-[vaul-drawer-direction=top]:rounded-b-lg data-[vaul-drawer-direction=top]:border-b data-[vaul-drawer-direction=top]:border-border-primary",
-                    "data-[vaul-drawer-direction=bottom]:inset-x-0 data-[vaul-drawer-direction=bottom]:bottom-0 data-[vaul-drawer-direction=bottom]:mt-24 data-[vaul-drawer-direction=bottom]:max-h-[80vh] data-[vaul-drawer-direction=bottom]:rounded-t-lg data-[vaul-drawer-direction=bottom]:border-t data-[vaul-drawer-direction=bottom]:border-border-primary",
+                    // Height control
+                    fullHeight ? "h-[calc(100vh-env(safe-area-inset-top)-theme(spacing.16)-40px)]" : fitHeight ? "h-auto" : "h-auto",
+                    "data-[vaul-drawer-direction=top]:inset-x-0 data-[vaul-drawer-direction=top]:top-0 data-[vaul-drawer-direction=top]:mb-24 data-[vaul-drawer-direction=top]:rounded-b-lg data-[vaul-drawer-direction=top]:border-b data-[vaul-drawer-direction=top]:border-border-primary",
+                    "data-[vaul-drawer-direction=bottom]:inset-x-0 data-[vaul-drawer-direction=bottom]:bottom-0 data-[vaul-drawer-direction=bottom]:mt-24 data-[vaul-drawer-direction=bottom]:rounded-t-lg data-[vaul-drawer-direction=bottom]:border-t data-[vaul-drawer-direction=bottom]:border-border-primary",
                     "data-[vaul-drawer-direction=right]:inset-y-0 data-[vaul-drawer-direction=right]:right-0 data-[vaul-drawer-direction=right]:w-3/4 data-[vaul-drawer-direction=right]:border-l data-[vaul-drawer-direction=right]:border-border-primary data-[vaul-drawer-direction=right]:sm:max-w-sm",
                     "data-[vaul-drawer-direction=left]:inset-y-0 data-[vaul-drawer-direction=left]:left-0 data-[vaul-drawer-direction=left]:w-3/4 data-[vaul-drawer-direction=left]:border-r data-[vaul-drawer-direction=left]:border-border-primary data-[vaul-drawer-direction=left]:sm:max-w-sm",
+                    // Override max-height for full height
+                    fullHeight && "data-[vaul-drawer-direction=top]:max-h-screen data-[vaul-drawer-direction=bottom]:max-h-screen",
+                    // Default max-height when not full height
+                    !fullHeight && "data-[vaul-drawer-direction=top]:max-h-[80vh] data-[vaul-drawer-direction=bottom]:max-h-[80vh]",
                     className
                 )}
                 {...props}

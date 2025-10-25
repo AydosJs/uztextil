@@ -27,18 +27,26 @@ export function ManufacturerDetailDrawer({
 
     return (
         <Drawer open={open} onOpenChange={onOpenChange}>
-            <DrawerContent className="max-h-[99vh]!">
+            <DrawerContent fullHeight>
                 <DrawerHeader className="border-b border-border-primary pb-2">
-                    <DrawerTitle className="text-white text-left text-xl font-bold">
-                        {manufacturer?.company_name}
-                    </DrawerTitle>
-                    <DrawerDescription className="text-white/64 text-left">
-                        {manufacturer?.full_name}
-                    </DrawerDescription>
-                    <DrawerClose onClick={handleClose} className="text-white/64 hover:text-white" />
+                    <div className="flex items-start justify-between">
+                        <div className="flex-1 min-w-0">
+                            <DrawerTitle className="text-white text-left text-xl font-bold">
+                                {manufacturer?.company_name}
+                            </DrawerTitle>
+                            <DrawerDescription className="text-white/64 text-left">
+                                {manufacturer?.full_name}
+                            </DrawerDescription>
+                        </div>
+                        <DrawerClose onClick={handleClose} className="text-white/64 hover:text-white p-2 hover:bg-white/10 rounded-lg transition-colors flex-shrink-0 ml-4">
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </DrawerClose>
+                    </div>
                 </DrawerHeader>
 
-                <div className="px-4 pb-10 pt-6 space-y-6 overflow-y-auto max-h-[99vh]">
+                <div className="px-4 pb-10 pt-6 space-y-6 overflow-y-auto ">
                     {isLoading ? (
                         <div className="flex items-center justify-center py-8">
                             <Spinner className="w-8 h-8 text-white" />
@@ -212,7 +220,6 @@ export function ManufacturerDetailDrawer({
                                     <div className="space-y-1">
                                         <p className="text-white/64 text-sm">{t('app.manufacturerDetail.businessInfo.crmSystem')}</p>
                                         <div className="flex items-center gap-2">
-                                            <div className={`w-2 h-2 rounded-full ${manufacturerDetail.has_crm ? 'bg-green-500' : 'bg-red-500'}`}></div>
                                             <p className="text-white font-medium">
                                                 {manufacturerDetail.has_crm ? t('app.manufacturerDetail.businessInfo.available') : t('app.manufacturerDetail.businessInfo.notAvailable')}
                                             </p>
@@ -225,51 +232,77 @@ export function ManufacturerDetailDrawer({
                             <div className="border-t border-border-primary my-6"></div>
 
                             {/* Certificates */}
-                            <div className="space-y-4">
-                                <h3 className="text-white font-bold text-lg">{t('app.manufacturerDetail.certificates.title')}</h3>
+                            <div className="space-y-6">
+                                <div className="flex items-center space-x-3">
+                                    <h3 className="text-white font-bold text-lg">{t('app.manufacturerDetail.certificates.title')}</h3>
+                                </div>
 
-                                <div className="space-y-6">
+                                <div className="space-y-4">
                                     {manufacturerDetail.sertificates && manufacturerDetail.sertificates.length > 0 ? (
                                         manufacturerDetail.sertificates.map((certificate, index) => (
-                                            <div key={certificate.id || index} className="space-y-3">
-                                                <div className="flex items-center justify-between">
-                                                    <h4 className="text-white font-medium">{t('app.manufacturerDetail.certificates.certificate')} #{index + 1}</h4>
+                                            <div key={certificate.id || index} className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:bg-white/10 transition-all duration-200">
+                                                <div className="flex items-start justify-between mb-4">
+                                                    <div className="flex items-center space-x-3">
+                                                        <div>
+                                                            <h4 className="text-white font-semibold">{t('app.manufacturerDetail.certificates.certificate')} #{index + 1}</h4>
+                                                        </div>
+                                                    </div>
                                                     {certificate.certificate && (
                                                         <a
                                                             href={certificate.certificate}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
-                                                            className="text-brand-primary hover:text-brand-primary/80 text-sm font-medium underline"
+                                                            className="inline-flex items-center space-x-2 bg-brand-primary/20 hover:bg-brand-primary/30 text-brand-primary px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:scale-105"
                                                         >
-                                                            {t('app.manufacturerDetail.certificates.certificate')}
+                                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                                            </svg>
                                                         </a>
                                                     )}
                                                 </div>
 
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                                <div className="flex gap-2">
                                                     {certificate.certificate_received_date && (
-                                                        <div className="space-y-1">
-                                                            <p className="text-white/64 text-sm">{t('app.manufacturerDetail.certificates.receivedDate')}</p>
-                                                            <p className="text-white font-medium">
-                                                                {new Date(certificate.certificate_received_date).toLocaleDateString()}
-                                                            </p>
+                                                        <div className="w-1/2 bg-white/5 rounded-md px-2 py-1.5 border border-white/5 flex items-center space-x-1.5">
+                                                            <div className="min-w-0">
+                                                                <p className="text-white/60 text-xs font-medium uppercase tracking-wide truncate">{t('app.manufacturerDetail.certificates.receivedDate')}</p>
+                                                                <p className="text-white font-semibold text-xs truncate">
+                                                                    {new Date(certificate.certificate_received_date).toLocaleDateString('en-US', {
+                                                                        year: 'numeric',
+                                                                        month: 'short',
+                                                                        day: 'numeric'
+                                                                    })}
+                                                                </p>
+                                                            </div>
                                                         </div>
                                                     )}
 
                                                     {certificate.certificate_expiration_date && (
-                                                        <div className="space-y-1">
-                                                            <p className="text-white/64 text-sm">{t('app.manufacturerDetail.certificates.expirationDate')}</p>
-                                                            <p className="text-white font-medium">
-                                                                {new Date(certificate.certificate_expiration_date).toLocaleDateString()}
-                                                            </p>
+                                                        <div className="w-1/2 bg-white/5 rounded-md px-2 py-1.5 border border-white/5 flex items-center space-x-1.5">
+
+                                                            <div className="min-w-0">
+                                                                <p className="text-white/60 text-xs font-medium uppercase tracking-wide truncate">{t('app.manufacturerDetail.certificates.expirationDate')}</p>
+                                                                <p className="text-white font-semibold text-xs truncate">
+                                                                    {new Date(certificate.certificate_expiration_date).toLocaleDateString('en-US', {
+                                                                        year: 'numeric',
+                                                                        month: 'short',
+                                                                        day: 'numeric'
+                                                                    })}
+                                                                </p>
+                                                            </div>
                                                         </div>
                                                     )}
                                                 </div>
                                             </div>
                                         ))
                                     ) : (
-                                        <div className="text-center py-6">
-                                            <p className="text-text-tertiary text-sm">{t('app.manufacturerDetail.certificates.noCertificates')}</p>
+                                        <div className="text-center py-12">
+                                            <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-4">
+                                                <svg className="w-8 h-8 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                                </svg>
+                                            </div>
+                                            <p className="text-white/60 text-sm">{t('app.manufacturerDetail.certificates.noCertificates')}</p>
                                         </div>
                                     )}
                                 </div>
