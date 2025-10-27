@@ -43,7 +43,7 @@
           "placeholder": "CapsLock Development"
         },
         "logo": {
-          "label": "Логотип компании"
+          "label": "Логотип"
         },
         "companyImages": {
           "label": "Фотографии компании",
@@ -55,7 +55,7 @@
           "placeholder": "2 года"
         },
         "fullName": {
-          "label": "Ф.И.О",
+          "label": "Ф.И.О учредителя",
           "placeholder": "Алмамедов Хаким"
         },
         "position": {
@@ -145,7 +145,7 @@
           "placeholder": "(наличие иностранных специалистов и т.д.)"
         },
         "phone": {
-          "label": "Ваш номер телефона",
+          "label": "Номер учредителя",
           "placeholder": "+998"
         },
         "fileUpload": {
