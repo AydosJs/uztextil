@@ -62,8 +62,8 @@ function CustomerRegisterForm() {
 
     // Transform segments data for MultiSelectCombobox
     const segmentOptions: MultiSelectOption[] = useMemo(() => {
-        if (!segmentsData) return []
-        return segmentsData.map(segment => ({
+        if (!segmentsData || !segmentsData.results) return []
+        return segmentsData.results.map(segment => ({
             id: segment.id || 0,
             label: segment.title,
             value: segment.id?.toString() || '0'

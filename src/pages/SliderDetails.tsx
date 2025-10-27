@@ -14,7 +14,7 @@ export default function SliderDetails() {
     useTelegramBackButton({ onBack: () => navigate(-1) })
 
     // Find the specific slider by ID
-    const slider = sliders?.find(s => s.id === Number(id))
+    const slider = sliders?.results?.find(s => s.id === Number(id))
 
 
     if (isLoading) {

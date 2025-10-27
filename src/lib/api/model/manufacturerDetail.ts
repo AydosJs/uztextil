@@ -29,6 +29,11 @@ export interface ManufacturerDetail {
    */
   full_name: string;
   /**
+   * @maxLength 255
+   * @nullable
+   */
+  addition_fio?: string | null;
+  /**
    * @minLength 1
    * @maxLength 100
    */

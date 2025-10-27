@@ -39,7 +39,7 @@ export function FilterDrawer({
     const { data: segmentsData, isLoading: segmentsLoading } = useApiV1SegmentListList()
 
     // Transform segments data for MultiSelectCombobox
-    const segmentOptions: MultiSelectOption[] = segmentsData?.map(segment => ({
+    const segmentOptions: MultiSelectOption[] = segmentsData?.results?.map(segment => ({
         id: segment.id || 0,
         label: segment.title || '',
         value: segment.id?.toString() || '0'

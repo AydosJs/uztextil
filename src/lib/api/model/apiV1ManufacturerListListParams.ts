@@ -15,4 +15,12 @@ search?: string;
  * Which field to use when ordering the results.
  */
 ordering?: string;
+/**
+ * Number of results to return per page.
+ */
+limit?: number;
+/**
+ * The initial index from which to return the results.
+ */
+offset?: number;
 };

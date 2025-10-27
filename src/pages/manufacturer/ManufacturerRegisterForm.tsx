@@ -27,10 +27,12 @@ const manufacturerRegisterSchema = z.object({
     companyImageIds: z.array(z.number()).optional(), // Company image IDs - optional array of numbers
     experience: z.string().min(1, ""),
     fullName: z.string().min(1, ""),
+    addition_fio: z.string().min(1, ""),
     position: z.string().min(1, ""),
     minOrder: z.string().min(1, ""),
     productSegment: z.array(z.number()).min(1, ""),
-    commercialOffer: z.string().min(1, ""),
+    commercialOfferText: z.string().min(1, ""),
+    commercialOffer: z.any().optional(), // Commercial offer PDF file - optional for now
     productionAddress: z.string().min(1, ""),
     officeAddress: z.string().min(1, ""),
     website: z.string().min(1, ""),
@@ -98,8 +100,8 @@ function ManufacturerRegisterForm() {
 
     // Transform segments data for MultiSelectCombobox
     const segmentOptions: MultiSelectOption[] = useMemo(() => {
-        if (!segmentsData) return []
-        return segmentsData.map(segment => ({
+        if (!segmentsData || !segmentsData.results) return []
+        return segmentsData.results.map(segment => ({
             id: segment.id || 0,
             label: segment.title,
             value: segment.id?.toString() || '0'
@@ -121,9 +123,10 @@ function ManufacturerRegisterForm() {
             formData.append('company_name', data.companyName)
             formData.append('market_experience', data.experience)
             formData.append('full_name', data.fullName || '')
+            formData.append('addition_fio', data.addition_fio || '')
             formData.append('position', data.position || '')
             formData.append('min_order_quantity', data.minOrder || '')
-            formData.append('commercial_offer_text', data.commercialOffer || '')
+            formData.append('commercial_offer_text', data.commercialOfferText || '')
             formData.append('production_address', data.productionAddress || '')
             formData.append('office_address', data.officeAddress || '')
             formData.append('website', data.website || '')
@@ -167,6 +170,14 @@ function ManufacturerRegisterForm() {
                 console.log('Logo file added to FormData:', data.logo.name, data.logo.size, data.logo.type)
             } else {
                 console.log('No logo file or invalid file:', data.logo)
+            }
+
+            // Add commercial offer PDF file if present
+            if (data.commercialOffer && data.commercialOffer instanceof File) {
+                formData.append('commercial_offer', data.commercialOffer)
+                console.log('Commercial offer PDF added to FormData:', data.commercialOffer.name, data.commercialOffer.size, data.commercialOffer.type)
+            } else {
+                console.log('No commercial offer PDF file or invalid file:', data.commercialOffer)
             }
 
             // Call the API with FormData using customInstance
@@ -299,6 +310,18 @@ function ManufacturerRegisterForm() {
                         />
                     </div>
 
+                    {/* Addition FIO */}
+                    <div className="space-y-2">
+                        <Label className="text-white text-sm font-medium" required>
+                            {t('app.buyurtmachi.registerForm.addition_fio.label')}
+                        </Label>
+                        <CustomInput
+                            placeholder={t('app.buyurtmachi.registerForm.addition_fio.placeholder')}
+                            error={errors.addition_fio?.message}
+                            {...register('addition_fio')}
+                        />
+                    </div>
+
                     {/* Position */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium" required>
@@ -340,16 +363,35 @@ function ManufacturerRegisterForm() {
                         />
                     </div>
 
-                    {/* Commercial Offer */}
+                    {/* Commercial Offer Text */}
+                    <div className="space-y-2">
+                        <Label className="text-white text-sm font-medium" required>
+                            {t('app.buyurtmachi.registerForm.commercialOfferText.label')}
+                        </Label>
+                        <CustomInput
+                            placeholder={t('app.buyurtmachi.registerForm.commercialOfferText.placeholder')}
+                            error={errors.commercialOfferText?.message}
+                            {...register('commercialOfferText')}
+                        />
+                    </div>
+
+                    {/* Commercial Offer PDF */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium" required>
                             {t('app.buyurtmachi.registerForm.commercialOffer.label')}
                         </Label>
-                        <CustomInput
-                            placeholder={t('app.buyurtmachi.registerForm.commercialOffer.placeholder')}
-                            error={errors.commercialOffer?.message}
-                            {...register('commercialOffer')}
+                        <SingleFileUploader
+                            label=""
+                            onFileChange={(file) => {
+                                setValue('commercialOffer', file, { shouldValidate: false, shouldDirty: false })
+                            }}
+                            accept="application/pdf"
                         />
+                        {errors.commercialOffer && (
+                            <p className="text-red-500 text-sm mt-1">
+                                {String(errors.commercialOffer.message)}
+                            </p>
+                        )}
                     </div>
 
                     {/* Production Address */}

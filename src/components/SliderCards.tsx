@@ -51,12 +51,12 @@ export const SliderCards = ({ className }: SliderCardsProps) => {
         )
     }
 
-    if (error || !sliders) {
+    if (error || !sliders || !sliders.results) {
         return null // Don't show anything if there's an error or no data
     }
 
     // Filter out sliders that don't have valid image URLs or are not active
-    const validSliders = sliders.filter(slider =>
+    const validSliders = sliders.results.filter(slider =>
         slider.is_active &&
         isValidUrl(slider.image)
     )

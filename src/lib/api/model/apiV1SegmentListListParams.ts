@@ -11,4 +11,12 @@ export type ApiV1SegmentListListParams = {
  * A search term.
  */
 search?: string;
+/**
+ * Number of results to return per page.
+ */
+limit?: number;
+/**
+ * The initial index from which to return the results.
+ */
+offset?: number;
 };

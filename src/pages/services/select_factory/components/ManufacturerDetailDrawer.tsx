@@ -144,6 +144,56 @@ export function ManufacturerDetailDrawer({
                             {/* Divider */}
                             <div className="border-t border-border-primary my-6"></div>
 
+                            {/* Commercial Offer */}
+                            {manufacturerDetail.commercial_offer && (
+                                <>
+                                    <div className="space-y-4">
+                                        <h3 className="text-white font-bold text-lg">{t('app.manufacturerDetail.commercialOffer.title')}</h3>
+
+                                        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:bg-white/10 transition-all duration-200">
+                                            <div className="flex items-center justify-between">
+                                                <div className="flex items-center space-x-3">
+                                                    <div className="w-12 h-12 bg-brand-primary/20 rounded-lg flex items-center justify-center">
+                                                        <svg className="w-6 h-6 text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                                        </svg>
+                                                    </div>
+                                                    <div>
+                                                        <h4 className="text-white font-semibold">{t('app.manufacturerDetail.commercialOffer.document')}</h4>
+                                                        <p className="text-white/60 text-sm">{t('app.manufacturerDetail.commercialOffer.description')}</p>
+                                                    </div>
+                                                </div>
+                                                <a
+                                                    href={manufacturerDetail.commercial_offer}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    download
+                                                    className="inline-flex items-center space-x-2 bg-brand-primary/20 hover:bg-brand-primary/30 text-brand-primary px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:scale-105"
+                                                >
+                                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                                    </svg>
+                                                    <span>{t('app.manufacturerDetail.commercialOffer.download')}</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Commercial Offer Text */}
+                                    {manufacturerDetail.commercial_offer_text && (
+                                        <div className="space-y-1">
+                                            <p className="text-white/64 text-sm">{t('app.manufacturerDetail.commercialOffer.textTitle')}</p>
+                                            <p className="text-white font-medium whitespace-pre-wrap">
+                                                {manufacturerDetail.commercial_offer_text}
+                                            </p>
+                                        </div>
+                                    )}
+
+                                    {/* Divider */}
+                                    <div className="border-t border-border-primary my-6"></div>
+                                </>
+                            )}
+
                             {/* Company Images */}
                             {manufacturerDetail.images && manufacturerDetail.images.length > 0 && (
                                 <>

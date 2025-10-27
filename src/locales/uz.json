@@ -58,6 +58,10 @@
           "label": "F.I.SH",
           "placeholder": "Almamedov Khakim"
         },
+        "addition_fio": {
+          "label": "Qo'shimcha F.I.SH",
+          "placeholder": "Almamedov Khakim"
+        },
         "position": {
           "label": "Lavozimi",
           "placeholder": "Direktor o'rinbosari"
@@ -71,9 +75,13 @@
           "placeholder": "Mahsulot segmentlarini tanlang",
           "selected": "Tanlangan segmentlar: {{count}}"
         },
+        "commercialOfferText": {
+          "label": "Tijorat taklifi (matn)",
+          "placeholder": "Tijorat taklifi tavsifini kiriting"
+        },
         "commercialOffer": {
-          "label": "Tijorat taklifi",
-          "placeholder": "Taklifni kiriting"
+          "label": "Tijorat taklifi (PDF)",
+          "placeholder": "Tijorat taklifi PDF faylini yuklang"
         },
         "productionAddress": {
           "label": "Ishlab chiqarish manzili",
@@ -485,6 +493,13 @@
       },
       "companyImages": {
         "title": "Kompaniya rasmlari"
+      },
+      "commercialOffer": {
+        "title": "Savdo taklifi",
+        "document": "Savdo taklifi",
+        "description": "Savdo taklifi bilan PDF hujjat",
+        "download": "Yuklab olish",
+        "textTitle": "Taklif tavsifi"
       },
       "certificates": {
         "title": "Sertifikatlar",

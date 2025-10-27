@@ -25,28 +25,32 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
-  AdditionalService,
+  ApiV1ApplicationListList200,
+  ApiV1ApplicationListListParams,
+  ApiV1ContactSettingsContactSettingsList200,
+  ApiV1ContactSettingsContactSettingsListParams,
+  ApiV1ManufacturerListList200,
   ApiV1ManufacturerListListParams,
+  ApiV1OfferListList200,
+  ApiV1OfferListListParams,
+  ApiV1PackageListList200,
   ApiV1PackageListListParams,
+  ApiV1SegmentListList200,
   ApiV1SegmentListListParams,
+  ApiV1ServiceListList200,
   ApiV1ServiceListListParams,
+  ApiV1SliderListList200,
   ApiV1SliderListListParams,
   ApplicationCreate,
-  ApplicationList,
-  ContactSettings,
   CustomerCreate,
   ManufacturerCertificate,
   ManufacturerCompanyImage,
   ManufacturerCreate,
   ManufacturerDetail,
-  ManufacturerList,
-  OfferList,
   OfferUpdate,
   OfferUpdateBody,
   PackageDetail,
-  PackageList,
-  SegmentList,
-  Slider,
+  TransactionCreate,
   UserApply
 } from '.././model';
 
@@ -232,33 +236,34 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
       return useMutation(mutationOptions , queryClient);
     }
     export const apiV1ApplicationListList = (
-    
+    params?: ApiV1ApplicationListListParams,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
       
       
-      return customInstance<ApplicationList[]>(
-      {url: `/api/v1/application/list/`, method: 'GET', signal
+      return customInstance<ApiV1ApplicationListList200>(
+      {url: `/api/v1/application/list/`, method: 'GET',
+        params, signal
     },
       options);
     }
   
 
-export const getApiV1ApplicationListListQueryKey = () => {
-    return [`/api/v1/application/list/`] as const;
+export const getApiV1ApplicationListListQueryKey = (params?: ApiV1ApplicationListListParams,) => {
+    return [`/api/v1/application/list/`, ...(params ? [params]: [])] as const;
     }
 
     
-export const getApiV1ApplicationListListQueryOptions = <TData = Awaited<ReturnType<typeof apiV1ApplicationListList>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1ApplicationListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getApiV1ApplicationListListQueryOptions = <TData = Awaited<ReturnType<typeof apiV1ApplicationListList>>, TError = unknown>(params?: ApiV1ApplicationListListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1ApplicationListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getApiV1ApplicationListListQueryKey();
+  const queryKey =  queryOptions?.queryKey ?? getApiV1ApplicationListListQueryKey(params);
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiV1ApplicationListList>>> = ({ signal }) => apiV1ApplicationListList(requestOptions, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiV1ApplicationListList>>> = ({ signal }) => apiV1ApplicationListList(params, requestOptions, signal);
 
       
 
@@ -272,7 +277,7 @@ export type ApiV1ApplicationListListQueryError = unknown
 
 
 export function useApiV1ApplicationListList<TData = Awaited<ReturnType<typeof apiV1ApplicationListList>>, TError = unknown>(
-  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1ApplicationListList>>, TError, TData>> & Pick<
+ params: undefined |  ApiV1ApplicationListListParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1ApplicationListList>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof apiV1ApplicationListList>>,
           TError,
@@ -282,7 +287,7 @@ export function useApiV1ApplicationListList<TData = Awaited<ReturnType<typeof ap
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useApiV1ApplicationListList<TData = Awaited<ReturnType<typeof apiV1ApplicationListList>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1ApplicationListList>>, TError, TData>> & Pick<
+ params?: ApiV1ApplicationListListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1ApplicationListList>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof apiV1ApplicationListList>>,
           TError,
@@ -292,16 +297,16 @@ export function useApiV1ApplicationListList<TData = Awaited<ReturnType<typeof ap
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useApiV1ApplicationListList<TData = Awaited<ReturnType<typeof apiV1ApplicationListList>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1ApplicationListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ params?: ApiV1ApplicationListListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1ApplicationListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
 export function useApiV1ApplicationListList<TData = Awaited<ReturnType<typeof apiV1ApplicationListList>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1ApplicationListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ params?: ApiV1ApplicationListListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1ApplicationListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient 
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getApiV1ApplicationListListQueryOptions(options)
+  const queryOptions = getApiV1ApplicationListListQueryOptions(params,options)
 
   const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -424,33 +429,34 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
       return useMutation(mutationOptions , queryClient);
     }
     export const apiV1ContactSettingsContactSettingsList = (
-    
+    params?: ApiV1ContactSettingsContactSettingsListParams,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
       
       
-      return customInstance<ContactSettings[]>(
-      {url: `/api/v1/contact-settings/contact-settings/`, method: 'GET', signal
+      return customInstance<ApiV1ContactSettingsContactSettingsList200>(
+      {url: `/api/v1/contact-settings/contact-settings/`, method: 'GET',
+        params, signal
     },
       options);
     }
   
 
-export const getApiV1ContactSettingsContactSettingsListQueryKey = () => {
-    return [`/api/v1/contact-settings/contact-settings/`] as const;
+export const getApiV1ContactSettingsContactSettingsListQueryKey = (params?: ApiV1ContactSettingsContactSettingsListParams,) => {
+    return [`/api/v1/contact-settings/contact-settings/`, ...(params ? [params]: [])] as const;
     }
 
     
-export const getApiV1ContactSettingsContactSettingsListQueryOptions = <TData = Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getApiV1ContactSettingsContactSettingsListQueryOptions = <TData = Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>, TError = unknown>(params?: ApiV1ContactSettingsContactSettingsListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getApiV1ContactSettingsContactSettingsListQueryKey();
+  const queryKey =  queryOptions?.queryKey ?? getApiV1ContactSettingsContactSettingsListQueryKey(params);
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>> = ({ signal }) => apiV1ContactSettingsContactSettingsList(requestOptions, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>> = ({ signal }) => apiV1ContactSettingsContactSettingsList(params, requestOptions, signal);
 
       
 
@@ -464,7 +470,7 @@ export type ApiV1ContactSettingsContactSettingsListQueryError = unknown
 
 
 export function useApiV1ContactSettingsContactSettingsList<TData = Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>, TError = unknown>(
-  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>, TError, TData>> & Pick<
+ params: undefined |  ApiV1ContactSettingsContactSettingsListParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>,
           TError,
@@ -474,7 +480,7 @@ export function useApiV1ContactSettingsContactSettingsList<TData = Awaited<Retur
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useApiV1ContactSettingsContactSettingsList<TData = Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>, TError, TData>> & Pick<
+ params?: ApiV1ContactSettingsContactSettingsListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>,
           TError,
@@ -484,16 +490,16 @@ export function useApiV1ContactSettingsContactSettingsList<TData = Awaited<Retur
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useApiV1ContactSettingsContactSettingsList<TData = Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ params?: ApiV1ContactSettingsContactSettingsListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
 export function useApiV1ContactSettingsContactSettingsList<TData = Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ params?: ApiV1ContactSettingsContactSettingsListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1ContactSettingsContactSettingsList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient 
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getApiV1ContactSettingsContactSettingsListQueryOptions(options)
+  const queryOptions = getApiV1ContactSettingsContactSettingsListQueryOptions(params,options)
 
   const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -823,7 +829,7 @@ export const apiV1ManufacturerListList = (
 ) => {
       
       
-      return customInstance<ManufacturerList[]>(
+      return customInstance<ApiV1ManufacturerListList200>(
       {url: `/api/v1/manufacturer/list/`, method: 'GET',
         params, signal
     },
@@ -900,33 +906,34 @@ export function useApiV1ManufacturerListList<TData = Awaited<ReturnType<typeof a
 
 
 export const apiV1OfferListList = (
-    
+    params?: ApiV1OfferListListParams,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
       
       
-      return customInstance<OfferList[]>(
-      {url: `/api/v1/offer/list/`, method: 'GET', signal
+      return customInstance<ApiV1OfferListList200>(
+      {url: `/api/v1/offer/list/`, method: 'GET',
+        params, signal
     },
       options);
     }
   
 
-export const getApiV1OfferListListQueryKey = () => {
-    return [`/api/v1/offer/list/`] as const;
+export const getApiV1OfferListListQueryKey = (params?: ApiV1OfferListListParams,) => {
+    return [`/api/v1/offer/list/`, ...(params ? [params]: [])] as const;
     }
 
     
-export const getApiV1OfferListListQueryOptions = <TData = Awaited<ReturnType<typeof apiV1OfferListList>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1OfferListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getApiV1OfferListListQueryOptions = <TData = Awaited<ReturnType<typeof apiV1OfferListList>>, TError = unknown>(params?: ApiV1OfferListListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1OfferListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getApiV1OfferListListQueryKey();
+  const queryKey =  queryOptions?.queryKey ?? getApiV1OfferListListQueryKey(params);
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiV1OfferListList>>> = ({ signal }) => apiV1OfferListList(requestOptions, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof apiV1OfferListList>>> = ({ signal }) => apiV1OfferListList(params, requestOptions, signal);
 
       
 
@@ -940,7 +947,7 @@ export type ApiV1OfferListListQueryError = unknown
 
 
 export function useApiV1OfferListList<TData = Awaited<ReturnType<typeof apiV1OfferListList>>, TError = unknown>(
-  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1OfferListList>>, TError, TData>> & Pick<
+ params: undefined |  ApiV1OfferListListParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1OfferListList>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof apiV1OfferListList>>,
           TError,
@@ -950,7 +957,7 @@ export function useApiV1OfferListList<TData = Awaited<ReturnType<typeof apiV1Off
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useApiV1OfferListList<TData = Awaited<ReturnType<typeof apiV1OfferListList>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1OfferListList>>, TError, TData>> & Pick<
+ params?: ApiV1OfferListListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1OfferListList>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof apiV1OfferListList>>,
           TError,
@@ -960,16 +967,16 @@ export function useApiV1OfferListList<TData = Awaited<ReturnType<typeof apiV1Off
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useApiV1OfferListList<TData = Awaited<ReturnType<typeof apiV1OfferListList>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1OfferListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ params?: ApiV1OfferListListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1OfferListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 
 export function useApiV1OfferListList<TData = Awaited<ReturnType<typeof apiV1OfferListList>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1OfferListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ params?: ApiV1OfferListListParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof apiV1OfferListList>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient 
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getApiV1OfferListListQueryOptions(options)
+  const queryOptions = getApiV1OfferListListQueryOptions(params,options)
 
   const query = useQuery(queryOptions , queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -1183,7 +1190,7 @@ export const apiV1PackageListList = (
 ) => {
       
       
-      return customInstance<PackageList[]>(
+      return customInstance<ApiV1PackageListList200>(
       {url: `/api/v1/package/list/`, method: 'GET',
         params, signal
     },
@@ -1259,28 +1266,27 @@ export function useApiV1PackageListList<TData = Awaited<ReturnType<typeof apiV1P
 
 
 
-/**
- * Handles POST requests to perform actions related to Paylov transactions.
- */
-export const apiV1PaylovPaylovCreate = (
-    
+export const apiV1PaymentCreateTransactionCreate = (
+    transactionCreate: TransactionCreate,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
       
       
-      return customInstance<null>(
-      {url: `/api/v1/paylov/paylov/`, method: 'POST', signal
+      return customInstance<TransactionCreate>(
+      {url: `/api/v1/payment/create-transaction/`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: transactionCreate, signal
     },
       options);
     }
   
 
 
-export const getApiV1PaylovPaylovCreateMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiV1PaylovPaylovCreate>>, TError,void, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof apiV1PaylovPaylovCreate>>, TError,void, TContext> => {
+export const getApiV1PaymentCreateTransactionCreateMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiV1PaymentCreateTransactionCreate>>, TError,{data: TransactionCreate}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof apiV1PaymentCreateTransactionCreate>>, TError,{data: TransactionCreate}, TContext> => {
 
-const mutationKey = ['apiV1PaylovPaylovCreate'];
+const mutationKey = ['apiV1PaymentCreateTransactionCreate'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -1290,10 +1296,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
       
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiV1PaylovPaylovCreate>>, void> = () => {
-          
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiV1PaymentCreateTransactionCreate>>, {data: TransactionCreate}> = (props) => {
+          const {data} = props ?? {};
 
-          return  apiV1PaylovPaylovCreate(requestOptions)
+          return  apiV1PaymentCreateTransactionCreate(data,requestOptions)
         }
 
         
@@ -1301,20 +1307,76 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type ApiV1PaylovPaylovCreateMutationResult = NonNullable<Awaited<ReturnType<typeof apiV1PaylovPaylovCreate>>>
-    
-    export type ApiV1PaylovPaylovCreateMutationError = unknown
+    export type ApiV1PaymentCreateTransactionCreateMutationResult = NonNullable<Awaited<ReturnType<typeof apiV1PaymentCreateTransactionCreate>>>
+    export type ApiV1PaymentCreateTransactionCreateMutationBody = TransactionCreate
+    export type ApiV1PaymentCreateTransactionCreateMutationError = unknown
 
-    export const useApiV1PaylovPaylovCreate = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiV1PaylovPaylovCreate>>, TError,void, TContext>, request?: SecondParameter<typeof customInstance>}
+    export const useApiV1PaymentCreateTransactionCreate = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiV1PaymentCreateTransactionCreate>>, TError,{data: TransactionCreate}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof apiV1PaylovPaylovCreate>>,
+        Awaited<ReturnType<typeof apiV1PaymentCreateTransactionCreate>>,
+        TError,
+        {data: TransactionCreate},
+        TContext
+      > => {
+
+      const mutationOptions = getApiV1PaymentCreateTransactionCreateMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    export const apiV1PaymentPaylovCreate = (
+    
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+      
+      
+      return customInstance<null>(
+      {url: `/api/v1/payment/paylov/`, method: 'POST', signal
+    },
+      options);
+    }
+  
+
+
+export const getApiV1PaymentPaylovCreateMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiV1PaymentPaylovCreate>>, TError,void, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof apiV1PaymentPaylovCreate>>, TError,void, TContext> => {
+
+const mutationKey = ['apiV1PaymentPaylovCreate'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiV1PaymentPaylovCreate>>, void> = () => {
+          
+
+          return  apiV1PaymentPaylovCreate(requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ApiV1PaymentPaylovCreateMutationResult = NonNullable<Awaited<ReturnType<typeof apiV1PaymentPaylovCreate>>>
+    
+    export type ApiV1PaymentPaylovCreateMutationError = unknown
+
+    export const useApiV1PaymentPaylovCreate = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiV1PaymentPaylovCreate>>, TError,void, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof apiV1PaymentPaylovCreate>>,
         TError,
         void,
         TContext
       > => {
 
-      const mutationOptions = getApiV1PaylovPaylovCreateMutationOptions(options);
+      const mutationOptions = getApiV1PaymentPaylovCreateMutationOptions(options);
 
       return useMutation(mutationOptions , queryClient);
     }
@@ -1324,7 +1386,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 ) => {
       
       
-      return customInstance<SegmentList[]>(
+      return customInstance<ApiV1SegmentListList200>(
       {url: `/api/v1/segment/list/`, method: 'GET',
         params, signal
     },
@@ -1464,7 +1526,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 ) => {
       
       
-      return customInstance<AdditionalService[]>(
+      return customInstance<ApiV1ServiceListList200>(
       {url: `/api/v1/service/list/`, method: 'GET',
         params, signal
     },
@@ -1546,7 +1608,7 @@ export const apiV1SliderListList = (
 ) => {
       
       
-      return customInstance<Slider[]>(
+      return customInstance<ApiV1SliderListList200>(
       {url: `/api/v1/slider/list/`, method: 'GET',
         params, signal
     },

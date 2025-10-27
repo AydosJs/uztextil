@@ -143,7 +143,7 @@ function FactorySelection() {
     }
 
     // Show manufacturers or empty state
-    const hasManufacturers = manufacturers && manufacturers.length > 0
+    const hasManufacturers = manufacturers?.results && manufacturers.results.length > 0
 
     return (
         <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden bg-background-primary">
@@ -177,7 +177,7 @@ function FactorySelection() {
                         </div>
                     ) : (
                         <div className="space-y-4">
-                            {manufacturers.map((factory) => (
+                            {manufacturers.results.map((factory) => (
                                 <div
                                     key={factory.id}
                                     className="w-full rounded-[16px] border border-border-primary bg-background-card shadow-card overflow-hidden"
@@ -224,9 +224,9 @@ function FactorySelection() {
                                                 <path opacity="0.16" d="M1.73438 -0.265625L109.266 107.266M109.266 -0.265625L1.73438 107.266M38.1549 -2V109M55.4979 -2V109M72.8435 -2V109M111 36.1565L0 36.1565M111 53.4994L0 53.4994M111 70.8449L0 70.8449M90.1875 53.5C90.1875 72.6574 74.6574 88.1875 55.5 88.1875C36.3426 88.1875 20.8125 72.6574 20.8125 53.5C20.8125 34.3426 36.3426 18.8125 55.5 18.8125C74.6574 18.8125 90.1875 34.3426 90.1875 53.5ZM72.8438 53.5C72.8438 63.0787 65.0787 70.8438 55.5 70.8438C45.9213 70.8438 38.1563 63.0787 38.1563 53.5C38.1563 43.9213 45.9213 36.1563 55.5 36.1563C65.0787 36.1563 72.8438 43.9213 72.8438 53.5Z" stroke="url(#paint0_radial_27_18405)" strokeWidth="0.5" />
                                                 <defs>
                                                     <radialGradient id="paint0_radial_27_18405" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(55.5 53.5) rotate(90) scale(55.5)">
-                                                        <stop stop-color="white" />
-                                                        <stop offset="0.5" stop-color="white" stop-opacity="0.25" />
-                                                        <stop offset="1" stop-color="white" stop-opacity="0" />
+                                                        <stop stopColor="white" />
+                                                        <stop offset="0.5" stopColor="white" stopOpacity="0.25" />
+                                                        <stop offset="1" stopColor="white" stopOpacity="0" />
                                                     </radialGradient>
                                                 </defs>
                                             </svg>
@@ -237,15 +237,15 @@ function FactorySelection() {
                                     </div>
 
                                     {/* Contact Information Section */}
-                                    {contactSettings && contactSettings.length > 0 && (
+                                    {contactSettings?.results && contactSettings.results.length > 0 && (
                                         <div className="border-t border-border-primary/50 px-3.5 py-1.5 bg-background-card/50">
                                             <div className="flex items-center justify-between">
                                                 <div className="flex items-center space-x-2">
                                                     <p className="text-white font-medium text-xs">
-                                                        {contactSettings[0].name}:
+                                                        {contactSettings.results[0].name}:
                                                     </p>
                                                     <p className="text-brand-primary font-medium text-xs">
-                                                        {contactSettings[0].phone_number}
+                                                        {contactSettings.results[0].phone_number}
                                                     </p>
                                                 </div>
                                             </div>

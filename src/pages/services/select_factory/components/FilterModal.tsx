@@ -35,7 +35,7 @@ export function FilterModal({
     const { data: segmentsData, isLoading: segmentsLoading } = useApiV1SegmentListList()
 
     // Transform segments data for MultiSelectCombobox
-    const segmentOptions: MultiSelectOption[] = segmentsData?.map(segment => ({
+    const segmentOptions: MultiSelectOption[] = segmentsData?.results?.map(segment => ({
         id: segment.id || 0,
         label: segment.title || '',
         value: segment.id?.toString() || '0'
@@ -88,11 +88,11 @@ export function FilterModal({
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
             {/* Backdrop */}
-            <div 
+            <div
                 className="fixed inset-0 bg-black/50 backdrop-blur-sm"
                 onClick={() => onOpenChange(false)}
             />
-            
+
             {/* Modal Content */}
             <Card className={cn(
                 "relative w-full max-w-md max-h-[90vh] overflow-hidden",

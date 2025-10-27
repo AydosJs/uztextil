@@ -6,11 +6,7 @@
  * OpenAPI spec version: v1
  */
 
-export type ApiV1ServiceListListParams = {
-/**
- * A search term.
- */
-search?: string;
+export type ApiV1OfferListListParams = {
 /**
  * Number of results to return per page.
  */
