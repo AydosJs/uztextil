@@ -46,15 +46,18 @@ function OfferListPage() {
     }, [applicationData])
 
     // Use Orval-generated API with custom options to include query parameters
-    const { data: offers, isLoading, error } = useApiV1OfferListList({
-        query: {
-            enabled: !!applicationData?.id // Only run query if we have application data
-        },
-        request: {
-            // Override the URL to include query parameters
-            url: `/api/v1/offer/list/?${queryParams}`,
+    const { data: offers, isLoading, error } = useApiV1OfferListList(
+        undefined, // params
+        {
+            query: {
+                enabled: !!applicationData?.id // Only run query if we have application data
+            },
+            request: {
+                // Override the URL to include query parameters
+                url: `/api/v1/offer/list/?${queryParams}`,
+            }
         }
-    })
+    )
 
     // Show error if no application data
     if (!applicationData?.id) {
@@ -127,9 +130,9 @@ function OfferListPage() {
 
                 {/* Offers List */}
                 <div className="flex-1 pb-8">
-                    {offers && offers.length > 0 ? (
+                    {offers && offers.results && offers.results.length > 0 ? (
                         <div className="space-y-4">
-                            {offers.map((offer) => (
+                            {offers.results.map((offer) => (
                                 <OfferCard
                                     key={offer.id}
                                     offer={offer}

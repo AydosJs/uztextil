@@ -77,9 +77,9 @@ function AdditionalServices() {
                                 </button>
                             </div>
                         </div>
-                    ) : services && services.length > 0 ? (
+                    ) : services && services.results && services.results.length > 0 ? (
                         <div className="space-y-4">
-                            {services.map((service) => (
+                            {services.results.map((service) => (
                                 <ServiceCard
                                     key={service.id}
                                     title={service.name}

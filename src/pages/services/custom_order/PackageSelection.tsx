@@ -101,7 +101,7 @@ function PackageSelection() {
     }
 
     // Show packages or empty state
-    const hasPackages = packages && packages.length > 0
+    const hasPackages = packages && packages.results && packages.results.length > 0
 
     const handlePackageClick = (packageItem: PackageList) => {
         // Navigate to package details page
@@ -139,7 +139,7 @@ function PackageSelection() {
                         </div>
                     ) : (
                         <div className="space-y-9">
-                            {packages.map((packageItem) => (
+                            {packages.results.map((packageItem) => (
                                 <div
                                     key={packageItem.id}
                                     onClick={() => handlePackageClick(packageItem)}
