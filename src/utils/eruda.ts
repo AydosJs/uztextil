@@ -14,35 +14,35 @@ declare global {
 
 export const initEruda = async (): Promise<void> => {
     // Only load Eruda in development mode
-    // if (import.meta.env.DEV) {
-    try {
-        // Dynamic import to avoid including Eruda in production bundle
-        const eruda = await import('eruda');
+    if (import.meta.env.DEV) {
+        try {
+            // Dynamic import to avoid including Eruda in production bundle
+            const eruda = await import('eruda');
 
-        // Initialize Eruda
-        eruda.default.init();
+            // Initialize Eruda
+            eruda.default.init();
 
-        // Optional: Auto-show Eruda on mobile devices
-        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        if (isMobile) {
-            // You can uncomment this line to auto-show Eruda on mobile
-            // eruda.default.show();
-        }
-
-        // Add keyboard shortcut (Ctrl/Cmd + Shift + E) to toggle Eruda
-        document.addEventListener('keydown', (event) => {
-            if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.key === 'E') {
-                event.preventDefault();
-                toggleEruda();
+            // Optional: Auto-show Eruda on mobile devices
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            if (isMobile) {
+                // You can uncomment this line to auto-show Eruda on mobile
+                // eruda.default.show();
             }
-        });
 
-        console.log('🔧 Eruda initialized for mobile debugging');
-        console.log('💡 Press Ctrl/Cmd + Shift + E to toggle Eruda console');
-    } catch (error) {
-        console.warn('Failed to initialize Eruda:', error);
+            // Add keyboard shortcut (Ctrl/Cmd + Shift + E) to toggle Eruda
+            document.addEventListener('keydown', (event) => {
+                if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.key === 'E') {
+                    event.preventDefault();
+                    toggleEruda();
+                }
+            });
+
+            console.log('🔧 Eruda initialized for mobile debugging');
+            console.log('💡 Press Ctrl/Cmd + Shift + E to toggle Eruda console');
+        } catch (error) {
+            console.warn('Failed to initialize Eruda:', error);
+        }
     }
-    // }
 };
 
 // Utility function to toggle Eruda visibility
