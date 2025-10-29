@@ -1,7 +1,6 @@
 import * as React from "react"
 import { Check, ChevronDown, X } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { Button } from "./button"
 import { useTranslation } from "react-i18next"
 
 export interface MultiSelectOption {
