@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import { RadialEffect, Spinner, UnderwaterHeader } from "@/components/ui"
-import { useApiV1ManufacturerListList, useApiV1ManufacturerDetailRead, useApiV1ContactSettingsContactSettingsList } from "@/lib/api"
+import { useApiV1ManufacturerListList, useApiV1ManufacturerDetailRead, useApiV1ContactSettingsContactSettingsList, useApiV1CategoryListList } from "@/lib/api"
 import { useTelegramBackButton } from "@/lib/hooks"
 import { ChevronRight, Search } from "lucide-react"
 import { ManufacturerDetailDrawer, FilterDrawer } from "./components"
@@ -10,6 +10,7 @@ import type { AdditionalService, ManufacturerList } from "@/lib/api/model"
 
 interface FilterOptions {
     search: string
+    category: number[]
     product_segment: number[]
     min_order_quantity: string
 }
@@ -24,6 +25,7 @@ function FactorySelection() {
     const [isLoadingDetails, setIsLoadingDetails] = useState(false)
     const [filters, setFilters] = useState<FilterOptions>({
         search: '',
+        category: [],
         product_segment: [],
         min_order_quantity: ''
     })
@@ -37,6 +39,7 @@ function FactorySelection() {
     // Prepare API parameters - this will be reactive to filters changes
     const apiParams = {
         search: filters.search.trim() || undefined,
+        category: filters.category.length > 0 ? filters.category.join(',') : undefined,
         product_segment: filters.product_segment.length > 0 ? filters.product_segment.join(',') : undefined,
         min_order_quantity: filters.min_order_quantity.trim() || undefined
     }
@@ -45,8 +48,19 @@ function FactorySelection() {
     // Fetch contact settings to get phone number
     const { data: contactSettings } = useApiV1ContactSettingsContactSettingsList()
 
+    // Fetch categories list
+    const { data: categoriesData, isLoading: categoriesLoading } = useApiV1CategoryListList()
+
     // Fetch manufacturer list with filters - this will refetch when apiParams change
-    const { data: manufacturers, isLoading, error } = useApiV1ManufacturerListList(apiParams)
+    // Only fetch when at least one category is selected
+    const { data: manufacturers, isLoading, error } = useApiV1ManufacturerListList(
+        filters.category.length > 0 ? apiParams : undefined,
+        {
+            query: {
+                enabled: filters.category.length > 0
+            }
+        }
+    )
 
     // Fetch manufacturer details when a manufacturer is selected
     const { data: manufacturerDetail, isLoading: isDetailLoading, error: detailError } = useApiV1ManufacturerDetailRead(
@@ -80,8 +94,8 @@ function FactorySelection() {
         return null
     }
 
-    // Show loading state
-    if (isLoading) {
+    // Show loading state only for initial page load (when categories are loading)
+    if (categoriesLoading) {
         return (
             <div className="min-h-screen min-w-full safe-area-pt w-full dark flex flex-col relative overflow-hidden bg-background-primary">
                 <UnderwaterHeader />
@@ -142,6 +156,15 @@ function FactorySelection() {
         setFilters(newFilters)
     }
 
+    const handleCategoryToggle = (categoryId: number) => {
+        setFilters(prev => ({
+            ...prev,
+            category: prev.category.includes(categoryId)
+                ? prev.category.filter(id => id !== categoryId)
+                : [...prev.category, categoryId]
+        }))
+    }
+
     // Show manufacturers or empty state
     const hasManufacturers = manufacturers?.results && manufacturers.results.length > 0
 
@@ -158,18 +181,59 @@ function FactorySelection() {
                     <h1 className="text-white font-bold text-2xl tracking-wide">
                         {t('app.filterDrawer.title')}
                     </h1>
-                    <button
-                        onClick={() => setFilterDrawerOpen(true)}
-                        className="p-2 rounded-lg bg-background-card border border-border-primary hover:bg-background-card-hover transition-colors"
-                    >
-                        <Search className="w-5 h-5 text-white" />
-                    </button>
+                    {filters.category.length > 0 && (
+                        <button
+                            onClick={() => setFilterDrawerOpen(true)}
+                            className="p-2 rounded-lg bg-background-card border border-border-primary hover:bg-background-card-hover transition-colors"
+                        >
+                            <Search className="w-5 h-5 text-white" />
+                        </button>
+                    )}
                 </div>
 
+                {/* Category Selection */}
+                <div className="mb-8">
+                    {categoriesLoading ? (
+                        <div className="flex items-center justify-center py-8">
+                            <Spinner className="w-6 h-6 text-white" />
+                        </div>
+                    ) : (
+                        <div className="flex flex-wrap gap-3">
+                            {categoriesData?.results?.map((category) => {
+                                const isSelected = filters.category.includes(category.id || 0)
+                                return (
+                                    <button
+                                        key={category.id}
+                                        onClick={() => handleCategoryToggle(category.id || 0)}
+                                        className={`px-4 py-4 rounded-lg border transition-all duration-200 ${isSelected
+                                            ? 'bg-brand-primary text-black border-brand-primary shadow-brand'
+                                            : 'bg-background-card text-white border-border-primary hover:bg-background-card-hover'
+                                            }`}
+                                    >
+                                        {category.title}
+                                    </button>
+                                )
+                            })}
+                        </div>
+                    )}
+                </div>
 
                 {/* Manufacturers List */}
                 <div className="flex-1">
-                    {!hasManufacturers ? (
+                    {filters.category.length === 0 ? (
+                        <div className="flex items-center justify-center h-full">
+                            <div className="text-center">
+                                <p className="text-text-secondary text-lg">{t('app.categorySelection.selectCategoriesPrompt')}</p>
+                            </div>
+                        </div>
+                    ) : isLoading ? (
+                        <div className="flex items-center justify-center h-full">
+                            <div className="text-center">
+                                <Spinner className="w-8 h-8 text-white mb-4" />
+                                <p className="text-text-secondary text-lg">{t('app.common.loading')}</p>
+                            </div>
+                        </div>
+                    ) : !hasManufacturers ? (
                         <div className="flex items-center justify-center h-full">
                             <div className="text-center">
                                 <p className="text-text-secondary text-lg">{t('app.common.noManufacturersAvailable')}</p>

@@ -519,6 +519,10 @@
         "search": "Поиск"
       }
     },
+    "categorySelection": {
+      "title": "Выберите категории",
+      "selectCategoriesPrompt": "Пожалуйста, выберите одну или несколько категорий для просмотра производителей"
+    },
     "manufacturerDetail": {
       "error": {
         "message": "Произошла ошибка",

@@ -22,6 +22,7 @@ interface FilterDrawerProps {
 
 interface FilterOptions {
     search: string
+    category: number[]
     product_segment: number[]
     min_order_quantity: string
 }
@@ -60,6 +61,7 @@ export function FilterDrawer({
     const resetFilters = () => {
         const resetFilters = {
             search: '',
+            category: [],
             product_segment: [],
             min_order_quantity: ''
         }
@@ -69,7 +71,7 @@ export function FilterDrawer({
     }
 
     // Check if there are any active filters
-    const hasActiveFilters = filters.search || filters.product_segment.length > 0 || filters.min_order_quantity
+    const hasActiveFilters = filters.search || filters.category.length > 0 || filters.product_segment.length > 0 || filters.min_order_quantity
 
     const handleFilterChange = (key: keyof FilterOptions, value: string) => {
         // For min_order_quantity, only allow numbers
