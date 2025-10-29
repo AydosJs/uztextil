@@ -24,6 +24,8 @@ export interface AdditionalService {
   description?: string | null;
   price: string;
   /** @nullable */
+  price_sum?: string | null;
+  /** @nullable */
   readonly offerta_file?: string | null;
   payment_type?: AdditionalServicePaymentType;
   is_active?: boolean;

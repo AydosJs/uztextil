@@ -68,6 +68,7 @@ export interface ManufacturerCreate {
   has_credit_load: boolean;
   /** @minLength 1 */
   organization_structure: string;
+  is_located_zone?: boolean;
   /** @minLength 1 */
   equipment_info: string;
   /**

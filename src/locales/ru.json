@@ -174,7 +174,8 @@
         "segments": {
           "label": "Сегменты продукта",
           "placeholder": "Выберите сегменты продукта",
-          "selected": "Выбрано сегментов: {{count}}"
+          "selected": "Выбрано сегментов: {{count}}",
+          "selectCategoryFirst": "Сначала выберите категорию"
         },
         "cooperationTerms": {
           "label": "Условия сотрудничества",
@@ -207,6 +208,18 @@
         "workedBrands": {
           "label": "С какими брендами работали",
           "placeholder": "Введите названия брендов"
+        },
+        "inn": {
+          "label": "ИНН",
+          "placeholder": "Введите ИНН"
+        },
+        "companyRating": {
+          "label": "Рейтинг компании за последние 3 мес.",
+          "placeholder": "Введите рейтинг"
+        },
+        "annualExportTurnover": {
+          "label": "Годовой экспортный оборот в долларах",
+          "placeholder": "Введите сумму в долларах"
         },
         "category": {
           "label": "Категории",
