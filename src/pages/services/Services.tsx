@@ -1,12 +1,14 @@
 import { useTranslation } from "react-i18next"
 import { useNavigate, useLocation } from "react-router-dom"
-import { useEffect, useState } from "react"
-import { RadialEffect, UnderwaterHeader } from "@/components/ui"
+import { useEffect, useState, useCallback } from "react"
+import { RadialEffect, UnderwaterHeader, PaymentAlert, Spinner } from "@/components/ui"
 import { useApiV1ServiceListList } from "@/lib/api"
 import type { AdditionalService } from "@/lib/api/model"
 import { useTelegramBackButton } from "@/lib/hooks"
 import { useTelegramUser } from "@/hooks/useTelegramUser"
 import { ServiceCardShimmer } from "./components"
+import { checkPaymentStatus } from "@/lib/api/paymentApi"
+import { TELEGRAM_CONFIG } from "@/lib/config"
 
 function Services() {
     const { t } = useTranslation()
@@ -14,6 +16,11 @@ function Services() {
     const location = useLocation()
     const { userInfo, userType } = useTelegramUser()
     const [department, setDepartment] = useState<'customer' | 'manufacturer' | null>(null)
+    const [isCheckingPayment, setIsCheckingPayment] = useState(false)
+    const [paymentAlertOpen, setPaymentAlertOpen] = useState(false)
+    const [paymentAlertType, setPaymentAlertType] = useState<'notPaid' | 'error'>('notPaid')
+    const [selectedService, setSelectedService] = useState<AdditionalService | null>(null)
+    const [clickedServiceId, setClickedServiceId] = useState<number | null>(null)
 
     // Initialize department from localStorage, navigation state, or userType
     useEffect(() => {
@@ -41,6 +48,124 @@ function Services() {
             navigate('/choose-department')
         }
     })
+
+    const navigateToService = useCallback((service: AdditionalService) => {
+        // Route to different pages based on service option
+        switch (service.option) {
+            case 'video_review':
+            case 'invite_manager':
+            case 'training_reps':
+                // These options go to terms and conditions page
+                navigate('/services/terms', { state: { service } })
+                break
+            case 'place_order':
+                // This option goes to place order form
+                navigate('/services/place-order', { state: { service } })
+                break
+            case 'online_b2b':
+                // This option goes to online B2B form
+                navigate('/services/online-b2b', { state: { service } })
+                break
+            case 'custom_order':
+                // This option goes to package selection
+                navigate('/services/custom-order', { state: { service } })
+                break
+            case 'select_factory':
+                // This option goes to factory selection
+                navigate('/services/factory-selection', { state: { service } })
+                break
+            default:
+                // Default fallback to terms and conditions
+                navigate('/services/terms', { state: { service } })
+                break
+        }
+    }, [navigate])
+
+    const handlePaymentSuccess = useCallback(async (transactionId: string) => {
+        console.log('Payment successful:', transactionId)
+        setPaymentAlertOpen(false)
+
+        // Check payment status to confirm it was successful
+        if (selectedService && userInfo?.user_id && selectedService.id) {
+            try {
+                const paymentResponse = await checkPaymentStatus({
+                    bot_user_id: userInfo.user_id,
+                    service_id: selectedService.id
+                })
+
+                if (paymentResponse.success) {
+                    // Payment confirmed, proceed to navigate to service page
+                    navigateToService(selectedService)
+                } else {
+                    // Payment not confirmed, show error
+                    setPaymentAlertType('error')
+                    setPaymentAlertOpen(true)
+                }
+            } catch (error) {
+                console.error('Payment verification failed:', error)
+                setPaymentAlertType('error')
+                setPaymentAlertOpen(true)
+            }
+        }
+    }, [selectedService, userInfo?.user_id, navigateToService])
+
+    const handlePaymentError = (error: string) => {
+        console.error('Payment failed:', error)
+        setPaymentAlertType('error')
+        setPaymentAlertOpen(true)
+    }
+
+    const handlePaymentAlertClose = () => {
+        setPaymentAlertOpen(false)
+        setSelectedService(null)
+        setClickedServiceId(null)
+    }
+
+    const handlePaymentRetry = async () => {
+        if (!selectedService || !userInfo?.user_id) return
+
+        setPaymentAlertOpen(false)
+        await handleServiceClickWithPayment(selectedService)
+    }
+
+    const handleServiceClickWithPayment = async (service: AdditionalService) => {
+        if (!userInfo?.user_id) {
+            console.error('Missing user ID')
+            return
+        }
+
+        setSelectedService(service)
+        setClickedServiceId(service.id || null)
+        setIsCheckingPayment(true)
+
+        try {
+            console.log('Checking payment status for user:', userInfo.user_id, 'service:', service.id)
+            const paymentResponse = await checkPaymentStatus({
+                bot_user_id: userInfo.user_id,
+                service_id: service.id || 0
+            })
+
+            console.log('Payment check response:', paymentResponse)
+
+            if (paymentResponse.success) {
+                // Payment is successful, proceed to navigate
+                console.log('Payment confirmed, navigating to service')
+                setPaymentAlertOpen(false) // Close payment alert if it was open
+                navigateToService(service)
+            } else {
+                // Payment not made, show alert
+                console.log('Payment not confirmed, showing payment alert')
+                setPaymentAlertType('notPaid')
+                setPaymentAlertOpen(true)
+            }
+        } catch (error) {
+            console.error('Payment check failed:', error)
+            setPaymentAlertType('error')
+            setPaymentAlertOpen(true)
+        } finally {
+            setIsCheckingPayment(false)
+        }
+    }
 
     // Fetch additional services from API
     const { data: allServices, isLoading, error } = useApiV1ServiceListList(
@@ -112,38 +237,6 @@ function Services() {
     // Show services or empty state
     const hasServices = services && services.length > 0
 
-    const handleServiceClick = (service: AdditionalService) => {
-        // Route to different pages based on service option
-        switch (service.option) {
-            case 'video_review':
-            case 'invite_manager':
-            case 'training_reps':
-                // These options go to terms and conditions page
-                navigate('/services/terms', { state: { service } })
-                break
-            case 'place_order':
-                // This option goes to place order form
-                navigate('/services/place-order', { state: { service } })
-                break
-            case 'online_b2b':
-                // This option goes to online B2B form
-                navigate('/services/online-b2b', { state: { service } })
-                break
-            case 'custom_order':
-                // This option goes to package selection
-                navigate('/services/custom-order', { state: { service } })
-                break
-            case 'select_factory':
-                // This option goes to factory selection
-                navigate('/services/factory-selection', { state: { service } })
-                break
-            default:
-                // Default fallback to terms and conditions
-                navigate('/services/terms', { state: { service } })
-                break
-        }
-    }
-
     return (
         <div className="min-h-screen min-w-full bg-background-primary safe-area-pt w-full dark flex flex-col relative overflow-hidden">
             <UnderwaterHeader />
@@ -173,13 +266,14 @@ function Services() {
                             {services.map((service) => (
                                 <div
                                     key={service.id}
-                                    onClick={() => handleServiceClick(service)}
-                                    className="relative flex items-center justify-between px-6 pr-3 flex-row w-full h-[108px] rounded-[22px] border border-border-primary bg-background-card shadow-card overflow-hidden cursor-pointer"
+                                    onClick={() => !isCheckingPayment && handleServiceClickWithPayment(service)}
+                                    className={`relative flex items-center justify-between px-6 pr-3 flex-row w-full h-[108px] rounded-[22px] border border-border-primary bg-background-card shadow-card overflow-hidden ${isCheckingPayment ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
                                     style={{
                                         backdropFilter: 'blur(128px)',
                                         WebkitBackdropFilter: 'blur(128px)'
                                     }}
                                 >
+                                    {service.id}
 
                                     {/* Service Content */}
                                     <div className=" space-y-1">
@@ -193,16 +287,22 @@ function Services() {
                                         )}
                                     </div>
 
-                                    {/* Service Price */}
-                                    {service.price !== undefined && service.option !== 'custom_order' && (
-                                        String(service.price) === '0' || String(service.price) === '0.00' ? (
-                                            <p className="text-brand-primary font-bold min-w-[110px] text-sm text-center">
-                                                Бесплатно
-                                            </p>
-                                        ) : (
-                                            <p className="text-brand-primary font-bold min-w-[110px] text-lg text-center">
-                                                ${service.price}
-                                            </p>
+                                    {/* Service Price or Loading Spinner */}
+                                    {isCheckingPayment && clickedServiceId === service.id ? (
+                                        <div className="min-w-[110px] flex items-center justify-center">
+                                            <Spinner className="w-5 h-5 text-brand-primary" />
+                                        </div>
+                                    ) : (
+                                        service.price !== undefined && service.option !== 'custom_order' && (
+                                            String(service.price) === '0' || String(service.price) === '0.00' ? (
+                                                <p className="text-brand-primary font-bold min-w-[110px] text-sm text-center">
+                                                    Бесплатно
+                                                </p>
+                                            ) : (
+                                                <p className="text-brand-primary font-bold min-w-[110px] text-lg text-center">
+                                                    ${service.price}
+                                                </p>
+                                            )
                                         )
                                     )}
 
@@ -228,6 +328,21 @@ function Services() {
                     )}
                 </div>
             </main>
+
+            {/* Payment Alert */}
+            <PaymentAlert
+                isOpen={paymentAlertOpen}
+                onClose={handlePaymentAlertClose}
+                type={paymentAlertType}
+                onRetry={paymentAlertType === 'error' ? handlePaymentRetry : undefined}
+                price={selectedService?.price_sum ? parseFloat(selectedService.price_sum) : (selectedService?.price ? parseFloat(selectedService.price) : undefined)}
+                currency="UZS"
+                additionalService={selectedService?.id}
+                reference={`SERVICE-${selectedService?.id}-${Date.now()}`}
+                redirectUrl={`https://t.me/${TELEGRAM_CONFIG.BOT_USERNAME}`}
+                onPaymentSuccess={handlePaymentSuccess}
+                onPaymentError={handlePaymentError}
+            />
         </div>
     )
 }

@@ -9,6 +9,7 @@ import { ManufacturerDetailDrawer, FilterDrawer } from "./components"
 import { useTranslation } from "react-i18next"
 import { checkPaymentStatus } from "@/lib/api/paymentApi"
 import type { AdditionalService, ManufacturerList } from "@/lib/api/model"
+import { TELEGRAM_CONFIG } from "@/lib/config"
 
 interface FilterOptions {
     search: string
@@ -448,7 +449,7 @@ function FactorySelection() {
                 currency="UZS"
                 additionalService={service?.id}
                 reference={`SERVICE-${service?.id}-${Date.now()}`}
-                redirectUrl={`https://t.me/`}
+                redirectUrl={`https://t.me/${TELEGRAM_CONFIG.BOT_USERNAME}`}
                 onPaymentSuccess={handlePaymentSuccess}
                 onPaymentError={handlePaymentError}
             />
