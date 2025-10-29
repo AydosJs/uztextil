@@ -273,8 +273,6 @@ function Services() {
                                         WebkitBackdropFilter: 'blur(128px)'
                                     }}
                                 >
-                                    {service.id}
-
                                     {/* Service Content */}
                                     <div className=" space-y-1">
                                         <h3 className="text-white font-extrabold text-base">
