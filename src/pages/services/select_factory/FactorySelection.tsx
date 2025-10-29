@@ -449,7 +449,7 @@ function FactorySelection() {
                 currency="UZS"
                 additionalService={service?.id}
                 reference={`SERVICE-${service?.id}-${Date.now()}`}
-                redirectUrl={`https://t.me/${TELEGRAM_CONFIG.BOT_USERNAME}`}
+                redirectUrl={`https://t.me/`}
                 onPaymentSuccess={handlePaymentSuccess}
                 onPaymentError={handlePaymentError}
             />
