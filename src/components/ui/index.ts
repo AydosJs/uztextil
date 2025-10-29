@@ -27,5 +27,6 @@ export { UnderwaterHeader } from "./underwater-header"
 export { MultiSelectCombobox } from "./multi-select-combobox"
 export type { MultiSelectOption } from "./multi-select-combobox"
 export { ApplicationDrawer } from "./application-drawer"
+export { PaymentAlert } from "./payment-alert"
 
 

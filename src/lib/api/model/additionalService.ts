@@ -23,8 +23,7 @@ export interface AdditionalService {
   /** @nullable */
   description?: string | null;
   price: string;
-  /** @nullable */
-  price_sum?: string | null;
+  price_sum?: string;
   /** @nullable */
   readonly offerta_file?: string | null;
   payment_type?: AdditionalServicePaymentType;

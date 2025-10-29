@@ -6,6 +6,7 @@ export const API_CONFIG = {
 
 export const TELEGRAM_CONFIG = {
     MANAGER_USERNAME: import.meta.env.VITE_TELEGRAM_MANAGER_USERNAME || 'iroda_ex',
+    BOT_USERNAME: import.meta.env.VITE_TELEGRAM_BOT_USERNAME || 'uztextil_bot',
 } as const;
 
 export const DEV_CONFIG = {

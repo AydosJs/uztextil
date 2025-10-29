@@ -57,6 +57,7 @@ export * from './packageDetailType';
 export * from './packageItemList';
 export * from './packageList';
 export * from './packageListType';
+export * from './paymentCheckRequest';
 export * from './register';
 export * from './segmentList';
 export * from './slider';

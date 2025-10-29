@@ -356,17 +356,6 @@ function ManufacturerRegisterForm() {
                         />
                     </div>
 
-                    {/* INN */}
-                    <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium" required>
-                            {t('app.buyurtmachi.registerForm.inn.label')}
-                        </Label>
-                        <CustomInput
-                            placeholder={t('app.buyurtmachi.registerForm.inn.placeholder')}
-                            error={errors.inn?.message}
-                            {...register('inn')}
-                        />
-                    </div>
                     {/* Logo Upload */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium">
@@ -397,54 +386,6 @@ function ManufacturerRegisterForm() {
                                 {String(errors.companyImageIds.message)}
                             </p>
                         )}
-                    </div>
-
-                    {/* Company Rating */}
-                    <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium" required>
-                            {t('app.buyurtmachi.registerForm.companyRating.label')}
-                        </Label>
-                        <CustomInput
-                            placeholder={t('app.buyurtmachi.registerForm.companyRating.placeholder')}
-                            error={errors.companyRating?.message}
-                            {...register('companyRating')}
-                        />
-                    </div>
-
-                    {/* Annual Export Turnover */}
-                    <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium" required>
-                            {t('app.buyurtmachi.registerForm.annualExportTurnover.label')}
-                        </Label>
-                        <CustomInput
-                            placeholder={t('app.buyurtmachi.registerForm.annualExportTurnover.placeholder')}
-                            error={errors.annualExportTurnover?.message}
-                            {...register('annualExportTurnover')}
-                        />
-                    </div>
-
-                    {/* Export Countries */}
-                    <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium" required>
-                            {t('app.buyurtmachi.registerForm.exportCountries.label')}
-                        </Label>
-                        <CustomInput
-                            placeholder={t('app.buyurtmachi.registerForm.exportCountries.placeholder')}
-                            error={errors.exportCountries?.message}
-                            {...register('exportCountries')}
-                        />
-                    </div>
-
-                    {/* Worked Brands */}
-                    <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium" required>
-                            {t('app.buyurtmachi.registerForm.workedBrands.label')}
-                        </Label>
-                        <CustomInput
-                            placeholder={t('app.buyurtmachi.registerForm.workedBrands.placeholder')}
-                            error={errors.workedBrands?.message}
-                            {...register('workedBrands')}
-                        />
                     </div>
 
                     {/* Full Name */}
@@ -497,41 +438,6 @@ function ManufacturerRegisterForm() {
                         />
                     </div>
 
-
-
-                    {/* -------------------- */}
-
-
-
-                    {/* Experience */}
-                    <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium" required>
-                            {t('app.buyurtmachi.registerForm.experience.label')}
-                        </Label>
-                        <CustomInput
-                            type="number"
-                            placeholder={t('app.buyurtmachi.registerForm.experience.placeholder')}
-                            error={errors.experience?.message}
-                            {...register('experience')}
-                        />
-                    </div>
-
-
-
-
-
-                    {/* Min Order */}
-                    <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium" required>
-                            {t('app.buyurtmachi.registerForm.minOrder.label')}
-                        </Label>
-                        <CustomInput
-                            placeholder={t('app.buyurtmachi.registerForm.minOrder.placeholder')}
-                            error={errors.minOrder?.message}
-                            {...register('minOrder')}
-                        />
-                    </div>
-
                     {/* Category */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium">
@@ -577,17 +483,105 @@ function ManufacturerRegisterForm() {
                     </div>
 
 
-                    {/* Commercial Offer Text */}
+
+                    {/* ---- */}
+
+                    {/* INN */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium" required>
-                            {t('app.buyurtmachi.registerForm.commercialOfferText.label')}
+                            {t('app.buyurtmachi.registerForm.inn.label')}
                         </Label>
                         <CustomInput
-                            placeholder={t('app.buyurtmachi.registerForm.commercialOfferText.placeholder')}
-                            error={errors.commercialOfferText?.message}
-                            {...register('commercialOfferText')}
+                            placeholder={t('app.buyurtmachi.registerForm.inn.placeholder')}
+                            error={errors.inn?.message}
+                            {...register('inn')}
                         />
                     </div>
+
+
+                    {/* Company Rating */}
+                    <div className="space-y-2">
+                        <Label className="text-white text-sm font-medium" required>
+                            {t('app.buyurtmachi.registerForm.companyRating.label')}
+                        </Label>
+                        <CustomInput
+                            placeholder={t('app.buyurtmachi.registerForm.companyRating.placeholder')}
+                            error={errors.companyRating?.message}
+                            {...register('companyRating')}
+                        />
+                    </div>
+
+                    {/* Annual Export Turnover */}
+                    <div className="space-y-2">
+                        <Label className="text-white text-sm font-medium" required>
+                            {t('app.buyurtmachi.registerForm.annualExportTurnover.label')}
+                        </Label>
+                        <CustomInput
+                            placeholder={t('app.buyurtmachi.registerForm.annualExportTurnover.placeholder')}
+                            error={errors.annualExportTurnover?.message}
+                            {...register('annualExportTurnover')}
+                        />
+                    </div>
+
+                    {/* Export Countries */}
+                    <div className="space-y-2">
+                        <Label className="text-white text-sm font-medium" required>
+                            {t('app.buyurtmachi.registerForm.exportCountries.label')}
+                        </Label>
+                        <CustomInput
+                            placeholder={t('app.buyurtmachi.registerForm.exportCountries.placeholder')}
+                            error={errors.exportCountries?.message}
+                            {...register('exportCountries')}
+                        />
+                    </div>
+
+                    {/* Worked Brands */}
+                    <div className="space-y-2">
+                        <Label className="text-white text-sm font-medium" required>
+                            {t('app.buyurtmachi.registerForm.workedBrands.label')}
+                        </Label>
+                        <CustomInput
+                            placeholder={t('app.buyurtmachi.registerForm.workedBrands.placeholder')}
+                            error={errors.workedBrands?.message}
+                            {...register('workedBrands')}
+                        />
+                    </div>
+
+
+
+
+                    {/* Experience */}
+                    <div className="space-y-2">
+                        <Label className="text-white text-sm font-medium" required>
+                            {t('app.buyurtmachi.registerForm.experience.label')}
+                        </Label>
+                        <CustomInput
+                            type="number"
+                            placeholder={t('app.buyurtmachi.registerForm.experience.placeholder')}
+                            error={errors.experience?.message}
+                            {...register('experience')}
+                        />
+                    </div>
+
+
+
+
+
+                    {/* Min Order */}
+                    <div className="space-y-2">
+                        <Label className="text-white text-sm font-medium" required>
+                            {t('app.buyurtmachi.registerForm.minOrder.label')}
+                        </Label>
+                        <CustomInput
+                            placeholder={t('app.buyurtmachi.registerForm.minOrder.placeholder')}
+                            error={errors.minOrder?.message}
+                            {...register('minOrder')}
+                        />
+                    </div>
+
+
+
+
 
                     {/* Commercial Offer PDF */}
                     <div className="space-y-2">
@@ -607,6 +601,8 @@ function ManufacturerRegisterForm() {
                             </p>
                         )}
                     </div>
+
+
 
                     {/* Production Address */}
                     <div className="space-y-2">

@@ -1,11 +1,14 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
-import { RadialEffect, Spinner, UnderwaterHeader } from "@/components/ui"
+import { RadialEffect, Spinner, UnderwaterHeader, PaymentAlert } from "@/components/ui"
 import { useApiV1ManufacturerListList, useApiV1ManufacturerDetailRead, useApiV1ContactSettingsContactSettingsList, useApiV1CategoryListList } from "@/lib/api"
 import { useTelegramBackButton } from "@/lib/hooks"
+import { useTelegramUser } from "@/hooks/useTelegramUser"
+import { TELEGRAM_CONFIG } from "@/lib/config"
 import { ChevronRight, Search } from "lucide-react"
 import { ManufacturerDetailDrawer, FilterDrawer } from "./components"
 import { useTranslation } from "react-i18next"
+import { checkPaymentStatus } from "@/lib/api/paymentApi"
 import type { AdditionalService, ManufacturerList } from "@/lib/api/model"
 
 interface FilterOptions {
@@ -19,10 +22,14 @@ function FactorySelection() {
     const { t } = useTranslation()
     const navigate = useNavigate()
     const location = useLocation()
+    const { userInfo } = useTelegramUser()
     const [drawerOpen, setDrawerOpen] = useState(false)
     const [filterDrawerOpen, setFilterDrawerOpen] = useState(false)
     const [selectedManufacturer, setSelectedManufacturer] = useState<ManufacturerList | null>(null)
     const [isLoadingDetails, setIsLoadingDetails] = useState(false)
+    const [isCheckingPayment, setIsCheckingPayment] = useState(false)
+    const [paymentAlertOpen, setPaymentAlertOpen] = useState(false)
+    const [paymentAlertType, setPaymentAlertType] = useState<'notPaid' | 'error'>('notPaid')
     const [filters, setFilters] = useState<FilterOptions>({
         search: '',
         category: [],
@@ -35,6 +42,44 @@ function FactorySelection() {
 
     // Get service data from navigation state
     const service = location.state?.service as AdditionalService
+
+    const handlePaymentSuccess = useCallback(async (transactionId: string) => {
+        console.log('Payment successful:', transactionId)
+        setPaymentAlertOpen(false)
+
+        // Check payment status to confirm it was successful
+        if (selectedManufacturer && userInfo?.user_id && service?.id) {
+            try {
+                const paymentResponse = await checkPaymentStatus({
+                    bot_user_id: userInfo.user_id,
+                    service_id: service.id
+                })
+
+                if (paymentResponse.success) {
+                    // Payment confirmed, proceed to show details
+                    setDrawerOpen(true)
+                    setIsLoadingDetails(true)
+                } else {
+                    // Payment not confirmed, show error
+                    setPaymentAlertType('error')
+                    setPaymentAlertOpen(true)
+                }
+            } catch (error) {
+                console.error('Payment verification failed:', error)
+                setPaymentAlertType('error')
+                setPaymentAlertOpen(true)
+            }
+        }
+    }, [selectedManufacturer, userInfo?.user_id, service?.id])
+
+    // Check for payment success in URL parameters
+    useEffect(() => {
+        const urlParams = new URLSearchParams(location.search)
+        if (urlParams.get('payment') === 'success' && selectedManufacturer) {
+            // Payment was successful, verify and proceed
+            handlePaymentSuccess('url_redirect')
+        }
+    }, [location.search, selectedManufacturer, handlePaymentSuccess])
 
     // Prepare API parameters - this will be reactive to filters changes
     const apiParams = {
@@ -146,10 +191,43 @@ function FactorySelection() {
         )
     }
 
-    const handleFactorySelect = (factory: ManufacturerList) => {
+    const handleFactorySelect = async (factory: ManufacturerList) => {
+        if (!userInfo?.user_id || !service?.id) {
+            console.error('Missing user ID or service ID')
+            return
+        }
+
         setSelectedManufacturer(factory)
-        setDrawerOpen(true)
-        setIsLoadingDetails(true)
+        setIsCheckingPayment(true)
+
+        try {
+            console.log('Checking payment status for user:', userInfo.user_id, 'service:', service.id)
+            const paymentResponse = await checkPaymentStatus({
+                bot_user_id: userInfo.user_id,
+                service_id: service.id
+            })
+
+            console.log('Payment check response:', paymentResponse)
+
+            if (paymentResponse.success) {
+                // Payment is successful, proceed to show details
+                console.log('Payment confirmed, opening details drawer')
+                setPaymentAlertOpen(false) // Close payment alert if it was open
+                setDrawerOpen(true)
+                setIsLoadingDetails(true)
+            } else {
+                // Payment not made, show alert
+                console.log('Payment not confirmed, showing payment alert')
+                setPaymentAlertType('notPaid')
+                setPaymentAlertOpen(true)
+            }
+        } catch (error) {
+            console.error('Payment check failed:', error)
+            setPaymentAlertType('error')
+            setPaymentAlertOpen(true)
+        } finally {
+            setIsCheckingPayment(false)
+        }
     }
 
     const handleFilterChange = (newFilters: FilterOptions) => {
@@ -163,6 +241,23 @@ function FactorySelection() {
                 ? prev.category.filter(id => id !== categoryId)
                 : [...prev.category, categoryId]
         }))
+    }
+
+    const handlePaymentAlertClose = () => {
+        setPaymentAlertOpen(false)
+        // Don't clear selectedManufacturer here as it might be needed for retry
+    }
+
+    const handlePaymentRetry = async () => {
+        if (!selectedManufacturer || !userInfo?.user_id || !service?.id) return
+
+        setPaymentAlertOpen(false)
+        await handleFactorySelect(selectedManufacturer)
+    }
+
+    const handlePaymentError = (error: string) => {
+        console.error('Payment failed:', error)
+        // Could show a toast notification or update UI state
     }
 
     // Show manufacturers or empty state
@@ -248,8 +343,8 @@ function FactorySelection() {
                                 >
                                     {/* Main Factory Section */}
                                     <div
-                                        onClick={() => handleFactorySelect(factory)}
-                                        className="relative flex items-center justify-between min-h-[82px] py-2.5 px-3.5 flex-row cursor-pointer"
+                                        onClick={() => !isCheckingPayment && handleFactorySelect(factory)}
+                                        className={`relative flex items-center justify-between min-h-[82px] py-2.5 px-3.5 flex-row ${isCheckingPayment ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
                                     >
                                         {/* Factory Logo */}
                                         <div className="w-12 h-12 rounded-lg bg-brand-primary/13 flex items-center justify-center mr-4 flex-shrink-0">
@@ -280,7 +375,11 @@ function FactorySelection() {
 
                                         {/* Right Arrow Button */}
                                         <div className="w-[27px]  mr-5 h-[27px] rounded-[4px] bg-brand-primary flex items-center justify-center shadow-brand">
-                                            <ChevronRight className="w-4 h-4 text-black" />
+                                            {isCheckingPayment ? (
+                                                <Spinner className="w-4 h-4 text-black" />
+                                            ) : (
+                                                <ChevronRight className="w-4 h-4 text-black" />
+                                            )}
                                         </div>
 
                                         <div className="absolute -right-2 -top-3">
@@ -338,6 +437,21 @@ function FactorySelection() {
                 onOpenChange={setFilterDrawerOpen}
                 onFilterChange={handleFilterChange}
                 currentFilters={filters}
+            />
+
+            {/* Payment Alert */}
+            <PaymentAlert
+                isOpen={paymentAlertOpen}
+                onClose={handlePaymentAlertClose}
+                type={paymentAlertType}
+                onRetry={paymentAlertType === 'error' ? handlePaymentRetry : undefined}
+                price={service?.price_sum ? parseFloat(service.price_sum) : (service?.price ? parseFloat(service.price) : undefined)}
+                currency="UZS"
+                additionalService={service?.id}
+                reference={`SERVICE-${service?.id}-${Date.now()}`}
+                redirectUrl={`https://t.me/${TELEGRAM_CONFIG.BOT_USERNAME}`}
+                onPaymentSuccess={handlePaymentSuccess}
+                onPaymentError={handlePaymentError}
             />
         </div>
     )
