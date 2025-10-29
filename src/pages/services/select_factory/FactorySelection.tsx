@@ -4,7 +4,6 @@ import { RadialEffect, Spinner, UnderwaterHeader, PaymentAlert } from "@/compone
 import { useApiV1ManufacturerListList, useApiV1ManufacturerDetailRead, useApiV1ContactSettingsContactSettingsList, useApiV1CategoryListList } from "@/lib/api"
 import { useTelegramBackButton } from "@/lib/hooks"
 import { useTelegramUser } from "@/hooks/useTelegramUser"
-import { TELEGRAM_CONFIG } from "@/lib/config"
 import { ChevronRight, Search } from "lucide-react"
 import { ManufacturerDetailDrawer, FilterDrawer } from "./components"
 import { useTranslation } from "react-i18next"
