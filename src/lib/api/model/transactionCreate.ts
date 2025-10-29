@@ -14,4 +14,9 @@ export interface TransactionCreate {
   reference?: string | null;
   /** @nullable */
   additional_service?: number | null;
+  /**
+   * @maxLength 200
+   * @nullable
+   */
+  redirect_url?: string | null;
 }

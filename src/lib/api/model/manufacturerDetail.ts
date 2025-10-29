@@ -6,6 +6,7 @@
  * OpenAPI spec version: v1
  */
 import type { ManufacturerDetailStatus } from './manufacturerDetailStatus';
+import type { Category } from './category';
 import type { SegmentList } from './segmentList';
 import type { ManufacturerCertificate } from './manufacturerCertificate';
 import type { ManufacturerCompanyImage } from './manufacturerCompanyImage';
@@ -83,8 +84,28 @@ export interface ManufacturerDetail {
    * @maximum 2147483647
    */
   order?: number;
+  /**
+   * @maxLength 20
+   * @nullable
+   */
+  inn?: string | null;
+  /**
+   * @maxLength 300
+   * @nullable
+   */
+  company_rating?: string | null;
+  /**
+   * @maxLength 300
+   * @nullable
+   */
+  annual_export_turnover?: string | null;
+  /** @nullable */
+  export_countries?: string | null;
+  /** @nullable */
+  worked_brands?: string | null;
   /** @nullable */
   readonly logo?: string | null;
+  category: Category[];
   product_segment: SegmentList[];
   sertificates: ManufacturerCertificate[];
   images: ManufacturerCompanyImage[];

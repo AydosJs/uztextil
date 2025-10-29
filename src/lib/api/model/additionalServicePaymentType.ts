@@ -13,5 +13,10 @@ export type AdditionalServicePaymentType = typeof AdditionalServicePaymentType[k
 export const AdditionalServicePaymentType = {
   free: 'free',
   one_time: 'one_time',
+  daily: 'daily',
   monthly: 'monthly',
+  weekly: 'weekly',
+  yearly: 'yearly',
+  quarterly: 'quarterly',
+  half_yearly: 'half_yearly',
 } as const;

@@ -46,7 +46,14 @@ const manufacturerRegisterSchema = z.object({
     organizationStructure: z.enum(["director", "manager", "marketer"]),
     equipmentInfo: z.string().min(1, ""),
     phone: z.string().regex(/^\+?[0-9\s\-()]+$/, "").min(1, ""),
-    certificateIds: z.array(z.number()).min(1, "")
+    certificateIds: z.array(z.number()).min(1, ""),
+    // New fields
+    inn: z.string().optional(),
+    companyRating: z.string().optional(),
+    annualExportTurnover: z.string().optional(),
+    exportCountries: z.string().optional(),
+    workedBrands: z.string().optional(),
+    category: z.array(z.number()).optional()
 })
 
 type ManufacturerRegisterFormData = z.infer<typeof manufacturerRegisterSchema>
@@ -92,11 +99,35 @@ function ManufacturerRegisterForm() {
     const creditBurden = watch('creditBurden')
     const organizationStructure = watch('organizationStructure')
     const productSegment = watch('productSegment')
+    const category = watch('category')
     // const companyImages = watch('companyImages') // Uncomment if needed for debugging
 
 
     // Fetch segments list
     const { data: segmentsData, isLoading: segmentsLoading } = useApiV1SegmentListList()
+
+    // State for categories
+    const [categoriesData, setCategoriesData] = React.useState<{ results: Array<{ id?: number; title: string }> } | null>(null)
+    const [categoriesLoading, setCategoriesLoading] = React.useState(false)
+
+    // Fetch categories on component mount
+    React.useEffect(() => {
+        const fetchCategories = async () => {
+            setCategoriesLoading(true)
+            try {
+                const data = await customInstance({
+                    url: '/api/v1/category/list/',
+                    method: 'GET',
+                }) as { results: Array<{ id?: number; title: string }> }
+                setCategoriesData(data)
+            } catch (error) {
+                console.error('Error fetching categories:', error)
+            } finally {
+                setCategoriesLoading(false)
+            }
+        }
+        fetchCategories()
+    }, [])
 
     // Transform segments data for MultiSelectCombobox
     const segmentOptions: MultiSelectOption[] = useMemo(() => {
@@ -107,6 +138,16 @@ function ManufacturerRegisterForm() {
             value: segment.id?.toString() || '0'
         }))
     }, [segmentsData])
+
+    // Transform categories data for MultiSelectCombobox
+    const categoryOptions: MultiSelectOption[] = useMemo(() => {
+        if (!categoriesData || !categoriesData.results) return []
+        return categoriesData.results.map((category) => ({
+            id: category.id || 0,
+            label: category.title,
+            value: category.id?.toString() || '0'
+        }))
+    }, [categoriesData])
 
     // State for API call
     const [isSubmitting, setIsSubmitting] = React.useState(false)
@@ -143,6 +184,23 @@ function ManufacturerRegisterForm() {
             formData.append('phone', data.phone || '')
             formData.append('user', (userInfo?.user_id || 0).toString())
 
+            // Add new fields
+            if (data.inn) {
+                formData.append('inn', data.inn)
+            }
+            if (data.companyRating) {
+                formData.append('company_rating', data.companyRating)
+            }
+            if (data.annualExportTurnover) {
+                formData.append('annual_export_turnover', data.annualExportTurnover)
+            }
+            if (data.exportCountries) {
+                formData.append('export_countries', data.exportCountries)
+            }
+            if (data.workedBrands) {
+                formData.append('worked_brands', data.workedBrands)
+            }
+
             // Add product segments as array
             if (data.productSegment && data.productSegment.length > 0) {
                 data.productSegment.forEach(segmentId => {
@@ -161,6 +219,13 @@ function ManufacturerRegisterForm() {
             if (data.companyImageIds && data.companyImageIds.length > 0) {
                 data.companyImageIds.forEach(imageId => {
                     formData.append('images', imageId.toString())
+                })
+            }
+
+            // Add category IDs as array
+            if (data.category && data.category.length > 0) {
+                data.category.forEach(categoryId => {
+                    formData.append('category', categoryId.toString())
                 })
             }
 
@@ -216,6 +281,11 @@ function ManufacturerRegisterForm() {
     const handleSegmentChange = useCallback((selectedIds: (number | string)[]) => {
         const numberIds = selectedIds.map(id => typeof id === 'string' ? parseInt(id) : id)
         setValue('productSegment', numberIds, { shouldValidate: false })
+    }, [setValue])
+
+    const handleCategoryChange = useCallback((selectedIds: (number | string)[]) => {
+        const numberIds = selectedIds.map(id => typeof id === 'string' ? parseInt(id) : id)
+        setValue('category', numberIds, { shouldValidate: false })
     }, [setValue])
 
     const handleRadioChange = useCallback((field: keyof ManufacturerRegisterFormData, value: string) => {
@@ -285,19 +355,6 @@ function ManufacturerRegisterForm() {
                         )}
                     </div>
 
-                    {/* Experience */}
-                    <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium" required>
-                            {t('app.buyurtmachi.registerForm.experience.label')}
-                        </Label>
-                        <CustomInput
-                            type="number"
-                            placeholder={t('app.buyurtmachi.registerForm.experience.placeholder')}
-                            error={errors.experience?.message}
-                            {...register('experience')}
-                        />
-                    </div>
-
                     {/* Full Name */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium" required>
@@ -307,6 +364,19 @@ function ManufacturerRegisterForm() {
                             placeholder={t('app.buyurtmachi.registerForm.fullName.placeholder')}
                             error={errors.fullName?.message}
                             {...register('fullName')}
+                        />
+                    </div>
+
+                    {/* Phone */}
+                    <div className="space-y-2">
+                        <Label className="text-white text-sm font-medium" required>
+                            {t('app.buyurtmachi.registerForm.phone.label')}
+                        </Label>
+                        <CustomInput
+                            type="tel"
+                            placeholder={t('app.buyurtmachi.registerForm.phone.placeholder')}
+                            error={errors.phone?.message}
+                            {...register('phone')}
                         />
                     </div>
 
@@ -322,6 +392,7 @@ function ManufacturerRegisterForm() {
                         />
                     </div>
 
+
                     {/* Position */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium" required>
@@ -334,6 +405,29 @@ function ManufacturerRegisterForm() {
                         />
                     </div>
 
+
+
+                    {/* -------------------- */}
+
+
+
+                    {/* Experience */}
+                    <div className="space-y-2">
+                        <Label className="text-white text-sm font-medium" required>
+                            {t('app.buyurtmachi.registerForm.experience.label')}
+                        </Label>
+                        <CustomInput
+                            type="number"
+                            placeholder={t('app.buyurtmachi.registerForm.experience.placeholder')}
+                            error={errors.experience?.message}
+                            {...register('experience')}
+                        />
+                    </div>
+
+
+
+
+
                     {/* Min Order */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium" required>
@@ -343,6 +437,23 @@ function ManufacturerRegisterForm() {
                             placeholder={t('app.buyurtmachi.registerForm.minOrder.placeholder')}
                             error={errors.minOrder?.message}
                             {...register('minOrder')}
+                        />
+                    </div>
+
+                    {/* Category */}
+                    <div className="space-y-2">
+                        <Label className="text-white text-sm font-medium">
+                            {t('app.buyurtmachi.registerForm.category.label')}
+                        </Label>
+                        <MultiSelectCombobox
+                            options={categoryOptions}
+                            value={category || []}
+                            onChange={handleCategoryChange}
+                            placeholder={t('app.buyurtmachi.registerForm.category.placeholder')}
+                            emptyText={t('app.common.noCategoriesAvailable')}
+                            loadingText={t('app.common.loading')}
+                            isLoading={categoriesLoading}
+                            error={errors.category?.message}
                         />
                     </div>
 
@@ -612,16 +723,65 @@ function ManufacturerRegisterForm() {
                         />
                     </div>
 
-                    {/* Phone */}
+
+
+                    {/* INN */}
                     <div className="space-y-2">
-                        <Label className="text-white text-sm font-medium" required>
-                            {t('app.buyurtmachi.registerForm.phone.label')}
+                        <Label className="text-white text-sm font-medium">
+                            {t('app.buyurtmachi.registerForm.inn.label')}
                         </Label>
                         <CustomInput
-                            type="tel"
-                            placeholder={t('app.buyurtmachi.registerForm.phone.placeholder')}
-                            error={errors.phone?.message}
-                            {...register('phone')}
+                            placeholder={t('app.buyurtmachi.registerForm.inn.placeholder')}
+                            error={errors.inn?.message}
+                            {...register('inn')}
+                        />
+                    </div>
+
+                    {/* Company Rating */}
+                    <div className="space-y-2">
+                        <Label className="text-white text-sm font-medium">
+                            {t('app.buyurtmachi.registerForm.companyRating.label')}
+                        </Label>
+                        <CustomInput
+                            placeholder={t('app.buyurtmachi.registerForm.companyRating.placeholder')}
+                            error={errors.companyRating?.message}
+                            {...register('companyRating')}
+                        />
+                    </div>
+
+                    {/* Annual Export Turnover */}
+                    <div className="space-y-2">
+                        <Label className="text-white text-sm font-medium">
+                            {t('app.buyurtmachi.registerForm.annualExportTurnover.label')}
+                        </Label>
+                        <CustomInput
+                            placeholder={t('app.buyurtmachi.registerForm.annualExportTurnover.placeholder')}
+                            error={errors.annualExportTurnover?.message}
+                            {...register('annualExportTurnover')}
+                        />
+                    </div>
+
+                    {/* Export Countries */}
+                    <div className="space-y-2">
+                        <Label className="text-white text-sm font-medium">
+                            {t('app.buyurtmachi.registerForm.exportCountries.label')}
+                        </Label>
+                        <CustomInput
+                            placeholder={t('app.buyurtmachi.registerForm.exportCountries.placeholder')}
+                            error={errors.exportCountries?.message}
+                            {...register('exportCountries')}
+                        />
+                    </div>
+
+                    {/* Worked Brands */}
+                    <div className="space-y-2">
+                        <Label className="text-white text-sm font-medium">
+                            {t('app.buyurtmachi.registerForm.workedBrands.label')}
+                        </Label>
+                        <CustomInput
+                            placeholder={t('app.buyurtmachi.registerForm.workedBrands.placeholder')}
+                            error={errors.workedBrands?.message}
+                            {...register('workedBrands')}
                         />
                     </div>
 

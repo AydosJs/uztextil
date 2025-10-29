@@ -221,7 +221,7 @@ export const MultiSelectCombobox = React.forwardRef<
                     </div>
 
                     {/* Footer with selection count */}
-                    {selectedOptions.length > 0 && (
+                    {/* {selectedOptions.length > 0 && (
                         <div className="p-2 border-t border-border-primary bg-background-secondary/50">
                             <div className="flex items-center justify-between text-xs text-text-primary/60">
                                 <span>{selectedOptions.length} selected</span>
@@ -236,7 +236,7 @@ export const MultiSelectCombobox = React.forwardRef<
                                 </Button>
                             </div>
                         </div>
-                    )}
+                    )} */}
                 </div>
             )}
         </div>

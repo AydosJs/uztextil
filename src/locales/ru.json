@@ -59,7 +59,7 @@
           "placeholder": "Алмамедов Хаким"
         },
         "addition_fio": {
-          "label": "Дополнительное Ф.И.О",
+          "label": "Контактного лица Ф.И.О",
           "placeholder": "Алмамедов Хаким"
         },
         "position": {
@@ -187,6 +187,30 @@
         "totalOrders": {
           "label": "Какая периодичность заказа",
           "placeholder": "Введите общее количество заказов"
+        },
+        "inn": {
+          "label": "ИНН",
+          "placeholder": "Введите ИНН"
+        },
+        "companyRating": {
+          "label": "Рейтинг компании",
+          "placeholder": "Введите рейтинг"
+        },
+        "annualExportTurnover": {
+          "label": "Годовой экспортный оборот",
+          "placeholder": "Введите сумму в долларах"
+        },
+        "exportCountries": {
+          "label": "Страны экспорта",
+          "placeholder": "Введите страны экспорта"
+        },
+        "workedBrands": {
+          "label": "С какими брендами работали",
+          "placeholder": "Введите названия брендов"
+        },
+        "category": {
+          "label": "Категории",
+          "placeholder": "Выберите категории"
         },
         "certificates": {
           "title": "Сертификаты",
@@ -614,6 +638,7 @@
       "priceNotSet": "Цена не установлена",
       "noServicesAvailable": "Пока услуги недоступны",
       "noSegmentsAvailable": "Сегменты недоступны",
+      "noCategoriesAvailable": "Категории недоступны",
       "loadingData": "Данные загружаются...",
       "submitApplication": "Подать заявку",
       "viewMoreDetails": "Подробнее",

@@ -75,6 +75,25 @@ export interface ManufacturerCreate {
    * @nullable
    */
   phone?: string | null;
+  /**
+   * @maxLength 20
+   * @nullable
+   */
+  inn?: string | null;
+  /**
+   * @maxLength 300
+   * @nullable
+   */
+  company_rating?: string | null;
+  /**
+   * @maxLength 300
+   * @nullable
+   */
+  annual_export_turnover?: string | null;
+  /** @nullable */
+  export_countries?: string | null;
+  /** @nullable */
+  worked_brands?: string | null;
   status?: ManufacturerCreateStatus;
   /**
    * @minimum -2147483648
@@ -84,6 +103,7 @@ export interface ManufacturerCreate {
   /** @nullable */
   readonly logo?: string | null;
   user: number;
+  category?: number[];
   product_segment: number[];
   sertificates?: number[];
   images?: number[];

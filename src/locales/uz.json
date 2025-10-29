@@ -252,6 +252,30 @@
             "sewingOnly": "Faqat tikuv ishlab chiqarish"
           }
         },
+        "inn": {
+          "label": "STIR",
+          "placeholder": "STIR ni kiriting"
+        },
+        "companyRating": {
+          "label": "Kompaniya reytingi",
+          "placeholder": "Reytingni kiriting"
+        },
+        "annualExportTurnover": {
+          "label": "Yillik eksport aylanmasi",
+          "placeholder": "Dollardagi summani kiriting"
+        },
+        "exportCountries": {
+          "label": "Eksport mamlakatlari",
+          "placeholder": "Eksport mamlakatlarini kiriting"
+        },
+        "workedBrands": {
+          "label": "Qaysi brendlar bilan ishlagan",
+          "placeholder": "Brend nomlarini kiriting"
+        },
+        "category": {
+          "label": "Kategoriyalar",
+          "placeholder": "Kategoriyalarni tanlang"
+        },
         "certificates": {
           "title": "Sertifikatlar",
           "addCertificate": "Sertifikat qo'shish",
@@ -604,6 +628,7 @@
       "noManufacturersAvailable": "Hozircha ishlab chiqaruvchilar mavjud emas",
       "writeToManager": "Menejerga yozish",
       "noSegmentsAvailable": "Hozircha segmentlar mavjud emas",
+      "noCategoriesAvailable": "Hozircha kategoriyalar mavjud emas",
       "loading": "Yuklanmoqda...",
       "applicationId": "Ariza raqami"
     },
