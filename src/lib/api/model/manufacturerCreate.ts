@@ -41,8 +41,8 @@ export interface ManufacturerCreate {
    * @maxLength 100
    */
   min_order_quantity: string;
-  /** @minLength 1 */
-  commercial_offer_text: string;
+  /** @nullable */
+  commercial_offer_text?: string | null;
   /** @nullable */
   readonly commercial_offer?: string | null;
   /** @minLength 1 */

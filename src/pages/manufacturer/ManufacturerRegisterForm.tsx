@@ -36,7 +36,6 @@ const manufacturerRegisterSchema = z.object({
   position: z.string().min(1, ""),
   minOrder: z.string().min(1, ""),
   productSegment: z.array(z.number()).min(1, ""),
-  commercialOfferText: z.string().min(1, ""),
   commercialOffer: z.any().optional(), // Commercial offer PDF file - optional
   productionAddress: z.string().min(1, ""),
   officeAddress: z.string().min(1, ""),
@@ -217,10 +216,7 @@ function ManufacturerRegisterForm() {
         formData.append("addition_fio", data.addition_fio || "");
         formData.append("position", data.position || "");
         formData.append("min_order_quantity", data.minOrder || "");
-        formData.append(
-          "commercial_offer_text",
-          data.commercialOfferText || ""
-        );
+
         formData.append("production_address", data.productionAddress || "");
         formData.append("office_address", data.officeAddress || "");
         formData.append("website", data.website || "");
@@ -371,7 +367,7 @@ function ManufacturerRegisterForm() {
       setValue(
         field,
         value as ManufacturerRegisterFormData[keyof ManufacturerRegisterFormData],
-        { shouldValidate: false }
+        { shouldValidate: true, shouldDirty: true, shouldTouch: true }
       );
     },
     [setValue]
@@ -382,7 +378,11 @@ function ManufacturerRegisterForm() {
       const numberIds = selectedIds.map((id) =>
         typeof id === "string" ? parseInt(id) : id
       );
-      setValue("productSegment", numberIds, { shouldValidate: false });
+      setValue("productSegment", numberIds, {
+        shouldValidate: true,
+        shouldDirty: true,
+        shouldTouch: true,
+      });
     },
     [setValue]
   );
@@ -408,7 +408,7 @@ function ManufacturerRegisterForm() {
       setValue(
         field,
         value as ManufacturerRegisterFormData[keyof ManufacturerRegisterFormData],
-        { shouldValidate: false }
+        { shouldValidate: true, shouldDirty: true, shouldTouch: true }
       );
     },
     [setValue]
@@ -416,10 +416,25 @@ function ManufacturerRegisterForm() {
 
   const handleCertificateIdsChange = useCallback(
     (certificateIds: number[]) => {
-      setValue("certificateIds", certificateIds, { shouldValidate: false });
+      const hasValues = Array.isArray(certificateIds) && certificateIds.length > 0;
+      setValue("certificateIds", certificateIds, {
+        shouldValidate: hasValues,
+        shouldDirty: hasValues,
+        shouldTouch: hasValues,
+      });
     },
     [setValue]
   );
+
+  const onInvalid = useCallback((formErrors: typeof errors) => {
+    try {
+      const fields = Object.keys(formErrors || {});
+      console.error("❌ Validation failed. Fields with errors:", fields);
+      console.error("Validation details:", formErrors);
+    } catch (e) {
+      console.error("Failed to log validation errors", e);
+    }
+  }, []);
 
   return (
     <div className="min-h-screen bg-background-primary min-w-full safe-area-pt w-full dark flex flex-col">
@@ -435,7 +450,7 @@ function ManufacturerRegisterForm() {
 
         {/* Form */}
         <form
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={handleSubmit(onSubmit, onInvalid)}
           className="flex-1 space-y-6 pb-8 max-w-2xl mx-auto w-full"
         >
           {/* Company Name */}
@@ -581,8 +596,8 @@ function ManufacturerRegisterForm() {
               placeholder={
                 !category || category.length === 0
                   ? t(
-                      "app.buyurtmachi.registerForm.segments.selectCategoryFirst"
-                    )
+                    "app.buyurtmachi.registerForm.segments.selectCategoryFirst"
+                  )
                   : t("app.buyurtmachi.registerForm.segments.placeholder")
               }
               emptyText={t("app.common.noSegmentsAvailable")}
@@ -940,11 +955,10 @@ function ManufacturerRegisterForm() {
               {t("app.buyurtmachi.registerForm.organizationStructure.label")}
             </Label>
             <div
-              className={`rounded-[14px] border-[1.8px] px-4 py-3 ${
-                errors.organizationStructure?.message
-                  ? "border-red-500"
-                  : "border-border-primary"
-              }`}
+              className={`rounded-[14px] border-[1.8px] px-4 py-3 ${errors.organizationStructure?.message
+                ? "border-red-500"
+                : "border-border-primary"
+                }`}
             >
               <RadioGroup
                 value={organizationStructure || ""}
@@ -1006,11 +1020,10 @@ function ManufacturerRegisterForm() {
           {/* Certificate Upload */}
           <div className="space-y-2">
             <div
-              className={`rounded-[14px] border-[1.8px] px-4 py-3 ${
-                errors.certificateIds?.message
-                  ? "border-red-500"
-                  : "border-border-primary"
-              }`}
+              className={`rounded-[14px] border-[1.8px] px-4 py-3 ${errors.certificateIds?.message
+                ? "border-red-500"
+                : "border-border-primary"
+                }`}
             >
               <CertificateUploader
                 label={t("app.buyurtmachi.registerForm.certificates.title")}

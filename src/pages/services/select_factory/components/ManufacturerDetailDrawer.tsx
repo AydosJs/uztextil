@@ -179,16 +179,6 @@ export function ManufacturerDetailDrawer({
                                         </div>
                                     </div>
 
-                                    {/* Commercial Offer Text */}
-                                    {manufacturerDetail.commercial_offer_text && (
-                                        <div className="space-y-1">
-                                            <p className="text-white/64 text-sm">{t('app.manufacturerDetail.commercialOffer.textTitle')}</p>
-                                            <p className="text-white font-medium whitespace-pre-wrap">
-                                                {manufacturerDetail.commercial_offer_text}
-                                            </p>
-                                        </div>
-                                    )}
-
                                     {/* Divider */}
                                     <div className="border-t border-border-primary my-6"></div>
                                 </>
