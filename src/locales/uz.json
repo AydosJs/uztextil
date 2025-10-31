@@ -492,6 +492,10 @@
         "search": "Qidirish"
       }
     },
+    "categorySelection": {
+      "title": "Kategoriyani tanlang",
+      "selectCategoriesPrompt": "Ishlab chiqaruvchilarni ko'rish uchun kategoriyani tanlang"
+    },
     "manufacturerDetail": {
       "error": {
         "message": "Xatolik yuz berdi",

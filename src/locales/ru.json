@@ -508,8 +508,8 @@
       }
     },
     "categorySelection": {
-      "title": "Выберите категории",
-      "selectCategoriesPrompt": "Пожалуйста, выберите одну или несколько категорий для просмотра производителей"
+      "title": "Выберите категорию",
+      "selectCategoriesPrompt": "Пожалуйста, выберите категорию для просмотра производителей"
     },
     "manufacturerDetail": {
       "error": {
