@@ -440,13 +440,17 @@
           "label": "To'lov shartlari",
           "placeholder": "To'lov shartlarini kiriting"
         },
-        "telegramWhatsappNumber": {
-          "label": "Telegram/vatsap raqami",
+        "contactPhoneTelegram": {
+          "label": "Aloqa telefoni/telegram",
           "placeholder": "+998901234567"
         },
-        "nameAndPosition": {
-          "label": "Ism va lavozim",
-          "placeholder": "To'liq ism va lavozimni kiriting"
+        "name": {
+          "label": "Ism",
+          "placeholder": "Ismingizni kiriting"
+        },
+        "position": {
+          "label": "Lavozim",
+          "placeholder": "Lavozimingizni kiriting"
         },
         "submitButton": "Buyurtma yuborish"
       },

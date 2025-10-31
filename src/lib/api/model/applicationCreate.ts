@@ -28,6 +28,21 @@ export interface ApplicationCreate {
    * @maxLength 255
    * @nullable
    */
+  name?: string | null;
+  /**
+   * @maxLength 255
+   * @nullable
+   */
+  position?: string | null;
+  /**
+   * @maxLength 20
+   * @nullable
+   */
+  contact_phone_telegram?: string | null;
+  /**
+   * @maxLength 255
+   * @nullable
+   */
   segment?: string | null;
   /** @nullable */
   work_purpose?: string | null;

@@ -455,13 +455,17 @@
           "label": "Условия оплаты",
           "placeholder": "Введите условия оплаты"
         },
-        "telegramWhatsappNumber": {
-          "label": "Номер в телеграм, вацап",
+        "contactPhoneTelegram": {
+          "label": "Контактный телефон/телеграм",
           "placeholder": "+998901234567"
         },
-        "nameAndPosition": {
-          "label": "Имя и должность",
-          "placeholder": "Введите полное имя и должность"
+        "name": {
+          "label": "Имя",
+          "placeholder": "Введите ваше имя"
+        },
+        "position": {
+          "label": "Должность",
+          "placeholder": "Введите вашу должность"
         },
         "submitButton": "Отправить заказ"
       },

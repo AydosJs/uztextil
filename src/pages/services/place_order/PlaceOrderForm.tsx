@@ -29,13 +29,14 @@ function PlaceOrderForm() {
         sample_photo: null as File | null, // Фото образца
         execution_terms: null as Date | null, // Сроки исполнения
         payment_terms: '', // Условия оплаты
-        telegram_whatsapp_number: '', // Номер в телеграм, вацап
-        name_and_position: '', // Имя и должность
+        contact_phone_telegram: '', // Контактный телефон/телеграм
+        name: '', // Имя
+        position: '', // Должность
     })
 
     // Check if all required fields are filled
     const isFormValid = () => {
-        const requiredFields = ['looking_for_production', 'manufacturer_requirements', 'order_volume', 'passing_price', 'execution_terms', 'payment_terms', 'telegram_whatsapp_number', 'name_and_position']
+        const requiredFields = ['looking_for_production', 'manufacturer_requirements', 'order_volume', 'passing_price', 'execution_terms', 'payment_terms', 'contact_phone_telegram', 'name', 'position']
         return requiredFields.every(field => {
             const value = formData[field as keyof typeof formData]
             if (field === 'execution_terms') {
@@ -78,8 +79,9 @@ function PlaceOrderForm() {
             formDataToSend.append('order_volume', formData.order_volume)
             formDataToSend.append('passing_price', formData.passing_price)
             formDataToSend.append('payment_terms', formData.payment_terms)
-            formDataToSend.append('telegram_whatsapp_number', formData.telegram_whatsapp_number)
-            formDataToSend.append('name_and_position', formData.name_and_position)
+            formDataToSend.append('contact_phone_telegram', formData.contact_phone_telegram)
+            formDataToSend.append('name', formData.name)
+            formDataToSend.append('position', formData.position)
 
             // Add execution terms if available
             if (formData.execution_terms) {
@@ -237,27 +239,39 @@ function PlaceOrderForm() {
                         />
                     </div>
 
-                    {/* Telegram/WhatsApp Number */}
+                    {/* Contact Phone/Telegram */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium" required>
-                            {t('app.placeOrder.form.telegramWhatsappNumber.label')}
+                            {t('app.placeOrder.form.contactPhoneTelegram.label')}
                         </Label>
                         <CustomInput
-                            placeholder={t('app.placeOrder.form.telegramWhatsappNumber.placeholder')}
-                            value={formData.telegram_whatsapp_number}
-                            onChange={(e) => handleInputChange('telegram_whatsapp_number', e.target.value)}
+                            placeholder={t('app.placeOrder.form.contactPhoneTelegram.placeholder')}
+                            value={formData.contact_phone_telegram}
+                            onChange={(e) => handleInputChange('contact_phone_telegram', e.target.value)}
                         />
                     </div>
 
-                    {/* Name and Position */}
+                    {/* Name */}
                     <div className="space-y-2">
                         <Label className="text-white text-sm font-medium" required>
-                            {t('app.placeOrder.form.nameAndPosition.label')}
+                            {t('app.placeOrder.form.name.label')}
                         </Label>
                         <CustomInput
-                            placeholder={t('app.placeOrder.form.nameAndPosition.placeholder')}
-                            value={formData.name_and_position}
-                            onChange={(e) => handleInputChange('name_and_position', e.target.value)}
+                            placeholder={t('app.placeOrder.form.name.placeholder')}
+                            value={formData.name}
+                            onChange={(e) => handleInputChange('name', e.target.value)}
+                        />
+                    </div>
+
+                    {/* Position */}
+                    <div className="space-y-2">
+                        <Label className="text-white text-sm font-medium" required>
+                            {t('app.placeOrder.form.position.label')}
+                        </Label>
+                        <CustomInput
+                            placeholder={t('app.placeOrder.form.position.placeholder')}
+                            value={formData.position}
+                            onChange={(e) => handleInputChange('position', e.target.value)}
                         />
                     </div>
                 </div>

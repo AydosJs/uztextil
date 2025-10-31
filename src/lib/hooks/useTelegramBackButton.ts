@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import { backButton } from "@telegram-apps/sdk"
+import { TELEGRAM_SDK_CONFIG } from "@/lib/config"
 
 // Global state to track if back button is currently visible
 let isBackButtonVisible = false
@@ -49,6 +50,15 @@ export const useTelegramBackButton = (options: UseTelegramBackButtonOptions = {}
         navigateTo,
         onBack
     } = options
+
+    // If Telegram SDK is disabled, return no-op functions
+    if (!TELEGRAM_SDK_CONFIG.USE_TELEGRAM_SDK) {
+        return {
+            showBackButton: () => {},
+            hideBackButton: () => {},
+            hasNavigationTarget: !!navigateTo
+        }
+    }
 
     // Only show button if we have a navigation target or custom handler
     const shouldShowOnMount = showOnMount && (navigateTo || onBack)

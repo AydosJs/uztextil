@@ -3,11 +3,17 @@ import {
     viewport,
 } from '@telegram-apps/sdk-react';
 import { isTelegramEnvironment } from './environmentUtils';
+import { TELEGRAM_SDK_CONFIG } from '@/lib/config';
 
 /**
  * Checks if the Telegram SDK is ready and safe area functions are available
  */
 export function isSDKReady(): boolean {
+    // If Telegram SDK is disabled via config, SDK is not ready
+    if (!TELEGRAM_SDK_CONFIG.USE_TELEGRAM_SDK) {
+        return false;
+    }
+
     // If not in Telegram environment, SDK is not ready
     if (!isTelegramEnvironment()) {
         return false;

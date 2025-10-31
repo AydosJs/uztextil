@@ -2,12 +2,18 @@
  * Environment detection utilities
  * Determines if the app is running in Telegram Mini App or regular web browser
  */
+import { TELEGRAM_SDK_CONFIG } from '@/lib/config';
 
 /**
  * Checks if the app is running inside Telegram Mini App
  * @returns true if running in Telegram, false if in regular web browser
  */
 export function isTelegramEnvironment(): boolean {
+    // If SDK usage is disabled via config, always return false (web mode)
+    if (!TELEGRAM_SDK_CONFIG.USE_TELEGRAM_SDK) {
+        return false;
+    }
+
     if (typeof window === 'undefined') return false;
 
     // Check for Telegram WebApp object

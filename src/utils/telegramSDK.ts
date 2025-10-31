@@ -7,12 +7,19 @@ import {
     viewport,
 } from "@telegram-apps/sdk-react";
 import { isTelegramEnvironment } from './environmentUtils';
+import { TELEGRAM_SDK_CONFIG } from '@/lib/config';
 
 
 /**
  * Initializes the application and configures its dependencies.
  */
 export async function initSDK(): Promise<string> {
+    // Check if Telegram SDK usage is disabled via config
+    if (!TELEGRAM_SDK_CONFIG.USE_TELEGRAM_SDK) {
+        console.log('Telegram SDK disabled via config, skipping initialization');
+        return "done";
+    }
+
     // Check if we're in a web browser environment
     if (!isTelegramEnvironment()) {
         console.log('Web browser environment detected, skipping Telegram SDK initialization');

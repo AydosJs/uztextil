@@ -2,6 +2,8 @@ import { Button, UnderwaterHeader } from "@/components/ui"
 import { useLocation } from "react-router-dom"
 import { useTelegramBackButton } from "@/lib/hooks"
 import { useTranslation } from "react-i18next"
+import { isTelegramEnvironment } from "@/utils/environmentUtils"
+import { TELEGRAM_SDK_CONFIG } from "@/lib/config"
 
 function PlaceOrderSuccess() {
     const location = useLocation()
@@ -18,9 +20,13 @@ function PlaceOrderSuccess() {
     useTelegramBackButton({ navigateTo: '/services' })
 
     const handleChannelClick = () => {
-        // In a real app, this would open the Telegram channel
-        // For now, we'll just show a message
-        alert(t('app.common.channelComingSoon'))
+        const url = 'https://t.me/TextileBotApplication'
+
+        if (TELEGRAM_SDK_CONFIG.USE_TELEGRAM_SDK && isTelegramEnvironment() && window.Telegram?.WebApp?.openLink) {
+            window.Telegram.WebApp.openLink(url)
+        } else {
+            window.open(url, '_blank', 'noopener,noreferrer')
+        }
     }
 
     return (

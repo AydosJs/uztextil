@@ -8,6 +8,7 @@ import { apiV1PaymentCreateTransactionCreate } from "@/lib/api/api/api"
 import type { TransactionCreate } from "@/lib/api/model/transactionCreate"
 import { TransactionCreateProvider } from "@/lib/api/model/transactionCreateProvider"
 import { isTelegramEnvironment } from "@/utils/environmentUtils"
+import { TELEGRAM_SDK_CONFIG } from "@/lib/config"
 
 // Telegram WebApp types
 declare global {
@@ -96,7 +97,7 @@ export function PaymentAlert({
         console.log('Is Telegram Environment:', isTelegramEnvironment())
         console.log('Telegram WebApp available:', !!window.Telegram?.WebApp)
 
-        if (isTelegramEnvironment() && window.Telegram?.WebApp?.openLink) {
+        if (TELEGRAM_SDK_CONFIG.USE_TELEGRAM_SDK && isTelegramEnvironment() && window.Telegram?.WebApp?.openLink) {
           try {
             // Use the recommended Telegram.WebApp.openLink() method
             // This opens the payment site inside Telegram's in-app browser
@@ -169,7 +170,7 @@ export function PaymentAlert({
                 <Button
                   onClick={() => {
                     console.log('Manual payment URL open:', paymentUrl)
-                    if (isTelegramEnvironment() && window.Telegram?.WebApp?.openLink) {
+                    if (TELEGRAM_SDK_CONFIG.USE_TELEGRAM_SDK && isTelegramEnvironment() && window.Telegram?.WebApp?.openLink) {
                       window.Telegram.WebApp.openLink(paymentUrl)
                     } else {
                       window.open(paymentUrl, '_blank')

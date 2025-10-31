@@ -9,6 +9,12 @@ export const TELEGRAM_CONFIG = {
     BOT_USERNAME: import.meta.env.VITE_TELEGRAM_BOT_USERNAME || 'uztextile_bot',
 } as const;
 
+export const TELEGRAM_SDK_CONFIG = {
+    // Controls whether to use Telegram SDK. When false, app runs in web mode without SDK dependencies.
+    // Set via VITE_USE_TELEGRAM_SDK environment variable (default: true for backward compatibility)
+    USE_TELEGRAM_SDK: true,
+} as const;
+
 export const DEV_CONFIG = {
     ENABLE_MOCK_USER: true, // Auto-detect or force mock
     MOCK_TELEGRAM_ID: 296875296,
