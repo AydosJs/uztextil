@@ -38,6 +38,7 @@ export * from './applicationListStatus';
 export * from './category';
 export * from './contactSettings';
 export * from './customerCreate';
+export * from './equipment';
 export * from './login';
 export * from './manufacturerCertificate';
 export * from './manufacturerCompanyImage';

@@ -48,7 +48,7 @@ const manufacturerRegisterSchema = z.object({
   industrialZone: z.enum(["yes", "no"]),
   creditBurden: z.enum(["yes", "no"]),
   organizationStructure: z.enum(["director", "manager", "marketer"]),
-  equipmentInfo: z.string().min(1, ""),
+  equipments: z.array(z.number()).min(1, ""),
   phone: z
     .string()
     .regex(/^\+?[0-9\s\-()]+$/, "")
@@ -96,6 +96,7 @@ function ManufacturerRegisterForm() {
     delayError: 100,
     defaultValues: {
       companyImageIds: [],
+      equipments: [],
     },
   });
 
@@ -109,6 +110,7 @@ function ManufacturerRegisterForm() {
   const organizationStructure = watch("organizationStructure");
   const productSegment = watch("productSegment");
   const category = watch("category");
+  const equipments = watch("equipments");
   // const companyImages = watch('companyImages') // Uncomment if needed for debugging
 
   // State for categories
@@ -122,6 +124,12 @@ function ManufacturerRegisterForm() {
     MultiSelectOption[]
   >([]);
   const [segmentsLoading, setSegmentsLoading] = React.useState(false);
+
+  // State for equipment
+  const [equipmentData, setEquipmentData] = React.useState<{
+    results: Array<{ id?: number; title: string }>;
+  } | null>(null);
+  const [equipmentLoading, setEquipmentLoading] = React.useState(false);
 
   // Fetch categories on component mount
   React.useEffect(() => {
@@ -140,6 +148,25 @@ function ManufacturerRegisterForm() {
       }
     };
     fetchCategories();
+  }, []);
+
+  // Fetch equipment on component mount
+  React.useEffect(() => {
+    const fetchEquipment = async () => {
+      setEquipmentLoading(true);
+      try {
+        const data = (await customInstance({
+          url: "/api/v1/equipment/list/",
+          method: "GET",
+        })) as { results: Array<{ id?: number; title: string }> };
+        setEquipmentData(data);
+      } catch (error) {
+        console.error("Error fetching equipment:", error);
+      } finally {
+        setEquipmentLoading(false);
+      }
+    };
+    fetchEquipment();
   }, []);
 
   // Function to fetch segments filtered by category
@@ -196,6 +223,16 @@ function ManufacturerRegisterForm() {
       value: category.id?.toString() || "0",
     }));
   }, [categoriesData]);
+
+  // Transform equipment data for MultiSelectCombobox
+  const equipmentOptions: MultiSelectOption[] = useMemo(() => {
+    if (!equipmentData || !equipmentData.results) return [];
+    return equipmentData.results.map((equipment) => ({
+      id: equipment.id || 0,
+      label: equipment.title,
+      value: equipment.id?.toString() || "0",
+    }));
+  }, [equipmentData]);
 
   // State for API call
   const [isSubmitting, setIsSubmitting] = React.useState(false);
@@ -254,7 +291,12 @@ function ManufacturerRegisterForm() {
           "organization_structure",
           data.organizationStructure || ""
         );
-        formData.append("equipment_info", data.equipmentInfo || "");
+        // Add equipment IDs as array
+        if (data.equipments && data.equipments.length > 0) {
+          data.equipments.forEach((equipmentId) => {
+            formData.append("equipments", equipmentId.toString());
+          });
+        }
         formData.append("phone", data.phone || "");
         formData.append("user", (userInfo?.user_id || 0).toString());
 
@@ -324,6 +366,25 @@ function ManufacturerRegisterForm() {
             data.commercialOffer
           );
         }
+
+        // Log FormData contents for debugging
+        const formDataEntries: Record<string, string | File | (string | File)[]> = {};
+        for (const [key, value] of formData.entries()) {
+          if (formDataEntries[key]) {
+            // If key already exists, convert to array
+            if (Array.isArray(formDataEntries[key])) {
+              (formDataEntries[key] as (string | File)[]).push(value);
+            } else {
+              formDataEntries[key] = [formDataEntries[key] as string | File, value];
+            }
+          } else {
+            formDataEntries[key] = value;
+          }
+        }
+        console.log(formDataEntries);
+
+        // Add equipment_info with placeholder value (API requires minLength 1, but we use equipments array)
+        formData.append("equipment_info", "-"); // Placeholder since we're using equipments array
 
         // Call the API with FormData using customInstance
         const response = await customInstance({
@@ -401,6 +462,20 @@ function ManufacturerRegisterForm() {
       fetchSegmentsByCategory(numberIds);
     },
     [setValue, fetchSegmentsByCategory]
+  );
+
+  const handleEquipmentChange = useCallback(
+    (selectedIds: (number | string)[]) => {
+      const numberIds = selectedIds.map((id) =>
+        typeof id === "string" ? parseInt(id) : id
+      );
+      setValue("equipments", numberIds, {
+        shouldValidate: true,
+        shouldDirty: true,
+        shouldTouch: true,
+      });
+    },
+    [setValue]
   );
 
   const handleRadioChange = useCallback(
@@ -1008,12 +1083,17 @@ function ManufacturerRegisterForm() {
             <Label className="text-white text-sm font-medium" required>
               {t("app.buyurtmachi.registerForm.equipmentInfo.label")}
             </Label>
-            <CustomInput
+            <MultiSelectCombobox
+              options={equipmentOptions}
+              value={equipments || []}
+              onChange={handleEquipmentChange}
               placeholder={t(
                 "app.buyurtmachi.registerForm.equipmentInfo.placeholder"
               )}
-              error={errors.equipmentInfo?.message}
-              {...register("equipmentInfo")}
+              emptyText={t("app.common.noEquipmentAvailable")}
+              loadingText={t("app.common.loading")}
+              isLoading={equipmentLoading}
+              error={errors.equipments?.message}
             />
           </div>
 

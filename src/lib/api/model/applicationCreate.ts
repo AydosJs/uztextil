@@ -43,6 +43,11 @@ export interface ApplicationCreate {
    * @maxLength 255
    * @nullable
    */
+  passing_prise?: string | null;
+  /**
+   * @maxLength 255
+   * @nullable
+   */
   segment?: string | null;
   /** @nullable */
   work_purpose?: string | null;

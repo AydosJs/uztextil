@@ -10,6 +10,7 @@ import type { Category } from './category';
 import type { SegmentList } from './segmentList';
 import type { ManufacturerCertificate } from './manufacturerCertificate';
 import type { ManufacturerCompanyImage } from './manufacturerCompanyImage';
+import type { Equipment } from './equipment';
 
 export interface ManufacturerDetail {
   readonly id?: number;
@@ -107,4 +108,5 @@ export interface ManufacturerDetail {
   product_segment: SegmentList[];
   sertificates: ManufacturerCertificate[];
   images: ManufacturerCompanyImage[];
+  equipments: Equipment[];
 }

@@ -637,6 +637,7 @@
       "writeToManager": "Menejerga yozish",
       "noSegmentsAvailable": "Hozircha segmentlar mavjud emas",
       "noCategoriesAvailable": "Hozircha kategoriyalar mavjud emas",
+      "noEquipmentAvailable": "Hozircha uskunalar mavjud emas",
       "loading": "Yuklanmoqda...",
       "applicationId": "Ariza raqami"
     },

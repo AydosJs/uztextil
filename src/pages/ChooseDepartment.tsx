@@ -115,13 +115,13 @@ function ChooseDepartment() {
                 {/* Information Text */}
                 <div className="pb-8 w-full max-w-2xl mx-auto space-y-3">
                     <Option
-                        text={t('app.department.customer')}
-                        icon={UserRound}
+                        text={t('app.department.manufacturer')}
+                        icon={Factory}
                         onClick={handleCustomerSelect}
                     />
                     <Option
-                        text={t('app.department.manufacturer')}
-                        icon={Factory}
+                        text={t('app.department.customer')}
+                        icon={UserRound}
                         onClick={handleManufacturerSelect}
                     />
                     <Option

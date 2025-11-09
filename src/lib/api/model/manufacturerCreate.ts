@@ -105,6 +105,7 @@ export interface ManufacturerCreate {
   readonly logo?: string | null;
   user: number;
   category?: number[];
+  equipments?: number[];
   product_segment: number[];
   sertificates?: number[];
   images?: number[];
